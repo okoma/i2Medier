@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import "../../design-tokens.css";
+
+/* Filament core styles (REQUIRED) */
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+
+:root {
+    --i2-panel-warm: oklch(0.96 0.02 83.39);
+    --i2-panel-dark: oklch(0.24 0.02 264.05);
+    --i2-panel-accent: oklch(0.76 0.15 73.14);
+}
+
+.fi-body {
+    background:
+        radial-gradient(circle at top left, color-mix(in oklab, var(--i2-panel-accent) 16%, transparent), transparent 30%),
+        linear-gradient(180deg, var(--i2-panel-warm) 0%, white 100%);
+}
+
+.fi-sidebar {
+    backdrop-filter: blur(18px);
+    background: color-mix(in oklab, white 82%, var(--i2-panel-warm) 18%);
+}
+
+.fi-topbar {
+    backdrop-filter: blur(16px);
+    background: color-mix(in oklab, white 88%, var(--i2-panel-warm) 12%);
+}
+
+.dark .fi-body {
+    background:
+        radial-gradient(circle at top left, color-mix(in oklab, var(--i2-panel-accent) 14%, transparent), transparent 30%),
+        linear-gradient(180deg, color-mix(in oklab, var(--i2-panel-dark) 96%, black 4%) 0%, #111827 100%);
+}
+
+.dark .fi-sidebar,
+.dark .fi-topbar {
+    background: color-mix(in oklab, #111827 88%, var(--i2-panel-dark) 12%);
+}

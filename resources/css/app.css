@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@import './design-tokens.css';
+
+/* Laravel core */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* App */
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../../app/**/*.php';
+
+/* Filament v5 - Simplified */
+@source '../../vendor/filament/**/*.blade.php';
