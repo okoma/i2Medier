@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Filament\Admin\Resources\SupportTickets\Schemas;
+
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+
+class SupportTicketForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Section::make('Ticket')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('ticket_number')
+                            ->maxLength(255)
+                            ->placeholder('Generated automatically'),
+                        Select::make('client_id')
+                            ->relationship('client', 'company_name')
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+                        Select::make('website_id')
+                            ->relationship('website', 'name')
+                            ->searchable()
+                            ->preload(),
+                        Select::make('submitted_by')
+                            ->relationship('submitter', 'name')
+                            ->searchable()
+                            ->preload(),
+                        Select::make('assigned_to')
+                            ->relationship('assignee', 'name')
+                            ->searchable()
+                            ->preload(),
+                        TextInput::make('subject')
+                            ->required()
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+                        Textarea::make('description')
+                            ->required()
+                            ->rows(8)
+                            ->columnSpanFull(),
+                    ]),
+                Section::make('Status & Priority')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+                        Select::make('status')
+                            ->options([
+                                'open' => 'Open',
+                                'in_progress' => 'In Progress',
+                                'waiting_reply' => 'Waiting Reply',
+                                'resolved' => 'Resolved',
+                                'closed' => 'Closed',
+                            ])
+                            ->default('open')
+                            ->required(),
+                        Select::make('priority')
+                            ->options([
+                                'low' => 'Low',
+                                'medium' => 'Medium',
+                                'high' => 'High',
+                                'urgent' => 'Urgent',
+                            ])
+                            ->default('medium')
+                            ->required(),
+                        Select::make('category')
+                            ->options([
+                                'billing' => 'Billing',
+                                'technical' => 'Technical',
+                                'general' => 'General',
+                                'domain' => 'Domain',
+                                'hosting' => 'Hosting',
+                            ])
+                            ->default('general')
+                            ->required(),
+                        DateTimePicker::make('first_response_at'),
+                        DateTimePicker::make('resolved_at'),
+                        DateTimePicker::make('closed_at'),
+                    ]),
+            ]);
+    }
+}

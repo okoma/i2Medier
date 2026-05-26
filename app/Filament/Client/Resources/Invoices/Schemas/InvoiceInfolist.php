@@ -45,6 +45,9 @@ class InvoiceInfolist
                                     ->state(fn ($record) => $record->getPaymentMethodLabel() ?? 'Not set'),
                                 TextEntry::make('payment_reference')
                                     ->placeholder('Pending payment'),
+                                TextEntry::make('notes')
+                                    ->columnSpanFull()
+                                    ->placeholder('No invoice notes added yet.'),
                                 TextEntry::make('bank_transfer_details')
                                     ->label('Bank transfer details')
                                     ->visible(fn ($record): bool => $record->canBePaidByBankTransfer() && app(PaymentSettings::class)->bankTransferEnabled())

@@ -5,6 +5,7 @@ namespace App\Filament\Client\Resources\SupportTickets;
 use App\Filament\Client\Resources\SupportTickets\Pages\CreateSupportTicket;
 use App\Filament\Client\Resources\SupportTickets\Pages\EditSupportTicket;
 use App\Filament\Client\Resources\SupportTickets\Pages\ListSupportTickets;
+use App\Filament\Client\Resources\SupportTickets\RelationManagers\TicketRepliesRelationManager;
 use App\Filament\Client\Resources\SupportTickets\Pages\ViewSupportTicket;
 use App\Filament\Client\Resources\SupportTickets\Schemas\SupportTicketForm;
 use App\Filament\Client\Resources\SupportTickets\Schemas\SupportTicketInfolist;
@@ -45,7 +46,7 @@ class SupportTicketResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TicketRepliesRelationManager::class,
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Filament\Client\Resources\Invoices;
 use App\Filament\Client\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\Client\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\Client\Resources\Invoices\Pages\ListInvoices;
+use App\Filament\Client\Resources\Invoices\RelationManagers\PaymentsRelationManager;
 use App\Filament\Client\Resources\Invoices\Pages\ViewInvoice;
 use App\Filament\Client\Resources\Invoices\Schemas\InvoiceForm;
 use App\Filament\Client\Resources\Invoices\Schemas\InvoiceInfolist;
@@ -45,7 +46,7 @@ class InvoiceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PaymentsRelationManager::class,
         ];
     }
 

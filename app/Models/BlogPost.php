@@ -23,6 +23,7 @@ class BlogPost extends Model
         'published_at',
         'seo_title',
         'seo_description',
+        'focus_keyphrase',
         'seo_keywords',
         'read_time',
         'view_count',

@@ -1,0 +1,47 @@
+.industry-web-page{background:#fff;color:#0d0d0d}
+.industry-web-page .breadcrumb{background:#f7f6f2;border-bottom:1px solid #dddbd5;padding:12px 5%;display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#9e9c97}
+.industry-web-page .breadcrumb a{text-decoration:none;color:#4a4845}
+.industry-web-page .breadcrumb a:hover{color:#c8a96e}
+.industry-web-page .breadcrumb-sep{color:#dddbd5}
+.industry-web-page .hero{padding:96px 5% 76px;background:linear-gradient(180deg,#f7f6f2 0%,#fff 100%);position:relative;overflow:hidden}
+.industry-web-page .hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 46% at 50% 0%,rgba(200,169,110,.12) 0%,transparent 72%)}
+.industry-web-page .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:end;position:relative;z-index:1}
+.industry-web-page .hero-grid::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.03;background-image:linear-gradient(rgba(13,13,13,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(13,13,13,.08) 1px,transparent 1px);background-size:60px 60px}
+.industry-web-page .hero-copy,.industry-web-page .hero-note{position:relative;z-index:1}
+.industry-web-page .hero-breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#9e9c97;margin-bottom:1rem;flex-wrap:wrap}
+.industry-web-page .hero-breadcrumb a{text-decoration:none;color:#4a4845}
+.industry-web-page .hero-breadcrumb a:hover{color:#c8a96e}
+.industry-web-page .hero-breadcrumb .breadcrumb-sep{color:#dddbd5}
+.industry-web-page .hero-breadcrumb [aria-current="page"]{color:#c8a96e}
+.industry-web-page .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#c8a96e;margin-bottom:1rem}
+.industry-web-page .eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:#c8a96e}
+.industry-web-page h1{margin:0 0 1rem;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.3rem,4.9vw,4.3rem);line-height:1.02;letter-spacing:-.04em}
+.industry-web-page h1 em{font-style:italic;color:#c8a96e;font-weight:400}
+.industry-web-page .hero-copy p{margin:0;max-width:680px;font-size:1rem;line-height:1.9;color:#4a4845}
+.industry-web-page .hero-note{background:#0d0d0d;color:rgba(255,255,255,.72);border-radius:14px;padding:1.5rem}
+.industry-web-page .hero-note h3{margin:0 0 .55rem;font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;color:#fff;letter-spacing:-.02em}
+.industry-web-page .hero-note p{margin:0;font-size:.92rem;line-height:1.75}
+.industry-web-page section{padding:72px 5%}
+.industry-web-page .section-head{display:grid;grid-template-columns:1fr .9fr;gap:3rem;align-items:end;margin-bottom:2rem}
+.industry-web-page .section-head h2{margin:0;font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.08;letter-spacing:-.035em}
+.industry-web-page .section-head h2 em{font-style:italic;color:#c8a96e;font-weight:400}
+.industry-web-page .section-head p{margin:0;color:#4a4845;line-height:1.85}
+.industry-web-page .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+.industry-web-page .feature-card{border:1px solid #dddbd5;border-radius:14px;background:#fff;padding:1.35rem;display:flex;gap:1rem}
+.industry-web-page .feature-icon{width:42px;height:42px;border-radius:10px;background:#0d0d0d;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.industry-web-page .feature-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.industry-web-page .feature-card h3{margin:0 0 .3rem;font-size:1rem;letter-spacing:-.02em}
+.industry-web-page .feature-card p{margin:0;color:#4a4845;font-size:.9rem;line-height:1.72}
+.industry-web-page .benefit-band{background:#f7f6f2;border-top:1px solid #dddbd5;border-bottom:1px solid #dddbd5}
+.industry-web-page .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.industry-web-page .benefit-card{background:#fff;border:1px solid #dddbd5;border-radius:14px;padding:1.35rem}
+.industry-web-page .benefit-card h3{margin:0 0 .45rem;font-size:1rem;letter-spacing:-.02em}
+.industry-web-page .benefit-card p{margin:0;color:#4a4845;font-size:.9rem;line-height:1.72}
+.industry-web-page .cta-band{padding:88px 5%;background:#c8a96e;text-align:center}
+.industry-web-page .cta-band h2{margin:0 0 .8rem;font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3.1rem);line-height:1.05;letter-spacing:-.03em;color:#0d0d0d}
+.industry-web-page .cta-band p{max-width:560px;margin:0 auto 2rem;color:rgba(0,0,0,.66);line-height:1.8}
+.industry-web-page .cta-btn{display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;background:#0d0d0d;color:#fff;padding:.95rem 2rem;border-radius:6px;font-weight:600}
+.industry-web-page .cta-btn:hover{opacity:.88}
+@media(max-width:980px){
+  .industry-web-page .hero-grid,.industry-web-page .section-head,.industry-web-page .feature-grid,.industry-web-page .benefit-grid{grid-template-columns:1fr}
+}

@@ -3,26 +3,628 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SiteController extends Controller
 {
+    public function home(): View
+    {
+        return view('welcome', [
+            'seo' => $this->seo(
+                'i2Medier — Premium Digital Solutions',
+                'i2Medier designs and builds premium websites, web applications, SEO campaigns, mobile apps, business email systems, and cloud infrastructure for businesses in Nigeria, the UK, and beyond.',
+                [
+                    'path' => '/',
+                    'keywords' => 'web design Nigeria, Laravel development, WordPress development, SEO services, UI UX design, mobile app development, cloud architecture, business email setup, digital agency Nigeria',
+                    'schema_type' => 'WebSite',
+                ],
+            ),
+        ]);
+    }
+
     public function services(): View
     {
-        return view('site.services');
+        return view('site.services', [
+            'seo' => $this->seo(
+                'Services — i2Medier',
+                'Explore i2Medier services including web design, WordPress development, Laravel applications, mobile app development, SEO, UI/UX design, business email setup, and cloud architecture.',
+                [
+                    'path' => '/services',
+                    'keywords' => 'web design services, WordPress development, Laravel development, mobile app development, SEO services, UI UX design, cloud architecture, business email setup',
+                    'schema_type' => 'CollectionPage',
+                ],
+            ),
+        ]);
+    }
+
+    public function webDesign(): View
+    {
+        return view('site.single-service-web-design', [
+            'seo' => $this->seo(
+                'Web Design & Development Services | i2Medier',
+                'Professional web design and custom website development by i2Medier. We build fast, high-converting business websites, landing pages, and custom digital experiences for brands in Nigeria and worldwide.',
+                [
+                    'path' => '/services/web-design',
+                    'keywords' => 'web design services, website development Nigeria, business website design, landing page design, custom website development, web design agency Nigeria',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Web Design & Development',
+                ],
+            ),
+        ]);
+    }
+
+    public function wordpressDevelopment(): View
+    {
+        return view('site.single-service-wordpress-development', [
+            'seo' => $this->seo(
+                'WordPress Web Design & Development Services | i2Medier',
+                'Professional custom WordPress website design and development services by i2Medier. We build fast, secure, SEO-optimised WordPress websites for businesses in Nigeria, the UK, and worldwide.',
+                [
+                    'path' => '/services/wordpress-development',
+                    'keywords' => 'WordPress development Nigeria, WordPress web design, custom WordPress theme, WordPress developer, WordPress website Nigeria, WordPress maintenance',
+                    'schema_type' => 'Service',
+                    'service_type' => 'WordPress Development',
+                ],
+            ),
+        ]);
+    }
+
+    public function laravelDevelopment(): View
+    {
+        return view('site.single-service-laravel-development', [
+            'seo' => $this->seo(
+                'Laravel Web Application Development Services | i2Medier',
+                'Expert Laravel web application development by i2Medier. We build custom SaaS platforms, business portals, REST APIs, and complex web applications on Laravel for clients in Nigeria, the UK, and worldwide.',
+                [
+                    'path' => '/services/laravel-development',
+                    'keywords' => 'Laravel development Nigeria, Laravel developer, custom web application development, Laravel SaaS, Laravel REST API, Laravel Filament, custom PHP application',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Laravel Development',
+                ],
+            ),
+        ]);
+    }
+
+    public function mobileAppDevelopment(): View
+    {
+        return view('site.single-service-mobile-app-development', [
+            'seo' => $this->seo(
+                'Mobile App Development Services | iOS & Android | i2Medier',
+                'Professional mobile app development by i2Medier. We build native iOS, Android, and cross-platform apps for startups and businesses in Nigeria, the UK, and worldwide.',
+                [
+                    'path' => '/services/mobile-app-development',
+                    'keywords' => 'mobile app development Nigeria, iOS app developer Nigeria, Android app development, React Native developer Nigeria, cross-platform app development',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Mobile App Development',
+                ],
+            ),
+        ]);
+    }
+
+    public function searchOptimization(): View
+    {
+        return view('site.single-service-search-optimization', [
+            'seo' => $this->seo(
+                'Search Optimization Services | SEO | i2Medier',
+                'Professional SEO services by i2Medier. We help businesses rank higher on Google through technical SEO, on-page optimisation, content strategy, local SEO, and measurable reporting.',
+                [
+                    'path' => '/services/search-optimization',
+                    'keywords' => 'SEO services Nigeria, search engine optimisation Nigeria, technical SEO, local SEO Nigeria, on-page SEO, Google ranking Nigeria, SEO agency Lagos',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Search Optimization',
+                ],
+            ),
+        ]);
+    }
+
+    public function uiUxDesign(): View
+    {
+        return view('site.single-service-ui-ux-design', [
+            'seo' => $this->seo(
+                'UI/UX Design Services | i2Medier',
+                'Professional UI/UX design services by i2Medier. We create user-centred Figma designs, interactive prototypes, and scalable design systems for web and mobile products.',
+                [
+                    'path' => '/services/ui-ux-design',
+                    'keywords' => 'UI UX design Nigeria, UX design agency, Figma design services, product design agency, web app design, mobile app UI design, design system',
+                    'schema_type' => 'Service',
+                    'service_type' => 'UI/UX Design',
+                ],
+            ),
+        ]);
+    }
+
+    public function businessEmailSetup(): View
+    {
+        return view('site.single-service-business-email-setup', [
+            'seo' => $this->seo(
+                'Business Email Setup Services | i2Medier',
+                'Professional business email setup by i2Medier. We configure custom domain email addresses on Google Workspace, Microsoft 365, Zoho Mail, and cPanel for businesses in Nigeria and worldwide.',
+                [
+                    'path' => '/services/business-email-setup',
+                    'keywords' => 'business email setup Nigeria, Google Workspace setup Nigeria, Microsoft 365 setup Nigeria, custom domain email Nigeria, business email hosting',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Business Email Setup',
+                ],
+            ),
+        ]);
+    }
+
+    public function websiteMaintenance(): View
+    {
+        return view('site.single-service-website-maintenance', [
+            'seo' => $this->seo(
+                'Website Maintenance Services | i2Medier',
+                'Professional website maintenance services by i2Medier for WordPress, Laravel, custom PHP, React, Next.js, e-commerce stores, and business websites. We handle updates, backups, uptime monitoring, security scans, and emergency support.',
+                [
+                    'path' => '/services/website-maintenance',
+                    'keywords' => 'website maintenance Nigeria, WordPress maintenance Nigeria, Laravel maintenance Nigeria, website support Nigeria, website care plan, website backup service, uptime monitoring Nigeria, hacked website recovery, monthly website maintenance',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Website Maintenance',
+                ],
+            ),
+        ]);
+    }
+
+    public function wordpressMaintenance(): View
+    {
+        return view('site.single-service-wordpress-maintenance', [
+            'seo' => $this->seo(
+                'WordPress Maintenance Services | i2Medier',
+                'Professional WordPress maintenance services by i2Medier. We keep WordPress websites and WooCommerce stores secure, updated, backed up, monitored, and performing properly with monthly reports and emergency support.',
+                [
+                    'path' => '/services/wordpress-maintenance',
+                    'keywords' => 'WordPress maintenance Nigeria, WooCommerce maintenance, WordPress support Nigeria, WordPress care plan, WordPress backup service, WordPress malware cleanup, WordPress updates service',
+                    'schema_type' => 'Service',
+                    'service_type' => 'WordPress Maintenance',
+                ],
+            ),
+        ]);
+    }
+
+    public function cloudArchitecture(): View
+    {
+        return view('site.single-service-cloud-architecture', [
+            'seo' => $this->seo(
+                'Cloud Architecture & Infrastructure Services | i2Medier',
+                'Expert cloud architecture and infrastructure services by i2Medier. We design, deploy, and manage scalable cloud infrastructure on AWS, DigitalOcean, and Cloudflare for businesses in Nigeria and worldwide.',
+                [
+                    'path' => '/services/cloud-architecture',
+                    'keywords' => 'cloud architecture Nigeria, cloud infrastructure services, AWS deployment Nigeria, DigitalOcean setup, cloud migration, DevOps Nigeria, CI CD pipeline setup',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Cloud Architecture',
+                ],
+            ),
+        ]);
+    }
+
+    public function whoWeHelp(): View
+    {
+        return view('site.who-we-help', [
+            'seo' => $this->seo(
+                'Who We Help | i2Medier',
+                'Explore the industries i2Medier serves with dedicated web design, development, and digital growth solutions for firms, agencies, schools, clinics, and service brands.',
+                [
+                    'path' => '/who-we-help',
+                    'keywords' => 'industry web design, law firm website design, accounting firm website design, clinic website design, school website design, real estate website design',
+                    'schema_type' => 'CollectionPage',
+                ],
+            ),
+        ]);
+    }
+
+    public function contact(): View
+    {
+        return view('site.contact', [
+            'contact' => $this->contactDetails(),
+            'seo' => $this->seo(
+                'Contact i2Medier',
+                'Contact i2Medier for web design, Laravel development, WordPress development, SEO, mobile apps, cloud architecture, and digital growth projects. Reach us by phone, email, social links, map, or our YB Local profile.',
+                [
+                    'path' => '/contact',
+                    'keywords' => 'contact i2Medier, web design agency contact Nigeria, Laravel agency Lagos, SEO agency contact, digital agency contact page',
+                    'schema_type' => 'ContactPage',
+                ],
+            ),
+        ]);
+    }
+
+    public function portfolio(): View
+    {
+        return view('portfolio.index', [
+            'seo' => $this->seo(
+                'Portfolio — i2Medier',
+                'See selected i2Medier work across web design, development, branding, and digital product delivery for businesses, nonprofits, and service brands.',
+                [
+                    'path' => '/portfolio',
+                    'keywords' => 'web design portfolio, Laravel portfolio, WordPress portfolio, UI UX portfolio, agency work examples, i2Medier portfolio',
+                    'schema_type' => 'CollectionPage',
+                ],
+            ),
+        ]);
+    }
+
+    public function lawyerLanding(): View
+    {
+        return view('site.lawyer', [
+            'seo' => $this->seo(
+                'Law Firm Website Design | i2Medier',
+                'Premium law firm website design by i2Medier. We build high-converting legal websites that help attorneys and law firms generate enquiries, establish authority, and win more clients.',
+                [
+                    'path' => '/services/web-design/law-firm-website-design',
+                    'keywords' => 'law firm website design, lawyer website design Nigeria, attorney web design, legal website development, law firm SEO, lawyer landing page',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Law Firm Website Design',
+                ],
+            ),
+        ]);
+    }
+
+    public function webDesignIndustry(string $slug): View
+    {
+        if ($slug === 'accounting-firm-website-design') {
+            return view('site.accounting-firm-web-design');
+        }
+
+        if ($slug === 'clinic-website-design') {
+            return view('site.clinic-web-design');
+        }
+
+        if ($slug === 'real-estate-website-design') {
+            return view('site.real-estate-web-design');
+        }
+
+        $industries = $this->webDesignIndustries();
+
+        if (! array_key_exists($slug, $industries)) {
+            throw new NotFoundHttpException();
+        }
+
+        return view('site.web-design-industry', [
+            'slug' => $slug,
+            'industry' => $industries[$slug],
+            'seo' => $this->seo(
+                $industries[$slug]['title'] . ' | i2Medier',
+                $industries[$slug]['summary'],
+                [
+                    'path' => '/services/web-design/' . $slug,
+                    'keywords' => strtolower($industries[$slug]['title']) . ', web design services, business website design, custom website development, i2Medier',
+                    'schema_type' => 'Service',
+                    'service_type' => $industries[$slug]['title'],
+                ],
+            ),
+        ]);
+    }
+
+    public function meto7CaseStudy(): View
+    {
+        return view('portfolio.case-study-meto7', [
+            'seo' => $this->seo(
+                'Meto7 Chauffeur Services — Case Study · i2Medier',
+                'A case study on the i2Medier website and digital experience work delivered for Meto7 Chauffeur Services.',
+                [
+                    'path' => '/portfolio/meto7-chauffeur-services',
+                    'keywords' => 'Meto7 case study, chauffeur website case study, i2Medier portfolio, transport website design',
+                    'schema_type' => 'Article',
+                ],
+            ),
+        ]);
+    }
+
+    public function ntfCaseStudy(): View
+    {
+        return view('portfolio.case-study-ntf', [
+            'seo' => $this->seo(
+                'Nnaedozie Thomas Foundation — Case Study · i2Medier',
+                'A case study on the i2Medier website and digital experience work delivered for Nnaedozie Thomas Foundation.',
+                [
+                    'path' => '/portfolio/nnaedozie-thomas-foundation',
+                    'keywords' => 'foundation website case study, nonprofit website design, NTF case study, i2Medier portfolio',
+                    'schema_type' => 'Article',
+                ],
+            ),
+        ]);
     }
 
     public function about(): View
     {
-        return view('site.about');
+        return view('site.about', [
+            'seo' => $this->seo(
+                'About Us — i2Medier',
+                'Learn about i2Medier, our approach to premium web design and development, and how we help businesses grow with thoughtful digital systems and strategy.',
+                [
+                    'path' => '/about',
+                    'keywords' => 'about i2Medier, web design agency Nigeria, Laravel agency, digital solutions company, premium website development',
+                    'schema_type' => 'AboutPage',
+                ],
+            ),
+        ]);
     }
 
     public function terms(): View
     {
-        return view('site.terms');
+        return view('site.terms', [
+            'seo' => $this->seo(
+                'Terms — i2Medier',
+                'Read the i2Medier terms and conditions for using our website and services.',
+                [
+                    'path' => '/terms',
+                    'keywords' => 'i2Medier terms, website terms and conditions',
+                    'schema_type' => 'WebPage',
+                ],
+            ),
+        ]);
     }
 
     public function privacy(): View
     {
-        return view('site.privacy');
+        return view('site.privacy', [
+            'seo' => $this->seo(
+                'Privacy — i2Medier',
+                'Read the i2Medier privacy policy and how we handle website visitor and client data.',
+                [
+                    'path' => '/privacy',
+                    'keywords' => 'i2Medier privacy policy, website privacy policy',
+                    'schema_type' => 'WebPage',
+                ],
+            ),
+        ]);
+    }
+
+    /**
+     * @param  array{path?: string, keywords?: string, robots?: string, author?: string, og_type?: string, schema_type?: string, service_type?: string}  $options
+     * @return array<string, string>
+     */
+    private function seo(string $title, string $description, array $options = []): array
+    {
+        return [
+            'title' => $title,
+            'description' => $description,
+            'keywords' => $options['keywords'] ?? '',
+            'url' => url($options['path'] ?? '/'),
+            'robots' => $options['robots'] ?? 'index, follow',
+            'author' => $options['author'] ?? 'i2Medier Konceptz',
+            'og_type' => $options['og_type'] ?? 'website',
+            'schema_type' => $options['schema_type'] ?? 'WebPage',
+            'service_type' => $options['service_type'] ?? '',
+        ];
+    }
+
+    /**
+     * @return array{
+     *     studio: string,
+     *     email: string,
+     *     phone_display: string,
+     *     phone_href: string,
+     *     address_title: string,
+     *     address_lines: array<int, string>,
+     *     hours: string,
+     *     map_embed: string,
+     *     yb_local_url: string,
+     *     yb_local_label: string,
+     *     socials: array<int, array{label: string, handle: string, url: string}>
+     * }
+     */
+    private function contactDetails(): array
+    {
+        return [
+            'studio' => 'i2Medier Konceptz',
+            'email' => 'hello@i2medier.com',
+            'phone_display' => '+234 (0) 000 000 0000',
+            'phone_href' => 'tel:+2340000000000',
+            'address_title' => 'Lagos, Nigeria',
+            'address_lines' => [
+                'Remote-first studio',
+                'Client calls and in-person meetings available by appointment',
+            ],
+            'hours' => 'Monday to Friday · 9:00 AM to 6:00 PM WAT',
+            'map_embed' => 'https://www.google.com/maps?q=Lagos%2C+Nigeria&z=12&output=embed',
+            'yb_local_url' => 'https://yblocal.com/your-business-profile',
+            'yb_local_label' => 'View i2Medier on YB Local',
+            'socials' => [
+                ['label' => 'Facebook', 'handle' => 'facebook.com/yourbrand', 'url' => 'https://www.facebook.com/yourbrand'],
+                ['label' => 'Instagram', 'handle' => 'instagram.com/yourbrand', 'url' => 'https://www.instagram.com/yourbrand'],
+                ['label' => 'LinkedIn', 'handle' => 'linkedin.com/company/yourbrand', 'url' => 'https://www.linkedin.com/company/yourbrand'],
+                ['label' => 'X', 'handle' => 'x.com/yourbrand', 'url' => 'https://x.com/yourbrand'],
+                ['label' => 'YouTube', 'handle' => 'youtube.com/@yourbrand', 'url' => 'https://www.youtube.com/@yourbrand'],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{title: string, heading: string, summary: string, audience: string, offer: string, features: array<int, string>, cta: string}>
+     */
+    private function webDesignIndustries(): array
+    {
+        return [
+            'accounting-firm-website-design' => [
+                'title' => 'Accounting Firm Website Design',
+                'heading' => 'Web design for accounting firms that need trust, clarity, and better enquiries.',
+                'summary' => 'We design accounting firm websites that communicate credibility fast, explain services clearly, and help prospects move from uncertainty to consultation.',
+                'audience' => 'Built for accounting practices, tax consultants, audit firms, advisory teams, and finance-focused service brands.',
+                'offer' => 'Your page structure, messaging, authority signals, and calls to action are shaped around how accounting clients evaluate providers.',
+                'features' => ['Service pages for tax, audit, and advisory offers', 'Partner and team profile layouts', 'Trust-first design and clean enquiry paths', 'Lead capture forms built for serious prospects'],
+                'cta' => 'Start Your Accounting Firm Website',
+            ],
+            'clinic-website-design' => [
+                'title' => 'Clinic Website Design',
+                'heading' => 'Web design for clinics that need trust, accessibility, and patient action.',
+                'summary' => 'We design clinic websites that feel professional, reassuring, and easy to use for patients booking appointments or learning about care options.',
+                'audience' => 'Built for medical clinics, specialist practices, dental clinics, wellness centres, and healthcare providers.',
+                'offer' => 'The experience is structured around patient trust, service clarity, and low-friction booking or enquiry flows.',
+                'features' => ['Appointment and enquiry conversion sections', 'Service pages for treatments and care areas', 'Trust-building layouts for doctors and teams', 'Mobile-first structure for real patient behaviour'],
+                'cta' => 'Start Your Clinic Website',
+            ],
+            'real-estate-website-design' => [
+                'title' => 'Real Estate Website Design',
+                'heading' => 'Web design for real estate brands that need qualified enquiries, not empty traffic.',
+                'summary' => 'We design real estate websites that help agencies, developers, and property consultants present listings, projects, and credibility with more structure and more urgency.',
+                'audience' => 'Built for real estate agencies, property developers, brokers, investment firms, and property marketing teams.',
+                'offer' => 'The page flow is designed to turn browsing interest into property enquiries, viewings, and investor conversations.',
+                'features' => ['Listing-ready layouts and project showcase sections', 'Inquiry paths for buyers, renters, and investors', 'Trust signals for developments and track record', 'Location and property-type landing page structure'],
+                'cta' => 'Start Your Real Estate Website',
+            ],
+            'consulting-firm-website-design' => [
+                'title' => 'Consulting Firm Website Design',
+                'heading' => 'Web design for consulting firms that sell expertise, trust, and transformation.',
+                'summary' => 'We design consulting websites that sharpen positioning, simplify complex offers, and help serious prospects understand why your firm is worth the conversation.',
+                'audience' => 'Built for strategy consultants, management firms, business advisors, transformation teams, and specialist consulting practices.',
+                'offer' => 'The design focuses on authority, clarity, and premium positioning so the site supports business development instead of just existing online.',
+                'features' => ['Offer pages structured around business outcomes', 'Case-study and thought-leadership sections', 'Partner and advisory profile design', 'Clear consultation and proposal CTAs'],
+                'cta' => 'Start Your Consulting Website',
+            ],
+            'construction-company-website-design' => [
+                'title' => 'Construction Company Website Design',
+                'heading' => 'Web design for construction companies that need credibility, proof, and project leads.',
+                'summary' => 'We design construction websites that showcase capability, communicate professionalism, and make it easier for clients to trust your team with bigger jobs.',
+                'audience' => 'Built for contractors, builders, engineering contractors, infrastructure firms, and project delivery companies.',
+                'offer' => 'Your website is structured around project proof, service clarity, and the authority needed to win higher-value enquiries.',
+                'features' => ['Project showcase and portfolio sections', 'Service pages for construction capabilities', 'Safety, process, and trust-building content areas', 'Lead capture for tenders and project enquiries'],
+                'cta' => 'Start Your Construction Website',
+            ],
+            'engineering-firm-website-design' => [
+                'title' => 'Engineering Firm Website Design',
+                'heading' => 'Web design for engineering firms that need authority, clarity, and serious business leads.',
+                'summary' => 'We design engineering firm websites that help technical teams present expertise clearly and convert that expertise into real project conversations.',
+                'audience' => 'Built for civil, mechanical, electrical, industrial, and specialist engineering firms.',
+                'offer' => 'The design balances technical credibility with clear communication so complex capability becomes easier for clients to understand and trust.',
+                'features' => ['Capability pages for engineering disciplines', 'Project and case-study storytelling', 'Team profile and certification sections', 'Lead paths for project and partnership enquiries'],
+                'cta' => 'Start Your Engineering Website',
+            ],
+            'architecture-firm-website-design' => [
+                'title' => 'Architecture Firm Website Design',
+                'heading' => 'Web design for architecture firms that need elegance, clarity, and stronger project enquiries.',
+                'summary' => 'We design architecture websites that feel refined, portfolio-led, and structured to make your work and process easier to understand.',
+                'audience' => 'Built for architecture studios, design-led practices, interior architecture teams, and planning-focused firms.',
+                'offer' => 'The experience is crafted around visual presentation, studio credibility, and enquiry paths for clients evaluating design partners.',
+                'features' => ['Portfolio-first project presentation', 'Studio and principal profile layouts', 'Service pages for architecture offerings', 'Elegant enquiry and consultation flows'],
+                'cta' => 'Start Your Architecture Website',
+            ],
+            'school-website-design' => [
+                'title' => 'School Website Design',
+                'heading' => 'Web design for schools that need trust, clarity, and stronger parent engagement.',
+                'summary' => 'We design school websites that help parents understand your school quickly, trust your values, and take the next step toward enquiry or application.',
+                'audience' => 'Built for schools, colleges, academies, training institutions, and education brands.',
+                'offer' => 'The design supports enrolment, communication, and credibility while keeping the site easy to update for ongoing school operations.',
+                'features' => ['Admissions and enquiry conversion sections', 'Programme and curriculum page structure', 'Parent-focused communication layouts', 'News, events, and school-life content areas'],
+                'cta' => 'Start Your School Website',
+            ],
+            'church-website-design' => [
+                'title' => 'Church Website Design',
+                'heading' => 'Web design for churches that need warmth, clarity, and stronger community connection.',
+                'summary' => 'We design church websites that make ministries, events, service times, and giving paths easier to find while still feeling intentional and welcoming.',
+                'audience' => 'Built for churches, ministries, faith communities, and nonprofit spiritual organisations.',
+                'offer' => 'The structure supports outreach, membership communication, and first-time visitor confidence.',
+                'features' => ['Service times and ministry navigation', 'Giving and event-focused calls to action', 'Pastor, leadership, and community sections', 'Sermon, news, and announcement areas'],
+                'cta' => 'Start Your Church Website',
+            ],
+            'hotel-website-design' => [
+                'title' => 'Hotel Website Design',
+                'heading' => 'Web design for hotels that need stronger bookings and a more premium first impression.',
+                'summary' => 'We design hotel websites that present rooms, amenities, and brand experience in a way that supports direct booking and higher trust.',
+                'audience' => 'Built for hotels, resorts, boutique stays, serviced apartments, and hospitality brands.',
+                'offer' => 'The user experience is designed around booking confidence, room presentation, and mobile-first guest behaviour.',
+                'features' => ['Room and amenity showcase layouts', 'Booking-focused user journeys', 'Gallery and experience sections', 'Trust-building content for direct reservations'],
+                'cta' => 'Start Your Hotel Website',
+            ],
+            'restaurant-website-design' => [
+                'title' => 'Restaurant Website Design',
+                'heading' => 'Web design for restaurants that need more bookings, more orders, and better brand feel.',
+                'summary' => 'We design restaurant websites that make menus, reservations, and brand atmosphere easier to experience before the guest ever arrives.',
+                'audience' => 'Built for restaurants, cafes, lounges, food brands, and hospitality concepts.',
+                'offer' => 'The site is structured to guide visitors toward booking, ordering, or visiting, while keeping the brand experience front and centre.',
+                'features' => ['Menu and reservation-focused layouts', 'Location and opening-hour visibility', 'Brand-led visual storytelling', 'Event and private dining enquiry sections'],
+                'cta' => 'Start Your Restaurant Website',
+            ],
+            'beauty-wellness-website-design' => [
+                'title' => 'Beauty & Wellness Website Design',
+                'heading' => 'Web design for beauty and wellness brands that need trust, bookings, and a polished brand experience.',
+                'summary' => 'We design beauty and wellness websites that feel elevated, easy to navigate, and built to convert interest into appointments or product enquiries.',
+                'audience' => 'Built for salons, spas, skincare brands, wellness studios, and aesthetic service providers.',
+                'offer' => 'The experience is shaped around premium presentation, service clarity, and low-friction booking.',
+                'features' => ['Service and treatment page structure', 'Appointment and contact conversion paths', 'Visual brand-led presentation', 'Product, team, and review sections'],
+                'cta' => 'Start Your Beauty & Wellness Website',
+            ],
+            'fitness-website-design' => [
+                'title' => 'Fitness Website Design',
+                'heading' => 'Web design for fitness brands that need stronger sign-ups and clearer offers.',
+                'summary' => 'We design fitness websites that help visitors quickly understand your programmes, classes, or coaching offers and take action with confidence.',
+                'audience' => 'Built for gyms, coaches, studios, trainers, and fitness communities.',
+                'offer' => 'The site flow is designed around membership conversion, programme visibility, and stronger local credibility.',
+                'features' => ['Programme and membership page layouts', 'Trainer and class showcase sections', 'Lead capture for sign-ups and trials', 'Location, timetable, and contact visibility'],
+                'cta' => 'Start Your Fitness Website',
+            ],
+            'cleaning-company-website-design' => [
+                'title' => 'Cleaning Company Website Design',
+                'heading' => 'Web design for cleaning companies that need trust, visibility, and more service enquiries.',
+                'summary' => 'We design cleaning company websites that present services clearly, reduce doubt, and help commercial or residential prospects request quotes faster.',
+                'audience' => 'Built for cleaning companies, janitorial services, facility cleaning providers, and specialised cleaning teams.',
+                'offer' => 'The structure is built around service clarity, proof, and easy quote-request paths.',
+                'features' => ['Service and coverage-area pages', 'Quote request and contact sections', 'Trust and proof elements', 'Commercial and residential offer separation'],
+                'cta' => 'Start Your Cleaning Company Website',
+            ],
+            'logistics-company-website-design' => [
+                'title' => 'Logistics Company Website Design',
+                'heading' => 'Web design for logistics companies that need operational clarity and better lead generation.',
+                'summary' => 'We design logistics websites that make complex service offerings easier to understand while projecting scale, reliability, and speed.',
+                'audience' => 'Built for logistics companies, delivery networks, freight teams, transport brands, and supply-chain providers.',
+                'offer' => 'Your website is shaped around trust, service clarity, and the operational credibility buyers look for before reaching out.',
+                'features' => ['Service pages for delivery and logistics capabilities', 'Fleet, coverage, and operations storytelling', 'Quote-request conversion paths', 'Trust-building layouts for B2B buyers'],
+                'cta' => 'Start Your Logistics Website',
+            ],
+            'travel-agency-website-design' => [
+                'title' => 'Travel Agency Website Design',
+                'heading' => 'Web design for travel agencies that need inspiration, trust, and booking-ready pages.',
+                'summary' => 'We design travel websites that make packages, destinations, and travel support feel easier to explore and easier to trust.',
+                'audience' => 'Built for travel agencies, tour operators, destination brands, and travel planning businesses.',
+                'offer' => 'The site combines visual appeal with conversion structure so exploration leads naturally into enquiry or booking conversations.',
+                'features' => ['Package and destination page structure', 'Booking and enquiry conversion sections', 'Travel support and trust content', 'Visually led storytelling layouts'],
+                'cta' => 'Start Your Travel Agency Website',
+            ],
+            'ecommerce-website-design' => [
+                'title' => 'Ecommerce Website Design',
+                'heading' => 'Web design for ecommerce brands that need stronger product clarity and more conversion.',
+                'summary' => 'We design ecommerce websites that make products easier to browse, compare, trust, and buy without unnecessary friction.',
+                'audience' => 'Built for online stores, product brands, retail businesses, and ecommerce-first companies.',
+                'offer' => 'The design is shaped around product discovery, trust signals, and conversion flow from landing to checkout.',
+                'features' => ['Homepage and category conversion structure', 'Product page trust and clarity systems', 'Checkout-focused UX thinking', 'Brand-led ecommerce presentation'],
+                'cta' => 'Start Your Ecommerce Website',
+            ],
+            'fashion-brand-website-design' => [
+                'title' => 'Fashion Brand Website Design',
+                'heading' => 'Web design for fashion brands that need stronger identity and more product engagement.',
+                'summary' => 'We design fashion websites that make the brand feel elevated while helping collections, products, and campaigns drive action.',
+                'audience' => 'Built for fashion labels, apparel brands, designers, and style-led product businesses.',
+                'offer' => 'The experience balances visual storytelling with the structure needed for product exploration, brand trust, and conversion.',
+                'features' => ['Collection and campaign-led layouts', 'Product storytelling and merchandising sections', 'Brand-first visual direction', 'Conversion-aware ecommerce structure'],
+                'cta' => 'Start Your Fashion Brand Website',
+            ],
+            'event-planner-website-design' => [
+                'title' => 'Event Planner Website Design',
+                'heading' => 'Web design for event planners that need stronger presentation and premium enquiries.',
+                'summary' => 'We design event planner websites that showcase style, process, and trust while making high-value clients more confident about reaching out.',
+                'audience' => 'Built for event planners, coordinators, wedding brands, and experience-led service providers.',
+                'offer' => 'The page flow supports premium positioning, portfolio storytelling, and consultation-focused conversion.',
+                'features' => ['Portfolio and gallery-led layouts', 'Service and package presentation', 'Trust-building process sections', 'Consultation and booking enquiry paths'],
+                'cta' => 'Start Your Event Planner Website',
+            ],
+            'photography-website-design' => [
+                'title' => 'Photography Website Design',
+                'heading' => 'Web design for photographers that need portfolio impact and better client enquiries.',
+                'summary' => 'We design photography websites that let the work breathe while guiding visitors toward enquiry, booking, and brand confidence.',
+                'audience' => 'Built for photographers, studios, visual storytellers, and creative service brands.',
+                'offer' => 'The site is structured around image presentation, service clarity, and a premium enquiry experience.',
+                'features' => ['Portfolio-first layout systems', 'Service and package structure', 'Booking and enquiry-focused flow', 'Brand-led presentation without clutter'],
+                'cta' => 'Start Your Photography Website',
+            ],
+            'personal-brand-website-design' => [
+                'title' => 'Personal Brand Website Design',
+                'heading' => 'Web design for personal brands that need stronger positioning, authority, and conversion.',
+                'summary' => 'We design personal brand websites that help founders, experts, and creators present themselves with more structure, trust, and clarity.',
+                'audience' => 'Built for consultants, speakers, coaches, creators, executives, and expert-led businesses.',
+                'offer' => 'The page is designed to sharpen positioning, organise offers, and make the next step obvious for the right audience.',
+                'features' => ['Positioning-led homepage structure', 'Offer and credibility sections', 'Personal story and authority content', 'Lead capture for speaking, coaching, or services'],
+                'cta' => 'Start Your Personal Brand Website',
+            ],
+        ];
     }
 }

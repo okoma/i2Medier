@@ -1,0 +1,387 @@
+@extends('public.layouts.app')
+
+@section('title', 'Cloud Architecture & Infrastructure Services | i2Medier')
+
+@push('page_css')
+    @vite('resources/css/public/pages/cloud-architecture.css')
+@endpush
+
+@section('content')
+<div class="cloud-page">
+  <header class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-left">
+      <div class="hero-breadcrumb" aria-label="Breadcrumb" role="navigation">
+        <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
+        <a href="{{ route('site.services') }}">Services</a><span class="breadcrumb-sep">›</span>
+        <span aria-current="page">Cloud Architecture</span>
+      </div>
+      <span class="hero-tag"><span class="hero-dot"></span> Cloud Architecture</span>
+      <h1>Infrastructure designed<br>to scale, secured<br>to <em>stay live</em></h1>
+      <p class="hero-sub">We design, deploy, and manage production-grade cloud infrastructure for web applications, APIs, and SaaS platforms on AWS, DigitalOcean, and Cloudflare. Zero-downtime deployments, automated pipelines, and 99.9% uptime as a baseline, not a target.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-white">Discuss Your Infrastructure</a>
+        <a href="#architecture" class="btn-ghost">See Architecture Diagram</a>
+      </div>
+      <div class="hero-pills">
+        <span class="hero-pill"><span class="hero-pill-dot"></span> AWS & DigitalOcean</span>
+        <span class="hero-pill"><span class="hero-pill-dot"></span> Cloudflare CDN + WAF</span>
+        <span class="hero-pill"><span class="hero-pill-dot"></span> CI/CD Pipelines</span>
+        <span class="hero-pill"><span class="hero-pill-dot"></span> Zero-Downtime Deployments</span>
+        <span class="hero-pill"><span class="hero-pill-dot"></span> 24/7 Uptime Monitoring</span>
+        <span class="hero-pill"><span class="hero-pill-dot"></span> Auto-Scaling</span>
+      </div>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <div class="infra-diagram">
+        <div class="infra-float-badge"><svg class="hero-badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.4-8A6 6 0 0 1 18 8.5a3.5 3.5 0 1 1 .5 6.9H7Z"/></svg> 99.98% uptime last 12mo</div>
+        <div class="infra-box">
+          <div class="infra-title"><span class="live-dot"></span> Production Environment</div>
+          <div class="infra-layer" style="background:rgba(246,130,31,.04);border-color:rgba(246,130,31,.2)"><div class="il-ico" style="background:rgba(246,130,31,.15)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="8"/></svg></div><div><div class="il-name">Cloudflare CDN + WAF</div><div class="il-sub">DDoS protection · Edge cache · 200+ PoPs</div></div><span class="il-status ok">Active</span></div>
+          <div class="infra-layer" style="background:rgba(124,58,237,.04);border-color:rgba(124,58,237,.2)"><div class="il-ico" style="background:rgba(124,58,237,.15)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M7 17h10"/><path d="M9 7v10"/><path d="M15 7v10"/></svg></div><div><div class="il-name">Load Balancer</div><div class="il-sub">Nginx · SSL termination · Health checks</div></div><span class="il-status ok">Active</span></div>
+          <div class="infra-layer" style="background:rgba(0,128,255,.04);border-color:rgba(0,128,255,.2)"><div class="il-ico" style="background:rgba(0,128,255,.15)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"/><path d="M8 19h8"/><path d="M12 15v4"/></svg></div><div><div class="il-name">App Servers × 2</div><div class="il-sub">Laravel · PHP 8.3 · Horizon queues</div></div><span class="il-status scaling">Auto-scaling</span></div>
+          <div class="infra-layer" style="background:rgba(74,222,128,.04);border-color:rgba(74,222,128,.2)"><div class="il-ico" style="background:rgba(74,222,128,.15)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v8c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 10c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div><div><div class="il-name">Managed PostgreSQL</div><div class="il-sub">Primary + replica · Automated backups</div></div><span class="il-status ok">Healthy</span></div>
+          <div class="infra-layer" style="background:rgba(251,146,60,.04);border-color:rgba(251,146,60,.2)"><div class="il-ico" style="background:rgba(251,146,60,.15)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12v8H6z"/><path d="M8 5v3"/><path d="M12 5v3"/><path d="M16 5v3"/><path d="M8 16v3"/><path d="M12 16v3"/><path d="M16 16v3"/></svg></div><div><div class="il-name">Redis Cache + Queues</div><div class="il-sub">Session · Cache · Job queues · 148 jobs/min</div></div><span class="il-status running">Running</span></div>
+          <div class="infra-metrics">
+            <div class="im-cell"><div class="im-val" style="color:#4ade80">99.9%</div><div class="im-lbl">Uptime</div></div>
+            <div class="im-cell"><div class="im-val">1.2s</div><div class="im-lbl">Response</div></div>
+            <div class="im-cell"><div class="im-val" style="color:var(--gold)">0</div><div class="im-lbl">Alerts</div></div>
+          </div>
+        </div>
+        <div class="infra-float-badge2"><svg class="hero-badge-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v6c0 5 3.4 7.9 7 9 3.6-1.1 7-4 7-9V6l-7-3Z"/></svg> SSL A+ · Zero breaches</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats-band">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="stat-num"><span class="counter" data-target="99">0</span><span>.9%</span></div><div class="stat-lbl">Target Uptime SLA</div></div>
+      <div class="stat-item reveal"><div class="stat-num"><span class="counter" data-target="40">0</span><span>+</span></div><div class="stat-lbl">Production Environments</div></div>
+      <div class="stat-item reveal"><div class="stat-num">from <span>₦200k</span></div><div class="stat-lbl">Setup Starting Price</div></div>
+      <div class="stat-item reveal"><div class="stat-num">24<span>/7</span></div><div class="stat-lbl">Monitoring Coverage</div></div>
+    </div>
+  </div>
+
+  <section class="services-section" aria-labelledby="svc-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">What We Do</span><h2 class="s-head" id="svc-heading">Everything your application<br>needs to <em>stay alive at scale</em></h2></div>
+      <p>Most applications are built with excellent code but deployed on infrastructure that is one traffic spike away from going down. We close that gap by designing infrastructure that matches the ambition of the product running on it, from a single DigitalOcean droplet to a multi-region AWS deployment with auto-scaling groups.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 19 8-14 8 14"/><path d="M7 14h10"/><path d="M10 19h4"/></svg></div><h3 class="svc-title">Cloud Infrastructure Design</h3><p class="svc-desc">End-to-end architecture design for web applications, APIs, and SaaS platforms. We define every layer, including compute, networking, storage, database, caching, and CDN, before writing a single configuration file.</p><div class="svc-tags"><span class="svc-tag">Architecture Review</span><span class="svc-tag">AWS</span><span class="svc-tag">DigitalOcean</span><span class="svc-tag">Diagram & Docs</span></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/><path d="M5 5v14"/></svg></div><h3 class="svc-title">Server Setup & Deployment</h3><p class="svc-desc">Full server provisioning and configuration for operating system hardening, web server setup, runtime configuration, database installation, SSL, firewall rules, and application deployment.</p><div class="svc-tags"><span class="svc-tag">Ubuntu Server</span><span class="svc-tag">Nginx</span><span class="svc-tag">PHP 8.3</span><span class="svc-tag">Laravel Forge</span></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h10"/><path d="m10 6 6 6-6 6"/><path d="M18 5h2v14h-2"/></svg></div><h3 class="svc-title">CI/CD Pipeline Setup</h3><p class="svc-desc">Automated test-and-deploy pipelines using GitHub Actions. Every commit runs your test suite, and only green builds reach production, with rollback paths ready if anything fails.</p><div class="svc-tags"><span class="svc-tag">GitHub Actions</span><span class="svc-tag">Zero-downtime</span><span class="svc-tag">Auto Rollback</span><span class="svc-tag">Environments</span></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4a13 13 0 0 1 0 16"/><path d="M12 4a13 13 0 0 0 0 16"/></svg></div><h3 class="svc-title">CDN & Edge Configuration</h3><p class="svc-desc">Cloudflare setup covering DNS management, CDN caching rules, WAF protection, DDoS mitigation, SSL/TLS configuration, and performance optimisation at the edge.</p><div class="svc-tags"><span class="svc-tag">Cloudflare</span><span class="svc-tag">WAF Rules</span><span class="svc-tag">Cache Policies</span><span class="svc-tag">DDoS Shield</span></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v8c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 10c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div><h3 class="svc-title">Database Infrastructure</h3><p class="svc-desc">Managed and self-hosted database deployments for MySQL, PostgreSQL, and Redis with backups, replication, connection pooling, and disaster recovery procedures.</p><div class="svc-tags"><span class="svc-tag">PostgreSQL</span><span class="svc-tag">MySQL</span><span class="svc-tag">Redis</span><span class="svc-tag">Replication</span></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 10l7-7 7 7"/><path d="M19 14l-7 7-7-7"/></svg></div><h3 class="svc-title">Monitoring & Incident Response</h3><p class="svc-desc">24/7 uptime monitoring, server resource alerts, error tracking, log visibility, and defined incident response procedures so issues are seen early and handled fast.</p><div class="svc-tags"><span class="svc-tag">Uptime Robot</span><span class="svc-tag">Sentry</span><span class="svc-tag">Laravel Telescope</span><span class="svc-tag">Slack Alerts</span></div></div>
+    </div>
+  </section>
+
+  <section class="arch-section" id="architecture" aria-labelledby="arch-heading">
+    <div class="arch-header reveal">
+      <div><span class="s-label" style="color:var(--gold)">Reference Architecture</span><h2 class="s-head" style="color:var(--white)" id="arch-heading">A production-grade cloud<br>architecture, <em>layer by layer</em></h2></div>
+      <p>This is the reference architecture we deploy for production web applications and SaaS platforms. Every layer is documented, every component has a defined role, and every failure mode has a mitigation. We adapt this pattern to match each project's scale, budget, and compliance requirements.</p>
+    </div>
+    <div class="arch-diagram-wrap reveal">
+      <div class="arch-layer-label"><span>User Traffic</span></div>
+      <div class="arch-row cols-1"><div class="arch-node user"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4a13 13 0 0 1 0 16"/><path d="M12 4a13 13 0 0 0 0 16"/></svg></div><div class="arch-node-name">Users & Clients</div><div class="arch-node-sub">Web browsers · Mobile apps · API consumers</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Any device, anywhere</div></div></div>
+      <div class="arch-arrow-row">↓ ↓ ↓</div>
+      <div class="arch-layer-label"><span>Edge & Security Layer</span></div>
+      <div class="arch-row cols-1"><div class="arch-node cdn"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="8"/></svg></div><div class="arch-node-name">Cloudflare, CDN · WAF · DDoS · DNS</div><div class="arch-node-sub">Global edge network · SSL termination · Cache static assets · Block malicious traffic · Rate limiting</div><div class="arch-node-badge managed"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="m6 1.2 1.4 2.9 3.2.5-2.3 2.2.5 3.2L6 8.5 3.2 10l.5-3.2L1.4 4.6l3.2-.5L6 1.2Z"/></svg> Managed Edge</div></div></div>
+      <div class="arch-arrow-row">↓</div>
+      <div class="arch-layer-label"><span>Traffic Distribution</span></div>
+      <div class="arch-row cols-1"><div class="arch-node lb"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M7 17h10"/><path d="M9 7v10"/><path d="M15 7v10"/></svg></div><div class="arch-node-name">Load Balancer, Nginx / DigitalOcean LB</div><div class="arch-node-sub">Round-robin routing · Health checks · SSL offloading · Sticky sessions (optional)</div><div class="arch-node-badge auto"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M7 1 2.5 6H6L5 11l4.5-5H6.8L7 1Z"/></svg> Auto-routes on failure</div></div></div>
+      <div class="arch-arrow-row">↓ ↓</div>
+      <div class="arch-layer-label"><span>Application Layer</span></div>
+      <div class="arch-row cols-2">
+        <div class="arch-node app"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"/><path d="M8 19h8"/><path d="M12 15v4"/></svg></div><div class="arch-node-name">App Server 1 (Primary)</div><div class="arch-node-sub">Laravel 11 · PHP 8.3 · Nginx · Horizon queue worker · OPcache</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Running</div></div>
+        <div class="arch-node app"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"/><path d="M8 19h8"/><path d="M12 15v4"/></svg></div><div class="arch-node-name">App Server 2 (Replica)</div><div class="arch-node-sub">Identical config · Auto-provisioned on load spike · Terminates when traffic drops</div><div class="arch-node-badge auto"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M7 1 2.5 6H6L5 11l4.5-5H6.8L7 1Z"/></svg> Auto-scaled</div></div>
+      </div>
+      <div class="arch-arrow-row">↓ ↓ ↓ ↓</div>
+      <div class="arch-layer-label"><span>Data & Caching Layer</span></div>
+      <div class="arch-row cols-3">
+        <div class="arch-node db"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v8c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 10c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div><div class="arch-node-name">PostgreSQL Primary</div><div class="arch-node-sub">Managed DB · Daily backups · Point-in-time restore · Connection pooling</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Healthy</div></div>
+        <div class="arch-node db" style="opacity:.75"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v8c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 10c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div><div class="arch-node-name">PostgreSQL Replica</div><div class="arch-node-sub">Read replica · Async replication · Auto-promotes on primary failure</div><div class="arch-node-badge managed"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 1.5 7.4 4l2.6 1.4-2.6 1.4L6 9.5 4.6 6.8 2 5.4 4.6 4 6 1.5Z"/></svg> Standby</div></div>
+        <div class="arch-node cache"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12v8H6z"/><path d="M8 5v3"/><path d="M12 5v3"/><path d="M16 5v3"/><path d="M8 16v3"/><path d="M12 16v3"/><path d="M16 16v3"/></svg></div><div class="arch-node-name">Redis Cluster</div><div class="arch-node-sub">Session cache · Query cache · Job queues via Laravel Horizon</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Running</div></div>
+      </div>
+      <div class="arch-arrow-row">↓ ↓ ↓</div>
+      <div class="arch-layer-label"><span>Supporting Services</span></div>
+      <div class="arch-row cols-4">
+        <div class="arch-node storage"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16v10H4z"/><path d="M9 7V5h6v2"/></svg></div><div class="arch-node-name">Object Storage</div><div class="arch-node-sub">Cloudflare R2 / S3 · Media files · Backups</div><div class="arch-node-badge managed"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M6 1.5 7.4 4l2.6 1.4-2.6 1.4L6 9.5 4.6 6.8 2 5.4 4.6 4 6 1.5Z"/></svg> Managed</div></div>
+        <div class="arch-node queue"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="m4 8 8 5 8-5"/></svg></div><div class="arch-node-name">Queue Workers</div><div class="arch-node-sub">Email · Payments · Reports · Background jobs</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Active</div></div>
+        <div class="arch-node monitor"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 10l7-7 7 7"/><path d="M19 14l-7 7-7-7"/></svg></div><div class="arch-node-name">Monitoring</div><div class="arch-node-sub">Sentry · Uptime Robot · Telescope · Slack alerts</div><div class="arch-node-badge live"><svg class="badge-svg" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="4"/></svg> Watching</div></div>
+        <div class="arch-node" style="border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.02)"><div class="arch-node-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6v6h-6"/><path d="M4 18v-6h6"/><path d="M7 7a8 8 0 0 1 12 5"/><path d="M17 17A8 8 0 0 1 5 12"/></svg></div><div class="arch-node-name">CI/CD Pipeline</div><div class="arch-node-sub">GitHub Actions · Tests → Build → Deploy → Verify</div><div class="arch-node-badge auto"><svg class="badge-svg" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M7 1 2.5 6H6L5 11l4.5-5H6.8L7 1Z"/></svg> Automated</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="provider-section" aria-labelledby="prov-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">Cloud Providers</span><h2 class="s-head" id="prov-heading">AWS, DigitalOcean, or Cloudflare,<br><em>which is right for you?</em></h2></div>
+      <p>The right cloud provider depends on your application scale, technical requirements, internal team capacity, and budget. We work across AWS, DigitalOcean, and Cloudflare, then recommend the cloud stack that gives you the best performance, security, and long-term value.</p>
+    </div>
+    <div class="provider-grid">
+      <div class="prov-card reveal"><div class="prov-head"><div class="prov-logo"><div class="prov-logo-ico" style="background:var(--aws-lt)"><svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5Z"/></svg></div><div class="prov-name">Amazon Web Services</div></div><div class="prov-sub">The most feature-rich cloud platform, ideal for large-scale enterprise and complex workloads.</div></div><div class="prov-body"><ul class="prov-pros"><li class="prov-pro">Widest service catalogue, including Lambda, RDS Aurora, ECS, SQS, and 200+ more</li><li class="prov-pro">Industry-leading compliance certifications (HIPAA, SOC 2, ISO 27001)</li><li class="prov-pro">Global infrastructure across 30+ regions</li><li class="prov-pro">Best choice for high-traffic auto-scaling workloads</li></ul><div class="prov-note"><strong>Best for</strong> Enterprise applications, fintech with compliance requirements, SaaS platforms expecting rapid traffic growth, or teams with existing AWS expertise.</div></div></div>
+      <div class="prov-card recommended reveal"><div class="prov-head"><div class="prov-rec-badge">Our Default Recommendation</div><div class="prov-logo"><div class="prov-logo-ico" style="background:var(--do-lt)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 6h10"/><path d="M7 12h10"/><path d="M7 18h10"/></svg></div><div class="prov-name">DigitalOcean</div></div><div class="prov-sub">Predictable pricing, managed services, and dramatically simpler operations, with the best value for most applications.</div></div><div class="prov-body"><ul class="prov-pros"><li class="prov-pro">Managed Databases, App Platform, and Spaces (S3-compatible) built in</li><li class="prov-pro">Predictable monthly pricing, with no surprise bills from complex AWS billing</li><li class="prov-pro">World-class developer experience and documentation</li><li class="prov-pro">90% lower complexity than AWS for equivalent workloads</li><li class="prov-pro">Strong SLA and managed backups out of the box</li></ul><div class="prov-note"><strong>Best for</strong> Most web applications, Laravel and WordPress platforms, APIs, and SaaS products that need professional infrastructure without AWS-level complexity or cost.</div></div></div>
+      <div class="prov-card reveal"><div class="prov-head"><div class="prov-logo"><div class="prov-logo-ico" style="background:var(--cf-lt)"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="8"/></svg></div><div class="prov-name">Cloudflare</div></div><div class="prov-sub">Not a traditional cloud provider, but an essential layer in every architecture we design.</div></div><div class="prov-body"><ul class="prov-pros"><li class="prov-pro">Global CDN with 200+ edge locations, so content is cached close to every user</li><li class="prov-pro">WAF and DDoS protection that handles millions of requests per second</li><li class="prov-pro">Cloudflare R2 for S3-compatible object storage with zero egress fees</li><li class="prov-pro">DNS management with instant propagation globally</li></ul><div class="prov-note"><strong>Best for</strong> Used alongside AWS or DigitalOcean on every project we deploy. It is not an alternative to a cloud provider. It is a core performance and security layer in front of one.</div></div></div>
+    </div>
+  </section>
+
+  <section class="cicd-section" aria-labelledby="cicd-heading">
+    <div class="cicd-layout">
+      <div class="cicd-copy reveal">
+        <span class="s-label">CI/CD Pipelines</span>
+        <h2 class="s-head" id="cicd-heading">Code changes deploy<br>themselves, <em>safely</em></h2>
+        <p>Manual deployment is the enemy of reliability. Every time a developer SSH's into a production server and manually pulls code, there is a chance of human error, a missed migration, a forgotten environment variable, or a service not restarted. These are the incidents that cause downtime at the worst possible time.</p>
+        <p>We build GitHub Actions CI/CD pipelines that automate the path from a merged pull request to a live production deployment. The process includes testing, validation, zero-downtime release steps, and rollback protection so your application stays stable while your team ships faster.</p>
+        <div class="highlight-box"><p>"A deployment pipeline is not just convenient. It protects your product, your team, and your users the first time it stops a bad release from reaching production."</p></div>
+        <ul class="bullets">
+          <li>Automated test suites run on every push to any branch, so broken code is caught before it reaches main</li>
+          <li>Staging deployment on every pull request, so reviewers test on a live environment instead of a local machine</li>
+          <li>Production deployment triggered only when all tests pass on the main branch</li>
+          <li>Zero-downtime deployment via Laravel Forge's atomic release strategy</li>
+          <li>Automatic rollback on post-deploy health check failure, so the previous version stays live</li>
+          <li>Deployment notifications to Slack with commit details, author, and deploy status</li>
+          <li>Environment-specific configuration, with secrets managed through GitHub Actions instead of committed to code</li>
+        </ul>
+        <a href="#contact" class="pillar-cta">Set Up My Pipeline →</a>
+      </div>
+      <div class="reveal" style="background:var(--black);border-radius:10px;padding:1.5rem;border:1px solid rgba(255,255,255,.07)">
+        <div style="font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem"><span class="live-dot"></span> GitHub Actions, deploy.yml</div>
+        <div class="pipeline-visual">
+          <div class="pl-step"><div class="pl-num ok">✓</div><div class="pl-body"><div style="display:flex;align-items:center;gap:.5rem"><div class="pl-body-title">Push to main branch</div><div class="pl-time">0s</div></div><div class="pl-body-sub">Triggered by merge of PR #148, "Add subscription billing"</div><div class="pl-body-row"><span class="pl-chip">git push</span><span class="pl-chip">main branch</span></div></div></div>
+          <div class="pl-step"><div class="pl-num ok">✓</div><div class="pl-body"><div style="display:flex;align-items:center;gap:.5rem"><div class="pl-body-title">Run test suite (Pest)</div><div class="pl-time">48s</div></div><div class="pl-body-sub">148 tests passed · 0 failed · Coverage 84%</div><div class="pl-body-row"><span class="pl-chip">php artisan test</span><span class="pl-chip">--parallel</span><span class="pl-chip">Ubuntu 22.04</span></div></div></div>
+          <div class="pl-step"><div class="pl-num ok">✓</div><div class="pl-body"><div style="display:flex;align-items:center;gap:.5rem"><div class="pl-body-title">Build & asset compilation</div><div class="pl-time">32s</div></div><div class="pl-body-sub">npm ci · Vite build · assets fingerprinted · 412 KB bundle</div><div class="pl-body-row"><span class="pl-chip">npm ci</span><span class="pl-chip">vite build</span><span class="pl-chip">optimise</span></div></div></div>
+          <div class="pl-step"><div class="pl-num ok">✓</div><div class="pl-body"><div style="display:flex;align-items:center;gap:.5rem"><div class="pl-body-title">Deploy to production (zero-downtime)</div><div class="pl-time">18s</div></div><div class="pl-body-sub">Atomic release via Forge, php artisan migrate --force, cache:clear</div><div class="pl-body-row"><span class="pl-chip">forge deploy</span><span class="pl-chip">atomic</span><span class="pl-chip">migrate</span></div></div></div>
+          <div class="pl-step"><div class="pl-num ok">✓</div><div class="pl-body"><div style="display:flex;align-items:center;gap:.5rem"><div class="pl-body-title">Post-deploy health check</div><div class="pl-time">8s</div></div><div class="pl-body-sub">HTTP 200 on /health · Queue workers restarted · Sentry release tagged</div><div class="pl-body-row"><span class="pl-chip">health check</span><span class="pl-chip">sentry release</span><span class="pl-chip">✓ slack notif</span></div></div></div>
+        </div>
+        <div style="margin-top:1rem;padding:.7rem .9rem;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);border-radius:6px;font-size:.65rem;color:#4ade80;font-family:var(--mono)">✓ Deployment successful · 1m 46s total · PR #148 live in production</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section" aria-labelledby="process-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">How We Work</span><h2 class="s-head" id="process-heading">From blank server to<br><em>production environment</em></h2></div>
+      <p>Every cloud infrastructure project follows a structured and documented process. We do not guess at production settings or experiment on live servers. Every change is planned, version-controlled, tested, and reversible.</p>
+    </div>
+    <div class="process-grid">
+      <div class="proc-card reveal"><div class="proc-num">Phase 01</div><div class="proc-title">Infrastructure Audit & Requirements</div><p class="proc-desc">For new projects, we run a requirements session covering expected traffic, data sensitivity, compliance needs, budget, and the existing technology stack. For existing infrastructure, we audit the current setup, identify single points of failure, security gaps, performance bottlenecks, and cost inefficiencies. You receive a written infrastructure requirements or remediation document before work begins.</p><div class="proc-tags"><span class="proc-tag">Requirements Doc</span><span class="proc-tag">Risk Assessment</span><span class="proc-tag">Cost Estimate</span><span class="proc-tag">Architecture Draft</span></div></div>
+      <div class="proc-card reveal"><div class="proc-num">Phase 02</div><div class="proc-title">Architecture Design & Approval</div><p class="proc-desc">We create a full cloud architecture diagram that covers compute, networking, databases, caching, storage, monitoring, and CDN strategy, with clear reasons for each decision. We also include estimated monthly cloud costs for each provider option. You review and approve the design before any resources are provisioned.</p><div class="proc-tags"><span class="proc-tag">Architecture Diagram</span><span class="proc-tag">Provider Recommendation</span><span class="proc-tag">Cost Projection</span><span class="proc-tag">Design Approval</span></div></div>
+      <div class="proc-card reveal"><div class="proc-num">Phase 03</div><div class="proc-title">Server Provisioning & Hardening</div><p class="proc-desc">Cloud resources are provisioned through the provider console or Infrastructure as Code, with Terraform used on larger deployments. Every server is hardened with SSH key authentication, UFW firewall rules, fail2ban, automatic security updates, and only the services your application needs. Nginx, PHP, Redis, and related services are configured and tested before application code goes live.</p><div class="proc-tags"><span class="proc-tag">Server Setup</span><span class="proc-tag">Security Hardening</span><span class="proc-tag">Nginx Config</span><span class="proc-tag">SSL Certificate</span></div></div>
+      <div class="proc-card reveal"><div class="proc-num">Phase 04</div><div class="proc-title">Application Deployment & Configuration</div><p class="proc-desc">Application codebase deployed to the server via Laravel Forge or direct Git integration. Environment variables, queue workers, scheduled task crons, and storage configurations are all set up and verified. Staging environment is deployed and tested thoroughly before production goes live. All environment-specific configuration is documented in a Server Configuration Reference.</p><div class="proc-tags"><span class="proc-tag">App Deployment</span><span class="proc-tag">Env Config</span><span class="proc-tag">Queue Workers</span><span class="proc-tag">Staging First</span></div></div>
+      <div class="proc-card reveal"><div class="proc-num">Phase 05</div><div class="proc-title">CI/CD Pipeline & Database Setup</div><p class="proc-desc">We build and test a GitHub Actions workflow for automated deployment from the main branch, with a full test suite, zero-downtime release steps, and post-deploy health checks. The managed database is provisioned with primary and replica setup, daily backups, and connection pooling based on expected traffic. Redis is configured for sessions, caching, and queues.</p><div class="proc-tags"><span class="proc-tag">GitHub Actions</span><span class="proc-tag">Zero-downtime Deploy</span><span class="proc-tag">DB Replication</span><span class="proc-tag">Backup Verification</span></div></div>
+      <div class="proc-card reveal"><div class="proc-num">Phase 06</div><div class="proc-title">Cloudflare, Monitoring & Handover</div><p class="proc-desc">Cloudflare is configured for DNS, CDN cache rules, WAF policies, SSL settings, and DDoS protection. The monitoring stack includes Uptime Robot for availability, Sentry for application errors, and server health tracking. Final handover includes documentation, credentials, and a live walkthrough with your team.</p><div class="proc-tags"><span class="proc-tag">Cloudflare Setup</span><span class="proc-tag">Monitoring Alerts</span><span class="proc-tag">Documentation</span><span class="proc-tag">Secure Handover</span></div></div>
+    </div>
+  </section>
+
+  <section class="tech-section" aria-labelledby="tech-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">Technology Stack</span><h2 class="s-head" id="tech-heading">The tools that power<br>our <em>cloud deployments</em></h2></div>
+      <p>Every tool is selected for reliability, documentation quality, and long-term maintainability. We do not use obscure or experimental infrastructure tooling in production because your uptime depends on proven, widely supported technology with strong communities behind it.</p>
+    </div>
+    <div class="tech-grid-outer reveal">
+      <div class="tech-group"><div class="tech-group-head"><div class="tech-group-title">Cloud Providers</div><div class="tech-group-sub">Where your infrastructure lives</div></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3 21 8v8l-9 5-9-5V8l9-5Z"/></svg></div><div class="tech-info"><div class="tech-name">Amazon Web Services</div><div class="tech-sub">EC2, RDS, S3, CloudFront, Route53</div></div><span class="tech-badge tb-aws">Enterprise</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 6h10"/><path d="M7 12h10"/><path d="M7 18h10"/></svg></div><div class="tech-info"><div class="tech-name">DigitalOcean</div><div class="tech-sub">Droplets, Managed DB, Spaces, App Platform</div></div><span class="tech-badge tb-do">Recommended</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="8"/></svg></div><div class="tech-info"><div class="tech-name">Cloudflare</div><div class="tech-sub">CDN, WAF, R2 Storage, DNS, Workers</div></div><span class="tech-badge tb-cf">Edge</span></div></div>
+      <div class="tech-group"><div class="tech-group-head"><div class="tech-group-title">Server & Runtime</div><div class="tech-group-sub">What runs on the machines</div></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12"/><path d="M6 12h12"/><path d="M6 16h12"/><path d="M4 6h.01"/><path d="M4 12h.01"/><path d="M4 18h.01"/></svg></div><div class="tech-info"><div class="tech-name">Ubuntu Server 22.04 LTS</div><div class="tech-sub">Hardened OS, automatic security updates</div></div><span class="tech-badge tb-core">OS</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg></div><div class="tech-info"><div class="tech-name">Nginx</div><div class="tech-sub">Web server, reverse proxy, SSL termination</div></div><span class="tech-badge tb-core">Web Server</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v16"/><path d="M16 4v16"/><path d="M8 12h8"/><path d="M5 7h3"/><path d="M16 17h3"/></svg></div><div class="tech-info"><div class="tech-name">PHP 8.3 + OPcache</div><div class="tech-sub">FPM, JIT compilation, optimised config</div></div><span class="tech-badge tb-core">Runtime</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12v8H6z"/><path d="M8 5v3"/><path d="M12 5v3"/><path d="M16 5v3"/><path d="M8 16v3"/><path d="M12 16v3"/><path d="M16 16v3"/></svg></div><div class="tech-info"><div class="tech-name">Redis 7</div><div class="tech-sub">Sessions, cache, queues, pub/sub</div></div><span class="tech-badge tb-core">Cache</span></div></div>
+      <div class="tech-group"><div class="tech-group-head"><div class="tech-group-title">Deployment & DevOps</div><div class="tech-group-sub">How code gets to production safely</div></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6 4-3 4 3"/><path d="M12 3v10"/><path d="m16 18-4 3-4-3"/><path d="M12 21V11"/></svg></div><div class="tech-info"><div class="tech-name">GitHub Actions</div><div class="tech-sub">CI/CD pipeline automation, test & deploy</div></div><span class="tech-badge tb-core">CI/CD</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="m13 5 7 7-7 7"/></svg></div><div class="tech-info"><div class="tech-name">Laravel Forge</div><div class="tech-sub">Server management, zero-downtime deploy</div></div><span class="tech-badge tb-do">Deployment</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div><div class="tech-info"><div class="tech-name">Terraform</div><div class="tech-sub">Infrastructure as Code for larger deployments</div></div><span class="tech-badge tb-core">IaC</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 1 1 8 0v3"/></svg></div><div class="tech-info"><div class="tech-name">Let's Encrypt + Certbot</div><div class="tech-sub">Automated SSL certificate management</div></div><span class="tech-badge tb-sec">SSL</span></div></div>
+      <div class="tech-group"><div class="tech-group-head"><div class="tech-group-title">Monitoring & Security</div><div class="tech-group-sub">Seeing everything, missing nothing</div></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 10l7-7 7 7"/><path d="M19 14l-7 7-7-7"/></svg></div><div class="tech-info"><div class="tech-name">Sentry</div><div class="tech-sub">Application error tracking, release tracking</div></div><span class="tech-badge tb-monitor">Errors</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div><div class="tech-info"><div class="tech-name">Uptime Robot</div><div class="tech-sub">1-min uptime checks, instant Slack alerts</div></div><span class="tech-badge tb-monitor">Uptime</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M6 15V9"/><path d="M10 15V5"/><path d="M14 15v-3"/><path d="M18 15V7"/></svg></div><div class="tech-info"><div class="tech-name">Laravel Telescope</div><div class="tech-sub">Request, query, job, mail, and cache inspection</div></div><span class="tech-badge tb-monitor">Debug</span></div><div class="tech-row"><div class="tech-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.2 2.7 8 7 10 4.3-2 7-5.8 7-10V6l-7-3Z"/></svg></div><div class="tech-info"><div class="tech-name">UFW + Fail2ban</div><div class="tech-sub">Firewall rules, brute-force protection</div></div><span class="tech-badge tb-sec">Security</span></div></div>
+    </div>
+  </section>
+
+  <section class="monitor-section" aria-labelledby="monitor-heading">
+    <div class="monitor-layout">
+      <div class="reveal">
+        <span class="s-label">Monitoring & Alerting</span>
+        <h2 class="s-head" id="monitor-heading">You know about problems<br>before <em>your users do</em></h2>
+        <p style="font-size:.95rem;color:var(--g700);line-height:1.88;margin-bottom:1rem">Unmonitored infrastructure is infrastructure waiting to fail silently. Without proper monitoring, your first indication of a server going down, a database running out of connections, or a deployment introducing a critical error is an angry user or a lost transaction.</p>
+        <p style="font-size:.95rem;color:var(--g700);line-height:1.88;margin-bottom:1rem">Every production environment we manage includes a layered monitoring stack with defined escalation procedures. Uptime checks run every 60 seconds. Server resource metrics are collected continuously. Application errors are tracked and grouped in Sentry. And every alert fires to a Slack channel so your team is never the last to know.</p>
+        <ul class="bullets">
+          <li>60-second uptime checks, with alerts firing within 2 minutes of downtime</li>
+          <li>CPU, memory, disk, and network monitoring with configurable thresholds</li>
+          <li>Error rate monitoring, so a spike in 5xx responses triggers an immediate alert</li>
+          <li>Database connection pool monitoring, with alerts before connections are exhausted</li>
+          <li>Queue depth monitoring, so failed or backed-up jobs are caught early</li>
+          <li>Deployment tracking, with every release tagged in Sentry by commit SHA and author</li>
+          <li>Monthly infrastructure health report delivered in writing</li>
+        </ul>
+        <a href="#contact" class="pillar-cta">Set Up Monitoring →</a>
+      </div>
+      <div class="reveal">
+        <div class="dash-mock">
+          <div class="dash-bar"><div class="dash-dot" style="background:#ff5f57"></div><div class="dash-dot" style="background:#febc2e"></div><div class="dash-dot" style="background:#28c840"></div><span class="dash-title">Infrastructure Dashboard, Live</span></div>
+          <div class="dash-body">
+            <div class="dash-row-head"><span>System Overview</span><div class="dash-live-badge"><span class="live-dot" style="background:#4ade80"></span> All Systems Operational</div></div>
+            <div class="dash-metric-grid">
+              <div class="dash-metric"><div class="dm-val green">99.98%</div><div class="dm-lbl">Uptime (30d)</div></div>
+              <div class="dash-metric"><div class="dm-val">1.18s</div><div class="dm-lbl">Avg Response</div></div>
+              <div class="dash-metric"><div class="dm-val gold">42ms</div><div class="dm-lbl">DB Query avg</div></div>
+              <div class="dash-metric"><div class="dm-val">18%</div><div class="dm-lbl">CPU Usage</div></div>
+              <div class="dash-metric"><div class="dm-val">2.1GB</div><div class="dm-lbl">Memory / 4GB</div></div>
+              <div class="dash-metric"><div class="dm-val green">0</div><div class="dm-lbl">Active Alerts</div></div>
+            </div>
+            <div style="font-size:.55rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem">Requests / minute (last 24h)</div>
+            <div class="dash-chart-area">
+              <div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:35%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:28%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:42%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:38%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:55%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.2);height:48%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.4);height:70%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.5);height:85%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.5);height:92%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.6);height:100%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.45);height:78%"></div><div class="dash-bar-item" style="background:rgba(200,169,110,.35);height:60%"></div>
+            </div>
+            <div class="dash-alerts">
+              <div class="dash-alert ok"><span class="dash-alert-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span><span class="dash-alert-text">All 3 uptime monitors passing · Last checked 54s ago</span><span class="dash-alert-time">Now</span></div>
+              <div class="dash-alert ok"><span class="dash-alert-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c5-1 9-5 10-10"/><path d="M15 4h5v5"/><path d="M4 20h5"/></svg></span><span class="dash-alert-text">Deployment #42 successful · PR #148 · by @dev · 0 errors post-deploy</span><span class="dash-alert-time">2h ago</span></div>
+              <div class="dash-alert warn"><span class="dash-alert-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span><span class="dash-alert-text">High traffic spike detected · Auto-scaled to 2 app servers · Resolved</span><span class="dash-alert-time">Yesterday</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="deliv-section" aria-labelledby="deliv-heading">
+    <div class="deliv-header reveal">
+      <div><span class="s-label" style="color:var(--gold)">What You Get</span><h2 class="s-head" style="color:var(--white)" id="deliv-heading">Everything included in<br>every <em>cloud engagement</em></h2></div>
+      <p>From architecture diagrams to incident runbooks, every deliverable is documented and transferred in full. You own the infrastructure, the accounts, and the documentation. We simply build it the right way.</p>
+    </div>
+    <div class="deliv-grid reveal">
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19 19 4"/><path d="M4 14V4h10"/><path d="M10 20h10V10"/></svg></div><div class="deliv-body"><h4>Architecture Diagram & Documentation</h4><p>A full visual diagram of every infrastructure component, with written rationale for each architectural decision, delivered before and after setup.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="10" rx="2"/><path d="M8 19h8"/><path d="M12 15v4"/></svg></div><div class="deliv-body"><h4>Hardened Production Server</h4><p>Provisioned, configured, and security-hardened server with Nginx, PHP 8.3, Redis, SSL, firewall, fail2ban, and all required services installed and verified.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6v6h-6"/><path d="M4 18v-6h6"/><path d="M7 7a8 8 0 0 1 12 5"/><path d="M17 17A8 8 0 0 1 5 12"/></svg></div><div class="deliv-body"><h4>CI/CD Pipeline</h4><p>GitHub Actions workflow that automatically tests and deploys every push to main, with zero-downtime releases, rollback on failure, and Slack notifications.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div><div class="deliv-body"><h4>Managed Database + Backups</h4><p>Primary/replica database setup with daily automated backups, point-in-time restore capability, and backup verification tests run on delivery.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="8"/></svg></div><div class="deliv-body"><h4>Cloudflare Configuration</h4><p>DNS setup, CDN cache rules, WAF policies, DDoS protection, SSL/TLS configuration, and performance rules, all documented with cache purge instructions.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M5 10l7-7 7 7"/><path d="M19 14l-7 7-7-7"/></svg></div><div class="deliv-body"><h4>Monitoring Stack</h4><p>Uptime Robot, Sentry, and server metric monitoring configured and connected to your Slack or email. Every alert tested before handover.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h8"/><path d="M6 8h12"/><path d="M6 12h12"/><path d="M6 16h8"/></svg></div><div class="deliv-body"><h4>Server Operations Guide</h4><p>A written operations guide covering: how to deploy a new release, how to SSH in, how to restart services, how to restore a backup, and how to respond to common alerts.</p></div></div>
+      <div class="deliv-item"><div class="deliv-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 1 1 8 0v3"/></svg></div><div class="deliv-body"><h4>Secure Credential Handover</h4><p>All server SSH keys, cloud provider account credentials, DNS access, monitoring logins, and database credentials transferred securely. Full ownership, unconditionally.</p></div></div>
+    </div>
+  </section>
+
+  <section class="pkg-section" aria-labelledby="pkg-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">Pricing</span><h2 class="s-head" id="pkg-heading">Cloud packages by<br><em>infrastructure scale</em></h2></div>
+      <p>All cloud architecture and cloud infrastructure projects are scoped after a free consultation. These ranges reflect typical project categories, and your final quote is itemised before any commitment is made. Monthly AWS, DigitalOcean, and Cloudflare costs are billed directly by the provider to you.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card reveal"><div class="pkg-head"><div class="pkg-badge">Startups & MVPs</div><div class="pkg-name">Starter Setup</div><p class="pkg-tagline">A production-ready single-server environment with CI/CD, SSL, and monitoring for your first deployment.</p><div class="pkg-price">₦200k <sub>one-time setup</sub></div></div><div class="pkg-body"><div class="pkg-feat">Single cloud server (DO or AWS)</div><div class="pkg-feat">Full server hardening & Nginx config</div><div class="pkg-feat">SSL certificate (Let's Encrypt)</div><div class="pkg-feat">Cloudflare DNS + basic CDN</div><div class="pkg-feat">GitHub Actions CI/CD pipeline</div><div class="pkg-feat">Uptime monitoring + Slack alerts</div><div class="pkg-feat">Sentry error tracking</div><div class="pkg-feat">Server Operations Guide</div><div class="pkg-feat no">Load balancer</div><div class="pkg-feat no">Database replication</div></div><div class="pkg-foot"><a href="#contact" class="pkg-btn outline">Get a Quote →</a></div></div>
+      <div class="pkg-card featured reveal"><div class="pkg-head"><div class="pkg-badge">Most Common</div><div class="pkg-name">Production Platform</div><p class="pkg-tagline">A full multi-server production environment with load balancing, managed DB, replication, and auto-scaling.</p><div class="pkg-price">₦500k–1.2M <sub>based on scope</sub></div></div><div class="pkg-body" style="background:rgba(13,13,13,0)"><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Multi-server with load balancer</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Managed PostgreSQL + Redis</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Primary/replica DB replication</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Auto-scaling configuration</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Cloudflare WAF + DDoS + CDN</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Full CI/CD with staging env</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Full monitoring stack</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">R2 / S3 object storage</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">Incident response runbook</div><div class="pkg-feat" style="color:rgba(255,255,255,.65)">30-day post-setup support</div></div><div class="pkg-foot" style="padding-top:.25rem"><a href="#contact" class="pkg-btn gold">Start Your Platform →</a></div></div>
+      <div class="pkg-card reveal"><div class="pkg-head"><div class="pkg-badge">Enterprise & High-Traffic</div><div class="pkg-name">Enterprise Cloud</div><p class="pkg-tagline">Multi-region deployments, compliance architecture, custom auto-scaling, and ongoing managed infrastructure.</p><div class="pkg-price">Custom <sub>quoted on scope</sub></div></div><div class="pkg-body"><div class="pkg-feat">Multi-region deployment</div><div class="pkg-feat">Terraform Infrastructure as Code</div><div class="pkg-feat">Custom auto-scaling policies</div><div class="pkg-feat">AWS advanced services (ECS, Lambda)</div><div class="pkg-feat">Compliance architecture (HIPAA-aware)</div><div class="pkg-feat">Load testing & capacity planning</div><div class="pkg-feat">Security penetration test review</div><div class="pkg-feat">Ongoing managed infrastructure</div><div class="pkg-feat">SLA with 4-hour response</div><div class="pkg-feat">Dedicated on-call engineer</div></div><div class="pkg-foot"><a href="#contact" class="pkg-btn solid">Discuss Requirements →</a></div></div>
+    </div>
+  </section>
+
+  <section class="results-section" aria-labelledby="results-heading">
+    <div class="two-col-intro">
+      <div><span class="s-label">Proven Outcomes</span><h2 class="s-head" id="results-heading">Infrastructure that delivers<br><em>measurable reliability</em></h2></div>
+      <p>These are real performance figures from production environments we have designed and deployed. Good cloud infrastructure is almost invisible when it works well, and these numbers show the value of strong architecture, monitoring, and deployment systems.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card reveal"><div class="result-num">99.<span>98%</span></div><div class="result-label">Uptime across all managed production environments in the last 12 months</div><p class="result-project">Achieved through load-balanced multi-server configurations, Cloudflare edge protection, and automated failover on managed database services.</p></div>
+      <div class="result-card reveal"><div class="result-num"><span class="counter" data-target="74">0</span><span>%</span></div><div class="result-label">Reduction in server response time after infrastructure optimisation on an existing application</div><p class="result-project">YBLocal platform migration moved from a single shared-hosting account to a properly architected DigitalOcean environment with Redis caching and CDN. Response time dropped from 4.2 seconds to 1.1 seconds.</p></div>
+      <div class="result-card reveal"><div class="result-num">0 <span style="font-size:1.5rem">failed</span></div><div class="result-label">Production deployments blocked by CI/CD pipeline across all active clients in the past 6 months</div><p class="result-project">Every test failure and build error was caught in the pipeline before reaching production, with zero user-impacting incidents caused by bad deployments across managed applications.</p></div>
+    </div>
+  </section>
+
+  <section class="test-section" aria-labelledby="test-heading">
+    <span class="s-label">Client Reviews</span>
+    <h2 class="s-head" id="test-heading">What clients say about<br>our <em>infrastructure work</em></h2>
+    <div class="test-grid">
+      <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote">"Before i2Medier, our site would go down every time traffic spiked. Now we have a properly architected cloud environment with auto-scaling and Cloudflare in front of it, and we have not had a single unplanned outage in eight months. That peace of mind is worth every naira."</p><div class="test-author"><div class="test-avatar">Y</div><div><div class="test-name">Co-founder</div><div class="test-role">YBLocal Platform</div></div></div></div>
+      <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote">"The CI/CD pipeline they set up has completely changed how our team ships. We used to dread deployments. Now they are automatic, tested, and zero-downtime. Our customers have never even noticed a release happening. That is exactly how it should be."</p><div class="test-author"><div class="test-avatar">C</div><div><div class="test-name">Founder</div><div class="test-role">Careerclev Platform</div></div></div></div>
+      <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote">"The Server Operations Guide they delivered was genuinely useful, not the usual PDF that gets filed and forgotten. When I needed to restart a queue worker at midnight, I found the exact command in three seconds. The monitoring setup means I usually know about issues before our users do."</p><div class="test-author"><div class="test-avatar">N</div><div><div class="test-name">Executive Director</div><div class="test-role">NTF Foundation Platform</div></div></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq-heading">
+    <span class="s-label">FAQ</span>
+    <h2 class="s-head" id="faq-heading">Cloud architecture questions,<br><em>answered plainly</em></h2>
+    <div class="faq-layout">
+      <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>Cloud infrastructure questions are often specific to your application and stack. Email us and we'll give you a direct, honest answer tailored to your situation.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a></div>
+      <div class="faq-list reveal">
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f1">Which cloud provider do you recommend, AWS or DigitalOcean?<span class="faq-icon">+</span></button><div class="faq-a" id="f1">It depends on your application's scale and complexity. DigitalOcean is our default recommendation for most web applications, APIs, and Laravel platforms. It offers managed databases, object storage, load balancers, and an excellent developer experience at a fraction of AWS pricing, with much less operational overhead. AWS is the right choice for applications that need advanced services such as Lambda, ECS, RDS Aurora, CloudFront at scale, or enterprise-level compliance. We work with both and recommend what fits your requirements and budget, not what sounds more impressive.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f2">What is a CI/CD pipeline and do I need one?<span class="faq-icon">+</span></button><div class="faq-a" id="f2">CI/CD stands for Continuous Integration and Continuous Deployment. The pipeline runs your test suite every time code is pushed and deploys to your server only when checks pass. Without one, deployments rely on manual SSH access, manual commands, and manual verification, which often leads to avoidable outages. With one, code moves from a merged pull request to a validated production deployment in minutes. We recommend a CI/CD pipeline for any application serving real users.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f3">What does zero-downtime deployment mean?<span class="faq-icon">+</span></button><div class="faq-a" id="f3">Zero-downtime deployment means your application keeps serving requests while a new version is deployed. Traditional deployments briefly take the application offline while code is pulled, migrations run, and services restart. Zero-downtime deployment uses an atomic release process where the new version is prepared first and then made live in a near-instant switch. Users see no interruption. We implement this as a standard part of managed deployments.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f4">How do you handle server security?<span class="faq-icon">+</span></button><div class="faq-a" id="f4">Every server we configure includes: SSH key-only authentication (password login completely disabled), UFW firewall with minimal open ports (only 22, 80, 443), fail2ban blocking repeated failed SSH attempts, automatic unattended security package upgrades, SSL/TLS certificates via Let's Encrypt with automatic renewal, Cloudflare WAF and DDoS protection at the edge, and application-level security headers configured in Nginx. We run a security scan after setup and provide a Security Configuration Summary document on handover.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f5">Can you migrate my existing infrastructure to the cloud?<span class="faq-icon">+</span></button><div class="faq-a" id="f5">Yes. Cloud migrations are a common engagement. We audit your current infrastructure, identify risks and dependencies, design the target cloud architecture, and execute the migration with minimal downtime. Typically we deploy the new environment in parallel, migrate data, run parallel validation, then cut over DNS with a short TTL to minimise the actual switchover window. We maintain the legacy environment in parallel for a defined rollback window (usually 72 hours) before decommissioning it.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f6">What uptime guarantee do you provide?<span class="faq-icon">+</span></button><div class="faq-a" id="f6">We architect for 99.9% uptime as a baseline, which equals less than 9 hours of downtime per year. For mission-critical applications, multi-region deployments with automated failover can reach 99.99%, or less than 1 hour per year. Actual uptime depends on the architecture tier and the underlying cloud provider SLA. All production environments include 24/7 uptime monitoring, so you know quickly when something is wrong and what is being done about it.</div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f7">Do you offer ongoing managed infrastructure support?<span class="faq-icon">+</span></button><div class="faq-a" id="f7">Yes. We offer monthly managed infrastructure support that covers security patching, server health monitoring, performance monitoring, backup verification, dependency updates, and priority incident response with a defined SLA. Monthly retainers start from ₦100,000 per month, depending on environment complexity. Enterprise clients can also request a dedicated on-call engineer. You can start with a one-time setup and manage the infrastructure yourself if that fits your team better.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related-section" aria-labelledby="related-heading">
+    <span class="s-label">Related Services</span>
+    <h2 class="s-head" id="related-heading">Often paired with <em>cloud architecture</em></h2>
+    <div class="related-grid">
+      <a href="{{ route('site.services.laravel-development') }}" class="related-item"><div class="ri-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6 4-3 4 3"/><path d="M12 3v10"/><path d="m16 18-4 3-4-3"/><path d="M12 21V11"/></svg></div><div class="ri-name">Laravel Development</div><p class="ri-desc">The application layer that runs on the infrastructure we build. We design both to work together perfectly.</p></a>
+      <a href="{{ route('site.services.wordpress-development') }}" class="related-item"><div class="ri-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M8.5 8.5c.8 4.3 2.1 7 3.5 7s2.7-2.7 3.5-7"/><path d="M9 10c.8 1 1.8 1.5 3 1.5s2.2-.5 3-1.5"/></svg></div><div class="ri-name">WordPress Development</div><p class="ri-desc">High-performance WordPress websites deployed on properly planned cloud infrastructure, not fragile shared hosting.</p></a>
+      <a href="{{ route('site.services.search-optimization') }}" class="related-item"><div class="ri-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></div><div class="ri-name">Performance Optimisation</div><p class="ri-desc">Application and infrastructure performance tuning, from database query optimisation to CDN, caching, and server response improvements.</p></a>
+      <a href="{{ route('site.services.mobile-app-development') }}" class="related-item"><div class="ri-ico"><svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></div><div class="ri-name">Mobile App Development</div><p class="ri-desc">The Laravel API backend powering your mobile app needs the same production-grade infrastructure we deploy here.</p></a>
+    </div>
+  </section>
+
+  <section class="cta-band" id="contact" aria-labelledby="cta-h">
+    <h2 id="cta-h">Ready to build infrastructure<br>that never lets you down?</h2>
+    <p>Tell us about your application and we'll design the right cloud architecture for your scale, budget, and reliability requirements.</p>
+    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Cloud Project →</a>
+  </section>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.cloud-page .reveal').forEach(el => obs.observe(el));
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const step = target / (1800 / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current);
+    }, 16);
+  }
+
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        cObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.cloud-page .counter').forEach(el => cObs.observe(el));
+
+  document.querySelectorAll('.cloud-page .faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('aria-controls');
+      const answer = document.getElementById(id);
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.cloud-page .faq-q').forEach(node => {
+        node.setAttribute('aria-expanded', 'false');
+        const target = document.getElementById(node.getAttribute('aria-controls'));
+        if (target) {
+          target.classList.remove('open');
+        }
+      });
+
+      if (! isOpen && answer) {
+        btn.setAttribute('aria-expanded', 'true');
+        answer.classList.add('open');
+      }
+    });
+  });
+});
+</script>
+@endpush

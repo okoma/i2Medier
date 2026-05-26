@@ -3,25 +3,50 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PortalAssetController;
 use App\Http\Controllers\PublicInvoiceController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'home'])->name('site.home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
-Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/blog/{category}/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/{post:slug}', function (\App\Models\BlogPost $post) {
+    return redirect()->route('blog.show', [
+        'category' => $post->category?->slug ?? 'uncategorized',
+        'post' => $post,
+    ], 301);
+});
+Route::get('/portfolio', [SiteController::class, 'portfolio'])->name('portfolio.index');
+Route::get('/portfolio/meto7-chauffeur-services', [SiteController::class, 'meto7CaseStudy'])->name('portfolio.case-study.meto7');
+Route::get('/portfolio/nnaedozie-thomas-foundation', [SiteController::class, 'ntfCaseStudy'])->name('portfolio.case-study.ntf');
 Route::get('/portfolio/{portfolioProject:slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
 Route::get('/services', [SiteController::class, 'services'])->name('site.services');
+Route::get('/services/web-design', [SiteController::class, 'webDesign'])->name('site.services.web-design');
+Route::get('/services/wordpress-development', [SiteController::class, 'wordpressDevelopment'])->name('site.services.wordpress-development');
+Route::get('/services/laravel-development', [SiteController::class, 'laravelDevelopment'])->name('site.services.laravel-development');
+Route::get('/services/mobile-app-development', [SiteController::class, 'mobileAppDevelopment'])->name('site.services.mobile-app-development');
+Route::get('/services/search-optimization', [SiteController::class, 'searchOptimization'])->name('site.services.search-optimization');
+Route::get('/services/ui-ux-design', [SiteController::class, 'uiUxDesign'])->name('site.services.ui-ux-design');
+Route::get('/services/business-email-setup', [SiteController::class, 'businessEmailSetup'])->name('site.services.business-email-setup');
+Route::get('/services/website-maintenance', [SiteController::class, 'websiteMaintenance'])->name('site.services.website-maintenance');
+Route::get('/services/wordpress-maintenance', [SiteController::class, 'wordpressMaintenance'])->name('site.services.wordpress-maintenance');
+Route::get('/services/cloud-architecture', [SiteController::class, 'cloudArchitecture'])->name('site.services.cloud-architecture');
+Route::get('/who-we-help', [SiteController::class, 'whoWeHelp'])->name('site.who-we-help');
+Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+Route::get('/services/web-design/law-firm-website-design', [SiteController::class, 'lawyerLanding'])->name('site.lawyer');
+Route::get('/services/web-design/{industry}', [SiteController::class, 'webDesignIndustry'])
+    ->where('industry', 'accounting-firm-website-design|clinic-website-design|real-estate-website-design|consulting-firm-website-design|construction-company-website-design|engineering-firm-website-design|architecture-firm-website-design|school-website-design|church-website-design|hotel-website-design|restaurant-website-design|beauty-wellness-website-design|fitness-website-design|cleaning-company-website-design|logistics-company-website-design|travel-agency-website-design|ecommerce-website-design|fashion-brand-website-design|event-planner-website-design|photography-website-design|personal-brand-website-design')
+    ->name('site.services.web-design.industry');
 Route::get('/about', [SiteController::class, 'about'])->name('site.about');
 Route::get('/terms', [SiteController::class, 'terms'])->name('site.terms');
 Route::get('/privacy', [SiteController::class, 'privacy'])->name('site.privacy');
 Route::get('/pay/invoices/{token}', [PublicInvoiceController::class, 'show'])->name('public.invoices.show');
 Route::get('/pay/invoices/{token}/paystack', [PublicInvoiceController::class, 'paystackRedirect'])->name('public.invoices.paystack.redirect');
 Route::get('/pay/invoices/{token}/paystack/callback', [PublicInvoiceController::class, 'paystackCallback'])->name('public.invoices.paystack.callback');
+Route::get('/login', fn () => redirect('/portal/login'))->name('login');
+Route::get('/portal-assets/{file}', [PortalAssetController::class, 'show'])->name('portal.assets');
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/billing/invoices/{invoice}/paystack', [BillingController::class, 'paystackRedirect'])
