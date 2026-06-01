@@ -13,9 +13,9 @@
     <div class="hero-grid" aria-hidden="true"></div>
     <span class="hero-tag">Premium Digital Solutions</span>
     <h1>What we <em>build</em><br>for your business</h1>
-    <p>From robust web applications to cloud-native infrastructure — i2Medier delivers end-to-end digital solutions that help your business scale with precision.</p>
+    <p>From premium websites and SaaS platforms to cloud infrastructure and managed digital systems, i2Medier delivers high-trust digital products built for performance, clarity, and scale.</p>
     <div class="hero-btns">
-      <a href="#contact" class="btn-primary">Start Your Project →</a>
+      <a href="{{ route('site.start') }}" class="btn-primary">Start Your Project →</a>
       <a href="#services" class="btn-outline">Explore Services</a>
     </div>
   </section>
@@ -23,57 +23,69 @@
   <section class="services-overview" id="services">
     <div class="section-head">
       <span class="section-label">Services</span>
-      <h2 class="section-heading">Eight pillars of our <em>craft</em></h2>
-      <p class="section-sub">Every service we offer is engineered for performance, designed for clarity, and built for real-world scale.</p>
+      <h2 class="section-heading">Core services behind our <em>craft</em></h2>
+      <p class="section-sub">Every service we offer is structured for premium delivery, long-term maintainability, and real-world business growth.</p>
     </div>
 
     <div class="services-grid">
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
-        <div class="svc-title">Web Design</div>
-        <p class="svc-desc">Custom web applications, client portals, dashboards, and systems built on production-ready frameworks. Fast, secure, and scalable by default.</p>
+        <div class="svc-title">Website Design</div>
+        <p class="svc-desc">Conversion-focused website design for premium brands that need polished presentation, clear messaging, and a strong digital first impression.</p>
         <a href="#web-dev" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg></div>
         <div class="svc-title">Mobile Apps</div>
-        <p class="svc-desc">Functional, utility-driven mobile applications designed around performance, clarity, and real-world usability — for iOS and Android.</p>
+        <p class="svc-desc">Production-ready mobile applications for iOS and Android, designed for adoption, performance, and long-term product growth.</p>
         <a href="#mobile" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
         <div class="svc-title">Search Optimization</div>
-        <p class="svc-desc">We improve how your platforms are found across search engines, app stores, and modern AI-driven discovery systems.</p>
+        <p class="svc-desc">Search visibility strategy across technical SEO, content structure, Core Web Vitals, and modern AI-influenced discovery.</p>
         <a href="#seo" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l5.5-15"></path><path d="M14.5 5L20 20"></path><path d="M7 13h10"></path></svg></div>
         <div class="svc-title">UI/UX Design</div>
-        <p class="svc-desc">We start with how users think. We design interfaces that reduce friction, feel natural, and guide people through complex workflows.</p>
+        <p class="svc-desc">Research-led interface design that reduces friction, improves usability, and gives complex products a clear, premium user experience.</p>
         <a href="#ux" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M7.5 8.5l2.5 7 2-5 2 5 2.5-7"></path></svg></div>
         <div class="svc-title">WordPress</div>
-        <p class="svc-desc">A flexible development platform for content-driven systems and custom functionality that goes far beyond standard themes and plugins.</p>
+        <p class="svc-desc">Premium WordPress development for content-driven platforms, marketing sites, and commerce builds that go far beyond generic themes.</p>
         <a href="#wordpress" class="svc-link">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1"></circle><circle cx="17" cy="20" r="1"></circle><path d="M3 4h2l2.4 10.5a1 1 0 0 0 1 .8H18a1 1 0 0 0 1-.8L21 8H7"></path></svg></div>
+        <div class="svc-title">E-Commerce Website</div>
+        <p class="svc-desc">Premium online stores built around platform fit, smooth checkout experiences, and the operational systems needed for serious selling.</p>
+        <a href="#ecommerce" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M20 19V9"></path><path d="M4 19h16"></path><path d="M8 19V11"></path><path d="M12 19V7"></path><path d="M16 19v-5"></path></svg></div>
         <div class="svc-title">Laravel Development</div>
-        <p class="svc-desc">Purpose-built Laravel applications, internal systems, APIs, and admin workflows engineered for maintainability, security, and long-term growth.</p>
+        <p class="svc-desc">Purpose-built Laravel applications, SaaS platforms, APIs, and operational systems engineered for maintainability, security, and scale.</p>
         <a href="#laravel" class="svc-link">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h5"></path><path d="M16 16h4"></path></svg></div>
+        <div class="svc-title">SaaS Application</div>
+        <p class="svc-desc">Subscription-ready software products with strong foundations for onboarding, user accounts, admin workflows, and recurring growth.</p>
+        <a href="#saas" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></div>
         <div class="svc-title">Business Email Setup</div>
-        <p class="svc-desc">Professional business email setup with domain-based mailboxes, deliverability hardening, migration support, and team-ready account organization.</p>
+        <p class="svc-desc">Professional business email setup with secure domain-based mailboxes, migration support, and deliverability hardening for modern teams.</p>
         <a href="#business-email" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 17.5a4.5 4.5 0 0 0-1-8.9A6 6 0 0 0 7.2 7.5 4 4 0 0 0 7 15.5h13z"></path></svg></div>
         <div class="svc-title">Cloud Architecture</div>
-        <p class="svc-desc">We design cloud environments built for performance, stability, and long-term scalability — so your product grows without limits.</p>
+        <p class="svc-desc">Managed cloud architecture designed for security, observability, resilience, and the operational demands of serious digital products.</p>
         <a href="#cloud" class="svc-link">Learn more →</a>
       </div>
     </div>
@@ -82,59 +94,59 @@
   <section class="service-deep" id="web-dev">
     <div class="deep-inner">
       <div class="deep-sticky">
-        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span> Web Design</div>
-        <h2 class="deep-title">Applications built to <em>perform</em></h2>
-        <p class="deep-lead">We develop modern web applications, client portals, dashboards, and custom internal systems using production-ready frameworks. Every project starts with architecture first — because how you build matters as much as what you build.</p>
-        <p class="deep-lead">Whether you need a customer-facing platform or a complex back-office system, we deliver clean, maintainable, and scalable code that your team can own long after launch.</p>
+        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></span> Website Design</div>
+        <h2 class="deep-title">Websites designed to <em>convert</em></h2>
+        <p class="deep-lead">Our website design work is built for businesses that need more than something attractive. We design premium, conversion-focused websites that present your offer clearly, build trust quickly, and support real business growth.</p>
+        <p class="deep-lead">From single-page launch websites to richer marketing experiences, every design is shaped around messaging clarity, layout hierarchy, responsiveness, and a polished brand presence.</p>
         <div class="stack-pills">
-          <span class="stack-pill">Laravel</span>
-          <span class="stack-pill">React</span>
-          <span class="stack-pill">Next.js</span>
-          <span class="stack-pill">Vue.js</span>
-          <span class="stack-pill">Node.js</span>
-          <span class="stack-pill">REST API</span>
-          <span class="stack-pill">MySQL</span>
-          <span class="stack-pill">PostgreSQL</span>
+          <span class="stack-pill">Landing Pages</span>
+          <span class="stack-pill">Marketing Websites</span>
+          <span class="stack-pill">Responsive Layouts</span>
+          <span class="stack-pill">Conversion Copy Flow</span>
+          <span class="stack-pill">UI Systems</span>
+          <span class="stack-pill">Brand Presentation</span>
+          <span class="stack-pill">Interaction Design</span>
+          <span class="stack-pill">Design Handoff</span>
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.web-design') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a Web Design Project →</a>
+          <a href="#contact" class="deep-cta">Start a Website Project →</a>
         </div>
       </div>
       <div class="feature-list">
         <div class="feature-item">
           <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="18" height="10" rx="1"></rect><path d="M7 10V6h10v4"></path><line x1="12" y1="6" x2="12" y2="3"></line></svg></div>
           <div class="feature-text">
-            <h4>Architecture-First Approach</h4>
-            <p>We plan your system's structure before writing a single line of code — ensuring it's secure, modular, and ready to scale from day one.</p>
+            <h4>Strategic Design Direction</h4>
+            <p>We shape the website around what your audience needs to understand, feel, and do — not just what should fit on the page.</p>
           </div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div>
           <div class="feature-text">
-            <h4>Security by Default</h4>
-            <p>Authentication, role-based access, input validation, and OWASP best practices baked into every project — not added as an afterthought.</p>
+            <h4>Responsive by Default</h4>
+            <p>Every layout is designed to hold its clarity and impact across desktop, tablet, and mobile without breaking the experience.</p>
           </div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 4 14 11 14 9 22 20 9 13 9 13 2"></polygon></svg></div>
           <div class="feature-text">
-            <h4>Performance-Optimized</h4>
-            <p>Sub-second load times, lazy loading, server-side rendering, caching strategies, and database query optimization are standard on every build.</p>
+            <h4>Designed for Conversion</h4>
+            <p>We use hierarchy, content flow, CTA placement, and trust-building design patterns to help the site support real business outcomes.</p>
           </div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="20" x2="5" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="19" y1="20" x2="19" y2="13"></line></svg></div>
           <div class="feature-text">
-            <h4>Custom Dashboards & Portals</h4>
-            <p>We build internal tools, admin panels, client portals, and analytics dashboards with role-based views and real-time data capabilities.</p>
+            <h4>Premium Brand Presentation</h4>
+            <p>The final result feels intentional, credible, and polished enough to support premium positioning in your market.</p>
           </div>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L10 6"></path><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 1 0 7.07 7.07L14 18"></path></svg></div>
           <div class="feature-text">
-            <h4>Third-Party Integrations</h4>
-            <p>Payment gateways, CRMs, ERPs, email providers, SMS services — we connect your platform to the tools your business already depends on.</p>
+            <h4>Ready for Development</h4>
+            <p>Whether the site is built in WordPress, Laravel, or another stack, the design is created to hand off cleanly into implementation.</p>
           </div>
         </div>
       </div>
@@ -146,8 +158,8 @@
       <div class="deep-sticky">
         <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg></span> Mobile Apps</div>
         <h2 class="deep-title">Apps your users <em>keep</em></h2>
-        <p class="deep-lead">We build mobile applications that solve real problems for real users. Every decision — from navigation flow to offline capability — is made with usability and adoption in mind. No feature bloat, no unnecessary complexity.</p>
-        <p class="deep-lead">We develop cross-platform applications that look and feel native on both iOS and Android, reducing your time-to-market without sacrificing quality.</p>
+        <p class="deep-lead">We build mobile applications that solve real problems for real users. Every decision — from navigation flow to performance readiness — is shaped around usability, adoption, and product growth.</p>
+        <p class="deep-lead">We develop cross-platform applications that feel polished in production, with the architecture, analytics baseline, and product thinking needed to support real launches.</p>
         <div class="stack-pills">
           <span class="stack-pill">React Native</span>
           <span class="stack-pill">Flutter</span>
@@ -325,8 +337,8 @@
       <div class="deep-sticky">
         <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M7.5 8.5l2.5 7 2-5 2 5 2.5-7"></path></svg></span> WordPress</div>
         <h2 class="deep-title">WordPress beyond <em>themes</em></h2>
-        <p class="deep-lead">We use WordPress as a flexible development platform — not a theme installer. For content-driven systems, membership platforms, eCommerce stores, and custom business tools, WordPress gives us the foundation; we build the experience on top of it.</p>
-        <p class="deep-lead">Custom post types, custom blocks, headless architecture, custom Elementor widgets — we bend WordPress to fit your needs, not the other way around.</p>
+        <p class="deep-lead">We use WordPress as a real development platform, not a shortcut. For content-driven systems, membership products, premium marketing sites, and eCommerce projects, WordPress gives us the foundation; we build the right experience on top of it.</p>
+        <p class="deep-lead">Baseline performance, SEO readiness, and editorial usability are part of the expectation. Advanced growth, workflow, and platform enhancements are layered on when the project demands them.</p>
         <div class="stack-pills">
           <span class="stack-pill">WordPress</span>
           <span class="stack-pill">WooCommerce</span>
@@ -386,8 +398,8 @@
       <div class="deep-sticky">
         <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5"></path><path d="M20 19V9"></path><path d="M4 19h16"></path><path d="M8 19V11"></path><path d="M12 19V7"></path><path d="M16 19v-5"></path></svg></span> Laravel Development</div>
         <h2 class="deep-title">Laravel systems built for <em>business logic</em></h2>
-        <p class="deep-lead">When the project needs more than a marketing site, Laravel gives us the foundation for serious business software. We build back-office systems, portals, APIs, subscription flows, and operational platforms that stay clean as complexity grows.</p>
-        <p class="deep-lead">Our Laravel work focuses on structure first: domain logic, permissions, workflows, reporting, and maintainability. That means your product remains readable, extensible, and stable long after the initial release.</p>
+        <p class="deep-lead">When the project needs more than a marketing site, Laravel gives us the foundation for serious business software. We build back-office systems, portals, APIs, SaaS products, subscription flows, and operational platforms that stay clean as complexity grows.</p>
+        <p class="deep-lead">Our Laravel work focuses on structure first: domain logic, permissions, workflows, reporting, and maintainability. Core operational capability is expected; advanced expansion layers are added where the business model requires them.</p>
         <div class="stack-pills">
           <span class="stack-pill">Laravel</span>
           <span class="stack-pill">Livewire</span>
@@ -442,13 +454,137 @@
     </div>
   </section>
 
+  <section class="service-deep" id="ecommerce">
+    <div class="deep-inner">
+      <div class="deep-sticky">
+        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1"></circle><circle cx="17" cy="20" r="1"></circle><path d="M3 4h2l2.4 10.5a1 1 0 0 0 1 .8H18a1 1 0 0 0 1-.8L21 8H7"></path></svg></span> E-Commerce Website</div>
+        <h2 class="deep-title">Commerce built to <em>sell well</em></h2>
+        <p class="deep-lead">When the goal is selling online, platform choice matters. We design and build premium e-commerce experiences around the right foundation for your business, whether that means WooCommerce, Shopify, or a custom Laravel store.</p>
+        <p class="deep-lead">Our focus is not just getting products online. We structure storefronts, product presentation, checkout flow, payment integration, and store operations so the business can actually grow after launch.</p>
+        <div class="stack-pills">
+          <span class="stack-pill">WooCommerce</span>
+          <span class="stack-pill">Shopify</span>
+          <span class="stack-pill">Custom Laravel</span>
+          <span class="stack-pill">Payment Integration</span>
+          <span class="stack-pill">Catalog Design</span>
+          <span class="stack-pill">Checkout UX</span>
+          <span class="stack-pill">Shipping Logic</span>
+          <span class="stack-pill">Store Operations</span>
+        </div>
+        <div class="deep-cta-group">
+          <a href="{{ route('site.services.ecommerce-website') }}" class="deep-cta">Read More →</a>
+          <a href="#contact" class="deep-cta">Start an E-Commerce Project →</a>
+        </div>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-4 8 4v12"></path><path d="M4 8h16"></path><path d="M8 12h8"></path></svg></div>
+          <div class="feature-text">
+            <h4>Platform-Fit Store Planning</h4>
+            <p>We recommend the right commerce stack based on catalog complexity, growth goals, operational needs, and how much flexibility the business will need over time.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6h10"></path><path d="M5 10h14"></path><path d="M7 14h10"></path><path d="M10 18h4"></path></svg></div>
+          <div class="feature-text">
+            <h4>Conversion-Focused Storefronts</h4>
+            <p>Product pages, collection flows, trust cues, and CTA patterns are designed to reduce hesitation and help visitors move confidently toward checkout.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18"></path><path d="M8 15h3"></path></svg></div>
+          <div class="feature-text">
+            <h4>Payments & Checkout Readiness</h4>
+            <p>We connect the right payment flows and streamline checkout so the buying experience feels credible, fast, and aligned with how your customers prefer to pay.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18"></path><path d="M7 7v10"></path><path d="M12 7v10"></path><path d="M17 7v10"></path><path d="M5 17h14"></path></svg></div>
+          <div class="feature-text">
+            <h4>Catalog & Inventory Structure</h4>
+            <p>From product variations to categories, filters, and stock behavior, we structure the store so it stays manageable for your team as the catalog expands.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path><path d="M12 6l6 6-6 6"></path></svg></div>
+          <div class="feature-text">
+            <h4>Growth-Ready Commerce Operations</h4>
+            <p>Shipping rules, order handling, customer notifications, and reporting visibility are shaped so the store can support real day-to-day operations after launch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-deep" id="saas" style="background: var(--off);">
+    <div class="deep-inner reverse">
+      <div class="deep-sticky">
+        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h5"></path><path d="M16 16h4"></path></svg></span> SaaS Application</div>
+        <h2 class="deep-title">Software products shaped for <em>recurring growth</em></h2>
+        <p class="deep-lead">SaaS products need more than a codebase. They need a strong product foundation for accounts, onboarding, recurring value, and the internal workflows that keep the platform usable as the customer base grows.</p>
+        <p class="deep-lead">We build SaaS applications with product structure in mind from the start, so the platform supports real usage, clear operations, and future expansion instead of feeling stitched together later.</p>
+        <div class="stack-pills">
+          <span class="stack-pill">Laravel</span>
+          <span class="stack-pill">Subscriptions</span>
+          <span class="stack-pill">User Onboarding</span>
+          <span class="stack-pill">Workspaces</span>
+          <span class="stack-pill">Roles & Permissions</span>
+          <span class="stack-pill">Admin Workflows</span>
+          <span class="stack-pill">Analytics</span>
+          <span class="stack-pill">APIs</span>
+        </div>
+        <div class="deep-cta-group">
+          <a href="{{ route('site.services.saas-application') }}" class="deep-cta">Read More →</a>
+          <a href="#contact" class="deep-cta">Start a SaaS Project →</a>
+        </div>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"></path><path d="M12 21v-9"></path><path d="M20 7.5l-8 4.5-8-4.5"></path></svg></div>
+          <div class="feature-text">
+            <h4>Product Architecture That Holds Up</h4>
+            <p>We structure the application around the actual business model, user roles, and product logic so the platform can expand without constant rewrites.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg></div>
+          <div class="feature-text">
+            <h4>Onboarding Designed for Activation</h4>
+            <p>Sign-up, first-run flows, and early product guidance are planned to help new users reach value quickly instead of dropping off after account creation.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"></circle><circle cx="16" cy="8" r="3"></circle><path d="M3 20a5 5 0 0 1 10 0"></path><path d="M11 20a5 5 0 0 1 10 0"></path></svg></div>
+          <div class="feature-text">
+            <h4>Accounts, Teams & Permissions</h4>
+            <p>We account for how users, teams, workspaces, and access rules should behave inside the product so administration stays clean as usage grows.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l2 3v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7l2-3z"></path><path d="M9 12h6"></path><path d="M9 16h4"></path></svg></div>
+          <div class="feature-text">
+            <h4>Recurring Revenue Foundations</h4>
+            <p>Subscription-ready structure, billing-aware workflows, and plan logic are considered early so monetization does not become an afterthought later.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9"></path><path d="M10 19V5"></path><path d="M16 19v-7"></path><path d="M22 19V3"></path></svg></div>
+          <div class="feature-text">
+            <h4>Admin Visibility & Product Operations</h4>
+            <p>We build the internal visibility needed to support customers, track activity, and manage the product operationally instead of relying on guesswork after launch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="service-deep" id="business-email">
     <div class="deep-inner">
       <div class="deep-sticky">
         <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span> Business Email Setup</div>
         <h2 class="deep-title">Email your brand can <em>stand behind</em></h2>
         <p class="deep-lead">A custom domain email address does more than look professional. It supports trust, team coordination, deliverability, and brand consistency across every client interaction.</p>
-        <p class="deep-lead">We set up business email environments properly from the start, including mailbox creation, domain records, device connection, migration support, and authentication records that help your messages land where they should.</p>
+        <p class="deep-lead">We set up business email environments properly from the start, including mailbox creation, DNS authentication, migration readiness, and the security baseline required for dependable team communication.</p>
         <div class="stack-pills">
           <span class="stack-pill">Google Workspace</span>
           <span class="stack-pill">Microsoft 365</span>
@@ -509,6 +645,7 @@
         <h2 class="deep-title">Infrastructure built to <em>scale</em></h2>
         <p class="deep-lead">At i2Medier Konceptz, we design cloud environments built for performance, stability, and long-term scalability. We architect systems that grow with your product — not ones that collapse under the weight of success.</p>
         <p class="deep-lead">Whether you're launching your first server or migrating a legacy system, we build cloud infrastructure that's cost-efficient, observable, and resilient by design.</p>
+        <p class="deep-lead">Core deployment readiness, monitoring expectations, and operational discipline are part of the baseline. Advanced resilience and automation layers are introduced as the environment grows in complexity.</p>
         <div class="stack-pills">
           <span class="stack-pill">AWS</span>
           <span class="stack-pill">DigitalOcean</span>
@@ -605,7 +742,7 @@
   <section class="cta-band" id="contact">
     <h2>Ready to build something great?</h2>
     <p>Tell us about your project and we'll get back to you within 24 hours.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Project →</a>
+    <a href="{{ route('site.start') }}" class="btn-dark">Start Your Project →</a>
   </section>
 </div>
 @endsection

@@ -265,7 +265,7 @@
         <div class="pricing-feature inactive">Live chat integration</div>
         <div class="pricing-feature inactive">Attorney profile pages</div>
       </div>
-      <a href="#contact" class="btn-primary" style="display:block;text-align:center;width:100%">Get Started</a>
+      <a href="{{ route('site.start') }}" class="btn-primary" style="display:block;text-align:center;width:100%">Get Started</a>
     </div>
     <div class="pricing-card featured fade-up">
       <div class="featured-tag">Most Popular</div>

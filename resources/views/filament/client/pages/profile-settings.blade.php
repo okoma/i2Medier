@@ -1,26 +1,193 @@
 <x-filament-panels::page>
-    <style>
-        .profile-ui{--surface-border:#e8e2db;--text:#171717;--text-soft:#687384;--text-faint:#97a0af;--orange:#ff5b00;--green:#1f9a59;--green-soft:#ebfbf2;--red:#ff3b30;--red-soft:#ffeceb;--blue:#2e74ff;--blue-soft:#eaf3ff;--shadow:0 18px 40px rgba(26,25,31,.06);font-family:"Plus Jakarta Sans",sans-serif;color:var(--text)}
-        .profile-ui *,.profile-ui *::before,.profile-ui *::after{box-sizing:border-box}.profile-ui button,.profile-ui a{font:inherit}.profile-ui button{border:0;background:none;cursor:pointer}.profile-ui a{text-decoration:none;color:inherit}.profile-ui svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-        .profile-ui .panel,.profile-ui .ghost-button,.profile-ui .support-inline,.profile-ui .tabs-panel{border:1px solid var(--surface-border);background:rgba(255,255,255,.94);box-shadow:var(--shadow)}.profile-ui .panel{border-radius:18px}.profile-ui .tabs-panel{padding:0;overflow:hidden;border-radius:18px;margin-bottom:14px}
-        .profile-ui .top-tabs{display:flex;align-items:center;gap:28px;padding:0 14px;overflow-x:auto}.profile-ui .top-tab{position:relative;padding:18px 8px 19px;color:#4f5a6b;white-space:nowrap}.profile-ui .top-tab.is-active{color:var(--orange)}.profile-ui .top-tab.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:999px;background:var(--orange)}
-        .profile-ui .profile-layout{display:grid;grid-template-columns:238px minmax(0,1fr) 262px;gap:14px}.profile-ui .settings-menu-panel{padding:12px;display:grid;align-content:start;gap:6px}.profile-ui .menu-item{display:flex;align-items:center;gap:14px;min-height:44px;padding:0 14px;border-radius:12px;color:#475264;text-align:left}.profile-ui .menu-item.is-active{background:#faf7f4;color:#1e2837;box-shadow:inset 3px 0 0 var(--orange)}.profile-ui .menu-icon{color:#667488}.profile-ui .menu-icon svg,.profile-ui .button-icon svg{width:18px;height:18px;flex:0 0 auto}
-        .profile-ui .center-column,.profile-ui .right-column{display:grid;gap:14px;min-width:0}.profile-ui .info-panel,.profile-ui .status-card,.profile-ui .account-card,.profile-ui .support-mini-card{padding:0;overflow:hidden}.profile-ui .profile-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:18px 22px;border-bottom:1px solid rgba(232,226,219,.85)}.profile-ui .panel h2{margin:0;font-size:1rem}.profile-ui .profile-head p,.profile-ui .status-card p,.profile-ui .support-mini-card p{margin:10px 0 0;color:var(--text-soft);line-height:1.55}.profile-ui .ghost-button{display:inline-flex;align-items:center;gap:10px;min-height:34px;padding:0 14px;border-radius:10px;color:#243142;box-shadow:none;white-space:nowrap}
-        .profile-ui .profile-hero{display:flex;align-items:center;gap:22px;padding:18px 22px 12px}.profile-ui .avatar-stack{position:relative;width:94px;flex:0 0 auto}.profile-ui .hero-avatar{display:grid;place-items:center;width:90px;height:90px;border-radius:50%;background:linear-gradient(180deg,#ffe6d8 0%,#ffd6c1 100%);color:var(--orange);font-size:2.3rem;font-weight:700}.profile-ui .camera-button{position:absolute;right:-2px;bottom:4px;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--surface-border);border-radius:50%;background:#fff;color:#5f6c7d;box-shadow:var(--shadow)}.profile-ui .hero-copy strong{font-size:2rem;letter-spacing:-.04em}.profile-ui .name-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}.profile-ui .hero-copy span{display:block;color:#4c586a;margin-bottom:8px}.profile-ui .hero-copy small{color:#667387}.profile-ui .verified-badge{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:0 8px;border-radius:8px;background:#e9f8ec;color:var(--green);font-size:.74rem;font-weight:700}
-        .profile-ui .detail-table{padding:4px 22px 18px}.profile-ui .detail-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:14px;align-items:center;min-height:42px;border-top:1px solid rgba(232,226,219,.75);color:#495667}.profile-ui .detail-row span{color:#556274}.profile-ui .detail-row strong{font-size:.96rem;color:#253042;font-weight:500}.profile-ui .status-pill{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:0 8px;border-radius:7px;font-size:.74rem;font-weight:600;white-space:nowrap}.profile-ui .pill-green{background:#e7f8ec;color:var(--green)}
-        .profile-ui .status-card,.profile-ui .account-card,.profile-ui .support-mini-card{padding:18px 20px}.profile-ui .completion-row{display:flex;align-items:center;gap:18px;margin:14px 0 16px}.profile-ui .progress-ring{position:relative;width:74px;height:74px;border-radius:50%;background:conic-gradient(#2fa866 0 85%,#e5e8ef 85% 100%)}.profile-ui .progress-ring::after{content:"";position:absolute;inset:6px;border-radius:50%;background:#fff}.profile-ui .progress-center{position:absolute;inset:0;z-index:1;display:grid;place-items:center;font-weight:700;color:#2fa866}.profile-ui .completion-label{color:#546171;font-weight:500}.profile-ui .check-list{display:grid;gap:10px}.profile-ui .check-item{display:flex;align-items:center;gap:10px;color:#536173}.profile-ui .check-dot{width:14px;height:14px;border-radius:50%;border:2px solid #ced4df;position:relative}.profile-ui .is-done .check-dot{background:#e9f8ec;border-color:#2fa866}.profile-ui .is-done .check-dot::after{content:"";position:absolute;left:3px;top:1px;width:4px;height:7px;border-right:2px solid #2fa866;border-bottom:2px solid #2fa866;transform:rotate(38deg)}
-        .profile-ui .account-grid{display:grid;gap:12px;margin-top:14px}.profile-ui .account-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;color:#516070}.profile-ui .account-row strong{color:#263142;font-size:.94rem;text-align:right;font-weight:500}.profile-ui .support-inline{display:inline-flex;align-items:center;gap:10px;min-height:38px;padding:0 14px;border-radius:10px;color:#243142;box-shadow:none}
-        .profile-ui .security-banner{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:18px;padding:16px 18px;background:linear-gradient(180deg,#f6f9ff 0%,#f4f7ff 100%)}.profile-ui .banner-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--blue-soft);color:var(--blue)}.profile-ui .banner-copy h2{margin:0 0 8px}.profile-ui .banner-copy p{margin:0;color:var(--text-soft);line-height:1.55}.profile-ui .banner-button{min-height:40px}
-        @media (max-width:1380px){.profile-ui .profile-layout{grid-template-columns:238px 1fr}.profile-ui .right-column{grid-column:1 / -1;grid-template-columns:repeat(3,minmax(0,1fr))}}
-        @media (max-width:1180px){.profile-ui .profile-layout{grid-template-columns:1fr}.profile-ui .right-column{grid-template-columns:1fr}}
-        @media (max-width:760px){.profile-ui .profile-head,.profile-ui .profile-hero,.profile-ui .security-banner{grid-template-columns:1fr;display:grid}.profile-ui .detail-row,.profile-ui .account-row{grid-template-columns:1fr}.profile-ui .detail-row strong,.profile-ui .account-row strong{text-align:left}}
-    </style>
-    <div class="profile-ui">
-        <section class="tabs-panel panel"><div class="top-tabs"><button type="button" class="top-tab is-active">Profile Settings</button><button type="button" class="top-tab">Security</button><button type="button" class="top-tab">Notifications</button><button type="button" class="top-tab">Connected Accounts</button><button type="button" class="top-tab">API Access</button></div></section>
-        <section class="profile-layout">
-            <aside class="panel settings-menu-panel"><button type="button" class="menu-item is-active"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3"></circle><path d="M6.5 19a5.5 5.5 0 0 1 11 0"></path></svg></span><span>Profile Information</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 20h10"></path><path d="M8 20V6.5A1.5 1.5 0 0 1 9.5 5H13"></path><path d="M13 20V4.5A1.5 1.5 0 0 1 14.5 3H17a1.5 1.5 0 0 1 1.5 1.5V20"></path><path d="M10 9h.01"></path><path d="M10 12h.01"></path><path d="M15 7h.01"></path><path d="M15 10h.01"></path></svg></span><span>Company Information</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z"></path><circle cx="12" cy="11" r="2"></circle></svg></span><span>Address</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7.5 5.5h2L11 9l-2 1.5a14.4 14.4 0 0 0 4.5 4.5L15 13l3.5 1.5v2a1.5 1.5 0 0 1-1.5 1.5A13.5 13.5 0 0 1 5.5 7 1.5 1.5 0 0 1 7 5.5Z"></path></svg></span><span>Contact Details</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.5 12h17"></path><path d="M12 3.5a13.3 13.3 0 0 1 3.5 8.5A13.3 13.3 0 0 1 12 20.5 13.3 13.3 0 0 1 8.5 12 13.3 13.3 0 0 1 12 3.5Z"></path></svg></span><span>Preferred Language</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"></circle><path d="M12 7.5v4.5l3 1.5"></path></svg></span><span>Time Zone</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="11" width="12" height="8" rx="2"></rect><path d="M9 11V8.5a3 3 0 0 1 6 0V11"></path></svg></span><span>Change Password</span></button><button type="button" class="menu-item"><span class="menu-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10"></path><path d="M9 7V5.5h6V7"></path><path d="M9 10v6"></path><path d="M15 10v6"></path><path d="M6 7l1 12a1.5 1.5 0 0 0 1.5 1.4h7A1.5 1.5 0 0 0 17 19L18 7"></path></svg></span><span>Delete Account</span></button></aside>
-            <div class="center-column"><section class="panel info-panel"><div class="panel-head profile-head"><div><h2>Profile Information</h2><p>Manage your personal information and account details.</p></div><button type="button" class="ghost-button"><span class="button-icon"><svg viewBox="0 0 24 24" fill="none"><path d="m4 16 9-9 4 4-9 9H4Z"></path><path d="m12 8 4 4"></path><path d="M14 6l2-2 4 4-2 2"></path></svg></span><span>Edit Profile</span></button></div><div class="profile-hero"><div class="avatar-stack"><div class="hero-avatar">JD</div><button type="button" class="camera-button" aria-label="Change profile photo"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 8.5h3l1.5-2h6l1.5 2h3A1.5 1.5 0 0 1 21 10v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 18v-8a1.5 1.5 0 0 1 1.5-1.5Z"></path><circle cx="12" cy="13" r="3"></circle></svg></button></div><div class="hero-copy"><div class="name-row"><strong>John Doe</strong><b class="verified-badge">Verified</b></div><span>john@example.com</span><small>Customer ID: CUST-85421</small></div></div><div class="detail-table"><div class="detail-row"><span>Full Name</span><strong>John Doe</strong></div><div class="detail-row"><span>Email Address</span><strong>john@example.com</strong></div><div class="detail-row"><span>Phone Number</span><strong>+234 801 234 5678</strong></div><div class="detail-row"><span>Alternate Phone</span><strong>+234 809 876 5432</strong></div><div class="detail-row"><span>Date of Birth</span><strong>March 15, 1990</strong></div><div class="detail-row"><span>Gender</span><strong>Male</strong></div><div class="detail-row"><span>Preferred Language</span><strong>English</strong></div><div class="detail-row"><span>Time Zone</span><strong>(GMT+1) West Africa Time</strong></div><div class="detail-row"><span>Account Type</span><strong>Business</strong></div><div class="detail-row"><span>Member Since</span><strong>January 12, 2023</strong></div><div class="detail-row"><span>Status</span><strong><b class="status-pill pill-green">Active</b></strong></div></div></section><section class="panel security-banner"><div class="banner-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="10" width="12" height="9" rx="2"></rect><path d="M9 10V7.5a3 3 0 0 1 6 0V10"></path></svg></div><div class="banner-copy"><h2>Keep Your Account Secure</h2><p>We recommend keeping your password strong and enabling two-factor authentication for added security.</p></div><button type="button" class="ghost-button banner-button">Security Settings <span aria-hidden="true">›</span></button></section></div>
-            <aside class="right-column"><section class="panel status-card"><h2>Profile Completion</h2><p>Complete your profile to get the most out of your account.</p><div class="completion-row"><div class="progress-ring" aria-hidden="true"><div class="progress-center">85%</div></div><span class="completion-label">Completed</span></div><div class="check-list"><div class="check-item is-done"><span class="check-dot"></span><span>Personal Information</span></div><div class="check-item is-done"><span class="check-dot"></span><span>Company Information</span></div><div class="check-item is-done"><span class="check-dot"></span><span>Contact Details</span></div><div class="check-item is-done"><span class="check-dot"></span><span>Email Verification</span></div><div class="check-item"><span class="check-dot"></span><span>Add Profile Photo</span></div></div></section><section class="panel account-card"><h2>Account Information</h2><div class="account-grid"><div class="account-row"><span>Account ID</span><strong>CUST-85421</strong></div><div class="account-row"><span>User Role</span><strong>Primary Admin</strong></div><div class="account-row"><span>Two Factor Auth</span><strong><b class="status-pill pill-green">Enabled</b></strong></div><div class="account-row"><span>Login Alerts</span><strong><b class="status-pill pill-green">Enabled</b></strong></div><div class="account-row"><span>Last Login</span><strong>May 29, 2025<br>10:30 AM</strong></div><div class="account-row"><span>IP Address</span><strong>197.210.45.12</strong></div></div></section><section class="panel support-mini-card"><h2>Need Help?</h2><p>If you need assistance updating your profile or have any questions.</p><button type="button" class="ghost-button support-inline"><span class="button-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 10.5a5 5 0 0 1 10 0v1.5a2 2 0 0 1-2 2h-1l-2.2 2.2a1 1 0 0 1-1.7-.7V14H9a2 2 0 0 1-2-2Z"></path><path d="M9.5 9.5h.01"></path><path d="M14.5 9.5h.01"></path></svg></span><span>Contact Support</span></button></section></aside>
+    <div class="font-[var(--i2-font-sans)] text-[var(--i2-color-text)]">
+        <section class="mb-[14px] overflow-hidden rounded-[18px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)]">
+            <div class="flex items-center gap-7 overflow-x-auto px-[14px]">
+                <button type="button" class="relative whitespace-nowrap px-2 pb-[19px] pt-[18px] text-[var(--i2-color-accent)] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:rounded-full after:bg-[var(--i2-color-accent)] after:content-['']">Profile Settings</button>
+                <button type="button" class="whitespace-nowrap px-2 pb-[19px] pt-[18px] text-[var(--i2-color-text-soft)]">Security</button>
+                <button type="button" class="whitespace-nowrap px-2 pb-[19px] pt-[18px] text-[var(--i2-color-text-soft)]">Notifications</button>
+                <button type="button" class="whitespace-nowrap px-2 pb-[19px] pt-[18px] text-[var(--i2-color-text-soft)]">Connected Accounts</button>
+                <button type="button" class="whitespace-nowrap px-2 pb-[19px] pt-[18px] text-[var(--i2-color-text-soft)]">API Access</button>
+            </div>
+        </section>
+
+        <section class="grid gap-[14px] xl:grid-cols-[238px_minmax(0,1fr)_262px]">
+            <aside class="grid content-start gap-[6px] rounded-[18px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] p-3">
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl bg-[var(--i2-color-surface-alt)] px-[14px] text-left text-[var(--i2-color-brand-ink)] shadow-[inset_3px_0_0_var(--i2-color-accent)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><circle cx="12" cy="8" r="3"></circle><path d="M6.5 19a5.5 5.5 0 0 1 11 0"></path></svg>
+                    </span>
+                    <span>Profile Information</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M7 20h10"></path><path d="M8 20V6.5A1.5 1.5 0 0 1 9.5 5H13"></path><path d="M13 20V4.5A1.5 1.5 0 0 1 14.5 3H17a1.5 1.5 0 0 1 1.5 1.5V20"></path><path d="M10 9h.01"></path><path d="M10 12h.01"></path><path d="M15 7h.01"></path><path d="M15 10h.01"></path></svg>
+                    </span>
+                    <span>Company Information</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M12 21s6-5.2 6-10a6 6 0 1 0-12 0c0 4.8 6 10 6 10Z"></path><circle cx="12" cy="11" r="2"></circle></svg>
+                    </span>
+                    <span>Address</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M7.5 5.5h2L11 9l-2 1.5a14.4 14.4 0 0 0 4.5 4.5L15 13l3.5 1.5v2a1.5 1.5 0 0 1-1.5 1.5A13.5 13.5 0 0 1 5.5 7 1.5 1.5 0 0 1 7 5.5Z"></path></svg>
+                    </span>
+                    <span>Contact Details</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.5 12h17"></path><path d="M12 3.5a13.3 13.3 0 0 1 3.5 8.5A13.3 13.3 0 0 1 12 20.5 13.3 13.3 0 0 1 8.5 12 13.3 13.3 0 0 1 12 3.5Z"></path></svg>
+                    </span>
+                    <span>Preferred Language</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><circle cx="12" cy="12" r="8"></circle><path d="M12 7.5v4.5l3 1.5"></path></svg>
+                    </span>
+                    <span>Time Zone</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><rect x="6" y="11" width="12" height="8" rx="2"></rect><path d="M9 11V7.5a3 3 0 0 1 6 0V11"></path></svg>
+                    </span>
+                    <span>Change Password</span>
+                </button>
+                <button type="button" class="flex min-h-11 items-center gap-[14px] rounded-xl px-[14px] text-left text-[var(--i2-color-text-soft)]">
+                    <span class="text-[var(--i2-color-text-faint)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M7 7h10"></path><path d="M9 7V5.5h6V7"></path><path d="M9 10v6"></path><path d="M15 10v6"></path><path d="M6 7l1 12a1.5 1.5 0 0 0 1.5 1.4h7A1.5 1.5 0 0 0 17 19L18 7"></path></svg>
+                    </span>
+                    <span>Delete Account</span>
+                </button>
+            </aside>
+
+            <div class="grid min-w-0 gap-[14px]">
+                <section class="overflow-hidden rounded-[18px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)]">
+                    <div class="flex flex-col items-start justify-between gap-[18px] border-b border-[var(--i2-color-border-soft)] px-[22px] py-[18px] md:flex-row md:items-start">
+                        <div>
+                            <h2 class="m-0 text-base">Profile Information</h2>
+                            <p class="mt-[10px] leading-[1.55] text-[var(--i2-color-text-faint)]">Manage your personal information and account details.</p>
+                        </div>
+                        <button type="button" class="inline-flex min-h-[34px] items-center gap-2.5 rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[var(--i2-color-brand-ink)]">
+                            <span>
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="m4 16 9-9 4 4-9 9H4Z"></path><path d="m12 8 4 4"></path><path d="M14 6l2-2 4 4-2 2"></path></svg>
+                            </span>
+                            <span>Edit Profile</span>
+                        </button>
+                    </div>
+
+                    <div class="grid gap-[22px] px-[22px] pb-3 pt-[18px] md:flex md:items-center">
+                        <div class="relative w-[94px] shrink-0">
+                            <div class="grid size-[90px] place-items-center rounded-full bg-[var(--i2-color-accent-soft)] text-[2.3rem] font-bold text-[var(--i2-color-accent)]">JD</div>
+                            <button type="button" aria-label="Change profile photo" class="absolute bottom-1 right-[-2px] inline-flex size-7 items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-text-soft)]">
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M4.5 8.5h3l1.5-2h6l1.5 2h3A1.5 1.5 0 0 1 21 10v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 18v-8a1.5 1.5 0 0 1 1.5-1.5Z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+                            </button>
+                        </div>
+                        <div>
+                            <div class="mb-2 flex flex-wrap items-center gap-2.5">
+                                <strong class="text-[2rem] tracking-[-0.04em]">John Doe</strong>
+                                <b class="inline-flex min-h-6 items-center justify-center rounded-[8px] bg-[var(--i2-color-success-soft)] px-2 text-[.74rem] font-bold not-italic text-[var(--i2-color-success)]">Verified</b>
+                            </div>
+                            <span class="mb-2 block text-[var(--i2-color-text-soft)]">john@example.com</span>
+                            <small class="text-[var(--i2-color-text-faint)]">Customer ID: CUST-85421</small>
+                        </div>
+                    </div>
+
+                    <div class="px-[22px] pb-[18px] pt-1">
+                        @foreach ([
+                            ['Full Name', 'John Doe'],
+                            ['Email Address', 'john@example.com'],
+                            ['Phone Number', '+234 801 234 5678'],
+                            ['Alternate Phone', '+234 809 876 5432'],
+                            ['Date of Birth', 'March 15, 1990'],
+                            ['Gender', 'Male'],
+                            ['Preferred Language', 'English'],
+                            ['Time Zone', '(GMT+1) West Africa Time'],
+                            ['Account Type', 'Business'],
+                            ['Member Since', 'January 12, 2023'],
+                        ] as [$label, $value])
+                            <div class="grid min-h-[42px] gap-[14px] border-t border-[var(--i2-color-border-soft)] py-3 text-[var(--i2-color-text-soft)] md:grid-cols-[160px_minmax(0,1fr)] md:items-center">
+                                <span class="text-[var(--i2-color-text-soft)]">{{ $label }}</span>
+                                <strong class="text-[.96rem] font-medium text-[var(--i2-color-brand-ink)]">{{ $value }}</strong>
+                            </div>
+                        @endforeach
+                        <div class="grid min-h-[42px] gap-[14px] border-t border-[var(--i2-color-border-soft)] py-3 text-[var(--i2-color-text-soft)] md:grid-cols-[160px_minmax(0,1fr)] md:items-center">
+                            <span class="text-[var(--i2-color-text-soft)]">Status</span>
+                            <strong class="text-[.96rem] font-medium text-[var(--i2-color-brand-ink)]"><b class="inline-flex min-h-6 items-center justify-center rounded-[7px] bg-[var(--i2-color-success-soft)] px-2 text-[.74rem] font-semibold not-italic text-[var(--i2-color-success)]">Active</b></strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="grid gap-[18px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface-alt)] px-[18px] py-4 md:grid-cols-[44px_minmax(0,1fr)_auto] md:items-center">
+                    <div class="grid size-11 place-items-center rounded-[14px] bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><rect x="6" y="10" width="12" height="9" rx="2"></rect><path d="M9 10V7.5a3 3 0 0 1 6 0V10"></path></svg>
+                    </div>
+                    <div>
+                        <h2 class="mb-2 text-base">Keep Your Account Secure</h2>
+                        <p class="text-[var(--i2-color-text-faint)]">We recommend keeping your password strong and enabling two-factor authentication for added security.</p>
+                    </div>
+                    <button type="button" class="inline-flex min-h-10 items-center gap-2.5 rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[var(--i2-color-brand-ink)]">Security Settings <span aria-hidden="true">›</span></button>
+                </section>
+            </div>
+
+            <aside class="grid gap-[14px] max-xl:grid-cols-1 xl:content-start min-[1381px]:grid-cols-1 max-[1380px]:col-span-full max-[1380px]:grid-cols-3 max-[1180px]:grid-cols-1">
+                <section class="border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-5 py-[18px]">
+                    <h2 class="text-base">Profile Completion</h2>
+                    <p class="mt-[10px] leading-[1.55] text-[var(--i2-color-text-faint)]">Complete your profile to get the most out of your account.</p>
+                    <div class="my-4 flex items-center gap-[18px]">
+                        <div class="relative size-[74px] rounded-full bg-[conic-gradient(var(--i2-color-success)_0_85%,var(--i2-color-neutral-100)_85%_100%)]">
+                            <div class="absolute inset-[6px] rounded-full bg-[var(--i2-color-surface)]"></div>
+                            <div class="absolute inset-0 z-[1] grid place-items-center font-bold text-[var(--i2-color-success)]">85%</div>
+                        </div>
+                        <span class="font-medium text-[var(--i2-color-text-soft)]">Completed</span>
+                    </div>
+                    <div class="grid gap-2.5">
+                        @foreach ([
+                            ['Personal Information', true],
+                            ['Company Information', true],
+                            ['Contact Details', true],
+                            ['Email Verification', true],
+                            ['Add Profile Photo', false],
+                        ] as [$item, $done])
+                            <div class="flex items-center gap-2.5 text-[var(--i2-color-text-soft)]">
+                                <span class="{{ $done ? 'border-[var(--i2-color-success)] bg-[var(--i2-color-success-soft)] after:absolute after:left-[3px] after:top-px after:h-[7px] after:w-1 after:rotate-[38deg] after:border-b-2 after:border-r-2 after:border-[var(--i2-color-success)] after:content-[\'\']' : 'border-[var(--i2-color-border-soft)]' }} relative size-[14px] rounded-full border-2"></span>
+                                <span>{{ $item }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+
+                <section class="border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-5 py-[18px]">
+                    <h2 class="text-base">Account Information</h2>
+                    <div class="mt-[14px] grid gap-3">
+                        @foreach ([
+                            ['Account ID', 'CUST-85421'],
+                            ['User Role', 'Primary Admin'],
+                            ['Two Factor Auth', '<b class="inline-flex min-h-6 items-center justify-center rounded-[7px] bg-[var(--i2-color-success-soft)] px-2 text-[.74rem] font-semibold not-italic text-[var(--i2-color-success)]">Enabled</b>'],
+                            ['Login Alerts', '<b class="inline-flex min-h-6 items-center justify-center rounded-[7px] bg-[var(--i2-color-success-soft)] px-2 text-[.74rem] font-semibold not-italic text-[var(--i2-color-success)]">Enabled</b>'],
+                            ['Last Login', 'May 29, 2025<br>10:30 AM'],
+                            ['IP Address', '197.210.45.12'],
+                        ] as [$label, $value])
+                            <div class="grid gap-3 text-[var(--i2-color-text-soft)] md:grid-cols-[1fr_auto] md:items-start">
+                                <span>{{ $label }}</span>
+                                <strong class="text-left text-[.94rem] font-medium text-[var(--i2-color-brand-ink)] md:text-right">{!! $value !!}</strong>
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+
+                <section class="border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-5 py-[18px]">
+                    <h2 class="text-base">Need Help?</h2>
+                    <p class="mt-[10px] leading-[1.55] text-[var(--i2-color-text-faint)]">If you need assistance updating your profile or have any questions.</p>
+                    <button type="button" class="mt-4 inline-flex min-h-[38px] items-center gap-2.5 rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[var(--i2-color-brand-ink)]">
+                        <span>
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]"><path d="M7 10.5a5 5 0 0 1 10 0v1.5a2 2 0 0 1-2 2h-1l-2.2 2.2a1 1 0 0 1-1.7-.7V14H9a2 2 0 0 1-2-2Z"></path><path d="M9.5 9.5h.01"></path><path d="M14.5 9.5h.01"></path></svg>
+                        </span>
+                        <span>Contact Support</span>
+                    </button>
+                </section>
+            </aside>
         </section>
     </div>
 </x-filament-panels::page>

@@ -36,7 +36,27 @@ class PortfolioProjectInfolist
                                     ->formatStateUsing(fn (bool $state): string => $state ? 'Featured' : 'Standard'),
                                 TextEntry::make('project_url'),
                                 TextEntry::make('tech_stack')
-                                    ->formatStateUsing(fn (?array $state): string => filled($state) ? implode(', ', $state) : 'None'),
+                                    ->formatStateUsing(function ($state): string {
+                                        if (blank($state)) {
+                                            return 'None';
+                                        }
+
+                                        if (is_array($state)) {
+                                            return implode(', ', array_filter($state, fn ($item) => filled($item)));
+                                        }
+
+                                        if (is_string($state)) {
+                                            $decoded = json_decode($state, true);
+
+                                            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                                                return implode(', ', array_filter($decoded, fn ($item) => filled($item)));
+                                            }
+
+                                            return $state;
+                                        }
+
+                                        return 'None';
+                                    }),
                             ]),
                     ]),
             ]);

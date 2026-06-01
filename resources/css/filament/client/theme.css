@@ -1,39 +1,110 @@
 @import "tailwindcss";
-@import "../../design-tokens.css";
+@import "./design-tokens.css";
 
 /* Filament core styles (REQUIRED) */
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
 
-:root {
-    --i2-portal-sky: oklch(0.95 0.03 220.21);
-    --i2-portal-deep: oklch(0.28 0.04 224.32);
-    --i2-portal-accent: oklch(0.73 0.14 196.56);
-}
-
-.fi-body {
-    background:
-        radial-gradient(circle at top right, color-mix(in oklab, var(--i2-portal-accent) 18%, transparent), transparent 28%),
-        linear-gradient(180deg, var(--i2-portal-sky) 0%, white 100%);
-}
-
 .fi-sidebar {
     backdrop-filter: blur(18px);
-    background: color-mix(in oklab, white 84%, var(--i2-portal-sky) 16%);
+    -webkit-backdrop-filter: blur(18px);
+    background: var(--i2-portal-shell-bg);
+}
+
+.fi-sidebar,
+.fi-sidebar nav,
+.fi-sidebar .fi-sidebar-nav,
+.fi-sidebar .fi-sidebar-nav-groups {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.fi-sidebar::-webkit-scrollbar,
+.fi-sidebar nav::-webkit-scrollbar,
+.fi-sidebar .fi-sidebar-nav::-webkit-scrollbar,
+.fi-sidebar .fi-sidebar-nav-groups::-webkit-scrollbar {
+    display: none;
 }
 
 .fi-topbar {
     backdrop-filter: blur(16px);
-    background: color-mix(in oklab, white 90%, var(--i2-portal-sky) 10%);
+    -webkit-backdrop-filter: blur(16px);
+    background: color-mix(in oklab, white 90%, var(--i2-color-brand-off) 10%);
 }
 
 .dark .fi-body {
     background:
-        radial-gradient(circle at top right, color-mix(in oklab, var(--i2-portal-accent) 16%, transparent), transparent 28%),
-        linear-gradient(180deg, color-mix(in oklab, var(--i2-portal-deep) 94%, black 6%) 0%, #0f172a 100%);
+        radial-gradient(circle at top right, color-mix(in oklab, var(--i2-color-brand-gold) 14%, transparent), transparent 28%),
+        linear-gradient(180deg, var(--i2-portal-shell-dark) 0%, #0f172a 100%);
 }
 
 .dark .fi-sidebar,
 .dark .fi-topbar {
-    background: color-mix(in oklab, #0f172a 88%, var(--i2-portal-deep) 12%);
+    background: color-mix(in oklab, #0f172a 88%, var(--i2-color-brand-ink-soft) 12%);
+}
+
+@keyframes i2-portal-progress-fill {
+    from {
+        transform: scaleX(0);
+        opacity: 0.7;
+    }
+
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes i2-portal-progress-glow {
+    0%,
+    100% {
+        filter: brightness(1) drop-shadow(0 0 0 currentColor);
+    }
+
+    50% {
+        filter: brightness(1.06) drop-shadow(0 0 10px currentColor);
+    }
+}
+
+@layer utilities {
+    .i2-progress-bar {
+        transform-origin: left;
+        position: relative;
+        overflow: hidden;
+        animation:
+            i2-portal-progress-fill 1s ease-out both,
+            i2-portal-progress-glow 2.4s ease-in-out infinite;
+    }
+
+    .i2-progress-bar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            100deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.18) 35%,
+            rgba(255, 255, 255, 0.34) 50%,
+            rgba(255, 255, 255, 0.18) 65%,
+            transparent 100%
+        );
+        transform: translateX(-130%);
+        animation: i2-portal-progress-shine 2.8s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    @keyframes i2-portal-progress-shine {
+        0%,
+        18% {
+            transform: translateX(-130%);
+        }
+
+        58% {
+            transform: translateX(130%);
+        }
+
+        100% {
+            transform: translateX(130%);
+        }
+    }
 }

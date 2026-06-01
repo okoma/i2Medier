@@ -732,7 +732,7 @@ if (psCards.length) {
       <div class="result-num"><span class="counter" data-target="71">0</span><span>%</span></div>
       <div class="result-label">of program applications submitted online — up from zero</div>
       <p class="result-project">Nnaedozie Thomas Foundation — scholarship portal and program management system built on custom Laravel backend with Livewire frontend.</p>
-      <a href="{{ route('portfolio.case-study.ntf') }}" class="result-link">Read Case Study →</a>
+      <a href="{{ route('portfolio.show', ['portfolioProject' => 'ntf']) }}" class="result-link">Read Case Study →</a>
     </div>
     <div class="result-card reveal">
       <div class="result-num"><span class="counter" data-target="3400">0</span><span>+</span></div>

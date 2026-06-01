@@ -63,7 +63,7 @@
                 <div class="bh-right">
                     <div class="bh-featured-card">
                         <div class="bfc-img">
-                            <div class="bfc-img-bg" style="background:{{ $featuredPost->ui['gradient'] }}"></div>
+                            @if ($featuredPost->featured_image)<div class="bfc-img-bg" style="background:url('{{ Storage::url($featuredPost->featured_image) }}') center/cover no-repeat"></div>@else<div class="bfc-img-bg" style="background:{{ $featuredPost->ui['gradient'] }}"></div>@endif
                             <div class="bfc-overlay"></div>
                             <span class="bfc-ico">@include('blog.partials.archive-icon', ['name' => $featuredPost->ui['icon'], 'class' => 'blog-icon blog-icon-hero'])</span>
                             <span class="bfc-badge">Editor's Pick</span>
@@ -102,11 +102,10 @@
                     @if ($leadPost)
                         <article class="big-card reveal" data-cat="{{ $leadPost->ui['slug'] }}" data-search="{{ strtolower($leadPost->title . ' ' . $leadPost->excerpt . ' ' . $leadPost->ui['label']) }}">
                             <div class="bc-thumb">
-                                <div class="bc-thumb-bg" style="background:{{ $leadPost->ui['gradient'] }}"></div>
+                                @if ($leadPost->featured_image)<div class="bc-thumb-bg" style="background:url('{{ Storage::url($leadPost->featured_image) }}') center/cover no-repeat"></div>@else<div class="bc-thumb-bg" style="background:{{ $leadPost->ui['gradient'] }}"></div>@endif
                                 <div class="bc-overlay"></div>
                                 <span class="bc-ico">@include('blog.partials.archive-icon', ['name' => $leadPost->ui['icon'], 'class' => 'blog-icon blog-icon-card'])</span>
                                 <div class="bc-badge-wrap">
-                                    <span class="bc-badge featured">Trending</span>
                                     <span class="bc-badge cat" style="background:{{ $leadPost->ui['color'] }}">{{ $leadPost->ui['short_label'] }}</span>
                                 </div>
                             </div>
@@ -126,7 +125,7 @@
                         @foreach ($heroSidePosts as $post)
                             <article class="small-card reveal" data-cat="{{ $post->ui['slug'] }}" data-search="{{ strtolower($post->title . ' ' . $post->excerpt . ' ' . $post->ui['label']) }}">
                                 <div class="sc-thumb">
-                                    <div class="sc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>
+                                    @if ($post->featured_image)<div class="sc-thumb-bg" style="background:url('{{ Storage::url($post->featured_image) }}') center/cover no-repeat"></div>@else<div class="sc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>@endif
                                     <span class="sc-ico">@include('blog.partials.archive-icon', ['name' => $post->ui['icon'], 'class' => 'blog-icon blog-icon-small'])</span>
                                 </div>
                                 <div class="sc-body">
@@ -150,7 +149,7 @@
                 @foreach ($gridPosts as $post)
                     <article class="post-card reveal" data-cat="{{ $post->ui['slug'] }}" data-search="{{ strtolower($post->title . ' ' . $post->excerpt . ' ' . $post->ui['label']) }}">
                         <div class="pc-thumb">
-                            <div class="pc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>
+                            @if ($post->featured_image)<div class="pc-thumb-bg" style="background:url('{{ Storage::url($post->featured_image) }}') center/cover no-repeat"></div>@else<div class="pc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>@endif
                             <div class="pc-overlay">
                                 <span class="pc-cat-pill" style="background:{{ $post->ui['color'] }}">{{ $post->ui['short_label'] }}</span>
                             </div>
@@ -178,7 +177,7 @@
                 @forelse ($listPosts as $post)
                     <article class="list-card reveal" data-cat="{{ $post->ui['slug'] }}" data-search="{{ strtolower($post->title . ' ' . $post->excerpt . ' ' . $post->ui['label']) }}">
                         <div class="lc-thumb">
-                            <div class="lc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>
+                            @if ($post->featured_image)<div class="lc-thumb-bg" style="background:url('{{ Storage::url($post->featured_image) }}') center/cover no-repeat"></div>@else<div class="lc-thumb-bg" style="background:{{ $post->ui['gradient'] }}"></div>@endif
                             <span class="lc-ico">@include('blog.partials.archive-icon', ['name' => $post->ui['icon'], 'class' => 'blog-icon blog-icon-list'])</span>
                         </div>
                         <div class="lc-body">
@@ -244,9 +243,9 @@
                 <div class="sw-head">Browse by Category</div>
                 <div class="sw-body">
                     <ul class="cat-list">
-                        <li><a href="#" class="cat-row active" data-filter="all"><span class="cat-dot" style="background:var(--gold)"></span><span class="cat-name">All Articles</span><span class="cat-num">{{ $totalPosts }}</span></a></li>
+                        <li><a href="{{ route('blog.index') }}" class="cat-row active" data-filter="all"><span class="cat-dot" style="background:var(--gold)"></span><span class="cat-name">All Articles</span><span class="cat-num">{{ $totalPosts }}</span></a></li>
                         @foreach ($categories as $category)
-                            <li><a href="#" class="cat-row" data-filter="{{ $category->ui['slug'] }}"><span class="cat-dot" style="background:{{ $category->ui['color'] }}"></span><span class="cat-name">{{ $category->ui['label'] }}</span><span class="cat-num">{{ $category->posts_count }}</span></a></li>
+                            <li><a href="{{ route('blog.category', $category) }}" class="cat-row" data-filter="{{ $category->ui['slug'] }}"><span class="cat-dot" style="background:{{ $category->ui['color'] }}"></span><span class="cat-name">{{ $category->ui['label'] }}</span><span class="cat-num">{{ $category->posts_count }}</span></a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -305,7 +304,7 @@
             </div>
             <div class="topic-grid">
                 @foreach ($topicCards as $topic)
-                    <a href="#" class="topic-card reveal" data-filter-link="{{ $topic['slug'] }}" style="--topic-color:{{ $topic['color'] }}">
+                    <a href="{{ route('blog.category', ['category' => $topic['db_slug']]) }}" class="topic-card reveal" data-filter-link="{{ $topic['slug'] }}" style="--topic-color:{{ $topic['color'] }}">
                         <span class="tc-ico">@include('blog.partials.archive-icon', ['name' => $topic['icon'], 'class' => 'blog-icon blog-icon-topic'])</span>
                         <div class="tc-name">{{ $topic['name'] }}</div>
                         <div class="tc-count">{{ $topic['count'] }} articles</div>
@@ -408,10 +407,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     topicLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            setCategory(link.dataset.filterLink);
-            document.getElementById('postsFeed')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        link.addEventListener('click', function () {
+            // navigate to category archive — href is set on the element
         });
     });
 

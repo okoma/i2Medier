@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PortfolioCategory;
+use App\Models\PortfolioProject;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -11,11 +13,11 @@ class SiteController extends Controller
     {
         return view('welcome', [
             'seo' => $this->seo(
-                'i2Medier — Premium Digital Solutions',
-                'i2Medier designs and builds premium websites, web applications, SEO campaigns, mobile apps, business email systems, and cloud infrastructure for businesses in Nigeria, the UK, and beyond.',
+                'i2Medier — Digital Agency | Web Design, Development & Maintenance Nigeria',
+                'i2Medier is a premium digital agency in Nigeria delivering web design, WordPress development, UI/UX design, Laravel applications, business email setup, and website maintenance for businesses across Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/',
-                    'keywords' => 'web design Nigeria, Laravel development, WordPress development, SEO services, UI UX design, mobile app development, cloud architecture, business email setup, digital agency Nigeria',
+                    'keywords' => 'digital agency Nigeria, web design Nigeria, web design Port Harcourt, WordPress development Nigeria, UI UX design Nigeria, website maintenance Nigeria, Laravel development Nigeria, web agency Lagos, business email setup Nigeria, SEO services Nigeria, digital agency Port Harcourt',
                     'schema_type' => 'WebSite',
                 ],
             ),
@@ -197,6 +199,38 @@ class SiteController extends Controller
         ]);
     }
 
+    public function saasApplication(): View
+    {
+        return view('site.single-service-saas-application', [
+            'seo' => $this->seo(
+                'SaaS Application Development Services | i2Medier',
+                'Expert SaaS application development by i2Medier. We build subscription-ready software products with strong foundations for onboarding, user accounts, admin workflows, and recurring growth.',
+                [
+                    'path' => '/services/saas-application',
+                    'keywords' => 'SaaS development Nigeria, SaaS application development, subscription software development, SaaS platform Nigeria, multi-tenant SaaS, Laravel SaaS developer',
+                    'schema_type' => 'Service',
+                    'service_type' => 'SaaS Application Development',
+                ],
+            ),
+        ]);
+    }
+
+    public function ecommerceWebsite(): View
+    {
+        return view('site.single-service-ecommerce-website', [
+            'seo' => $this->seo(
+                'E-Commerce Website Development Services | i2Medier',
+                'Premium e-commerce website development by i2Medier. We build online stores with WooCommerce, Shopify, and custom Laravel — platform fit, smooth checkout, and the operational systems needed for serious selling.',
+                [
+                    'path' => '/services/ecommerce-website',
+                    'keywords' => 'ecommerce website development Nigeria, online store development, WooCommerce developer Nigeria, Shopify developer Nigeria, custom ecommerce platform, ecommerce website Nigeria',
+                    'schema_type' => 'Service',
+                    'service_type' => 'E-Commerce Website Development',
+                ],
+            ),
+        ]);
+    }
+
     public function whoWeHelp(): View
     {
         return view('site.who-we-help', [
@@ -228,9 +262,40 @@ class SiteController extends Controller
         ]);
     }
 
+    public function start(): View
+    {
+        return view('site.onboarding', [
+            'seo' => $this->seo(
+                'Start a Project — i2Medier',
+                'Tell i2Medier about your project, select the services you need, choose useful add-ons, and receive a tailored, itemised proposal within 24 hours.',
+                [
+                    'path' => '/start',
+                    'keywords' => 'start a project, digital project onboarding, website quote form, web design quote Nigeria, Laravel project enquiry, WordPress quote request, i2Medier onboarding',
+                    'schema_type' => 'WebPage',
+                ],
+            ),
+        ]);
+    }
+
     public function portfolio(): View
     {
+        $projects = PortfolioProject::query()
+            ->published()
+            ->with('categories')
+            ->orderByDesc('is_featured')
+            ->orderBy('sort_order')
+            ->latest('published_at')
+            ->get();
+
+        $categories = PortfolioCategory::query()
+            ->withCount(['projects' => fn ($q) => $q->published()])
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
         return view('portfolio.index', [
+            'projects'   => $projects,
+            'categories' => $categories,
             'seo' => $this->seo(
                 'Portfolio — i2Medier',
                 'See selected i2Medier work across web design, development, branding, and digital product delivery for businesses, nonprofits, and service brands.',
@@ -261,6 +326,30 @@ class SiteController extends Controller
 
     public function webDesignIndustry(string $slug): View
     {
+        if ($slug === 'engineering-firm-website-design') {
+            return view('site.engineering-firm-web-design');
+        }
+
+        if ($slug === 'construction-company-website-design') {
+            return view('site.construction-company-web-design');
+        }
+
+        if ($slug === 'consulting-firm-website-design') {
+            return view('site.consulting-firm-web-design');
+        }
+
+        if ($slug === 'architecture-firm-website-design') {
+            return view('site.architecture-firm-web-design');
+        }
+
+        if ($slug === 'school-website-design') {
+            return view('site.school-web-design');
+        }
+
+        if ($slug === 'church-website-design') {
+            return view('site.church-web-design');
+        }
+
         if ($slug === 'accounting-firm-website-design') {
             return view('site.accounting-firm-web-design');
         }
@@ -271,6 +360,62 @@ class SiteController extends Controller
 
         if ($slug === 'real-estate-website-design') {
             return view('site.real-estate-web-design');
+        }
+
+        if ($slug === 'architecture-firm-website-design') {
+            return view('site.architecture-firm-web-design');
+        }
+
+        if ($slug === 'school-website-design') {
+            return view('site.school-web-design');
+        }
+
+        if ($slug === 'hotel-website-design') {
+            return view('site.hotel-web-design');
+        }
+
+        if ($slug === 'restaurant-website-design') {
+            return view('site.restaurant-web-design');
+        }
+
+        if ($slug === 'beauty-wellness-website-design') {
+            return view('site.beauty-wellness-web-design');
+        }
+
+        if ($slug === 'fitness-website-design') {
+            return view('site.fitness-web-design');
+        }
+
+        if ($slug === 'cleaning-company-website-design') {
+            return view('site.cleaning-company-web-design');
+        }
+
+        if ($slug === 'logistics-company-website-design') {
+            return view('site.logistics-company-web-design');
+        }
+
+        if ($slug === 'travel-agency-website-design') {
+            return view('site.travel-agency-web-design');
+        }
+
+        if ($slug === 'ecommerce-website-design') {
+            return view('site.ecommerce-brand-web-design');
+        }
+
+        if ($slug === 'fashion-brand-website-design') {
+            return view('site.fashion-brand-web-design');
+        }
+
+        if ($slug === 'event-planner-website-design') {
+            return view('site.event-planner-web-design');
+        }
+
+        if ($slug === 'photography-website-design') {
+            return view('site.photography-web-design');
+        }
+
+        if ($slug === 'personal-brand-website-design') {
+            return view('site.personal-brand-web-design');
         }
 
         $industries = $this->webDesignIndustries();
@@ -290,36 +435,6 @@ class SiteController extends Controller
                     'keywords' => strtolower($industries[$slug]['title']) . ', web design services, business website design, custom website development, i2Medier',
                     'schema_type' => 'Service',
                     'service_type' => $industries[$slug]['title'],
-                ],
-            ),
-        ]);
-    }
-
-    public function meto7CaseStudy(): View
-    {
-        return view('portfolio.case-study-meto7', [
-            'seo' => $this->seo(
-                'Meto7 Chauffeur Services — Case Study · i2Medier',
-                'A case study on the i2Medier website and digital experience work delivered for Meto7 Chauffeur Services.',
-                [
-                    'path' => '/portfolio/meto7-chauffeur-services',
-                    'keywords' => 'Meto7 case study, chauffeur website case study, i2Medier portfolio, transport website design',
-                    'schema_type' => 'Article',
-                ],
-            ),
-        ]);
-    }
-
-    public function ntfCaseStudy(): View
-    {
-        return view('portfolio.case-study-ntf', [
-            'seo' => $this->seo(
-                'Nnaedozie Thomas Foundation — Case Study · i2Medier',
-                'A case study on the i2Medier website and digital experience work delivered for Nnaedozie Thomas Foundation.',
-                [
-                    'path' => '/portfolio/nnaedozie-thomas-foundation',
-                    'keywords' => 'foundation website case study, nonprofit website design, NTF case study, i2Medier portfolio',
-                    'schema_type' => 'Article',
                 ],
             ),
         ]);

@@ -32,8 +32,14 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->databaseNotifications()
+            ->sidebarCollapsibleOnDesktop()
+            ->collapsibleNavigationGroups()
             ->brandName('i2Medier Admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => Blade::render("@vite('resources/js/filament/admin/editorjs-field.js')"),
+            )
             ->colors([
                 'primary' => Color::Amber,
             ])

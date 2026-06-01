@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Who We Help | i2Medier')
+@section('title', 'Who We Help — Industry-Specific Web Design | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/who-we-help.css')
@@ -10,27 +10,32 @@
 <div class="who-help-page">
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <div class="hero-breadcrumb" aria-label="Breadcrumb" role="navigation">
-          <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
-          <span aria-current="page">Who We Help</span>
-        </div>
-        <span class="eyebrow">Who We Help</span>
-        <h1>Industry-specific digital work for teams that need more than a <em>generic website</em></h1>
-        <p>We build focused pages, websites, platforms, and growth systems for specific industries. This page is the home for those industry verticals, so we can keep expanding them one by one as dedicated landing pages.</p>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-breadcrumb" aria-label="Breadcrumb" role="navigation">
+        <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
+        <span aria-current="page">Who We Help</span>
       </div>
-      <div class="hero-note">
-        <h3>Industry hub</h3>
-        <p>This hub now acts as a live directory for our web design industry pages, with each one positioned around how that market evaluates trust, clarity, and conversion.</p>
+      <span class="hero-tag">Industry-Specific Digital Work</span>
+      <h1>Websites built around<br>how your <em>industry buys</em></h1>
+      <p>Generic agencies build for everyone. We design and build websites shaped around how your specific market evaluates providers, builds trust, and decides to enquire — so every page works harder for the clients you actually want.</p>
+      <div class="hero-btns">
+        <a href="{{ route('site.start') }}" class="btn-primary">Start Your Project →</a>
+        <a href="#industries" class="btn-outline">Browse Industries</a>
+      </div>
+      <div class="hero-pills">
+        <span class="hero-pill">22 Industries</span>
+        <span class="hero-pill">Web Design</span>
+        <span class="hero-pill">Conversion-Focused</span>
+        <span class="hero-pill">Nigeria &amp; Worldwide</span>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="industry-list">
+  <section id="industries" aria-labelledby="industry-list">
     <div class="section-head">
-      <h2 id="industry-list">Live <em>industry pages</em></h2>
-      <p>Every card below now opens a live web design page for that market, giving us a clean service library we can deepen over time with proof, FAQs, and vertical-specific offers.</p>
+      <h2 id="industry-list">Industries we <em>build for</em></h2>
+      <p>Every page below is built around the specific trust signals, objections, and conversion patterns that matter in that market — not a generic template with a new logo dropped in.</p>
     </div>
     <div class="industry-grid">
       <article class="industry-card live">
@@ -299,25 +304,10 @@
     </div>
   </section>
 
-  <section class="plan-band" aria-labelledby="next-steps">
-    <div class="section-head">
-      <h2 id="next-steps">How we deepen this <em>next</em></h2>
-      <p>The core directory is now live. The next layer is making each industry page sharper with stronger proof, vertical-specific objections, richer offers, and more market-specific conversion detail.</p>
-    </div>
-    <div class="plan-grid">
-      <article class="plan-card">
-        <h3>Richer industry positioning</h3>
-        <p>Each page can go deeper on how that market buys, what it worries about, and which conversion triggers matter most.</p>
-      </article>
-      <article class="plan-card">
-        <h3>Industry-specific proof</h3>
-        <p>Case studies, testimonials, process notes, and offer framing tailored to how each market buys and evaluates vendors.</p>
-      </article>
-      <article class="plan-card">
-        <h3>Structured service library</h3>
-        <p>This gives us a clean hierarchy: `who-we-help` as the hub, then each industry page under the wider `services/web-design` path.</p>
-      </article>
-    </div>
+  <section class="cta-band" aria-labelledby="cta-h">
+    <h2 id="cta-h">Don't see your industry?</h2>
+    <p>We work with businesses outside this list too. If your market is not here, tell us what you do — we will apply the same industry-specific thinking to your project.</p>
+    <a href="{{ route('site.start') }}" class="btn-dark">Start Your Project →</a>
   </section>
 </div>
 @endsection

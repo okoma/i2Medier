@@ -1,49 +1,322 @@
 <x-filament-panels::page>
-    <style>
-        .affiliate-ui{--surface-border:#e8e2db;--text:#171717;--text-soft:#687384;--text-faint:#97a0af;--orange:#ff5b00;--orange-soft:#fff1e8;--green:#1f9a59;--green-soft:#ebfbf2;--yellow:#f59d0b;--red:#ff3b30;--red-soft:#ffeceb;--purple:#7a49ff;--purple-soft:#f1eafe;--blue:#2e74ff;--blue-soft:#eaf3ff;--shadow:0 18px 40px rgba(26,25,31,.06);color:var(--text);font-family:"Plus Jakarta Sans",sans-serif}
-        .affiliate-ui *,.affiliate-ui *::before,.affiliate-ui *::after{box-sizing:border-box}.affiliate-ui a,.affiliate-ui button,.affiliate-ui input{font:inherit}.affiliate-ui a{text-decoration:none;color:inherit}.affiliate-ui button{border:0;background:none;cursor:pointer}.affiliate-ui svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-        .affiliate-ui .stat-card,.affiliate-ui .panel,.affiliate-ui .ghost-button,.affiliate-ui .icon-button,.affiliate-ui .share-button,.affiliate-ui .tool-row{border:1px solid var(--surface-border);background:rgba(255,255,255,.94);box-shadow:var(--shadow)}
-        .affiliate-ui .stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:16px}.affiliate-ui .stat-card{display:flex;align-items:center;gap:18px;min-height:114px;padding:18px 20px;border-radius:18px}.affiliate-ui .stat-icon,.affiliate-ui .info-icon,.affiliate-ui .tool-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;flex:0 0 auto}
-        .affiliate-ui .soft-purple{background:var(--purple-soft);color:var(--purple)}.affiliate-ui .soft-green{background:var(--green-soft);color:var(--green)}.affiliate-ui .soft-orange{background:var(--orange-soft);color:var(--orange)}.affiliate-ui .soft-blue{background:var(--blue-soft);color:var(--blue)}.affiliate-ui .soft-red{background:var(--red-soft);color:var(--red)}
-        .affiliate-ui .stat-copy span{display:block;margin-bottom:8px;color:#445062}.affiliate-ui .stat-copy strong{display:block;margin-bottom:8px;font-size:1.95rem;letter-spacing:-.05em}.affiliate-ui .stat-copy small{color:var(--text-soft);font-size:.94rem}
-        .affiliate-ui .main-grid{display:grid;grid-template-columns:minmax(0,1.7fr) 310px;gap:16px}.affiliate-ui .left-stack,.affiliate-ui .right-stack{display:grid;gap:16px;min-width:0}.affiliate-ui .panel{border-radius:22px;padding:18px 18px 16px;overflow:hidden}.affiliate-ui .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.affiliate-ui .panel h2{margin:0;font-size:1rem}.affiliate-ui .ghost-button{min-height:34px;padding:0 14px;border-radius:10px;color:#243142;box-shadow:none}.affiliate-ui .compact{min-height:32px}
-        .affiliate-ui .analytics-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.85fr);gap:16px}.affiliate-ui .chart-legend{display:flex;align-items:center;gap:28px;color:#516070;font-size:.88rem;margin-bottom:8px}.affiliate-ui .legend-item{display:inline-flex;align-items:center;gap:8px}.affiliate-ui .legend-swatch{display:inline-block;width:14px;height:4px;border-radius:999px}.affiliate-ui .swatch-blue{background:var(--blue)}.affiliate-ui .swatch-green{background:#2eb76c}.affiliate-ui .swatch-purple{background:var(--purple)}
-        .affiliate-ui .chart-area{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:stretch;margin-top:14px}.affiliate-ui .y-axis{display:flex;flex-direction:column;justify-content:space-between;padding:4px 0 22px;color:#758295;font-size:.82rem}.affiliate-ui .graph-wrap{position:relative;min-height:220px}.affiliate-ui .tall-graph{min-height:240px}.affiliate-ui .grid-line{position:absolute;left:0;right:0;height:1px;border-top:1px solid rgba(129,143,164,.16)}.affiliate-ui .grid-line:nth-child(1){top:22px}.affiliate-ui .grid-line:nth-child(2){top:68px}.affiliate-ui .grid-line:nth-child(3){top:114px}.affiliate-ui .grid-line:nth-child(4){top:160px}.affiliate-ui .grid-line:nth-child(5){top:206px}.affiliate-ui .chart-svg{position:absolute;inset:0 0 18px 0}.affiliate-ui .chart-svg .line{fill:none;stroke-width:2.5}.affiliate-ui .blue-line{stroke:var(--blue)}.affiliate-ui .green-line{stroke:#2eb76c}.affiliate-ui .purple-line{stroke:var(--purple)}.affiliate-ui .blue-dot{fill:var(--blue);stroke:#fff;stroke-width:3}.affiliate-ui .x-axis{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;color:#758295;font-size:.82rem}.affiliate-ui .dense-axis span{white-space:nowrap}
-        .affiliate-ui .link-list{display:flex;flex-direction:column;gap:24px;margin:28px 0 22px}.affiliate-ui .link-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}.affiliate-ui .link-row a,.affiliate-ui .footer-link,.affiliate-ui .info-link{color:#1767ff}.affiliate-ui .link-row span{color:#334050;font-size:.9rem;white-space:nowrap}
-        .affiliate-ui .referral-grid{display:grid;grid-template-columns:62px 1.15fr 1.25fr 100px 105px 95px 116px;gap:14px;align-items:center}.affiliate-ui .referral-head{padding:12px 2px;color:#677384;font-size:.92rem}.affiliate-ui .referral-row{padding:14px 2px;border-top:1px solid rgba(232,226,219,.75);color:#4d5868;font-size:.93rem}.affiliate-ui .status-pill{display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:0 8px;border-radius:7px;font-size:.74rem;font-weight:600;white-space:nowrap}.affiliate-ui .pill-green{background:#e7f8ec;color:var(--green)}.affiliate-ui .pill-amber{background:#fff0d8;color:#da8400}
-        .affiliate-ui .info-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.affiliate-ui .info-card{display:flex;gap:14px;min-height:150px}.affiliate-ui .info-card h2{margin:0 0 12px}.affiliate-ui .info-card p{margin:0 0 16px;color:var(--text-soft);line-height:1.6;font-size:.92rem}.affiliate-ui .info-link{display:inline-flex;align-items:center;gap:8px;font-weight:500}
-        .affiliate-ui .copy-row{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:0;margin-top:18px}.affiliate-ui .copy-field{display:flex;align-items:center;min-height:42px;padding:0 14px;border:1px solid var(--surface-border);border-right:0;border-radius:12px 0 0 12px;color:#516070;background:#fbfbfd;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.affiliate-ui .icon-button{display:inline-flex;align-items:center;justify-content:center;width:42px;min-height:42px;border-radius:0 12px 12px 0;color:#5a6677;box-shadow:none}.affiliate-ui .share-row{display:flex;align-items:center;gap:18px;margin-top:18px;color:#516070}.affiliate-ui .share-icons{display:flex;align-items:center;gap:10px}.affiliate-ui .share-button{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;box-shadow:none;color:#2757ff;font-size:.92rem;font-weight:700}
-        .affiliate-ui .tool-list{display:grid;gap:12px;margin-top:16px}.affiliate-ui .tool-row{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px;border-radius:14px;box-shadow:none}.affiliate-ui .tool-main{display:flex;align-items:center;gap:12px;text-align:left}.affiliate-ui .tool-main strong{display:block;margin-bottom:6px;color:#233041}.affiliate-ui .tool-main small{color:var(--text-soft)}.affiliate-ui .tool-arrow{color:#8792a2;font-size:1.25rem}
-        .affiliate-ui .commission-panel{display:flex;flex-direction:column}.affiliate-ui .donut-block{display:grid;gap:18px;margin-top:14px}.affiliate-ui .donut-chart{position:relative;width:148px;height:148px;margin:0 auto;border-radius:50%;background:conic-gradient(var(--blue) 0 48%, #2eb76c 48% 72%, var(--purple) 72% 90%, #f5a327 90% 100%)}.affiliate-ui .donut-chart::after{content:"";position:absolute;inset:18px;border-radius:50%;background:rgba(255,255,255,.98);box-shadow:inset 0 0 0 1px rgba(232,226,219,.7)}.affiliate-ui .donut-center{position:absolute;inset:0;z-index:1;display:grid;place-content:center;text-align:center}.affiliate-ui .donut-center strong{font-size:1.7rem;letter-spacing:-.05em}.affiliate-ui .donut-center span{color:var(--text-soft);margin-top:6px;font-size:.9rem}.affiliate-ui .donut-legend{display:grid;gap:12px}.affiliate-ui .legend-row{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:10px;color:#425062;font-size:.93rem}.affiliate-ui .legend-bullet{width:10px;height:10px;border-radius:50%}.affiliate-ui .bullet-blue{background:var(--blue)}.affiliate-ui .bullet-green{background:#2eb76c}.affiliate-ui .bullet-purple{background:var(--purple)}.affiliate-ui .bullet-orange{background:#f5a327}.affiliate-ui .legend-row strong{font-size:.92rem;color:#2a3546}
-        @media (max-width:1450px){.affiliate-ui .stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.affiliate-ui .main-grid,.affiliate-ui .analytics-grid,.affiliate-ui .info-grid{grid-template-columns:1fr}}
-        @media (max-width:1180px){.affiliate-ui .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.affiliate-ui .main-grid{grid-template-columns:1fr}.affiliate-ui .referral-grid,.affiliate-ui .referral-head{grid-template-columns:1fr}.affiliate-ui .referral-head{display:none}}
-        @media (max-width:760px){.affiliate-ui .stats-grid,.affiliate-ui .info-grid{grid-template-columns:1fr}.affiliate-ui .chart-legend,.affiliate-ui .share-row{flex-wrap:wrap}.affiliate-ui .copy-row{grid-template-columns:1fr;gap:10px}.affiliate-ui .copy-field,.affiliate-ui .icon-button{border-radius:12px;border-right:1px solid var(--surface-border)}.affiliate-ui .link-row,.affiliate-ui .tool-row,.affiliate-ui .tool-main{align-items:flex-start}.affiliate-ui .link-row{flex-direction:column}}
-    </style>
-    <div class="affiliate-ui">
-        <section class="stats-grid" aria-label="Affiliate summary">
-            <article class="stat-card"><div class="stat-icon soft-purple"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="2.5"></circle><circle cx="16" cy="8" r="2"></circle><path d="M5.5 17a3.5 3.5 0 0 1 7 0"></path><path d="M13.5 16.5a3 3 0 0 1 5 0"></path></svg></div><div class="stat-copy"><span>Total Referrals</span><strong>128</strong><small>All time</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-green"><svg viewBox="0 0 24 24" fill="none"><path d="M5 6.5h2l1.4 7h8.6l2-5.5H9"></path><circle cx="10" cy="18" r="1.5"></circle><circle cx="17" cy="18" r="1.5"></circle></svg></div><div class="stat-copy"><span>Total Earnings</span><strong>₦250,000</strong><small>All time</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-orange"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6.5" width="14" height="12" rx="2"></rect><path d="M8 4.5v4"></path><path d="M16 4.5v4"></path><path d="M8 12h8"></path></svg></div><div class="stat-copy"><span>Pending Payout</span><strong>₦45,000</strong><small>Awaiting approval</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-blue"><svg viewBox="0 0 24 24" fill="none"><path d="M5 18.5h14"></path><path d="M7.5 15.5V9"></path><path d="M12 15.5V6.5"></path><path d="M16.5 15.5v-4"></path><path d="m6 13 3-3 3 2 5-6"></path></svg></div><div class="stat-copy"><span>Paid Earnings</span><strong>₦205,000</strong><small>All time</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-red"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"></circle><path d="M8.5 12h7"></path><path d="m10 9 4 6"></path><path d="m14 9-4 6"></path></svg></div><div class="stat-copy"><span>Conversion Rate</span><strong>18.75%</strong><small>All time</small></div></article>
+    @php
+        $stats = [
+            [
+                'label' => 'Total Referrals',
+                'value' => '128',
+                'note' => 'All time',
+                'iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]',
+                'icon' => 'users',
+            ],
+            [
+                'label' => 'Total Earnings',
+                'value' => '₦250,000',
+                'note' => 'All time',
+                'iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]',
+                'icon' => 'cart',
+            ],
+            [
+                'label' => 'Pending Payout',
+                'value' => '₦45,000',
+                'note' => 'Awaiting approval',
+                'iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]',
+                'icon' => 'calendar',
+            ],
+            [
+                'label' => 'Paid Earnings',
+                'value' => '₦205,000',
+                'note' => 'All time',
+                'iconClass' => 'bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]',
+                'icon' => 'chart',
+            ],
+            [
+                'label' => 'Conversion Rate',
+                'value' => '18.75%',
+                'note' => 'All time',
+                'iconClass' => 'bg-[var(--i2-color-danger-soft)] text-[var(--i2-color-danger)]',
+                'icon' => 'close-circle',
+            ],
+        ];
+
+        $topLinks = [
+            ['url' => 'https://i2medier.com/aff.php?ref=JohnDoe', 'clicks' => '104 Clicks'],
+            ['url' => 'https://i2medier.com/hosting?ref=JohnDoe', 'clicks' => '68 Clicks'],
+            ['url' => 'https://i2medier.com/domains?ref=JohnDoe', 'clicks' => '41 Clicks'],
+            ['url' => 'https://i2medier.com/services?ref=JohnDoe', 'clicks' => '32 Clicks'],
+        ];
+
+        $referrals = [
+            ['id' => '#R128', 'referral' => 'example.com', 'product' => 'Premium Hosting', 'amount' => '₦90,000', 'commission' => '₦18,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 29, 2025'],
+            ['id' => '#R127', 'referral' => 'acmeweb.com', 'product' => '.com Domain', 'amount' => '₦15,000', 'commission' => '₦3,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 28, 2025'],
+            ['id' => '#R126', 'referral' => 'bestsite.ng', 'product' => 'SSL Certificate', 'amount' => '₦10,000', 'commission' => '₦2,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]'], 'date' => 'May 28, 2025'],
+            ['id' => '#R125', 'referral' => 'mysite.io', 'product' => 'Business Email', 'amount' => '₦20,000', 'commission' => '₦4,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]'], 'date' => 'May 27, 2025'],
+            ['id' => '#R124', 'referral' => 'webhub.net', 'product' => 'Cloud Hosting', 'amount' => '₦150,000', 'commission' => '₦30,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 26, 2025'],
+        ];
+
+        $infoCards = [
+            [
+                'title' => 'How It Works',
+                'body' => 'Refer customers using your unique link and earn commission on their purchases.',
+                'link' => 'Learn More',
+                'iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]',
+                'icon' => 'check-card',
+            ],
+            [
+                'title' => 'Commission Rate',
+                'body' => 'Earn up to 20% commission on hosting, domains, services and other products.',
+                'link' => 'View Rates',
+                'iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]',
+                'icon' => 'plus-card',
+            ],
+            [
+                'title' => 'Payout Cycle',
+                'body' => 'Payouts are processed every Monday for balances above ₦10,000.',
+                'link' => 'View Payout Policy',
+                'iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]',
+                'icon' => 'calendar-card',
+            ],
+            [
+                'title' => 'Need Help?',
+                'body' => 'Our affiliate team is here to help you succeed.',
+                'link' => 'Contact Support',
+                'href' => './ticket.html',
+                'iconClass' => 'bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]',
+                'icon' => 'chat-card',
+            ],
+        ];
+
+        $quickTools = [
+            ['title' => 'Banners & Creatives', 'body' => 'Download banners and promotional materials.', 'icon' => 'banner'],
+            ['title' => 'Statistics & Reports', 'body' => 'Detailed analytics and reports.', 'icon' => 'report'],
+            ['title' => 'Payout Methods', 'body' => 'Manage your payout methods.', 'icon' => 'payout'],
+            ['title' => 'Affiliate Settings', 'body' => 'Update your affiliate preferences.', 'icon' => 'settings'],
+        ];
+
+        $commissionLegend = [
+            ['label' => 'Hosting', 'value' => '₦120,000 (48%)', 'class' => 'bg-[var(--i2-color-info)]'],
+            ['label' => 'Domains', 'value' => '₦60,000 (24%)', 'class' => 'bg-[var(--i2-color-success)]'],
+            ['label' => 'Services', 'value' => '₦45,000 (18%)', 'class' => 'bg-[var(--i2-color-violet)]'],
+            ['label' => 'Others', 'value' => '₦25,000 (10%)', 'class' => 'bg-[var(--i2-color-warning)]'],
+        ];
+    @endphp
+
+    <div class="font-[var(--i2-font-sans)] text-[var(--i2-color-text)]">
+        <section aria-label="Affiliate summary" class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
+            @foreach ($stats as $stat)
+                <x-client.stat-card
+                    :label="$stat['label']"
+                    :value="$stat['value']"
+                    :note="$stat['note']"
+                    :icon-class="$stat['iconClass']"
+                    card-class="min-w-0"
+                >
+                    <x-slot:icon>
+                        @if ($stat['icon'] === 'users')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="9" cy="9" r="2.5"></circle><circle cx="16" cy="8" r="2"></circle><path d="M5.5 17a3.5 3.5 0 0 1 7 0"></path><path d="M13.5 16.5a3 3 0 0 1 5 0"></path></svg>
+                        @elseif ($stat['icon'] === 'cart')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M5 6.5h2l1.4 7h8.6l2-5.5H9"></path><circle cx="10" cy="18" r="1.5"></circle><circle cx="17" cy="18" r="1.5"></circle></svg>
+                        @elseif ($stat['icon'] === 'calendar')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="6.5" width="14" height="12" rx="2"></rect><path d="M8 4.5v4"></path><path d="M16 4.5v4"></path><path d="M8 12h8"></path></svg>
+                        @elseif ($stat['icon'] === 'chart')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M5 18.5h14"></path><path d="M7.5 15.5V9"></path><path d="M12 15.5V6.5"></path><path d="M16.5 15.5v-4"></path><path d="m6 13 3-3 3 2 5-6"></path></svg>
+                        @else
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M8.5 12h7"></path><path d="m10 9 4 6"></path><path d="m14 9-4 6"></path></svg>
+                        @endif
+                    </x-slot:icon>
+                </x-client.stat-card>
+            @endforeach
         </section>
-        <section class="main-grid">
-            <div class="left-stack">
-                <section class="analytics-grid">
-                    <article class="panel chart-panel">
-                        <div class="panel-head"><h2>Referral Overview</h2><button type="button" class="ghost-button compact">This Month <span aria-hidden="true">˅</span></button></div>
-                        <div class="chart-legend"><span class="legend-item"><i class="legend-swatch swatch-blue"></i>Clicks</span><span class="legend-item"><i class="legend-swatch swatch-green"></i>Signups</span><span class="legend-item"><i class="legend-swatch swatch-purple"></i>Conversions</span></div>
-                        <div class="chart-area" aria-hidden="true"><div class="y-axis"><span>80</span><span>60</span><span>40</span><span>20</span><span>0</span></div><div class="graph-wrap tall-graph"><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><div class="grid-line"></div><svg class="chart-svg" viewBox="0 0 520 220" preserveAspectRatio="none"><path class="line blue-line" d="M16 168 L42 160 L70 120 L96 132 L124 98 L150 78 L178 132 L204 124 L232 98 L258 86 L286 120 L314 136 L342 122 L370 104 L398 116 L426 96 L454 58 L482 68 L504 36"></path><path class="line green-line" d="M16 192 L42 188 L70 150 L96 160 L124 126 L150 122 L178 160 L204 156 L232 136 L258 148 L286 132 L314 156 L342 148 L370 136 L398 144 L426 132 L454 112 L482 128 L504 114"></path><path class="line purple-line" d="M16 206 L42 204 L70 186 L96 190 L124 174 L150 168 L178 192 L204 188 L232 176 L258 186 L286 172 L314 188 L342 184 L370 176 L398 184 L426 174 L454 162 L482 172 L504 158"></path><circle class="blue-dot" cx="504" cy="36" r="4"></circle></svg><div class="x-axis dense-axis"><span>May 1</span><span>May 6</span><span>May 11</span><span>May 16</span><span>May 21</span><span>May 26</span><span>May 31</span></div></div></div>
-                    </article>
-                    <article class="panel links-panel"><h2>Top Performing Links</h2><div class="link-list"><div class="link-row"><a href="#">https://i2medier.com/aff.php?ref=JohnDoe</a><span>104 Clicks</span></div><div class="link-row"><a href="#">https://i2medier.com/hosting?ref=JohnDoe</a><span>68 Clicks</span></div><div class="link-row"><a href="#">https://i2medier.com/domains?ref=JohnDoe</a><span>41 Clicks</span></div><div class="link-row"><a href="#">https://i2medier.com/services?ref=JohnDoe</a><span>32 Clicks</span></div></div><button type="button" class="ghost-button compact">View All Links</button></article>
+
+        <section class="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.7fr)_310px]">
+            <div class="grid min-w-0 gap-4">
+                <section class="grid grid-cols-1 gap-4 2xl:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)]">
+                    <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                        <div class="mb-3 flex items-center justify-between gap-3">
+                            <h2 class="text-base">Referral Overview</h2>
+                            <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)]">
+                                This Month <span aria-hidden="true" class="ml-1">˅</span>
+                            </button>
+                        </div>
+
+                        <div class="mb-2 flex flex-wrap items-center gap-5 text-[.88rem] text-[var(--i2-color-text-soft)]">
+                            <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-info)]"></i>Clicks</span>
+                            <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-success)]"></i>Signups</span>
+                            <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-violet)]"></i>Conversions</span>
+                        </div>
+
+                        <div aria-hidden="true" class="mt-[14px] grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+                            <div class="flex flex-col justify-between py-1 pb-[22px] text-[.82rem] text-[var(--i2-color-text-faint)]">
+                                <span>80</span>
+                                <span>60</span>
+                                <span>40</span>
+                                <span>20</span>
+                                <span>0</span>
+                            </div>
+                            <div class="relative min-h-[240px]">
+                                <div class="absolute left-0 right-0 top-[22px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                                <div class="absolute left-0 right-0 top-[68px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                                <div class="absolute left-0 right-0 top-[114px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                                <div class="absolute left-0 right-0 top-[160px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                                <div class="absolute left-0 right-0 top-[206px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                                <svg viewBox="0 0 520 220" preserveAspectRatio="none" class="absolute inset-x-0 bottom-[18px] top-0 h-[calc(100%-18px)] w-full">
+                                    <path d="M16 168 L42 160 L70 120 L96 132 L124 98 L150 78 L178 132 L204 124 L232 98 L258 86 L286 120 L314 136 L342 122 L370 104 L398 116 L426 96 L454 58 L482 68 L504 36" class="fill-none stroke-[var(--i2-color-info)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
+                                    <path d="M16 192 L42 188 L70 150 L96 160 L124 126 L150 122 L178 160 L204 156 L232 136 L258 148 L286 132 L314 156 L342 148 L370 136 L398 144 L426 132 L454 112 L482 128 L504 114" class="fill-none stroke-[var(--i2-color-success)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
+                                    <path d="M16 206 L42 204 L70 186 L96 190 L124 174 L150 168 L178 192 L204 188 L232 176 L258 186 L286 172 L314 188 L342 184 L370 176 L398 184 L426 174 L454 162 L482 172 L504 158" class="fill-none stroke-[var(--i2-color-violet)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
+                                    <circle cx="504" cy="36" r="4" class="fill-[var(--i2-color-info)] stroke-white [stroke-width:3]"></circle>
+                                </svg>
+                                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-[.82rem] text-[var(--i2-color-text-faint)]">
+                                    <span class="whitespace-nowrap">May 1</span>
+                                    <span class="whitespace-nowrap">May 6</span>
+                                    <span class="whitespace-nowrap">May 11</span>
+                                    <span class="whitespace-nowrap">May 16</span>
+                                    <span class="whitespace-nowrap">May 21</span>
+                                    <span class="whitespace-nowrap">May 26</span>
+                                    <span class="whitespace-nowrap">May 31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </x-client.panel>
+
+                    <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                        <h2 class="text-base">Top Performing Links</h2>
+                        <div class="my-7 flex flex-col gap-6">
+                            @foreach ($topLinks as $link)
+                                <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
+                                    <a href="#" class="break-all text-[var(--i2-color-info)]">{{ $link['url'] }}</a>
+                                    <span class="shrink-0 whitespace-nowrap text-[.9rem] text-[var(--i2-color-brand-ink)]">{{ $link['clicks'] }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)]">View All Links</button>
+                    </x-client.panel>
                 </section>
-                <section class="panel referrals-panel"><div class="panel-head"><h2>Recent Referrals</h2></div><div class="referral-table"><div class="referral-head referral-grid"><span>ID</span><span>Referral</span><span>Product / Service</span><span>Amount</span><span>Commission</span><span>Status</span><span>Date</span></div><div class="referral-row referral-grid"><span>#R128</span><span>example.com</span><span>Premium Hosting</span><span>₦90,000</span><span>₦18,000</span><span><b class="status-pill pill-green">Paid</b></span><span>May 29, 2025</span></div><div class="referral-row referral-grid"><span>#R127</span><span>acmeweb.com</span><span>.com Domain</span><span>₦15,000</span><span>₦3,000</span><span><b class="status-pill pill-green">Paid</b></span><span>May 28, 2025</span></div><div class="referral-row referral-grid"><span>#R126</span><span>bestsite.ng</span><span>SSL Certificate</span><span>₦10,000</span><span>₦2,000</span><span><b class="status-pill pill-amber">Pending</b></span><span>May 28, 2025</span></div><div class="referral-row referral-grid"><span>#R125</span><span>mysite.io</span><span>Business Email</span><span>₦20,000</span><span>₦4,000</span><span><b class="status-pill pill-amber">Pending</b></span><span>May 27, 2025</span></div><div class="referral-row referral-grid"><span>#R124</span><span>webhub.net</span><span>Cloud Hosting</span><span>₦150,000</span><span>₦30,000</span><span><b class="status-pill pill-green">Paid</b></span><span>May 26, 2025</span></div></div><a href="#" class="footer-link">View All Referrals</a></section>
-                <section class="info-grid"><article class="panel info-card"><div class="info-icon soft-purple"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="5.5" width="14" height="13" rx="2"></rect><path d="m8 9 3 3 5-5"></path></svg></div><div><h2>How It Works</h2><p>Refer customers using your unique link and earn commission on their purchases.</p><a href="#" class="info-link">Learn More <span aria-hidden="true">→</span></a></div></article><article class="panel info-card"><div class="info-icon soft-green"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6" width="14" height="12" rx="3"></rect><path d="M9 12h6"></path><path d="M12 9v6"></path></svg></div><div><h2>Commission Rate</h2><p>Earn up to 20% commission on hosting, domains, services and other products.</p><a href="#" class="info-link">View Rates <span aria-hidden="true">→</span></a></div></article><article class="panel info-card"><div class="info-icon soft-orange"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6.5" width="14" height="12" rx="2"></rect><path d="M8 4.5v4"></path><path d="M16 4.5v4"></path><path d="M8 12h8"></path></svg></div><div><h2>Payout Cycle</h2><p>Payouts are processed every Monday for balances above ₦10,000.</p><a href="#" class="info-link">View Payout Policy <span aria-hidden="true">→</span></a></div></article><article class="panel info-card"><div class="info-icon soft-blue"><svg viewBox="0 0 24 24" fill="none"><path d="M7 10.5a5 5 0 0 1 10 0v1.5a2 2 0 0 1-2 2h-1l-2.2 2.2a1 1 0 0 1-1.7-.7V14H9a2 2 0 0 1-2-2Z"></path><path d="M9.5 9.5h.01"></path><path d="M14.5 9.5h.01"></path></svg></div><div><h2>Need Help?</h2><p>Our affiliate team is here to help you succeed.</p><a href="./ticket.html" class="info-link">Contact Support <span aria-hidden="true">→</span></a></div></article></section>
+
+                <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                    <div class="mb-3 flex items-center justify-between gap-3">
+                        <h2 class="text-base">Recent Referrals</h2>
+                    </div>
+
+                    <div class="hidden border-b border-[var(--i2-color-border-soft)] px-0 pb-3 text-[.92rem] text-[var(--i2-color-text-faint)] xl:grid xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
+                        <span>ID</span>
+                        <span>Referral</span>
+                        <span>Product / Service</span>
+                        <span>Amount</span>
+                        <span>Commission</span>
+                        <span>Status</span>
+                        <span>Date</span>
+                    </div>
+
+                    @foreach ($referrals as $referral)
+                        <article class="grid gap-2 border-t border-[var(--i2-color-border-soft)] px-0 py-[14px] text-[.93rem] text-[var(--i2-color-text-soft)] first:border-t-0 xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">ID:</span>{{ $referral['id'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Referral:</span>{{ $referral['referral'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Product:</span>{{ $referral['product'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Amount:</span>{{ $referral['amount'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Commission:</span>{{ $referral['commission'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Status:</span><b class="{{ $referral['status']['class'] }} inline-flex min-h-6 items-center justify-center rounded-[7px] px-2 text-[.74rem] font-semibold not-italic">{{ $referral['status']['label'] }}</b></span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Date:</span>{{ $referral['date'] }}</span>
+                        </article>
+                    @endforeach
+
+                    <a href="#" class="mt-2 inline-flex text-[var(--i2-color-info)]">View All Referrals</a>
+                </x-client.panel>
+
+                <section class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
+                    @foreach ($infoCards as $card)
+                        <x-client.panel class="flex min-h-[150px] gap-[14px] px-[18px] pb-4 pt-[18px]">
+                            <div class="{{ $card['iconClass'] }} grid size-[46px] shrink-0 place-items-center rounded-[14px]">
+                                @if ($card['icon'] === 'check-card')
+                                    <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="5.5" width="14" height="13" rx="2"></rect><path d="m8 9 3 3 5-5"></path></svg>
+                                @elseif ($card['icon'] === 'plus-card')
+                                    <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="6" width="14" height="12" rx="3"></rect><path d="M9 12h6"></path><path d="M12 9v6"></path></svg>
+                                @elseif ($card['icon'] === 'calendar-card')
+                                    <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="6.5" width="14" height="12" rx="2"></rect><path d="M8 4.5v4"></path><path d="M16 4.5v4"></path><path d="M8 12h8"></path></svg>
+                                @else
+                                    <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M7 10.5a5 5 0 0 1 10 0v1.5a2 2 0 0 1-2 2h-1l-2.2 2.2a1 1 0 0 1-1.7-.7V14H9a2 2 0 0 1-2-2Z"></path><path d="M9.5 9.5h.01"></path><path d="M14.5 9.5h.01"></path></svg>
+                                @endif
+                            </div>
+                            <div>
+                                <h2 class="mb-3 text-base">{{ $card['title'] }}</h2>
+                                <p class="mb-4 text-[.92rem] leading-[1.6] text-[var(--i2-color-text-faint)]">{{ $card['body'] }}</p>
+                                <a href="{{ $card['href'] ?? '#' }}" class="inline-flex items-center gap-2 font-medium text-[var(--i2-color-info)]">{{ $card['link'] }} <span aria-hidden="true">→</span></a>
+                            </div>
+                        </x-client.panel>
+                    @endforeach
+                </section>
             </div>
-            <div class="right-stack">
-                <section class="panel affiliate-link-panel"><h2>Your Affiliate Link</h2><div class="copy-row"><span class="copy-field">https://i2medier.com/aff.php?ref=JohnDoe</span><button type="button" class="icon-button" aria-label="Copy affiliate link"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="10" rx="2"></rect><rect x="5" y="5" width="10" height="10" rx="2"></rect></svg></button></div><div class="share-row"><span>Share</span><div class="share-icons"><button type="button" class="share-button" aria-label="Share on Facebook">f</button><button type="button" class="share-button" aria-label="Share on Twitter">t</button><button type="button" class="share-button" aria-label="Share on LinkedIn">in</button><button type="button" class="share-button" aria-label="Share more"><svg viewBox="0 0 24 24" fill="none"><circle cx="6" cy="12" r="1.5"></circle><circle cx="12" cy="7" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle><path d="M7.3 11.2 10.7 8.1"></path><path d="m13.3 8.1 3.4 3.1"></path></svg></button></div></div></section>
-                <section class="panel tools-panel"><h2>Quick Tools</h2><div class="tool-list"><button type="button" class="tool-row"><span class="tool-main"><span class="tool-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="5" width="14" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h6"></path></svg></span><span><strong>Banners &amp; Creatives</strong><small>Download banners and promotional materials.</small></span></span><span class="tool-arrow">›</span></button><button type="button" class="tool-row"><span class="tool-main"><span class="tool-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 18.5h14"></path><path d="M7.5 15.5V9"></path><path d="M12 15.5V6.5"></path><path d="M16.5 15.5v-4"></path><path d="m6 13 3-3 3 2 5-6"></path></svg></span><span><strong>Statistics &amp; Reports</strong><small>Detailed analytics and reports.</small></span></span><span class="tool-arrow">›</span></button><button type="button" class="tool-row"><span class="tool-main"><span class="tool-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="6" width="14" height="12" rx="3"></rect><path d="M8 12h8"></path></svg></span><span><strong>Payout Methods</strong><small>Manage your payout methods.</small></span></span><span class="tool-arrow">›</span></button><button type="button" class="tool-row"><span class="tool-main"><span class="tool-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3"></circle><path d="M12 4.5v2"></path><path d="M12 17.5v2"></path><path d="M4.5 12h2"></path><path d="M17.5 12h2"></path><path d="m6.8 6.8 1.4 1.4"></path><path d="m15.8 15.8 1.4 1.4"></path><path d="m17.2 6.8-1.4 1.4"></path><path d="m8.2 15.8-1.4 1.4"></path></svg></span><span><strong>Affiliate Settings</strong><small>Update your affiliate preferences.</small></span></span><span class="tool-arrow">›</span></button></div></section>
-                <section class="panel commission-panel"><h2>Commission Overview</h2><div class="donut-block"><div class="donut-chart" aria-hidden="true"><div class="donut-center"><strong>₦250,000</strong><span>Total Earnings</span></div></div><div class="donut-legend"><div class="legend-row"><span class="legend-bullet bullet-blue"></span><span>Hosting</span><strong>₦120,000 (48%)</strong></div><div class="legend-row"><span class="legend-bullet bullet-green"></span><span>Domains</span><strong>₦60,000 (24%)</strong></div><div class="legend-row"><span class="legend-bullet bullet-purple"></span><span>Services</span><strong>₦45,000 (18%)</strong></div><div class="legend-row"><span class="legend-bullet bullet-orange"></span><span>Others</span><strong>₦25,000 (10%)</strong></div></div></div><a href="#" class="footer-link">View Full Report <span aria-hidden="true">→</span></a></section>
+
+            <div class="grid gap-4">
+                <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                    <h2 class="text-base">Your Affiliate Link</h2>
+                    <div class="mt-[18px] grid grid-cols-1 gap-[10px] sm:grid-cols-[minmax(0,1fr)_42px] sm:gap-0">
+                        <span class="flex min-h-[42px] items-center overflow-hidden text-ellipsis whitespace-nowrap rounded-[12px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface-alt)] px-[14px] text-[var(--i2-color-text-soft)] sm:rounded-r-none sm:border-r-0">https://i2medier.com/aff.php?ref=JohnDoe</span>
+                        <button type="button" class="inline-flex min-h-[42px] items-center justify-center rounded-[12px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-text-soft)] sm:rounded-l-none" aria-label="Copy affiliate link">
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="9" y="9" width="10" height="10" rx="2"></rect><rect x="5" y="5" width="10" height="10" rx="2"></rect></svg>
+                        </button>
+                    </div>
+                    <div class="mt-[18px] flex flex-wrap items-center gap-[18px] text-[var(--i2-color-text-soft)]">
+                        <span>Share</span>
+                        <div class="flex items-center gap-[10px]">
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Facebook">f</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Twitter">t</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on LinkedIn">in</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-info)]" aria-label="Share more">
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="6" cy="12" r="1.5"></circle><circle cx="12" cy="7" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle><path d="M7.3 11.2 10.7 8.1"></path><path d="m13.3 8.1 3.4 3.1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </x-client.panel>
+
+                <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                    <h2 class="text-base">Quick Tools</h2>
+                    <div class="mt-4 grid gap-3">
+                        @foreach ($quickTools as $tool)
+                            <button type="button" class="flex w-full items-center justify-between gap-3 rounded-[14px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] p-3 text-left">
+                                <span class="flex items-center gap-3">
+                                    <span class="grid size-[46px] shrink-0 place-items-center rounded-[14px] bg-[var(--i2-color-surface-alt)] text-[var(--i2-color-text-soft)]">
+                                        @if ($tool['icon'] === 'banner')
+                                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>
+                                        @elseif ($tool['icon'] === 'report')
+                                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M5 18.5h14"></path><path d="M7.5 15.5V9"></path><path d="M12 15.5V6.5"></path><path d="M16.5 15.5v-4"></path><path d="m6 13 3-3 3 2 5-6"></path></svg>
+                                        @elseif ($tool['icon'] === 'payout')
+                                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="6" width="14" height="12" rx="3"></rect><path d="M8 12h8"></path></svg>
+                                        @else
+                                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 4.5v2"></path><path d="M12 17.5v2"></path><path d="M4.5 12h2"></path><path d="M17.5 12h2"></path><path d="m6.8 6.8 1.4 1.4"></path><path d="m15.8 15.8 1.4 1.4"></path><path d="m17.2 6.8-1.4 1.4"></path><path d="m8.2 15.8-1.4 1.4"></path></svg>
+                                        @endif
+                                    </span>
+                                    <span>
+                                        <strong class="mb-1 block text-[.98rem] text-[var(--i2-color-brand-ink)]">{{ $tool['title'] }}</strong>
+                                        <small class="text-[var(--i2-color-text-faint)]">{{ $tool['body'] }}</small>
+                                    </span>
+                                </span>
+                                <span class="text-[1.25rem] text-[var(--i2-color-text-faint)]">›</span>
+                            </button>
+                        @endforeach
+                    </div>
+                </x-client.panel>
+
+                <x-client.panel class="px-[18px] pb-4 pt-[18px]">
+                    <h2 class="text-base">Commission Overview</h2>
+                    <div class="mt-[14px] grid gap-[18px]">
+                        <div class="relative mx-auto size-[148px] rounded-full bg-[conic-gradient(var(--i2-color-info)_0_48%,var(--i2-color-success)_48%_72%,var(--i2-color-violet)_72%_90%,var(--i2-color-warning)_90%_100%)]">
+                            <div class="absolute inset-[18px] rounded-full bg-[var(--i2-color-surface)] shadow-[inset_0_0_0_1px_var(--i2-color-border-soft)]"></div>
+                            <div class="absolute inset-0 z-[1] grid place-content-center text-center">
+                                <strong class="text-[1.7rem] tracking-[-0.05em]">₦250,000</strong>
+                                <span class="mt-1.5 text-[.9rem] text-[var(--i2-color-text-faint)]">Total Earnings</span>
+                            </div>
+                        </div>
+                        <div class="grid gap-3">
+                            @foreach ($commissionLegend as $row)
+                                <div class="grid grid-cols-[12px_minmax(0,1fr)_auto] items-center gap-[10px] text-[.93rem] text-[var(--i2-color-text-soft)]">
+                                    <span class="{{ $row['class'] }} size-[10px] rounded-full"></span>
+                                    <span>{{ $row['label'] }}</span>
+                                    <strong class="text-[.92rem] text-[var(--i2-color-brand-ink)]">{{ $row['value'] }}</strong>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-flex items-center gap-1 text-[var(--i2-color-info)]">View Full Report <span aria-hidden="true">→</span></a>
+                </x-client.panel>
             </div>
         </section>
     </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\BlogImageUploadController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PortalAssetController;
 use App\Http\Controllers\PublicInvoiceController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{category}/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/blog/{post:slug}', function (\App\Models\BlogPost $post) {
     return redirect()->route('blog.show', [
@@ -19,8 +21,6 @@ Route::get('/blog/{post:slug}', function (\App\Models\BlogPost $post) {
     ], 301);
 });
 Route::get('/portfolio', [SiteController::class, 'portfolio'])->name('portfolio.index');
-Route::get('/portfolio/meto7-chauffeur-services', [SiteController::class, 'meto7CaseStudy'])->name('portfolio.case-study.meto7');
-Route::get('/portfolio/nnaedozie-thomas-foundation', [SiteController::class, 'ntfCaseStudy'])->name('portfolio.case-study.ntf');
 Route::get('/portfolio/{portfolioProject:slug}', [PortfolioController::class, 'show'])->name('portfolio.show');
 Route::get('/services', [SiteController::class, 'services'])->name('site.services');
 Route::get('/services/web-design', [SiteController::class, 'webDesign'])->name('site.services.web-design');
@@ -33,8 +33,11 @@ Route::get('/services/business-email-setup', [SiteController::class, 'businessEm
 Route::get('/services/website-maintenance', [SiteController::class, 'websiteMaintenance'])->name('site.services.website-maintenance');
 Route::get('/services/wordpress-maintenance', [SiteController::class, 'wordpressMaintenance'])->name('site.services.wordpress-maintenance');
 Route::get('/services/cloud-architecture', [SiteController::class, 'cloudArchitecture'])->name('site.services.cloud-architecture');
+Route::get('/services/saas-application', [SiteController::class, 'saasApplication'])->name('site.services.saas-application');
+Route::get('/services/ecommerce-website', [SiteController::class, 'ecommerceWebsite'])->name('site.services.ecommerce-website');
 Route::get('/who-we-help', [SiteController::class, 'whoWeHelp'])->name('site.who-we-help');
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+Route::get('/start', [SiteController::class, 'start'])->name('site.start');
 Route::get('/services/web-design/law-firm-website-design', [SiteController::class, 'lawyerLanding'])->name('site.lawyer');
 Route::get('/services/web-design/{industry}', [SiteController::class, 'webDesignIndustry'])
     ->where('industry', 'accounting-firm-website-design|clinic-website-design|real-estate-website-design|consulting-firm-website-design|construction-company-website-design|engineering-firm-website-design|architecture-firm-website-design|school-website-design|church-website-design|hotel-website-design|restaurant-website-design|beauty-wellness-website-design|fitness-website-design|cleaning-company-website-design|logistics-company-website-design|travel-agency-website-design|ecommerce-website-design|fashion-brand-website-design|event-planner-website-design|photography-website-design|personal-brand-website-design')
@@ -47,6 +50,15 @@ Route::get('/pay/invoices/{token}/paystack', [PublicInvoiceController::class, 'p
 Route::get('/pay/invoices/{token}/paystack/callback', [PublicInvoiceController::class, 'paystackCallback'])->name('public.invoices.paystack.callback');
 Route::get('/login', fn () => redirect('/portal/login'))->name('login');
 Route::get('/portal-assets/{file}', [PortalAssetController::class, 'show'])->name('portal.assets');
+
+Route::middleware('auth')->prefix('admin/blog')->group(function (): void {
+    Route::post('/upload-image', BlogImageUploadController::class)->name('blog.upload-image');
+});
+
+Route::middleware(['auth', 'signed'])->group(function (): void {
+    Route::get('/blog/{post:slug}/preview', [BlogController::class, 'preview'])->name('blog.preview');
+    Route::get('/portfolio/{portfolioProject:slug}/preview', [PortfolioController::class, 'preview'])->name('portfolio.preview');
+});
 
 Route::middleware('auth')->group(function (): void {
     Route::get('/billing/invoices/{invoice}/paystack', [BillingController::class, 'paystackRedirect'])

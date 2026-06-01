@@ -86,6 +86,7 @@ class BlogController extends Controller
                 'icon' => $topic['icon'],
                 'color' => $topic['color'],
                 'slug' => $topic['slug'],
+                'db_slug' => $category->slug,
             ];
         });
 
@@ -116,6 +117,158 @@ class BlogController extends Controller
             'topicCards',
             'seo'
         ));
+    }
+
+    public function category(BlogCategory $category): View
+    {
+        $category->ui = $this->categoryUi($category);
+
+        $heroPost = BlogPost::query()
+            ->published()
+            ->where('category_id', $category->id)
+            ->where('is_featured', true)
+            ->latest('published_at')
+            ->first();
+
+        $isHeroFeatured = (bool) $heroPost;
+
+        if (! $heroPost) {
+            $heroPost = BlogPost::query()
+                ->published()
+                ->where('category_id', $category->id)
+                ->latest('published_at')
+                ->first();
+        }
+
+        if ($heroPost) {
+            $heroPost = $this->decoratePost($heroPost->loadMissing(['author', 'category', 'tags']));
+        }
+
+        $posts = BlogPost::query()
+            ->published()
+            ->where('category_id', $category->id)
+            ->with(['author', 'category', 'tags'])
+            ->when($heroPost, fn ($q) => $q->whereKeyNot($heroPost->getKey()))
+            ->latest('published_at')
+            ->paginate(12);
+
+        $posts->setCollection(
+            $posts->getCollection()->map(fn (BlogPost $post) => $this->decoratePost($post))
+        );
+
+        $allCategories = BlogCategory::query()
+            ->withCount(['posts' => fn ($query) => $query->published()])
+            ->orderByDesc('posts_count')
+            ->orderBy('sort_order')
+            ->get()
+            ->map(function (BlogCategory $cat) {
+                $cat->ui = $this->categoryUi($cat);
+
+                return $cat;
+            })
+            ->values();
+
+        $popularPosts = BlogPost::query()
+            ->published()
+            ->with(['category'])
+            ->orderByDesc('view_count')
+            ->orderByDesc('published_at')
+            ->limit(5)
+            ->get()
+            ->map(fn (BlogPost $post) => $this->decoratePost($post));
+
+        $tags = BlogTag::query()
+            ->whereHas('posts', fn ($query) => $query->published())
+            ->withCount(['posts' => fn ($query) => $query->published()])
+            ->orderByDesc('posts_count')
+            ->orderBy('name')
+            ->limit(16)
+            ->get();
+
+        $totalPosts = $posts->total();
+
+        $seo = [
+            'title' => $category->ui['label'] . ' Articles | i2Medier Blog',
+            'description' => $category->ui['topic_description'],
+            'keywords' => $category->name . ', web design Nigeria, i2Medier blog',
+            'robots' => 'index, follow',
+            'author' => 'i2Medier',
+            'url' => route('blog.category', $category),
+            'og_type' => 'website',
+            'schema_type' => 'Blog',
+            'service_type' => null,
+        ];
+
+        return view('blog.category', compact('category', 'heroPost', 'isHeroFeatured', 'posts', 'allCategories', 'popularPosts', 'tags', 'totalPosts', 'seo'));
+    }
+
+    public function preview(BlogPost $post): View
+    {
+        $post->load(['author', 'category', 'tags']);
+        $post = $this->decoratePost($post);
+
+        $relatedPosts = BlogPost::query()
+            ->published()
+            ->whereKeyNot($post->getKey())
+            ->when($post->category_id, fn ($query) => $query->where('category_id', $post->category_id))
+            ->latest('published_at')
+            ->limit(3)
+            ->get()
+            ->map(fn (BlogPost $relatedPost) => $this->decoratePost($relatedPost));
+
+        $popularPosts = BlogPost::query()
+            ->published()
+            ->whereKeyNot($post->getKey())
+            ->with(['category'])
+            ->orderByDesc('view_count')
+            ->orderByDesc('published_at')
+            ->limit(5)
+            ->get()
+            ->map(fn (BlogPost $popularPost) => $this->decoratePost($popularPost));
+
+        $categories = BlogCategory::query()
+            ->withCount(['posts' => fn ($query) => $query->published()])
+            ->orderByDesc('posts_count')
+            ->orderBy('sort_order')
+            ->get()
+            ->map(function (BlogCategory $category) {
+                $category->ui = $this->categoryUi($category);
+
+                return $category;
+            })
+            ->values();
+
+        $tags = BlogTag::query()
+            ->whereHas('posts', fn ($query) => $query->published())
+            ->withCount(['posts' => fn ($query) => $query->published()])
+            ->orderByDesc('posts_count')
+            ->orderBy('name')
+            ->limit(14)
+            ->get();
+
+        $tableOfContents = $this->extractTableOfContents($post->content ?? []);
+
+        $seo = [
+            'title' => '[Preview] ' . ($post->seo_title ?: $post->title) . ' | i2Medier Blog',
+            'description' => $post->seo_description ?: $post->excerpt,
+            'keywords' => '',
+            'robots' => 'noindex, nofollow',
+            'author' => optional($post->author)->name ?: 'i2Medier',
+            'url' => '#',
+            'og_type' => 'article',
+            'schema_type' => 'Article',
+            'service_type' => null,
+        ];
+
+        return view('blog.show', compact(
+            'post',
+            'relatedPosts',
+            'popularPosts',
+            'categories',
+            'tags',
+            'tableOfContents',
+            'seo'
+        ))->with('isPreview', true);
     }
 
     public function show(string $category, BlogPost $post): View|RedirectResponse
@@ -178,7 +331,7 @@ class BlogController extends Controller
             ->limit(14)
             ->get();
 
-        $tableOfContents = $this->extractTableOfContents($post->body);
+        $tableOfContents = $this->extractTableOfContents($post->content ?? []);
 
         $seo = [
             'title' => ($post->seo_title ?: $post->title) . ' | i2Medier Blog',
@@ -315,16 +468,21 @@ class BlogController extends Controller
         ];
     }
 
-    private function extractTableOfContents(string $html): array
+    private function extractTableOfContents(array $content): array
     {
-        preg_match_all('/<h2[^>]*id=["\']([^"\']+)["\'][^>]*>(.*?)<\/h2>/is', $html, $matches, PREG_SET_ORDER);
+        return collect($content['blocks'] ?? [])
+            ->filter(fn (array $block): bool => ($block['type'] ?? null) === 'header' && (int) (($block['data']['level'] ?? 0)) === 2)
+            ->values()
+            ->map(function (array $block, int $index) {
+                $title = trim(html_entity_decode(strip_tags((string) ($block['data']['text'] ?? ''))));
 
-        return collect($matches)->map(function (array $match, int $index) {
-            return [
-                'id' => $match[1],
-                'title' => trim(html_entity_decode(strip_tags($match[2]))),
-                'label' => $index < 9 ? str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) : '→',
-            ];
-        })->filter(fn (array $item) => filled($item['id']) && filled($item['title']))->values()->all();
+                return [
+                    'id' => \App\View\Components\EditorjsRenderer::headingId($title . '-' . $index),
+                    'title' => $title,
+                    'label' => $index < 9 ? str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) : '→',
+                ];
+            })
+            ->filter(fn (array $item) => filled($item['id']) && filled($item['title']))
+            ->all();
     }
 }

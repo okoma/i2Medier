@@ -1,4 +1,4 @@
-<nav class="public-nav{{ request()->routeIs('site.lawyer') ? ' is-dark' : '' }}">
+<nav class="public-nav{{ request()->routeIs('site.lawyer') ? ' is-dark' : '' }}{{ request()->routeIs('site.home') ? ' is-home' : '' }}">
     <a href="{{ url('/') }}" class="public-logo">i2Medi<span>er</span></a>
     <ul>
         <li><a href="{{ route('site.services') }}" class="{{ request()->routeIs('site.services') ? 'is-active' : '' }}">Services</a></li>
@@ -8,7 +8,7 @@
         <li><a href="{{ route('site.contact') }}" class="{{ request()->routeIs('site.contact') ? 'is-active' : '' }}">Contact</a></li>
         <li><a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'is-active' : '' }}">Blog</a></li>
     </ul>
-    <a href="{{ route('site.contact') }}" class="nav-cta public-nav-cta">Get Started</a>
+    <a href="{{ route('site.start') }}" class="nav-cta public-nav-cta">Get Started</a>
     <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
         <span></span>
         <span></span>
@@ -17,7 +17,7 @@
 </nav>
 
 <div class="public-nav-overlay" data-nav-close></div>
-<aside class="public-side-nav{{ request()->routeIs('site.lawyer') ? ' is-dark' : '' }}" id="public-side-nav" aria-hidden="true">
+<aside class="public-side-nav{{ (request()->routeIs('site.lawyer') || request()->routeIs('site.home')) ? ' is-dark' : '' }}" id="public-side-nav" aria-hidden="true">
     <div class="public-side-nav-head">
         <a href="{{ url('/') }}" class="public-logo">i2Medi<span>er</span></a>
         <button class="public-side-nav-close" type="button" aria-label="Close navigation" data-nav-close>
@@ -33,7 +33,7 @@
         <li><a href="{{ route('site.contact') }}" class="{{ request()->routeIs('site.contact') ? 'is-active' : '' }}">Contact</a></li>
         <li><a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'is-active' : '' }}">Blog</a></li>
     </ul>
-    <a href="{{ route('site.contact') }}" class="nav-cta public-side-nav-cta">Get Started</a>
+    <a href="{{ route('site.start') }}" class="nav-cta public-side-nav-cta">Get Started</a>
 </aside>
 
 @push('scripts')

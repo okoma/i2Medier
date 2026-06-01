@@ -3,8 +3,8 @@
 namespace App\Filament\Admin\Resources\BlogPosts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
@@ -31,65 +31,30 @@ class BlogPostForm
                         Grid::make(1)
                             ->columnSpan(['default' => 12, 'xl' => 8])
                             ->schema([
-                                Section::make('Write Post')
-                                    ->description('A WordPress-style writing flow with your headline, permalink, summary, and main article body up front.')
-                                    ->icon(Heroicon::OutlinedDocumentText)
-                                    ->schema([
-                                        TextInput::make('title')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->live(onBlur: true)
-                                            ->placeholder('Add title')
-                                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state): void {
-                                                $currentSlug = trim((string) $get('slug'));
-                                                $oldSlug = Str::slug((string) $old);
+                                TextInput::make('title')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->hiddenLabel()
+                                    ->placeholder('Add title')
+                                    ->extraInputAttributes(['class' => 'i2-wp-title'])
+                                    ->extraAttributes(['class' => 'i2-wp-title-wrap'])
+                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state): void {
+                                        $currentSlug = trim((string) $get('slug'));
+                                        $oldSlug = Str::slug((string) $old);
 
-                                                if (blank($currentSlug) || $currentSlug === $oldSlug) {
-                                                    $set('slug', Str::slug((string) $state));
-                                                }
-                                            }),
-                                        Placeholder::make('permalink_preview')
-                                            ->label('Permalink')
-                                            ->content(function (Get $get): string {
-                                                $slug = trim((string) ($get('slug') ?: Str::slug((string) ($get('title') ?: 'blog-post'))));
-
-                                                return url('/blog') . '/{category}/' . $slug;
-                                            })
-                                            ->helperText('The category is inserted in the final live URL automatically. Keep the slug short and descriptive.'),
-                                        TextInput::make('slug')
-                                            ->label('Permalink')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->live(onBlur: true)
-                                            ->unique(ignoreRecord: true)
-                                            ->helperText('Auto-generated from the title, but fully editable. Keep it short, readable, and keyword-focused.'),
-                                        Textarea::make('excerpt')
-                                            ->label('Excerpt / Summary')
-                                            ->rows(4)
-                                            ->maxLength(500)
-                                            ->helperText(fn (Get $get): string => str($get('excerpt') ?? '')->length() . '/500 characters. Aim for 140-200 for archive, social, and search previews.')
-                                            ->live()
-                                            ->columnSpanFull(),
-                                        RichEditor::make('body')
-                                            ->required()
-                                            ->toolbarButtons([
-                                                'attachFiles',
-                                                'blockquote',
-                                                'bold',
-                                                'bulletList',
-                                                'codeBlock',
-                                                'h2',
-                                                'h3',
-                                                'italic',
-                                                'link',
-                                                'orderedList',
-                                                'redo',
-                                                'strike',
-                                                'underline',
-                                                'undo',
-                                            ])
-                                            ->helperText('Write naturally, use clear H2/H3 sections, and add internal links as you go.')
-                                            ->columnSpanFull(),
+                                        if (blank($currentSlug) || $currentSlug === $oldSlug) {
+                                            $set('slug', Str::slug((string) $state));
+                                        }
+                                    }),
+                                Hidden::make('content')
+                                    ->default([
+                                        'blocks' => [],
+                                    ])
+                                    ->columnSpanFull(),
+                                View::make('filament.admin.resources.blog-posts.editorjs-field')
+                                    ->viewData([
+                                        'statePath' => 'data.content',
                                     ]),
                                 Section::make('SEO Metabox')
                                     ->description('Keep SEO directly under the editor, the way you would expect in WordPress.')
@@ -118,13 +83,13 @@ class BlogPostForm
                                                     ->helperText('Add supporting variations and related phrases. Keep it focused, not stuffed.'),
                                                 View::make('filament.admin.resources.blog-posts.seo-panel')
                                                     ->viewData(fn (Get $get): array => [
-                                                        'title' => $get('title'),
-                                                        'slug' => $get('slug'),
-                                                        'excerpt' => $get('excerpt'),
-                                                        'body' => $get('body'),
-                                                        'seoTitle' => $get('seo_title'),
-                                                        'seoDescription' => $get('seo_description'),
-                                                        'focusKeyphrase' => $get('focus_keyphrase'),
+                                                                'title' => $get('title'),
+                                                                'slug' => $get('slug'),
+                                                                'excerpt' => $get('excerpt'),
+                                                                'content' => $get('content'),
+                                                                'seoTitle' => $get('seo_title'),
+                                                                'seoDescription' => $get('seo_description'),
+                                                                'focusKeyphrase' => $get('focus_keyphrase'),
                                                         'seoKeywords' => $get('seo_keywords'),
                                                     ]),
                                             ]),
@@ -137,6 +102,13 @@ class BlogPostForm
                                     ->description('Treat this like the WordPress publish box.')
                                     ->icon(Heroicon::OutlinedRocketLaunch)
                                     ->schema([
+                                        TextInput::make('slug')
+                                            ->label('Permalink')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->live(onBlur: true)
+                                            ->unique(ignoreRecord: true)
+                                            ->helperText('Auto-generated from the title. Only edit the last slug segment.'),
                                         Select::make('status')
                                             ->options([
                                                 'draft' => 'Draft',
@@ -147,6 +119,8 @@ class BlogPostForm
                                             ->default('draft')
                                             ->required(),
                                         DateTimePicker::make('published_at')
+                                            ->default(now())
+                                            ->format('M j, Y g:i A')
                                             ->helperText('Set a future date if this post should go live later.'),
                                         Toggle::make('is_featured')
                                             ->label('Feature this post')
@@ -160,6 +134,15 @@ class BlogPostForm
                                             ->searchable()
                                             ->preload(),
                                     ]),
+                                Section::make('Excerpt / Summary')
+                                    ->icon(Heroicon::OutlinedBars3BottomLeft)
+                                    ->schema([
+                                        Textarea::make('excerpt')
+                                            ->rows(4)
+                                            ->maxLength(500)
+                                            ->helperText(fn (Get $get): string => str($get('excerpt') ?? '')->length() . '/500 characters. Aim for 140-200 for archive, social, and search previews.')
+                                            ->live(),
+                                    ]),
                                 Section::make('SEO Focus')
                                     ->icon(Heroicon::OutlinedMagnifyingGlass)
                                     ->schema([
@@ -172,10 +155,14 @@ class BlogPostForm
                                 Section::make('Media & Metrics')
                                     ->icon(Heroicon::OutlinedPhoto)
                                     ->schema([
-                                        TextInput::make('featured_image')
-                                            ->url()
-                                            ->maxLength(255)
-                                            ->helperText('Paste the live image URL used for the card, hero, and social preview.'),
+                                        FileUpload::make('featured_image')
+                                            ->label('Featured Image')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->disk('public')
+                                            ->directory('blog/featured-images')
+                                            ->visibility('public')
+                                            ->helperText('Upload the main image used for the archive card, blog hero, and social preview.'),
                                         TextInput::make('read_time')
                                             ->numeric()
                                             ->minValue(1)
@@ -187,7 +174,7 @@ class BlogPostForm
                                 Section::make('Editorial Checklist')
                                     ->icon(Heroicon::OutlinedClipboardDocumentCheck)
                                     ->schema([
-                                        Placeholder::make('editorial_note')
+                                        \Filament\Forms\Components\Placeholder::make('editorial_note')
                                             ->hiddenLabel()
                                             ->content('Before publishing, confirm the post has a strong opening paragraph, clear H2 sections, at least one internal link, one external citation where useful, and a clean meta description.'),
                                     ]),

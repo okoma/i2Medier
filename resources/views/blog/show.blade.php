@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', ($post->seo_title ?: $post->title) . ' | i2Medier Blog')
+@section('title', ($post->seo_title ?: $post->title) . ' | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/blog-single.css')
@@ -61,13 +61,19 @@
 @endpush
 
 @section('content')
+@if ($isPreview ?? false)
+<div class="preview-banner" style="position:sticky;top:0;z-index:9999;background:#b45309;color:#fff;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.875rem;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,.35);">
+    <span>⚠ Draft Preview — this post is not yet published. Only you can see this page.</span>
+    <a href="{{ url()->previous() }}" style="color:#fef9c3;text-decoration:underline;white-space:nowrap;">← Back to editor</a>
+</div>
+@endif
 <div class="blog-single-page">
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
 
     <div class="breadcrumb" aria-label="Breadcrumb">
         <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
         <a href="{{ route('blog.index') }}">Blog</a><span class="breadcrumb-sep">›</span>
-        <a href="{{ route('blog.show', $post->route_params) }}">{{ $post->ui['label'] }}</a><span class="breadcrumb-sep">›</span>
+        @if ($post->category)<a href="{{ route('blog.category', $post->category) }}">{{ $post->ui['label'] }}</a><span class="breadcrumb-sep">›</span>@endif
         <span aria-current="page">{{ $post->title }}</span>
     </div>
 
@@ -76,7 +82,7 @@
         <div class="blog-hero-grid" aria-hidden="true"></div>
         <div class="blog-hero-inner">
             <div class="post-meta-top">
-                <a href="{{ route('blog.show', $post->route_params) }}" class="post-category">{{ $post->ui['label'] }}</a>
+                <a href="{{ $post->category ? route('blog.category', $post->category) : route('blog.index') }}" class="post-category">{{ $post->ui['label'] }}</a>
                 <span class="post-dot" aria-hidden="true"></span>
                 <span class="post-date">{{ $post->formatted_date }}</span>
                 <span class="post-dot" aria-hidden="true"></span>
@@ -109,16 +115,20 @@
     <div class="blog-main">
         <main id="article-top" class="article-wrap">
             <div class="feature-img" aria-hidden="true">
-                <div class="feature-img-inner">
-                    <span class="feature-img-icon">@include('blog.partials.archive-icon', ['name' => $post->ui['icon'], 'class' => 'feature-svg'])</span>
-                    <div class="feature-img-title">{{ $post->ui['label'] }} insights for ambitious businesses</div>
-                    <div class="feature-img-sub">Practical lessons from real projects, audits, and growth strategy work</div>
-                </div>
+                @if ($post->featured_image)
+                    <img src="{{ Storage::url($post->featured_image) }}" alt="{{ e($post->title) }}" class="feature-img-photo">
+                @else
+                    <div class="feature-img-inner">
+                        <span class="feature-img-icon">@include('blog.partials.archive-icon', ['name' => $post->ui['icon'], 'class' => 'feature-svg'])</span>
+                        <div class="feature-img-title">{{ $post->ui['label'] }} insights for ambitious businesses</div>
+                        <div class="feature-img-sub">Practical lessons from real projects, audits, and growth strategy work</div>
+                    </div>
+                @endif
             </div>
-            <p class="feature-img-caption">Published by the i2Medier team for Nigerian and UK businesses that want better websites, stronger search visibility, and more qualified leads.</p>
+
 
             <article class="article-body" id="article">
-                {!! $post->body !!}
+                <x-editorjs-renderer :content="$post->content" />
 
                 @if ($post->tags->isNotEmpty())
                     <div class="article-tags">
@@ -234,7 +244,7 @@
                 <div class="sw-body">
                     <ul class="cat-list" role="list">
                         @foreach ($categories as $category)
-                            <li><a href="{{ route('blog.index') }}" class="cat-item"><span class="cat-name">{{ $category->ui['label'] }}</span><span class="cat-count">{{ $category->posts_count }}</span></a></li>
+                            <li><a href="{{ route('blog.category', $category) }}" class="cat-item{{ isset($post) && $post->category_id === $category->id ? ' active' : '' }}"><span class="cat-name">{{ $category->ui['label'] }}</span><span class="cat-count">{{ $category->posts_count }}</span></a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -262,9 +272,13 @@
             <div class="related-grid">
                 @foreach ($relatedPosts as $relatedPost)
                     <article class="related-card">
-                        <div class="related-card-thumb" style="background:{{ $relatedPost->ui['gradient'] }}">
-                            <div class="related-card-thumb-inner">@include('blog.partials.archive-icon', ['name' => $relatedPost->ui['icon'], 'class' => 'related-card-svg'])</div>
-                        </div>
+                        @if ($relatedPost->featured_image)
+                            <div class="related-card-thumb" style="background:url('{{ Storage::url($relatedPost->featured_image) }}') center/cover no-repeat"></div>
+                        @else
+                            <div class="related-card-thumb" style="background:{{ $relatedPost->ui['gradient'] }}">
+                                <div class="related-card-thumb-inner">@include('blog.partials.archive-icon', ['name' => $relatedPost->ui['icon'], 'class' => 'related-card-svg'])</div>
+                            </div>
+                        @endif
                         <div class="related-card-body">
                             <div class="related-card-cat">{{ $relatedPost->ui['label'] }}</div>
                             <h3 class="related-card-title"><a href="{{ route('blog.show', $relatedPost->route_params) }}">{{ $relatedPost->title }}</a></h3>

@@ -26,6 +26,11 @@ class OnboardingTaskResource extends Resource
 
     protected static ?string $navigationLabel = 'Onboarding';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function infolist(Schema $schema): Schema
     {
         return OnboardingTaskInfolist::configure($schema);
@@ -60,6 +65,11 @@ class OnboardingTaskResource extends Resource
     }
 
     public static function canDelete($record): bool
+    {
+        return false;
+    }
+
+    public static function canAccess(): bool
     {
         return false;
     }

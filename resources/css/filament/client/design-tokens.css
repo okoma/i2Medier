@@ -1,0 +1,106 @@
+@theme {
+    --color-portal-ink: var(--i2-color-brand-ink);
+    --color-portal-ink-soft: var(--i2-color-brand-ink-soft);
+    --color-portal-gold: var(--i2-color-brand-gold);
+    --color-portal-gold-soft: var(--i2-color-brand-gold-soft);
+    --color-portal-off: var(--i2-color-brand-off);
+    --color-portal-cream: var(--i2-color-brand-cream);
+    --color-portal-green: var(--i2-color-brand-green);
+    --color-portal-green-soft: var(--i2-color-brand-green-soft);
+    --color-portal-success: var(--i2-color-success);
+    --color-portal-success-soft: var(--i2-color-success-soft);
+    --color-portal-warning: var(--i2-color-warning);
+    --color-portal-warning-soft: var(--i2-color-warning-soft);
+    --color-portal-danger: var(--i2-color-danger);
+    --color-portal-danger-soft: var(--i2-color-danger-soft);
+    --color-portal-info: var(--i2-color-info);
+    --color-portal-info-soft: var(--i2-color-info-soft);
+    --color-portal-violet: var(--i2-color-violet);
+    --color-portal-violet-soft: var(--i2-color-violet-soft);
+    --color-portal-neutral-100: var(--i2-color-neutral-100);
+    --color-portal-neutral-200: var(--i2-color-neutral-200);
+    --color-portal-neutral-400: var(--i2-color-neutral-400);
+    --color-portal-neutral-700: var(--i2-color-neutral-700);
+    --color-portal-text-muted: var(--i2-color-text-muted);
+    --color-portal-border: var(--i2-color-border-brand);
+    --color-portal-surface: var(--i2-color-surface);
+    --color-portal-surface-alt: var(--i2-color-surface-alt);
+
+    --font-portal-sans: var(--i2-font-sans);
+    --font-portal-serif: var(--i2-font-serif);
+    --font-portal-mono: var(--i2-font-mono);
+
+    --text-portal-xs: var(--i2-text-xs);
+    --text-portal-sm: var(--i2-text-sm);
+    --text-portal-base: var(--i2-text-base);
+    --text-portal-md: var(--i2-text-md);
+    --text-portal-lg: var(--i2-text-lg);
+    --text-portal-xl: var(--i2-text-xl);
+    --text-portal-2xl: var(--i2-text-2xl);
+    --text-portal-3xl: var(--i2-text-3xl);
+    --text-portal-stat: var(--i2-text-stat);
+}
+
+:root {
+    /* Public brand colors */
+    --i2-color-brand-ink: #0d0d0d;
+    --i2-color-brand-ink-soft: #1a1a17;
+    --i2-color-brand-off: #f7f6f2;
+    --i2-color-brand-cream: #f5f0e8;
+    --i2-color-brand-gold: #c8a96e;
+    --i2-color-brand-gold-soft: #e8d5b0;
+    --i2-color-brand-gold-dim: rgba(201, 168, 76, 0.15);
+    --i2-color-brand-green: #1a6b3a;
+    --i2-color-brand-green-soft: #e8f4ee;
+
+    /* Neutral support colors from the public site */
+    --i2-color-neutral-100: #f0eeea;
+    --i2-color-neutral-200: #dddbd5;
+    --i2-color-neutral-400: #9e9c97;
+    --i2-color-neutral-700: #4a4845;
+    --i2-color-text-muted: #8a8478;
+    --i2-color-border-brand: rgba(201, 168, 76, 0.2);
+
+    /* Dashboard-facing semantic aliases */
+    --i2-color-surface: #ffffff;
+    --i2-color-surface-alt: var(--i2-color-brand-off);
+    --i2-color-surface-soft: var(--i2-color-brand-cream);
+    --i2-color-text: var(--i2-color-brand-ink);
+    --i2-color-text-soft: var(--i2-color-neutral-700);
+    --i2-color-text-faint: var(--i2-color-text-muted);
+    --i2-color-border-soft: var(--i2-color-neutral-200);
+    --i2-color-border-strong: var(--i2-color-border-brand);
+    --i2-color-accent: var(--i2-color-brand-gold);
+    --i2-color-accent-soft: var(--i2-color-brand-gold-soft);
+    --i2-color-success: var(--i2-color-brand-green);
+    --i2-color-success-soft: var(--i2-color-brand-green-soft);
+    --i2-color-warning: #da8400;
+    --i2-color-warning-soft: #fff1dd;
+    --i2-color-danger: #ff3b30;
+    --i2-color-danger-soft: #ffeceb;
+    --i2-color-info: #3c7cff;
+    --i2-color-info-soft: #e9f1ff;
+    --i2-color-violet: #7c55ff;
+    --i2-color-violet-soft: #f0eaff;
+
+    /* Portal shell surfaces */
+    --i2-portal-shell-bg: color-mix(in oklab, white 88%, var(--i2-color-brand-off) 12%);
+    --i2-portal-shell-bg-strong: color-mix(in oklab, white 82%, var(--i2-color-brand-cream) 18%);
+    --i2-portal-shell-dark: color-mix(in oklab, var(--i2-color-brand-ink-soft) 92%, black 8%);
+
+    /* Typography */
+    --i2-font-sans: "DM Sans", system-ui, sans-serif;
+    --i2-font-serif: "Playfair Display", Georgia, serif;
+    --i2-font-mono: "JetBrains Mono", monospace;
+
+    /* Dashboard font sizes */
+    --i2-text-xs: 0.72rem;
+    --i2-text-sm: 0.82rem;
+    --i2-text-base: 0.95rem;
+    --i2-text-md: 1rem;
+    --i2-text-lg: 1.125rem;
+    --i2-text-xl: 1.3rem;
+    --i2-text-2xl: 1.6rem;
+    --i2-text-3xl: 1.95rem;
+    --i2-text-stat: 1.6rem;
+}

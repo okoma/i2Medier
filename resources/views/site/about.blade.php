@@ -198,7 +198,7 @@
     <h2>Ready to build something <em>great?</em></h2>
     <p>Whether you're starting from scratch or scaling an existing product, we'd love to hear about your project.</p>
     <div class="btn-group">
-      <a href="mailto:hello@i2medier.com" class="btn-primary">Start Your Project →</a>
+      <a href="{{ route('site.start') }}" class="btn-primary">Start Your Project →</a>
       <a href="{{ route('portfolio.index') }}" class="btn-secondary">View Portfolio</a>
     </div>
   </section>

@@ -93,8 +93,7 @@
 .blog-archive-page .bc-thumb{font-size:3rem}
 .blog-archive-page .pc-thumb{font-size:2.2rem}
 .blog-archive-page .bc-thumb-bg,.blog-archive-page .pc-thumb-bg,.blog-archive-page .sc-thumb-bg,.blog-archive-page .lc-thumb-bg{position:absolute;inset:0;transition:transform .5s}
-.blog-archive-page .big-card:hover .bc-thumb-bg,.blog-archive-page .post-card:hover .pc-thumb-bg,.blog-archive-page .small-card:hover .sc-thumb-bg,.blog-archive-page .list-card:hover .lc-thumb-bg{transform:scale(1.05)}
-.blog-archive-page .bc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.15)}
+.blog-archive-page .big-card:hover .bc-thumb-bg,.blog-archive-page .post-card:hover .pc-thumb-bg,.blog-archive-page .small-card:hover .sc-thumb-bg,.blog-archive-page .list-card:hover .lc-thumb-bg{transform:scale(1.05)}.blog-archive-page .bc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.15)}
 .blog-archive-page .bc-ico,.blog-archive-page .pc-ico,.blog-archive-page .sc-ico,.blog-archive-page .lc-ico,.blog-archive-page .tc-ico,.blog-archive-page .sw-cta-ico{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
 .blog-archive-page .bc-badge-wrap{position:absolute;top:.85rem;left:.85rem;display:flex;gap:.4rem;z-index:2}
 .blog-archive-page .bc-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .6rem;border-radius:3px}

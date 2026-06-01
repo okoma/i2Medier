@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PortfolioProject extends Model
 {
@@ -14,6 +15,7 @@ class PortfolioProject extends Model
         'client_name',
         'summary',
         'description',
+        'content',
         'featured_image',
         'gallery',
         'project_url',
@@ -25,6 +27,7 @@ class PortfolioProject extends Model
     ];
 
     protected $casts = [
+        'content' => 'array',
         'gallery' => 'array',
         'tech_stack' => 'array',
         'published_at' => 'datetime',
@@ -49,6 +52,11 @@ class PortfolioProject extends Model
     public function scopeClientWork(Builder $query): Builder
     {
         return $query->where('type', 'client');
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(PortfolioCategory::class, 'portfolio_project_category');
     }
 
     public function getRouteKeyName(): string

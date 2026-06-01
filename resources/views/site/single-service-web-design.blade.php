@@ -398,7 +398,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-heading">
     <h2 id="cta-heading">Ready to build something exceptional?</h2>
     <p>Tell us what you're working on and we will get back to you with a free, detailed proposal within 24 hours, with no commitment required.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Project →</a>
+    <a href="{{ route('site.start') }}" class="btn-dark">Start Your Project →</a>
   </section>
 </div>
 @endsection

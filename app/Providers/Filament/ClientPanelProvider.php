@@ -27,6 +27,8 @@ class ClientPanelProvider extends PanelProvider
             ->login()
             ->spa()
             ->databaseNotifications()
+            ->sidebarCollapsibleOnDesktop()
+            ->collapsibleNavigationGroups()
             ->brandName('i2Medier Client Portal')
             ->viteTheme('resources/css/filament/client/theme.css')
             ->colors([

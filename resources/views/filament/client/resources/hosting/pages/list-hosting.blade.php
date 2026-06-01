@@ -1,29 +1,207 @@
 <x-filament-panels::page>
-    <style>
-        .hosting-ui{--surface-border:#e8e2db;--text:#171717;--text-soft:#687384;--orange:#ff5b00;--orange-soft:#fff1e8;--green:#1f9a59;--green-soft:#ebfbf2;--yellow-soft:#fff5df;--red:#ff3b30;--red-soft:#ffeceb;--purple:#7a49ff;--purple-soft:#f1eafe;--blue:#2e74ff;--blue-soft:#eaf3ff;--gray-soft:#eef1f5;--shadow:0 18px 40px rgba(26,25,31,.06);font-family:"Plus Jakarta Sans",sans-serif;color:var(--text)}
-        .hosting-ui *,.hosting-ui *::before,.hosting-ui *::after{box-sizing:border-box}.hosting-ui button{border:0;background:none;cursor:pointer;font:inherit}.hosting-ui svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-        .hosting-ui .hosting-panel,.hosting-ui .stat-card,.hosting-ui .manage-button,.hosting-ui .more-button,.hosting-ui .filter-button,.hosting-ui .new-hosting-button,.hosting-ui .page-button,.hosting-ui .mini-panel,.hosting-ui .small-button{border:1px solid var(--surface-border);background:rgba(255,255,255,.94);box-shadow:var(--shadow)}
-        .hosting-ui .stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-bottom:18px}.hosting-ui .stat-card{display:flex;align-items:center;gap:18px;min-height:124px;padding:22px;border-radius:18px}.hosting-ui .stat-icon,.hosting-ui .hosting-icon{display:grid;place-items:center;flex:0 0 auto}.hosting-ui .stat-icon{width:48px;height:48px;border-radius:14px}.hosting-ui .soft-purple{background:var(--purple-soft);color:var(--purple)}.hosting-ui .soft-green{background:var(--green-soft);color:var(--green)}.hosting-ui .soft-yellow{background:var(--yellow-soft);color:#f08a00}.hosting-ui .soft-red{background:var(--red-soft);color:var(--red)}.hosting-ui .soft-gray{background:var(--gray-soft);color:#5d6776}.hosting-ui .stat-copy span{display:block;margin-bottom:8px;color:#445062}.hosting-ui .stat-copy strong{display:block;margin-bottom:8px;font-size:2rem;letter-spacing:-.06em}.hosting-ui .stat-copy small{color:var(--text-soft);font-size:.95rem}
-        .hosting-ui .hosting-panel,.hosting-ui .mini-panel{border-radius:22px;overflow:hidden}.hosting-ui .panel-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px 0}.hosting-ui .tabs{display:flex;align-items:center;gap:28px}.hosting-ui .tab{position:relative;padding:10px 0 18px;color:#536071}.hosting-ui .tab.is-active{color:var(--orange)}.hosting-ui .tab.is-active::after{content:"";position:absolute;left:-6px;right:-6px;bottom:0;height:3px;border-radius:999px;background:var(--orange)}.hosting-ui .toolbar-actions{display:flex;align-items:center;gap:14px}
-        .hosting-ui .filter-button,.hosting-ui .new-hosting-button,.hosting-ui .manage-button,.hosting-ui .more-button,.hosting-ui .page-button,.hosting-ui .small-button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;border-radius:10px}.hosting-ui .filter-button,.hosting-ui .new-hosting-button{gap:10px;padding:0 18px;box-shadow:none}.hosting-ui .filter-button{color:#475162}.hosting-ui .new-hosting-button{background:linear-gradient(180deg,#ff7b2f 0%,var(--orange) 100%);border-color:transparent;color:#fff}
-        .hosting-ui .hosting-table{padding:10px 22px 0}.hosting-ui .hosting-grid{display:grid;grid-template-columns:minmax(250px,2fr) 140px 120px 150px 140px 160px 126px;align-items:center;gap:18px}.hosting-ui .hosting-head{padding:16px 2px;border-top:1px solid rgba(232,226,219,.9);color:#556172;font-size:.94rem}.hosting-ui .hosting-row{padding:16px 2px;border-top:1px solid rgba(232,226,219,.9)}.hosting-ui .hosting-main{display:flex;align-items:center;gap:16px;min-width:0}.hosting-ui .hosting-icon{width:36px;height:36px;border-radius:10px}.hosting-ui .purple-icon{background:var(--purple-soft);color:var(--purple)}.hosting-ui .blue-icon{background:var(--blue-soft);color:var(--blue)}.hosting-ui .green-icon{background:var(--green-soft);color:var(--green)}.hosting-ui .orange-icon{background:var(--orange-soft);color:var(--orange)}.hosting-ui .gray-icon{background:var(--gray-soft);color:#5d6776}.hosting-ui .hosting-main h2{margin:0 0 6px;font-size:.98rem;font-weight:600;letter-spacing:-.02em}.hosting-ui .hosting-main p,.hosting-ui .hosting-footer p,.hosting-ui .domain-cell,.hosting-ui .price-cell,.hosting-ui .location-cell{margin:0;color:var(--text-soft)}.hosting-ui .domain-cell,.hosting-ui .location-cell,.hosting-ui .action-cell{display:flex;align-items:center;gap:8px}.hosting-ui .ext-link{width:16px;height:16px;color:#697688}
-        .hosting-ui .status-pill{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 10px;border-radius:8px;font-size:.82rem;font-weight:600;white-space:nowrap}.hosting-ui .pill-green{background:#e7f8ec;color:var(--green)}.hosting-ui .pill-amber{background:#fff0d8;color:#da8400}.hosting-ui .due-cell strong,.hosting-ui .price-cell{display:block;font-size:.95rem;font-weight:500;color:#425062}.hosting-ui .due-cell span{display:block;margin-top:8px;color:var(--orange);font-weight:600}.hosting-ui .flag{font-size:1.25rem;line-height:1}.hosting-ui .manage-button{min-width:84px;padding:0 14px;color:#212c3c;box-shadow:none}.hosting-ui .more-button{width:36px;color:#4c5768;box-shadow:none}.hosting-ui .hosting-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px 14px}.hosting-ui .pagination{display:flex;align-items:center;gap:10px}.hosting-ui .page-button{min-width:34px;padding:0 12px;color:#516071;box-shadow:none}.hosting-ui .page-button.is-active{background:linear-gradient(180deg,#ff7b2f 0%,var(--orange) 100%);border-color:transparent;color:#fff}.hosting-ui .icon-button{width:34px;padding:0}
-        .hosting-ui .bottom-grid{display:grid;grid-template-columns:1fr 1.06fr 1fr;gap:16px;margin-top:12px}.hosting-ui .mini-panel{padding:18px 20px}.hosting-ui .mini-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.hosting-ui .mini-head h2,.hosting-ui .upgrade-copy h2{margin:0;font-size:1rem}.hosting-ui .small-button{min-height:30px;padding:0 14px;color:#293446;box-shadow:none}.hosting-ui .mini-subtitle{margin:0 0 14px;color:var(--text-soft)}.hosting-ui .usage-list{display:flex;flex-direction:column;gap:14px}.hosting-ui .usage-row{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:12px}.hosting-ui .usage-row span:first-child{color:#4b5768;font-size:.94rem}.hosting-ui .meter{height:6px;border-radius:999px;background:#eceff3;overflow:hidden}.hosting-ui .meter span{display:block;height:100%;border-radius:inherit}.hosting-ui .meter-purple{width:35%;background:linear-gradient(90deg,#8b63ff 0%,var(--purple) 100%)}.hosting-ui .meter-green{width:48%;background:linear-gradient(90deg,#34bf74 0%,var(--green) 100%)}.hosting-ui .meter-blue{width:38%;background:linear-gradient(90deg,#4a8dff 0%,var(--blue) 100%)}.hosting-ui .usage-row strong{color:#516071;font-size:.95rem}
-        .hosting-ui .backup-badge{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:8px;background:#e9f8ee;color:var(--green);font-size:.8rem;font-weight:600}.hosting-ui .backup-list{display:flex;flex-direction:column;gap:16px;margin-top:8px;margin-bottom:16px}.hosting-ui .backup-row{display:grid;grid-template-columns:20px 100px 1fr;align-items:center;gap:10px}.hosting-ui .backup-ok{width:20px;height:20px;color:var(--green)}.hosting-ui .backup-ok svg{width:18px;height:18px;flex:0 0 auto}.hosting-ui .backup-row strong{color:#233041;font-size:.96rem}.hosting-ui .backup-row span:last-child{color:var(--text-soft);font-size:.93rem}.hosting-ui .backup-button{margin-top:4px}
-        .hosting-ui .upgrade-panel{display:grid;grid-template-columns:1fr 132px;align-items:center;gap:16px}.hosting-ui .upgrade-copy p{margin:12px 0 18px;color:var(--text-soft);line-height:1.55}.hosting-ui .upgrade-button{display:inline-flex;align-items:center;gap:12px;min-height:38px;padding:0 14px;border:1px solid #daccff;border-radius:10px;background:#f6f1ff;color:var(--purple);font-weight:600}.hosting-ui .upgrade-graphic{position:relative;width:132px;height:120px}.hosting-ui .cloud{position:absolute;color:#8c62ff}.hosting-ui .cloud-main{right:0;bottom:0;width:116px;height:96px}.hosting-ui .cloud-main svg{stroke-width:1.6}.hosting-ui .cloud-small{top:8px;right:2px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#efe6ff 0%,#e4d8ff 65%,#e4d8ff 100%);opacity:.9}
-        @media (max-width:1380px){.hosting-ui .stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hosting-ui .hosting-grid{grid-template-columns:minmax(220px,2fr) 130px 120px 150px 130px 150px 118px}.hosting-ui .bottom-grid{grid-template-columns:1fr}}
-        @media (max-width:1180px){.hosting-ui .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hosting-ui .panel-toolbar{flex-direction:column;align-items:flex-start}.hosting-ui .hosting-grid,.hosting-ui .hosting-head{grid-template-columns:1fr}.hosting-ui .hosting-head{display:none}.hosting-ui .hosting-row{gap:10px}}
-        @media (max-width:760px){.hosting-ui .stats-grid{grid-template-columns:1fr}.hosting-ui .tabs{width:100%;overflow-x:auto;padding-bottom:4px}.hosting-ui .toolbar-actions,.hosting-ui .hosting-footer,.hosting-ui .upgrade-panel{width:100%;flex-direction:column;align-items:flex-start}.hosting-ui .upgrade-graphic{align-self:center}.hosting-ui .backup-row,.hosting-ui .usage-row{grid-template-columns:1fr}}
-    </style>
-    <div class="hosting-ui">
-        <section class="stats-grid" aria-label="Hosting summary">
-            <article class="stat-card"><div class="stat-icon soft-purple"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div class="stat-copy"><span>Total Hosting</span><strong>6</strong><small>All hosting services</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-green"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg></div><div class="stat-copy"><span>Active</span><strong>5</strong><small>83% of total</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-yellow"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12h3.5"></path></svg></div><div class="stat-copy"><span>Expiring Soon</span><strong>1</strong><small>17% of total</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-red"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="M10 8.5v7"></path><path d="M14 8.5v7"></path></svg></div><div class="stat-copy"><span>Suspended</span><strong>0</strong><small>0% of total</small></div></article>
-            <article class="stat-card"><div class="stat-icon soft-gray"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"></circle><path d="m9 9 6 6"></path><path d="m15 9-6 6"></path></svg></div><div class="stat-copy"><span>Cancelled</span><strong>0</strong><small>0% of total</small></div></article>
+    @php
+        $stats = [
+            ['label' => 'Total Hosting', 'value' => '6', 'note' => 'All hosting services', 'iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]', 'icon' => 'server'],
+            ['label' => 'Active', 'value' => '5', 'note' => '83% of total', 'iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]', 'icon' => 'active'],
+            ['label' => 'Expiring Soon', 'value' => '1', 'note' => '17% of total', 'iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]', 'icon' => 'expiring'],
+            ['label' => 'Suspended', 'value' => '0', 'note' => '0% of total', 'iconClass' => 'bg-[var(--i2-color-danger-soft)] text-[var(--i2-color-danger)]', 'icon' => 'suspended'],
+            ['label' => 'Cancelled', 'value' => '0', 'note' => '0% of total', 'iconClass' => 'bg-[var(--i2-color-surface-alt)] text-[var(--i2-color-text-soft)]', 'icon' => 'cancelled'],
+        ];
+
+        $hostingRows = [
+            ['iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]', 'title' => 'Business Hosting', 'subtitle' => 'cPanel Hosting', 'domain' => 'acme.com', 'status' => ['label' => 'Active', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'due' => 'May 20, 2025', 'dueNote' => '28 days left', 'price' => '₦70,000 / year', 'location' => 'New York, USA', 'flag' => '🇺🇸'],
+            ['iconClass' => 'bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]', 'title' => 'Premium Hosting', 'subtitle' => 'cPanel Hosting', 'domain' => 'acme.net', 'status' => ['label' => 'Active', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'due' => 'Jun 10, 2025', 'dueNote' => '49 days left', 'price' => '₦90,000 / year', 'location' => 'London, UK', 'flag' => '🇬🇧'],
+            ['iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]', 'title' => 'Starter Hosting', 'subtitle' => 'cPanel Hosting', 'domain' => 'acme.org', 'status' => ['label' => 'Active', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'due' => 'May 25, 2025', 'dueNote' => '33 days left', 'price' => '₦50,000 / year', 'location' => 'New York, USA', 'flag' => '🇺🇸'],
+            ['iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]', 'title' => 'Cloud Hosting', 'subtitle' => 'Cloud Hosting', 'domain' => 'acme.io', 'status' => ['label' => 'Active', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'due' => 'May 15, 2025', 'dueNote' => '23 days left', 'price' => '₦120,000 / year', 'location' => 'Singapore', 'flag' => '🇸🇬'],
+            ['iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]', 'title' => 'Reseller Hosting', 'subtitle' => 'WHM Reseller', 'domain' => 'acme.dev', 'status' => ['label' => 'Expiring Soon', 'class' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]'], 'due' => 'May 12, 2025', 'dueNote' => '20 days left', 'price' => '₦150,000 / year', 'location' => 'Amsterdam, NL', 'flag' => '🇳🇱'],
+            ['iconClass' => 'bg-[var(--i2-color-surface-alt)] text-[var(--i2-color-text-soft)]', 'title' => 'WordPress Hosting', 'subtitle' => 'WordPress Optimized', 'domain' => 'acme.co', 'status' => ['label' => 'Active', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'due' => 'Jun 12, 2025', 'dueNote' => '51 days left', 'price' => '₦65,000 / year', 'location' => 'Mumbai, India', 'flag' => '🇮🇳'],
+        ];
+
+        $usage = [
+            ['label' => 'CPU Usage', 'value' => '28%', 'widthClass' => 'w-[35%]', 'bar' => 'i2-progress-bar bg-[var(--i2-color-violet)] text-[var(--i2-color-violet)]'],
+            ['label' => 'RAM Usage', 'value' => '42%', 'widthClass' => 'w-[48%]', 'bar' => 'i2-progress-bar bg-[var(--i2-color-success)] text-[var(--i2-color-success)]'],
+            ['label' => 'Disk Usage', 'value' => '35%', 'widthClass' => 'w-[38%]', 'bar' => 'i2-progress-bar bg-[var(--i2-color-info)] text-[var(--i2-color-info)]'],
+        ];
+
+        $backups = [
+            ['name' => 'acme.com', 'detail' => 'Last backup: May 1, 2025 (Daily)'],
+            ['name' => 'acme.net', 'detail' => 'Last backup: May 2, 2025 (Daily)'],
+            ['name' => 'acme.org', 'detail' => 'Last backup: May 1, 2025 (Daily)'],
+        ];
+    @endphp
+
+    <div class="font-[var(--i2-font-sans)] text-[var(--i2-color-text)]">
+        <section aria-label="Hosting summary" class="mb-[18px] grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
+            @foreach ($stats as $stat)
+                <x-client.stat-card
+                    :label="$stat['label']"
+                    :value="$stat['value']"
+                    :note="$stat['note']"
+                    :icon-class="$stat['iconClass']"
+                >
+                    <x-slot:icon>
+                        @if ($stat['icon'] === 'server')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg>
+                        @elseif ($stat['icon'] === 'active')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg>
+                        @elseif ($stat['icon'] === 'expiring')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12h3.5"></path></svg>
+                        @elseif ($stat['icon'] === 'suspended')
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M10 8.5v7"></path><path d="M14 8.5v7"></path></svg>
+                        @else
+                            <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="m9 9 6 6"></path><path d="m15 9-6 6"></path></svg>
+                        @endif
+                    </x-slot:icon>
+                </x-client.stat-card>
+            @endforeach
         </section>
-        <section class="hosting-panel"><div class="panel-toolbar"><div class="tabs" aria-label="Hosting filters"><button type="button" class="tab is-active">All Hosting</button><button type="button" class="tab">Active</button><button type="button" class="tab">Expiring Soon</button><button type="button" class="tab">Suspended</button><button type="button" class="tab">Cancelled</button></div><div class="toolbar-actions"><button type="button" class="filter-button"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16"></path><path d="M7 12h10"></path><path d="M10 18h4"></path></svg><span>Filter</span></button><button type="button" class="new-hosting-button"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg><span>Order New Hosting</span></button></div></div><div class="hosting-table"><div class="hosting-head hosting-grid"><span>Hosting Plan</span><span>Domain</span><span>Status</span><span>Next Due Date</span><span>Renewal Price</span><span>Server Location</span><span>Actions</span></div><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon purple-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>Business Hosting</h2><p>cPanel Hosting</p></div></div><div class="domain-cell"><span>acme.com</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-green">Active</span></div><div class="due-cell"><strong>May 20, 2025</strong><span>28 days left</span></div><div class="price-cell">₦70,000 / year</div><div class="location-cell"><span class="flag">🇺🇸</span><span>New York, USA</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for Business Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon blue-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>Premium Hosting</h2><p>cPanel Hosting</p></div></div><div class="domain-cell"><span>acme.net</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-green">Active</span></div><div class="due-cell"><strong>Jun 10, 2025</strong><span>49 days left</span></div><div class="price-cell">₦90,000 / year</div><div class="location-cell"><span class="flag">🇬🇧</span><span>London, UK</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for Premium Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon green-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>Starter Hosting</h2><p>cPanel Hosting</p></div></div><div class="domain-cell"><span>acme.org</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-green">Active</span></div><div class="due-cell"><strong>May 25, 2025</strong><span>33 days left</span></div><div class="price-cell">₦50,000 / year</div><div class="location-cell"><span class="flag">🇺🇸</span><span>New York, USA</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for Starter Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon orange-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>Cloud Hosting</h2><p>Cloud Hosting</p></div></div><div class="domain-cell"><span>acme.io</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-green">Active</span></div><div class="due-cell"><strong>May 15, 2025</strong><span>23 days left</span></div><div class="price-cell">₦120,000 / year</div><div class="location-cell"><span class="flag">🇸🇬</span><span>Singapore</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for Cloud Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon purple-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>Reseller Hosting</h2><p>WHM Reseller</p></div></div><div class="domain-cell"><span>acme.dev</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-amber">Expiring Soon</span></div><div class="due-cell"><strong>May 12, 2025</strong><span>20 days left</span></div><div class="price-cell">₦150,000 / year</div><div class="location-cell"><span class="flag">🇳🇱</span><span>Amsterdam, NL</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for Reseller Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article><article class="hosting-row hosting-grid"><div class="hosting-main"><div class="hosting-icon gray-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg></div><div><h2>WordPress Hosting</h2><p>WordPress Optimized</p></div></div><div class="domain-cell"><span>acme.co</span><span class="ext-link"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg></span></div><div><span class="status-pill pill-green">Active</span></div><div class="due-cell"><strong>Jun 12, 2025</strong><span>51 days left</span></div><div class="price-cell">₦65,000 / year</div><div class="location-cell"><span class="flag">🇮🇳</span><span>Mumbai, India</span></div><div class="action-cell"><button type="button" class="manage-button">Manage</button><button type="button" class="more-button" aria-label="More actions for WordPress Hosting"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg></button></div></article></div><div class="hosting-footer"><p>Showing 1 to 6 of 6 hosting services</p><div class="pagination"><button type="button" class="page-button icon-button" aria-label="Previous page"><svg viewBox="0 0 24 24" fill="none"><path d="m14 7-5 5 5 5"></path></svg></button><button type="button" class="page-button is-active">1</button><button type="button" class="page-button icon-button" aria-label="Next page"><svg viewBox="0 0 24 24" fill="none"><path d="m10 7 5 5-5 5"></path></svg></button></div></div></section>
-        <section class="bottom-grid"><article class="mini-panel usage-panel"><div class="mini-head"><h2>Resource Usage</h2><button type="button" class="small-button">View All</button></div><p class="mini-subtitle">Average Usage</p><div class="usage-list"><div class="usage-row"><span>CPU Usage</span><div class="meter"><span class="meter-purple"></span></div><strong>28%</strong></div><div class="usage-row"><span>RAM Usage</span><div class="meter"><span class="meter-green"></span></div><strong>42%</strong></div><div class="usage-row"><span>Disk Usage</span><div class="meter"><span class="meter-blue"></span></div><strong>35%</strong></div></div></article><article class="mini-panel backup-panel"><div class="mini-head"><h2>Backup Status</h2><span class="backup-badge">All Backups OK</span></div><div class="backup-list"><div class="backup-row"><span class="backup-ok"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg></span><strong>acme.com</strong><span>Last backup: May 1, 2025 (Daily)</span></div><div class="backup-row"><span class="backup-ok"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg></span><strong>acme.net</strong><span>Last backup: May 2, 2025 (Daily)</span></div><div class="backup-row"><span class="backup-ok"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg></span><strong>acme.org</strong><span>Last backup: May 1, 2025 (Daily)</span></div></div><button type="button" class="small-button backup-button">View All Backups</button></article><article class="mini-panel upgrade-panel"><div class="upgrade-copy"><h2>Need More Power?</h2><p>Upgrade your hosting plan for better performance, more storage and advanced features.</p><button type="button" class="upgrade-button">Upgrade Now <span aria-hidden="true">→</span></button></div><div class="upgrade-graphic" aria-hidden="true"><div class="cloud cloud-main"><svg viewBox="0 0 120 100" fill="none"><path d="M31 73h50a17 17 0 0 0 3-34 25 25 0 0 0-47-5A19 19 0 0 0 31 73Z"></path><rect x="42" y="47" width="28" height="16" rx="4"></rect><path d="M51 55h10"></path><path d="M46 80h34"></path><path d="M54 63v17"></path><path d="M68 63v17"></path><circle cx="60" cy="36" r="4"></circle><path d="M60 40v7"></path></svg></div><div class="cloud cloud-small"></div></div></article></section>
+
+        <x-client.panel padding="none">
+            <div class="flex flex-col items-start justify-between gap-4 px-[22px] pb-0 pt-[18px] xl:flex-row xl:items-center">
+                <div class="flex w-full items-center gap-7 overflow-x-auto pb-1" aria-label="Hosting filters">
+                    <button type="button" class="relative whitespace-nowrap pb-[18px] pt-2 text-[var(--i2-color-accent)] after:absolute after:bottom-0 after:left-[-6px] after:right-[-6px] after:h-[3px] after:rounded-full after:bg-[var(--i2-color-accent)] after:content-['']">All Hosting</button>
+                    <button type="button" class="whitespace-nowrap pb-[18px] pt-2 text-[var(--i2-color-text-soft)]">Active</button>
+                    <button type="button" class="whitespace-nowrap pb-[18px] pt-2 text-[var(--i2-color-text-soft)]">Expiring Soon</button>
+                    <button type="button" class="whitespace-nowrap pb-[18px] pt-2 text-[var(--i2-color-text-soft)]">Suspended</button>
+                    <button type="button" class="whitespace-nowrap pb-[18px] pt-2 text-[var(--i2-color-text-soft)]">Cancelled</button>
+                </div>
+
+                <div class="flex w-full flex-col gap-3 xl:w-auto xl:flex-row xl:items-center">
+                    <x-client.button class="px-[18px] text-[var(--i2-color-text-soft)]" size="lg">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M4 6h16"></path><path d="M7 12h10"></path><path d="M10 18h4"></path></svg>
+                        <span>Filter</span>
+                    </x-client.button>
+                    <x-client.button variant="primary" class="px-[18px]" size="lg">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+                        <span>Order New Hosting</span>
+                    </x-client.button>
+                </div>
+            </div>
+
+            <div class="px-[22px] pb-0 pt-[10px]">
+                <div class="hidden items-center gap-[18px] border-t border-[var(--i2-color-border-soft)] px-[2px] py-4 text-[.94rem] text-[var(--i2-color-text-soft)] xl:grid xl:grid-cols-[minmax(250px,2fr)_140px_120px_150px_140px_160px_126px]">
+                    <span>Hosting Plan</span>
+                    <span>Domain</span>
+                    <span>Status</span>
+                    <span>Next Due Date</span>
+                    <span>Renewal Price</span>
+                    <span>Server Location</span>
+                    <span>Actions</span>
+                </div>
+
+                @foreach ($hostingRows as $row)
+                    <article class="grid gap-3 border-t border-[var(--i2-color-border-soft)] px-[2px] py-4 xl:grid-cols-[minmax(250px,2fr)_140px_120px_150px_140px_160px_126px] xl:items-center xl:gap-[18px]">
+                        <div class="flex min-w-0 items-center gap-4">
+                            <div class="{{ $row['iconClass'] }} grid size-9 shrink-0 place-items-center rounded-[10px]">
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="4.5" y="5" width="15" height="6" rx="1.5"></rect><rect x="4.5" y="13" width="15" height="6" rx="1.5"></rect><path d="M8 8h.01"></path><path d="M8 16h.01"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h2 class="mb-1.5 text-[.98rem] font-semibold tracking-[-0.02em]">{{ $row['title'] }}</h2>
+                                <p class="text-[var(--i2-color-text-faint)]">{{ $row['subtitle'] }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 text-[var(--i2-color-text-faint)]">
+                            <span>{{ $row['domain'] }}</span>
+                            <span class="text-[var(--i2-color-text-faint)]">
+                                <svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M10 14 19 5"></path><path d="M19 13v5a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="{{ $row['status']['class'] }} inline-flex min-h-7 items-center justify-center rounded-[8px] px-[10px] text-[.82rem] font-semibold">{{ $row['status']['label'] }}</span>
+                        </div>
+
+                        <div>
+                            <strong class="block text-[.95rem] font-medium text-[var(--i2-color-text-soft)]">{{ $row['due'] }}</strong>
+                            <span class="mt-2 block font-semibold text-[var(--i2-color-warning)]">{{ $row['dueNote'] }}</span>
+                        </div>
+
+                        <div class="text-[.95rem] font-medium text-[var(--i2-color-text-soft)]">{{ $row['price'] }}</div>
+
+                        <div class="flex items-center gap-2 text-[var(--i2-color-text-faint)]">
+                            <span class="text-[1.25rem] leading-none">{{ $row['flag'] }}</span>
+                            <span>{{ $row['location'] }}</span>
+                        </div>
+
+                        <div class="flex items-center gap-[10px]">
+                            <x-client.button class="min-w-[84px]">Manage</x-client.button>
+                            <x-client.icon-button aria-label="More actions for {{ $row['title'] }}">
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="M12 6h.01"></path><path d="M12 12h.01"></path><path d="M12 18h.01"></path></svg>
+                            </x-client.icon-button>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+
+            <div class="flex flex-col items-start justify-between gap-4 px-[22px] pb-[14px] pt-[18px] xl:flex-row xl:items-center">
+                <p class="text-[var(--i2-color-text-faint)]">Showing 1 to 6 of 6 hosting services</p>
+                <div class="flex items-center gap-[10px]">
+                    <x-client.icon-button class="size-[34px]" aria-label="Previous page">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="m14 7-5 5 5 5"></path></svg>
+                    </x-client.icon-button>
+                    <x-client.button variant="primary" class="min-w-[34px] px-3 py-2" size="xs">1</x-client.button>
+                    <x-client.icon-button class="size-[34px]" aria-label="Next page">
+                        <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><path d="m10 7 5 5-5 5"></path></svg>
+                    </x-client.icon-button>
+                </div>
+            </div>
+        </x-client.panel>
+
+        <section class="mt-3 grid grid-cols-1 gap-4 2xl:grid-cols-[1fr_1.06fr_1fr]">
+            <x-client.panel class="px-5 pb-[18px] pt-[18px]">
+                <div class="mb-2 flex items-center justify-between gap-3">
+                    <h2 class="text-base">Resource Usage</h2>
+                    <x-client.button size="xs">View All</x-client.button>
+                </div>
+                <p class="mb-[14px] text-[var(--i2-color-text-faint)]">Average Usage</p>
+                <div class="flex flex-col gap-[14px]">
+                    @foreach ($usage as $item)
+                        <div class="grid gap-2 md:grid-cols-[84px_minmax(0,1fr)_auto] md:items-center md:gap-3">
+                            <span class="text-[.94rem] text-[var(--i2-color-text-soft)]">{{ $item['label'] }}</span>
+                            <div class="h-[6px] overflow-hidden rounded-full bg-[var(--i2-color-surface-alt)]">
+                                <span class="{{ $item['bar'] }} {{ $item['widthClass'] }} block h-full rounded-full"></span>
+                            </div>
+                            <strong class="text-[.95rem] text-[var(--i2-color-text-soft)]">{{ $item['value'] }}</strong>
+                        </div>
+                    @endforeach
+                </div>
+            </x-client.panel>
+
+            <x-client.panel class="px-5 pb-[18px] pt-[18px]">
+                <div class="mb-2 flex items-center justify-between gap-3">
+                    <h2 class="text-base">Backup Status</h2>
+                    <span class="inline-flex min-h-7 items-center rounded-[8px] bg-[var(--i2-color-success-soft)] px-[10px] text-[.8rem] font-semibold text-[var(--i2-color-success)]">All Backups OK</span>
+                </div>
+                <div class="mb-4 mt-2 flex flex-col gap-4">
+                    @foreach ($backups as $backup)
+                        <div class="grid gap-2 md:grid-cols-[20px_100px_minmax(0,1fr)] md:items-center md:gap-[10px]">
+                            <span class="text-[var(--i2-color-success)]">
+                                <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="m8.5 12 2.2 2.2 4.8-5"></path></svg>
+                            </span>
+                            <strong class="text-[.96rem] text-[var(--i2-color-brand-ink)]">{{ $backup['name'] }}</strong>
+                            <span class="text-[.93rem] text-[var(--i2-color-text-faint)]">{{ $backup['detail'] }}</span>
+                        </div>
+                    @endforeach
+                </div>
+                <x-client.button size="xs">View All Backups</x-client.button>
+            </x-client.panel>
+
+            <x-client.panel class="px-5 pb-[18px] pt-[18px]">
+                <div class="grid items-center gap-4 md:grid-cols-[1fr_132px]">
+                    <div>
+                        <h2 class="text-base">Need More Power?</h2>
+                        <p class="my-3 text-[var(--i2-color-text-faint)]">Upgrade your hosting plan for better performance, more storage and advanced features.</p>
+                        <button type="button" class="inline-flex min-h-[38px] items-center gap-3 rounded-[10px] border border-[var(--i2-color-violet-soft)] bg-[var(--i2-color-violet-soft)] px-[14px] font-semibold text-[var(--i2-color-violet)]">Upgrade Now <span aria-hidden="true">→</span></button>
+                    </div>
+                    <div aria-hidden="true" class="relative mx-auto h-[120px] w-[132px]">
+                        <div class="absolute bottom-0 right-0 h-24 w-[116px] text-[var(--i2-color-violet)]">
+                            <svg viewBox="0 0 120 100" class="h-full w-full fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.6]"><path d="M31 73h50a17 17 0 0 0 3-34 25 25 0 0 0-47-5A19 19 0 0 0 31 73Z"></path><rect x="42" y="47" width="28" height="16" rx="4"></rect><path d="M51 55h10"></path><path d="M46 80h34"></path><path d="M54 63v17"></path><path d="M68 63v17"></path><circle cx="60" cy="36" r="4"></circle><path d="M60 40v7"></path></svg>
+                        </div>
+                        <div class="absolute right-[2px] top-2 size-[46px] rounded-full bg-[radial-gradient(circle_at_35%_35%,var(--i2-color-violet-soft)_0%,rgba(228,216,255,.92)_65%,rgba(228,216,255,.92)_100%)] opacity-90"></div>
+                    </div>
+                </div>
+            </x-client.panel>
+        </section>
     </div>
 </x-filament-panels::page>

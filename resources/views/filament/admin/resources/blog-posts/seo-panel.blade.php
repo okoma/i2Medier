@@ -3,11 +3,52 @@
     $resolvedDescription = trim((string) ($seoDescription ?: $excerpt ?: 'Add a meta description or excerpt so search engines and readers get a clear summary.'));
     $resolvedSlug = trim((string) ($slug ?: \Illuminate\Support\Str::slug($title ?: 'blog-post')));
     $resolvedKeywords = array_values(array_filter((array) ($seoKeywords ?? [])));
+    $editorContent = is_array($content ?? null) ? $content : null;
     $focusKeyword = trim((string) ($focusKeyphrase ?? ''));
     if (blank($focusKeyword)) {
         $focusKeyword = $resolvedKeywords[0] ?? null;
     }
-    $bodyHtml = (string) ($body ?? '');
+    $bodyHtml = collect($editorContent['blocks'] ?? [])
+        ->map(function (array $block): string {
+            $type = $block['type'] ?? null;
+            $data = $block['data'] ?? [];
+
+            return match ($type) {
+                'header' => sprintf(
+                    '<h%s>%s</h%s>',
+                    in_array((int) ($data['level'] ?? 2), [1, 2, 3, 4], true) ? (int) ($data['level'] ?? 2) : 2,
+                    $data['text'] ?? '',
+                    in_array((int) ($data['level'] ?? 2), [1, 2, 3, 4], true) ? (int) ($data['level'] ?? 2) : 2,
+                ),
+                'list' => collect($data['items'] ?? [])->isNotEmpty()
+                    ? sprintf(
+                        '<%1$s>%2$s</%1$s>',
+                        ($data['style'] ?? 'unordered') === 'ordered' ? 'ol' : 'ul',
+                        collect($data['items'] ?? [])->map(function ($item): string {
+                            if (is_array($item)) {
+                                return '<li>' . ($item['content'] ?? '') . '</li>';
+                            }
+
+                            return '<li>' . $item . '</li>';
+                        })->implode(''),
+                    )
+                    : '',
+                'quote' => '<blockquote><p>' . ($data['text'] ?? '') . '</p></blockquote>',
+                'delimiter' => '<hr>',
+                'code' => '<pre><code>' . ($data['code'] ?? '') . '</code></pre>',
+                'checklist' => collect($data['items'] ?? [])->map(fn ($item) => '<p>' . (is_array($item) ? ($item['text'] ?? '') : $item) . '</p>')->implode(''),
+                'imageBlock' => '<p>' . ($data['alt'] ?? '') . ' ' . ($data['caption'] ?? '') . '</p>',
+                'galleryBlock' => '<p>' . ($data['title'] ?? '') . ' ' . ($data['caption'] ?? '') . '</p>',
+                'alertBlock' => '<p>' . ($data['title'] ?? '') . ' ' . ($data['message'] ?? '') . '</p>',
+                'buttonBlock' => '<p>' . ($data['label'] ?? '') . '</p>',
+                'faqBlock' => collect($data['items'] ?? [])->map(fn ($item) => '<p>' . ($item['question'] ?? '') . ' ' . ($item['answer'] ?? '') . '</p>')->implode(''),
+                'ctaBlock' => '<p>' . ($data['eyebrow'] ?? '') . ' ' . ($data['heading'] ?? '') . ' ' . ($data['text'] ?? '') . ' ' . ($data['buttonLabel'] ?? '') . '</p>',
+                'pricingBlock' => collect($data['plans'] ?? [])->map(fn ($plan) => '<p>' . ($plan['name'] ?? '') . ' ' . ($plan['price'] ?? '') . ' ' . ($plan['description'] ?? '') . ' ' . implode(' ', $plan['features'] ?? []) . '</p>')->implode(''),
+                'serviceCardsBlock' => collect($data['cards'] ?? [])->map(fn ($card) => '<p>' . ($card['title'] ?? '') . ' ' . ($card['text'] ?? '') . '</p>')->implode(''),
+                default => '<p>' . ($data['text'] ?? '') . '</p>',
+            };
+        })
+        ->implode('');
     $bodyText = trim(preg_replace('/\s+/', ' ', strip_tags($bodyHtml)));
     $wordCount = str_word_count($bodyText);
     preg_match('/<p[^>]*>(.*?)<\/p>/is', $bodyHtml, $firstParagraphMatch);

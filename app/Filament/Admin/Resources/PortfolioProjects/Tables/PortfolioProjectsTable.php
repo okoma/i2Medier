@@ -2,14 +2,15 @@
 
 namespace App\Filament\Admin\Resources\PortfolioProjects\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\Facades\URL;
 
 class PortfolioProjectsTable
 {
@@ -35,17 +36,25 @@ class PortfolioProjectsTable
                 SelectFilter::make('type')
                     ->options([
                         'inhouse' => 'Inhouse',
-                        'client' => 'Client',
+                        'client'  => 'Client',
                     ]),
                 SelectFilter::make('status')
                     ->options([
-                        'draft' => 'Draft',
+                        'draft'     => 'Draft',
                         'published' => 'Published',
-                        'archived' => 'Archived',
+                        'archived'  => 'Archived',
                     ]),
             ])
             ->recordActions([
-                ViewAction::make(),
+                Action::make('view')
+                    ->label('View')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(fn ($record): string => $record->status === 'published' && ($record->published_at === null || $record->published_at->lte(now()))
+                        ? route('portfolio.show', $record)
+                        : URL::temporarySignedRoute('portfolio.preview', now()->addHours(4), ['portfolioProject' => $record->slug])
+                    )
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

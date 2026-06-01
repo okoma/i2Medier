@@ -5,9 +5,7 @@ namespace App\Filament\Admin\Resources\BlogPosts;
 use App\Filament\Admin\Resources\BlogPosts\Pages\CreateBlogPost;
 use App\Filament\Admin\Resources\BlogPosts\Pages\EditBlogPost;
 use App\Filament\Admin\Resources\BlogPosts\Pages\ListBlogPosts;
-use App\Filament\Admin\Resources\BlogPosts\Pages\ViewBlogPost;
 use App\Filament\Admin\Resources\BlogPosts\Schemas\BlogPostForm;
-use App\Filament\Admin\Resources\BlogPosts\Schemas\BlogPostInfolist;
 use App\Filament\Admin\Resources\BlogPosts\Tables\BlogPostsTable;
 use App\Models\BlogPost;
 use BackedEnum;
@@ -31,11 +29,6 @@ class BlogPostResource extends Resource
         return BlogPostForm::configure($schema);
     }
 
-    public static function infolist(Schema $schema): Schema
-    {
-        return BlogPostInfolist::configure($schema);
-    }
-
     public static function table(Table $table): Table
     {
         return BlogPostsTable::configure($table);
@@ -43,18 +36,15 @@ class BlogPostResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ListBlogPosts::route('/'),
+            'index'  => ListBlogPosts::route('/'),
             'create' => CreateBlogPost::route('/create'),
-            'view' => ViewBlogPost::route('/{record}'),
-            'edit' => EditBlogPost::route('/{record}/edit'),
+            'edit'   => EditBlogPost::route('/{record}/edit'),
         ];
     }
 }

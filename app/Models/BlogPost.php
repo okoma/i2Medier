@@ -18,6 +18,7 @@ class BlogPost extends Model
         'slug',
         'excerpt',
         'body',
+        'content',
         'featured_image',
         'status',
         'published_at',
@@ -32,6 +33,7 @@ class BlogPost extends Model
 
     protected $casts = [
         'published_at' => 'datetime',
+        'content' => 'array',
         'seo_keywords' => 'array',
         'read_time' => 'integer',
         'view_count' => 'integer',

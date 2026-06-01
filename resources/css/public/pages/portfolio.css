@@ -281,10 +281,12 @@
   }
 
   .port-thumb {
+    display: block;
     aspect-ratio: 16 / 10;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
+    text-decoration: none;
   }
 
   .port-thumb-inner {
@@ -382,13 +384,16 @@
   }
 
   .port-title {
+    display: block;
     font-family: var(--serif);
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.25;
     color: var(--black);
+    text-decoration: none;
   }
+  .port-title:hover { color: var(--black); text-decoration: underline; }
 
   .port-desc {
     font-size: 0.83rem;
