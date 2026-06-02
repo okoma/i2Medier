@@ -1,0 +1,82 @@
+<h2>Email Gate — UX Options</h2>
+<p class="subtitle">After the user submits their input (e.g. a URL for the SEO audit), how does the email gate appear before showing results?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f7f6f2;padding:14px;border-radius:6px;font-family:system-ui;min-height:240px;position:relative;">
+      <!-- Tool panel with blurred result behind gate -->
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px;align-items:start;">
+        <div>
+          <div style="color:#0d0d0d;font-size:11px;font-weight:800;line-height:1.2;">Free SEO<br>Audit</div>
+          <div style="color:#8a8478;font-size:7px;margin-top:4px;">yourwebsite.com</div>
+          <div style="margin-top:8px;">
+            <div style="color:#0d0d0d;font-size:7px;font-weight:600;margin-bottom:2px;">Checking...</div>
+            <div style="background:#dddbd5;border-radius:2px;height:4px;margin-bottom:3px;"><div style="background:#c8a96e;width:90%;height:4px;border-radius:2px;"></div></div>
+            <div style="color:#8a8478;font-size:7px;">Analysis complete</div>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <!-- Blurred result cards -->
+          <div style="filter:blur(3px);pointer-events:none;">
+            <div style="background:#fff;border:1px solid #dddbd5;border-radius:6px;padding:8px;margin-bottom:4px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div style="color:#0d0d0d;font-size:8px;font-weight:600;">SEO Score</div>
+                <div style="color:#c8a96e;font-size:11px;font-weight:800;">72/100</div>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid #dddbd5;border-radius:6px;padding:6px;margin-bottom:4px;">
+              <div style="color:#0d0d0d;font-size:7px;font-weight:600;margin-bottom:3px;">Meta Title</div>
+              <div style="background:#e8f4ee;border-radius:3px;padding:3px 5px;color:#1a6b3a;font-size:7px;">✓ Good length (58 chars)</div>
+            </div>
+            <div style="background:#fff;border:1px solid #dddbd5;border-radius:6px;padding:6px;">
+              <div style="color:#0d0d0d;font-size:7px;font-weight:600;margin-bottom:3px;">H1 Tag</div>
+              <div style="background:#fef3cd;border-radius:3px;padding:3px 5px;color:#856404;font-size:7px;">⚠ Missing H1 tag</div>
+            </div>
+          </div>
+          <!-- Gate overlay -->
+          <div style="position:absolute;inset:0;background:rgba(247,246,242,0.9);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;text-align:center;">
+            <div style="color:#0d0d0d;font-size:8px;font-weight:700;margin-bottom:4px;">Your report is ready</div>
+            <div style="color:#8a8478;font-size:7px;margin-bottom:6px;">Enter your email to unlock it</div>
+            <div style="background:#f7f6f2;border:1px solid #dddbd5;border-radius:3px;padding:4px 6px;color:#8a8478;font-size:7px;width:100%;margin-bottom:4px;text-align:left;">your@email.com</div>
+            <div style="background:#0d0d0d;color:#c8a96e;font-size:7px;font-weight:700;padding:5px 10px;border-radius:3px;width:100%;text-align:center;">Unlock Results →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Blur gate (results visible but blurred)</h3>
+      <p>Results are rendered immediately but blurred. Email gate overlays the result panel. User can see the shape of results — score, check items — which creates curiosity and motivates unlocking.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f7f6f2;padding:14px;border-radius:6px;font-family:system-ui;min-height:240px;">
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px;align-items:start;">
+        <div>
+          <div style="color:#0d0d0d;font-size:11px;font-weight:800;line-height:1.2;">Free SEO<br>Audit</div>
+          <div style="color:#8a8478;font-size:7px;margin-top:4px;">yourwebsite.com</div>
+        </div>
+        <!-- Inline step: email form replaces tool form entirely -->
+        <div style="background:#fff;border:1px solid #dddbd5;border-radius:8px;padding:10px;">
+          <div style="text-align:center;margin-bottom:8px;">
+            <div style="background:#e8f4ee;width:28px;height:28px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;">
+              <span style="color:#1a6b3a;font-size:12px;">✓</span>
+            </div>
+            <div style="color:#0d0d0d;font-size:8px;font-weight:700;">Analysis complete</div>
+            <div style="color:#8a8478;font-size:7px;margin-top:2px;">One last step to see your report</div>
+          </div>
+          <div style="color:#0d0d0d;font-size:7px;font-weight:600;margin-bottom:3px;">Your email address</div>
+          <div style="background:#f7f6f2;border:1px solid #dddbd5;border-radius:4px;padding:5px 8px;color:#8a8478;font-size:7px;margin-bottom:5px;">your@email.com</div>
+          <div style="background:#0d0d0d;color:#c8a96e;font-size:8px;font-weight:700;padding:6px;border-radius:4px;text-align:center;">Show My Report →</div>
+          <div style="color:#8a8478;font-size:6px;text-align:center;margin-top:4px;">No spam. Just your results.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Inline step (tool panel swaps to email form)</h3>
+      <p>After submission, the tool panel replaces its own form with a clean "one last step" email screen. No results visible yet. Honest and low-pressure — user knows exactly what happens next.</p>
+    </div>
+  </div>
+
+</div>

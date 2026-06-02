@@ -7,57 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-const mobileObs = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const siblings = [...entry.target.parentElement.children].filter((child) => child.classList.contains('reveal'));
-      const idx = siblings.indexOf(entry.target);
-      entry.target.style.transitionDelay = (idx * 0.08) + 's';
-      entry.target.classList.add('visible');
-      mobileObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach((el) => mobileObs.observe(el));
-
-function animateMobileCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const mobileCounterObs = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      animateMobileCounter(entry.target);
-      mobileCounterObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach((el) => mobileCounterObs.observe(el));
-
-document.querySelectorAll('.faq-q').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach((other) => {
-      other.setAttribute('aria-expanded', 'false');
-      const target = document.getElementById(other.getAttribute('aria-controls'));
-      if (target) target.classList.remove('open');
-    });
-    if (! isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/service-mobile-app-development.js')
 @endpush
 
 @section('content')

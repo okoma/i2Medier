@@ -13,6 +13,8 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
@@ -22,7 +24,7 @@ class PaymentSettings extends Page implements HasForms
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCreditCard;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Finance';
+    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 2;
 
@@ -42,42 +44,62 @@ class PaymentSettings extends Page implements HasForms
         return $schema
             ->statePath('data')
             ->components([
-                Section::make('Paystack')
+                Tabs::make('Payment settings tabs')
                     ->columnSpanFull()
-                    ->columns(2)
-                    ->schema([
-                        Toggle::make('paystack_enabled')
-                            ->label('Enable Paystack'),
-                        TextInput::make('paystack_public_key')
-                            ->label('Public key')
-                            ->maxLength(255),
-                        TextInput::make('paystack_secret_key')
-                            ->label('Secret key')
-                            ->password()
-                            ->revealable()
-                            ->maxLength(255),
-                    ]),
-                Section::make('Bank Transfer')
-                    ->columnSpanFull()
-                    ->columns(2)
-                    ->schema([
-                        Toggle::make('bank_transfer_enabled')
-                            ->label('Enable bank transfer'),
-                        TextInput::make('bank_account_name')
-                            ->label('Account name')
-                            ->maxLength(255),
-                        TextInput::make('bank_name')
-                            ->label('Bank name')
-                            ->maxLength(255),
-                        TextInput::make('bank_account_number')
-                            ->label('Account number')
-                            ->maxLength(255),
-                        TextInput::make('bank_sort_code')
-                            ->label('Sort code')
-                            ->maxLength(255),
-                        Textarea::make('bank_instructions')
-                            ->label('Transfer instructions')
-                            ->rows(4),
+                    ->tabs([
+                        Tab::make('Paystack')
+                            ->schema([
+                                Section::make('Paystack')
+                                    ->columns(2)
+                                    ->schema([
+                                        Toggle::make('paystack_enabled')
+                                            ->label('Enable Paystack')
+                                            ->helperText('Turn this on to allow clients to pay invoices online with card or supported bank transfer through Paystack.')
+                                            ->columnSpan(2),
+                                        TextInput::make('paystack_public_key')
+                                            ->label('Public key')
+                                            ->helperText('Your Paystack public key used by the checkout interface on invoice payment screens.')
+                                            ->maxLength(255),
+                                        TextInput::make('paystack_secret_key')
+                                            ->label('Secret key')
+                                            ->helperText('Your Paystack secret key used for secure server-side payment verification. Keep this private.')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255),
+                                    ]),
+                            ]),
+                        Tab::make('Bank Transfer')
+                            ->schema([
+                                Section::make('Bank Transfer')
+                                    ->columns(2)
+                                    ->schema([
+                                        Toggle::make('bank_transfer_enabled')
+                                            ->label('Enable bank transfer')
+                                            ->helperText('Turn this on to show manual bank transfer as a payment option on eligible invoices.')
+                                            ->columnSpan(2),
+                                        TextInput::make('bank_account_name')
+                                            ->label('Account name')
+                                            ->helperText('The official account name clients should pay to.')
+                                            ->maxLength(255),
+                                        TextInput::make('bank_name')
+                                            ->label('Bank name')
+                                            ->helperText('The bank or financial institution receiving client transfers.')
+                                            ->maxLength(255),
+                                        TextInput::make('bank_account_number')
+                                            ->label('Account number')
+                                            ->helperText('The destination account number clients should use when making transfers.')
+                                            ->maxLength(255),
+                                        TextInput::make('bank_sort_code')
+                                            ->label('Sort code')
+                                            ->helperText('Optional. Add a sort code or routing reference if your banking setup requires it.')
+                                            ->maxLength(255),
+                                        Textarea::make('bank_instructions')
+                                            ->label('Transfer instructions')
+                                            ->helperText('Add any extra instructions clients should follow, such as using the invoice number as payment reference.')
+                                            ->rows(4)
+                                            ->columnSpan(2),
+                                    ]),
+                            ]),
                     ]),
             ]);
     }
@@ -87,7 +109,7 @@ class PaymentSettings extends Page implements HasForms
         return [
             Action::make('save')
                 ->label('Save Settings')
-                ->submit('save'),
+                ->action('save'),
         ];
     }
 

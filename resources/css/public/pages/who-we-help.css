@@ -53,17 +53,17 @@ html { scroll-behavior: smooth; }
   justify-content: center;
   gap: 0.5rem;
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 .who-help-page .hero-breadcrumb a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.72);
   transition: color 0.2s;
 }
 .who-help-page .hero-breadcrumb a:hover { color: var(--gold); }
-.who-help-page .hero-breadcrumb .breadcrumb-sep { color: rgba(255, 255, 255, 0.2); }
+.who-help-page .hero-breadcrumb .breadcrumb-sep { color: rgba(255, 255, 255, 0.24); }
 
 .who-help-page .hero-tag {
   display: inline-block;

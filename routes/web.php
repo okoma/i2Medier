@@ -7,6 +7,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PortalAssetController;
 use App\Http\Controllers\PublicInvoiceController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ToolController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
@@ -45,6 +46,19 @@ Route::get('/services/web-design/{industry}', [SiteController::class, 'webDesign
 Route::get('/about', [SiteController::class, 'about'])->name('site.about');
 Route::get('/terms', [SiteController::class, 'terms'])->name('site.terms');
 Route::get('/privacy', [SiteController::class, 'privacy'])->name('site.privacy');
+Route::get('/tools', [ToolController::class, 'hub'])->name('tools.hub');
+Route::get('/tools/free-seo-audit', [ToolController::class, 'seoAudit'])->name('tools.seo-audit');
+Route::get('/tools/website-cost-calculator', [ToolController::class, 'costCalculator'])->name('tools.cost-calculator');
+Route::get('/tools/business-name-generator', [ToolController::class, 'businessNameGenerator'])->name('tools.business-name-generator');
+Route::get('/tools/domain-name-generator', [ToolController::class, 'domainNameGenerator'])->name('tools.domain-name-generator');
+Route::get('/tools/website-brief-generator', [ToolController::class, 'websiteBriefGenerator'])->name('tools.website-brief-generator');
+Route::get('/tools/whatsapp-link-generator', [ToolController::class, 'whatsappLinkGenerator'])->name('tools.whatsapp-link-generator');
+Route::get('/tools/invoice-generator', [ToolController::class, 'invoiceGenerator'])->name('tools.invoice-generator');
+Route::post('/tools/leads', [ToolController::class, 'storeLead'])->name('tools.leads.store');
+Route::post('/tools/seo-audit/fetch-html', [ToolController::class, 'seoFetchHtml'])->name('tools.seo-audit.fetch-html')->middleware('throttle:15,1');
+Route::post('/tools/seo-audit/psi', [ToolController::class, 'seoFetchPsi'])->name('tools.seo-audit.psi')->middleware('throttle:10,1');
+Route::post('/tools/seo-audit/crux', [ToolController::class, 'seoFetchCrux'])->name('tools.seo-audit.crux')->middleware('throttle:10,1');
+Route::post('/tools/seo-audit/recommend', [ToolController::class, 'seoRecommend'])->name('tools.seo-audit.recommend')->middleware('throttle:5,1');
 Route::get('/pay/invoices/{token}', [PublicInvoiceController::class, 'show'])->name('public.invoices.show');
 Route::get('/pay/invoices/{token}/paystack', [PublicInvoiceController::class, 'paystackRedirect'])->name('public.invoices.paystack.redirect');
 Route::get('/pay/invoices/{token}/paystack/callback', [PublicInvoiceController::class, 'paystackCallback'])->name('public.invoices.paystack.callback');

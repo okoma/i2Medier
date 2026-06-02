@@ -1,0 +1,165 @@
+/* Mega panels hidden on mobile */
+.mega-panel { display: none; }
+
+@media (min-width: 961px) {
+
+    .has-mega > a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .nav-chevron {
+        width: 11px;
+        height: 11px;
+        flex-shrink: 0;
+        stroke-width: 2.5;
+        transition: transform 0.2s ease;
+    }
+
+    .has-mega.is-open > a .nav-chevron {
+        transform: rotate(180deg);
+    }
+
+    .mega-panel {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(6px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 210;
+        padding-top: 8px;
+    }
+
+    .mega-panel.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .mega-inner {
+        background: var(--white);
+        border: 1px solid var(--g200);
+        border-radius: 12px;
+        box-shadow: 0 8px 40px rgba(13, 13, 13, 0.12), 0 2px 8px rgba(13, 13, 13, 0.05);
+        padding: 1rem 1.25rem 0.875rem;
+        width: min(96vw, 880px);
+    }
+
+    .mega-panel--who-we-help .mega-inner {
+        width: min(96vw, 1040px);
+    }
+
+    .mega-panel--tools .mega-inner {
+        width: min(96vw, 640px);
+    }
+
+    .mega-grid {
+        display: grid;
+        gap: 0.1rem;
+    }
+
+    .mega-grid--2col { grid-template-columns: 1fr 1fr; }
+    .mega-grid--3col { grid-template-columns: 1fr 1fr 1fr; }
+
+    .mega-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.7rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.15s ease;
+    }
+
+    .mega-item:hover {
+        background: var(--g100);
+    }
+
+    .mega-icon {
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--g400);
+        transition: color 0.15s ease;
+        margin-top: 2px;
+    }
+
+    .mega-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .mega-item:hover .mega-icon {
+        color: var(--gold);
+    }
+
+    .mega-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .mega-title {
+        font-size: 0.825rem;
+        font-weight: 600;
+        color: var(--black);
+        line-height: 1.35;
+    }
+
+    .mega-desc {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+
+    .mega-footer {
+        border-top: 1px solid var(--g200);
+        margin-top: 0.75rem;
+        padding-top: 0.65rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mega-footer-link {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+
+    .mega-footer-link:hover {
+        color: var(--black);
+    }
+
+    .mega-products-soon {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+
+    .mega-products-pill {
+        background: var(--g100);
+        border: 1px solid var(--g200);
+        color: var(--text-muted);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 99px;
+    }
+}

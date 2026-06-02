@@ -8,12 +8,6 @@
 
 @section('content')
 <div class="blog-archive-page">
-    <div class="breadcrumb" aria-label="Breadcrumb">
-        <a href="{{ route('site.home') }}">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <span aria-current="page">Blog</span>
-    </div>
-
     <header class="blog-hero">
         <div class="bh-bg" aria-hidden="true"></div>
         <div class="bh-grid" aria-hidden="true"></div>
@@ -29,6 +23,11 @@
 
         <div class="bh-inner">
             <div class="bh-left">
+                <nav class="bh-breadcrumb" aria-label="Breadcrumb">
+                    <a href="{{ route('site.home') }}">Home</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">Blog</span>
+                </nav>
                 <span class="bh-tag"><span class="bh-dot"></span>i2Medier Blog</span>
                 <h1 class="bh-h1">Practical insights.<br>No fluff. Just<br><em>what works.</em></h1>
                 <p class="bh-sub">Web design, SEO, development, and digital strategy written by the people who build it every day for real Nigerian and UK businesses. If it is not actionable, we do not publish it.</p>
@@ -348,79 +347,5 @@
 @endsection
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const revealItems = document.querySelectorAll('.blog-archive-page .reveal');
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12 });
-
-    revealItems.forEach(function (item) {
-        observer.observe(item);
-    });
-
-    const filterButtons = Array.from(document.querySelectorAll('.f-btn'));
-    const categoryLinks = Array.from(document.querySelectorAll('.cat-row'));
-    const topicLinks = Array.from(document.querySelectorAll('[data-filter-link]'));
-    const posts = Array.from(document.querySelectorAll('[data-cat][data-search]'));
-    const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
-    let activeCategory = 'all';
-
-    const applyFilters = function () {
-        const searchTerm = (searchInput?.value || '').trim().toLowerCase();
-
-        posts.forEach(function (post) {
-            const matchesCategory = activeCategory === 'all' || post.dataset.cat === activeCategory;
-            const matchesSearch = searchTerm === '' || post.dataset.search.includes(searchTerm);
-            post.style.display = matchesCategory && matchesSearch ? '' : 'none';
-        });
-    };
-
-    const setCategory = function (category) {
-        activeCategory = category;
-        filterButtons.forEach(function (button) {
-            button.classList.toggle('active', button.dataset.cat === category);
-        });
-        categoryLinks.forEach(function (link) {
-            link.classList.toggle('active', link.dataset.filter === category);
-        });
-        applyFilters();
-    };
-
-    filterButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            setCategory(button.dataset.cat);
-        });
-    });
-
-    categoryLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            setCategory(link.dataset.filter);
-        });
-    });
-
-    topicLinks.forEach(function (link) {
-        link.addEventListener('click', function () {
-            // navigate to category archive — href is set on the element
-        });
-    });
-
-    if (searchInput) {
-        searchInput.addEventListener('input', applyFilters);
-    }
-
-    if (searchButton) {
-        searchButton.addEventListener('click', applyFilters);
-    }
-
-    setCategory('all');
-});
-</script>
+    @vite('resources/js/public/pages/blog-index.js')
 @endpush

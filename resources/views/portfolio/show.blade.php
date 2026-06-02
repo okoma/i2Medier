@@ -7,16 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach((el) => obs.observe(el));
-});
-</script>
+    @vite('resources/js/public/pages/portfolio-show.js')
 @endpush
 
 @section('content')
@@ -28,15 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 @endif
 
-{{-- Breadcrumb --}}
-<div class="breadcrumb" aria-label="Breadcrumb">
-  <a href="{{ route('site.home') }}">Home</a>
-  <span class="breadcrumb-sep">›</span>
-  <a href="{{ route('portfolio.index') }}">Portfolio</a>
-  <span class="breadcrumb-sep">›</span>
-  <span aria-current="page">{{ $project->title }}</span>
-</div>
-
 {{-- Project Hero --}}
 <div class="proj-hero">
   <div class="proj-hero-glow"></div>
@@ -44,6 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
   <div class="proj-hero-inner">
 
     <div class="proj-hero-left">
+      <nav class="ph-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ route('site.home') }}">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="{{ route('portfolio.index') }}">Portfolio</a>
+        <span class="breadcrumb-sep">›</span>
+        <span aria-current="page">{{ $project->title }}</span>
+      </nav>
       <span class="proj-tag"><span class="proj-dot"></span> Case Study</span>
       <h1>{{ $project->title }}</h1>
       <p class="proj-hero-subtitle">{{ $project->summary }}</p>

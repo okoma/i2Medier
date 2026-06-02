@@ -39,5 +39,7 @@ class StoreLeadTest extends TestCase
             'tool' => 'fake-tool',
             'email' => 'test@example.com',
         ])->assertStatus(422)->assertJson(['success' => false]);
+
+        $this->assertDatabaseEmpty('tool_leads');
     }
 }

@@ -2,55 +2,8 @@
 
 @section('title', 'Web Design for Ecommerce Brands | Online Store Design Nigeria | i2Medier')
 
-@push('meta')
-<meta name="description" content="Conversion-led web design for ecommerce brands, online stores, and product businesses in Nigeria. i2Medier builds high-performing ecommerce websites with better product presentation, trust signals, and checkout flow that convert more browsers into buyers. Lagos, Abuja & UK specialists."/>
-<meta name="keywords" content="web design for ecommerce brands Nigeria, ecommerce website design Lagos, online store design Nigeria, product brand website Nigeria, WooCommerce website design, Shopify website design Nigeria, ecommerce conversion optimisation Nigeria, online shop design Lagos, ecommerce website Abuja, product website design Nigeria"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/ecommerce-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/ecommerce-website-design') }}"/>
-<meta property="og:title" content="Web Design for Ecommerce Brands | i2Medier"/>
-<meta property="og:description" content="We build conversion-led ecommerce websites that turn browsers into buyers. Better product pages, seamless checkout, and SEO that brings organic traffic. Nigeria & UK specialists."/>
-<meta property="og:image" content="{{ url('/og-ecommerce-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Ecommerce Brands | i2Medier"/>
-<meta name="twitter:description" content="Ecommerce websites built to convert browsers into buyers. Better product pages, trust signals, and checkout flow. Nigeria & UK specialists."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Web Design for Ecommerce Brands',
-  'serviceType' => 'Ecommerce Website Design',
-  'description' => 'Conversion-led web design and development services for ecommerce brands, online stores, and product businesses. We build high-performing ecommerce websites with better product presentation, trust signals, Paystack and Stripe payment integration, and SEO that converts more browsers into buyers.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'hello@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Ecommerce brands, online stores, product businesses, fashion retailers, beauty brands, electronics sellers',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '500000',
-    'description' => 'Ecommerce website starting from ₦500,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Web Design for Ecommerce Brands', 'item' => url('/services/web-design/ecommerce-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -1007,53 +960,5 @@
 @endsection
 
 @push('scripts')
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Counters
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

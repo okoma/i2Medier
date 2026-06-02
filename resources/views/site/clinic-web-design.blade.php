@@ -2,67 +2,8 @@
 
 @section('title', 'Web Design for Clinics, Hospitals & Healthcare Providers | i2Medier')
 
-@push('meta')
-<meta name="description" content="Professional web design for clinics, hospitals, private practices, and healthcare providers. i2Medier builds fast, HIPAA-aware, SEO-optimised medical websites with appointment booking, patient portals, and doctor profiles. Nigeria & UK specialists."/>
-<meta name="keywords" content="web design for clinics Nigeria, medical website design, hospital website development, doctor website design Nigeria, healthcare website design, clinic website Lagos, appointment booking website clinic, private practice website Nigeria, dental website design, medical website SEO Nigeria"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/clinic-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/clinic-website-design') }}"/>
-<meta property="og:title" content="Web Design for Clinics & Healthcare Providers | i2Medier"/>
-<meta property="og:description" content="We build professional, trust-first medical websites with appointment booking, doctor profiles, patient portals, and Google rankings that bring new patients through your door."/>
-<meta property="og:image" content="{{ url('/og-clinic-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Clinics | i2Medier"/>
-<meta name="twitter:description" content="Medical websites that build patient trust, enable online booking, and rank on Google — Nigeria & UK specialists."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Web Design for Clinics and Healthcare Providers',
-  'serviceType' => 'Web Design & Development',
-  'description' => 'Professional web design for clinics, hospitals, private practices, dental surgeries, and healthcare providers. We build trust-first medical websites with appointment booking, patient portals, doctor profiles, and healthcare SEO.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'hello@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Clinics, Hospitals, Dental practices, Private GP surgeries, Physiotherapy clinics, Specialist medical practices, Diagnostic centres, Pharmacies',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '400000',
-    'description' => 'Clinic website starting from ₦400,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Clinic Website Design', 'item' => url('/services/web-design/clinic-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'FAQPage',
-  'mainEntity' => [
-    ['@type' => 'Question', 'name' => 'How much does a clinic website cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Clinic websites start from ₦400,000 for a professional 6-page site with service descriptions, doctor profiles, contact forms, and basic SEO. Full-featured websites with online appointment booking, patient portals, speciality service pages, and comprehensive healthcare SEO start from ₦800,000. Larger hospital or multi-speciality platforms with patient management integration are quoted individually after a free consultation.']],
-    ['@type' => 'Question', 'name' => 'Can patients book appointments through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Online appointment booking is a core feature we build into clinic websites. We integrate Calendly, custom booking forms with real-time slot availability, or connect to existing practice management software. Patients can select a doctor, choose their appointment type, pick a date and time, and receive an automatic confirmation email, all without your staff needing to make a single phone call.']],
-    ['@type' => 'Question', 'name' => 'Will my clinic website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every medical website we build includes a complete SEO foundation, including MedicalClinic and LocalBusiness schema markup, optimised title tags and meta descriptions for every page, individual service pages targeting specific medical keyword combinations, Google Business Profile optimisation for local search rankings, and Google Search Console setup. For competitive healthcare markets, we offer monthly SEO retainers.']],
-    ['@type' => 'Question', 'name' => 'How do you handle patient data and privacy on clinic websites?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Patient trust and data privacy are paramount in healthcare web design. Every clinic website we build uses SSL/TLS encryption, secure contact forms with appropriate data handling disclaimers, GDPR-compliant cookie notices, and minimal data collection principles. Appointment booking systems are configured to store only necessary information. We advise on privacy policy requirements and can help draft appropriate patient data notices.']],
-    ['@type' => 'Question', 'name' => 'Do you build websites for specialist practices, dental, physiotherapy, dermatology?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We have built websites for general practice clinics, dental surgeries, physiotherapy practices, diagnostic centres, eye clinics, dermatology practices, mental health clinics, and specialist consultant practices. Each requires a different approach to content, keywords, and trust signals. We tailor the design and copy specifically to your medical speciality and patient audience.']],
-    ['@type' => 'Question', 'name' => 'How long does it take to build a clinic website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard clinic website with service pages, doctor profiles, appointment booking, and SEO setup typically takes 3 to 5 weeks from design approval to launch. Larger multi-speciality hospital websites with patient portals may take 6 to 10 weeks. We provide a detailed, milestone-based timeline before work begins.']],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -1030,50 +971,5 @@
 @endsection
 
 @push('scripts')
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

@@ -41,9 +41,10 @@
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @stack('meta')
     @vite('resources/css/public/fonts.css')
+    @vite('resources/js/public/pages/onboarding.js')
     @stack('page_css')
 </head>
-<body class="onboarding-body">
+<body class="onboarding-body" data-onboarding-fallback-url="{{ route('site.home') }}">
     @yield('content')
 
     @stack('scripts')

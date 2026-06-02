@@ -7,70 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Counters
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-
-// Process nav active state
-const psCards = document.querySelectorAll('.ps-card');
-const pnavItems = document.querySelectorAll('.pnav-item');
-if (psCards.length) {
-  const psObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = e.target.id;
-        pnavItems.forEach(n => { n.classList.toggle('active', n.getAttribute('href') === '#' + id); });
-      }
-    });
-  }, { threshold: 0.5 });
-  psCards.forEach(c => psObs.observe(c));
-}
-</script>
+    @vite('resources/js/public/pages/service-saas-application.js')
 @endpush
 
 @section('content')

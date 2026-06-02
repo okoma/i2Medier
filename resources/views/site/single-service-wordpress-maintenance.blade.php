@@ -92,69 +92,7 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const maintenanceObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const siblings = [...entry.target.parentElement.children].filter((child) => child.classList.contains('reveal'));
-        const idx = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = (idx * 0.08) + 's';
-        entry.target.classList.add('visible');
-        maintenanceObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.maintenance-page .reveal').forEach((el) => maintenanceObs.observe(el));
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const step = Math.max(target / (1800 / 16), 0.1);
-    let cur = 0;
-    const timer = setInterval(() => {
-      cur += step;
-      if (cur >= target) {
-        cur = target;
-        clearInterval(timer);
-      }
-      el.textContent = Math.floor(cur);
-    }, 16);
-  }
-
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.maintenance-page .counter').forEach((el) => counterObs.observe(el));
-
-  document.querySelectorAll('.maintenance-page .faq-q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('aria-controls');
-      const answer = document.getElementById(id);
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-      document.querySelectorAll('.maintenance-page .faq-q').forEach((item) => {
-        item.setAttribute('aria-expanded', 'false');
-        const target = document.getElementById(item.getAttribute('aria-controls'));
-        if (target) {
-          target.classList.remove('open');
-        }
-      });
-
-      if (!isOpen && answer) {
-        btn.setAttribute('aria-expanded', 'true');
-        answer.classList.add('open');
-      }
-    });
-  });
-});
-</script>
+    @vite('resources/js/public/pages/service-wordpress-maintenance.js')
 @endpush
 
 @section('content')

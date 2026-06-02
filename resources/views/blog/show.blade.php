@@ -70,17 +70,16 @@
 <div class="blog-single-page">
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
 
-    <div class="breadcrumb" aria-label="Breadcrumb">
-        <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
-        <a href="{{ route('blog.index') }}">Blog</a><span class="breadcrumb-sep">›</span>
-        @if ($post->category)<a href="{{ route('blog.category', $post->category) }}">{{ $post->ui['label'] }}</a><span class="breadcrumb-sep">›</span>@endif
-        <span aria-current="page">{{ $post->title }}</span>
-    </div>
-
     <div class="blog-hero">
         <div class="blog-hero-glow" aria-hidden="true"></div>
         <div class="blog-hero-grid" aria-hidden="true"></div>
         <div class="blog-hero-inner">
+            <nav class="bs-breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ route('site.home') }}">Home</a><span class="breadcrumb-sep">›</span>
+                <a href="{{ route('blog.index') }}">Blog</a><span class="breadcrumb-sep">›</span>
+                @if ($post->category)<a href="{{ route('blog.category', $post->category) }}">{{ $post->ui['label'] }}</a><span class="breadcrumb-sep">›</span>@endif
+                <span aria-current="page">{{ $post->title }}</span>
+            </nav>
             <div class="post-meta-top">
                 <a href="{{ $post->category ? route('blog.category', $post->category) : route('blog.index') }}" class="post-category">{{ $post->ui['label'] }}</a>
                 <span class="post-dot" aria-hidden="true"></span>
@@ -303,65 +302,5 @@
 @endsection
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const bar = document.getElementById('readingProgress');
-    const article = document.getElementById('article');
-    const copyButton = document.getElementById('copyArticleLink');
-
-    if (bar && article) {
-        window.addEventListener('scroll', function () {
-            const rect = article.getBoundingClientRect();
-            const articleHeight = article.offsetHeight;
-            const windowHeight = window.innerHeight;
-            const scrolled = Math.max(0, -rect.top);
-            const total = articleHeight - windowHeight;
-            const percent = total > 0 ? Math.min(100, (scrolled / total) * 100) : 0;
-            bar.style.width = percent + '%';
-        }, { passive: true });
-    }
-
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const headings = document.querySelectorAll('.article-body h2[id]');
-    if (tocLinks.length && headings.length) {
-        const headingObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    tocLinks.forEach(function (link) {
-                        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
-                    });
-                }
-            });
-        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
-
-        headings.forEach(function (heading) {
-            headingObserver.observe(heading);
-        });
-    }
-
-    document.querySelectorAll('.toc-link').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            const id = link.getAttribute('href').slice(1);
-            const target = document.getElementById(id);
-            if (target) {
-                event.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    if (copyButton) {
-        copyButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            navigator.clipboard?.writeText(window.location.href);
-            const original = copyButton.textContent;
-            copyButton.textContent = 'Copied!';
-            setTimeout(function () {
-                copyButton.textContent = original;
-            }, 1800);
-        });
-    }
-});
-</script>
+    @vite('resources/js/public/pages/blog-show.js')
 @endpush

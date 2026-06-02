@@ -2,55 +2,8 @@
 
 @section('title', 'Web Design for Real Estate Agencies & Property Developers | i2Medier')
 
-@push('meta')
-<meta name="description" content="Professional web design for real estate agencies, property developers, and estate agents. i2Medier builds fast, SEO-optimised property websites with MLS listings, search filters, and lead capture that turn visitors into buyers and tenants. Nigeria & UK specialists."/>
-<meta name="keywords" content="web design for real estate, real estate website design Nigeria, property website development, estate agent website Nigeria, property developer website, real estate website Lagos, MLS listing website, property search website, real estate agency website design UK, buy and sell property website Nigeria"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/real-estate-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/real-estate-website-design') }}"/>
-<meta property="og:title" content="Web Design for Real Estate Agencies | i2Medier"/>
-<meta property="og:description" content="We build property websites with listings, search filters, virtual tours, and lead capture that turn web visitors into buyers, sellers, and tenants."/>
-<meta property="og:image" content="{{ url('/og-real-estate-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Real Estate | i2Medier"/>
-<meta name="twitter:description" content="Property websites with listings, search, lead capture, and SEO — built to convert visitors into clients."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Web Design for Real Estate Agencies & Property Developers',
-  'serviceType' => 'Web Design & Development',
-  'description' => 'Professional web design and development for real estate agencies, estate agents, property developers, and letting agents. We build fast, SEO-optimised property websites with listing search, lead capture, virtual tours, and CRM integration.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'letstalk@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Real estate agencies, Property developers, Estate agents, Letting agents, Property management firms',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '450000',
-    'description' => 'Real estate website starting from ₦450,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Web Design for Real Estate', 'item' => url('/services/web-design/real-estate-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -976,50 +929,5 @@
 @endsection
 
 @push('scripts')
-<script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

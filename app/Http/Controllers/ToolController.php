@@ -1,0 +1,665 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ToolLead;
+use App\Support\SiteSettings as SiteSettingsManager;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+class ToolController extends Controller
+{
+    public function hub(): View
+    {
+        $tools = array_values($this->tools());
+
+        return view('tools.hub', [
+            'tools' => $tools,
+            'seo' => $this->seo(
+                'Free Business Tools for Nigerian Businesses | i2Medier',
+                'Explore free business tools from i2Medier including an SEO audit, website cost calculator, name generators, a website brief generator, a WhatsApp link generator, and an invoice generator.',
+                '/tools',
+                'CollectionPage'
+            ),
+        ]);
+    }
+
+    public function seoAudit(): View
+    {
+        return $this->toolPage('free-seo-audit', 'tools.seo-audit');
+    }
+
+    public function costCalculator(): View
+    {
+        return $this->toolPage('website-cost-calculator', 'tools.cost-calculator');
+    }
+
+    public function businessNameGenerator(): View
+    {
+        return $this->toolPage('business-name-generator', 'tools.business-name-generator');
+    }
+
+    public function domainNameGenerator(): View
+    {
+        return $this->toolPage('domain-name-generator', 'tools.domain-name-generator');
+    }
+
+    public function websiteBriefGenerator(): View
+    {
+        return $this->toolPage('website-brief-generator', 'tools.website-brief-generator');
+    }
+
+    public function whatsappLinkGenerator(): View
+    {
+        return $this->toolPage('whatsapp-link-generator', 'tools.whatsapp-link-generator');
+    }
+
+    public function invoiceGenerator(): View
+    {
+        return $this->toolPage('invoice-generator', 'tools.invoice-generator');
+    }
+
+    public function storeLead(Request $request): JsonResponse
+    {
+        $tool = (string) $request->string('tool');
+        $email = trim((string) $request->string('email'));
+
+        if (! array_key_exists($tool, $this->tools())) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Unknown tool.',
+            ], 422);
+        }
+
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Enter a valid email address.',
+            ], 422);
+        }
+
+        ToolLead::create([
+            'tool' => $tool,
+            'email' => $email,
+            'ip' => $request->ip(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    public function seoFetchHtml(Request $request): JsonResponse
+    {
+        $url = (string) $request->string('url');
+
+        if (! filter_var($url, FILTER_VALIDATE_URL) || ! preg_match('/^https?:\/\//i', $url)) {
+            return response()->json(['html' => ''], 422);
+        }
+
+        $validatedIp = $this->resolveToValidatedIp($url);
+        if (! $validatedIp) {
+            return response()->json(['html' => ''], 422);
+        }
+
+        try {
+            $response = $this->fetchHtmlPinned($url, $validatedIp);
+
+            // Follow up to 3 redirects, re-validating and re-pinning each hop
+            $hops = 0;
+            while ($response->redirect() && $hops < 3) {
+                $location = $response->header('Location');
+                if (! $location) break;
+                if (! preg_match('/^https?:\/\//i', $location)) {
+                    $parts    = parse_url($url);
+                    $location = ($parts['scheme'] ?? 'https') . '://' . ($parts['host'] ?? '') . '/' . ltrim($location, '/');
+                }
+                $validatedIp = $this->resolveToValidatedIp($location);
+                if (! $validatedIp) break;
+                $url      = $location;
+                $response = $this->fetchHtmlPinned($url, $validatedIp);
+                $hops++;
+            }
+
+            return response()->json(['html' => $response->successful() ? $response->body() : '']);
+        } catch (\Exception) {
+            return response()->json(['html' => '']);
+        }
+    }
+
+    private function fetchHtmlPinned(string $url, string $validatedIp): \Illuminate\Http\Client\Response
+    {
+        $parts = parse_url($url);
+        $host  = $parts['host'] ?? '';
+        $port  = $parts['port'] ?? (($parts['scheme'] ?? 'https') === 'https' ? 443 : 80);
+
+        return Http::timeout(15)
+            ->withUserAgent('Mozilla/5.0 (compatible; i2Medier-SEO-Audit/1.0; +https://i2medier.com)')
+            ->withOptions([
+                'allow_redirects' => false,
+                'curl'            => [CURLOPT_RESOLVE => ["{$host}:{$port}:{$validatedIp}"]],
+            ])
+            ->get($url);
+    }
+
+    /**
+     * Resolves all IPs for the URL's hostname, validates every one against
+     * private/reserved ranges, and returns the first IP to pin cURL to.
+     * Returns null if the URL is unsafe or unresolvable.
+     * Using the returned IP with CURLOPT_RESOLVE eliminates the DNS rebinding
+     * TOCTOU window between this check and the actual HTTP request.
+     */
+    private function resolveToValidatedIp(string $url): ?string
+    {
+        $parts = parse_url($url);
+
+        if (! $parts || empty($parts['host'])) {
+            return null;
+        }
+
+        $host = strtolower(rtrim($parts['host'], '.'));
+        $port = $parts['port'] ?? null;
+
+        if ($port !== null && ! in_array($port, [80, 443])) {
+            return null;
+        }
+
+        $ips = [];
+
+        foreach (dns_get_record($host, DNS_A) as $r) {
+            if (isset($r['ip'])) $ips[] = $r['ip'];
+        }
+
+        foreach (dns_get_record($host, DNS_AAAA) as $r) {
+            if (isset($r['ipv6'])) $ips[] = $r['ipv6'];
+        }
+
+        if (empty($ips)) {
+            $ips = gethostbynamel($host) ?: [];
+        }
+
+        if (empty($ips)) {
+            return null;
+        }
+
+        foreach ($ips as $ip) {
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+                return null;
+            }
+        }
+
+        return $ips[0];
+    }
+
+    public function seoFetchPsi(Request $request, SiteSettingsManager $settings): JsonResponse
+    {
+        $url = (string) $request->string('url');
+
+        if (! filter_var($url, FILTER_VALIDATE_URL)) {
+            return response()->json(['message' => 'Enter a valid URL.'], 422);
+        }
+
+        $apiKey = $settings->pagespeedApiKey();
+        if (! $apiKey) {
+            return response()->json(['message' => 'The PageSpeed Insights API key is not configured.'], 503);
+        }
+
+        // Google PSI requires repeated keys for multiple categories — http_build_query
+        // with an array produces category[0]=... which Google ignores, causing it to
+        // run all audits and take 15+ seconds. Build the query string manually instead.
+        $query = http_build_query(['url' => $url, 'strategy' => 'mobile', 'key' => $apiKey])
+            . '&category=performance&category=seo&category=accessibility&category=best-practices';
+
+        try {
+            $response = Http::timeout(28)->get(
+                'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?' . $query
+            );
+
+            if (! $response->successful()) {
+                return response()->json([
+                    'message' => 'PageSpeed Insights did not return a valid audit for this URL.',
+                ], 502);
+            }
+
+            $lhr    = $response->json('lighthouseResult', []);
+            $cats   = $lhr['categories'] ?? [];
+            $audits = $lhr['audits'] ?? [];
+
+            return response()->json([
+                'psi' => [
+                    'requestedUrl'    => $lhr['requestedUrl'] ?? $url,
+                    'finalUrl'        => $lhr['finalUrl'] ?? $url,
+                    'mainDocumentUrl' => $lhr['mainDocumentUrl'] ?? $url,
+                    'performance'   => $cats['performance']['score'] ?? null,
+                    'seo'           => $cats['seo']['score'] ?? null,
+                    'accessibility' => $cats['accessibility']['score'] ?? null,
+                    'bestPractices' => $cats['best-practices']['score'] ?? null,
+                    'fcp'           => $audits['first-contentful-paint']['displayValue'] ?? null,
+                    'lcp'           => $audits['largest-contentful-paint']['displayValue'] ?? null,
+                    'tbt'           => $audits['total-blocking-time']['displayValue'] ?? null,
+                    'cls'           => $audits['cumulative-layout-shift']['displayValue'] ?? null,
+                    'si'            => $audits['speed-index']['displayValue'] ?? null,
+                ],
+            ]);
+        } catch (\Exception) {
+            return response()->json([
+                'message' => 'PageSpeed Insights could not be reached right now.',
+            ], 502);
+        }
+    }
+
+    public function seoFetchCrux(Request $request, SiteSettingsManager $settings): JsonResponse
+    {
+        $url = (string) $request->string('url');
+        $finalUrl = (string) $request->string('finalUrl');
+
+        if (! filter_var($url, FILTER_VALIDATE_URL)) {
+            return response()->json(['message' => 'Enter a valid URL.'], 422);
+        }
+
+        $apiKey = $settings->cruxApiKey();
+        if (! $apiKey) {
+            return response()->json(['message' => 'The Chrome UX Report API key is not configured.'], 503);
+        }
+
+        $candidateUrls = array_values(array_unique(array_filter([$finalUrl, $url], fn ($value) => filter_var($value, FILTER_VALIDATE_URL))));
+
+        try {
+            foreach ($candidateUrls as $candidateUrl) {
+                $pageLookup = $this->queryCrux($apiKey, [
+                    'url' => $candidateUrl,
+                    'formFactor' => 'PHONE',
+                ]);
+
+                if ($pageLookup['ok']) {
+                    return response()->json([
+                        'crux' => $this->transformCruxRecord($pageLookup['record'], 'url'),
+                    ]);
+                }
+
+                if (! $pageLookup['not_found']) {
+                    return response()->json([
+                        'message' => 'Chrome UX Report could not return data for this URL.',
+                    ], 502);
+                }
+
+                $origin = $this->originFromUrl($candidateUrl);
+                if ($origin === null) {
+                    continue;
+                }
+
+                $originLookup = $this->queryCrux($apiKey, [
+                    'origin' => $origin,
+                    'formFactor' => 'PHONE',
+                ]);
+
+                if ($originLookup['ok']) {
+                    return response()->json([
+                        'crux' => $this->transformCruxRecord($originLookup['record'], 'origin'),
+                    ]);
+                }
+
+                if (! $originLookup['not_found']) {
+                    return response()->json([
+                        'message' => 'Chrome UX Report could not return origin data for this URL.',
+                    ], 502);
+                }
+            }
+
+            return response()->json([
+                'message' => 'Chrome UX Report has no field data for this URL or its origin yet.',
+            ], 404);
+        } catch (\Exception) {
+            return response()->json([
+                'message' => 'Chrome UX Report could not be reached right now.',
+            ], 502);
+        }
+    }
+
+    public function seoRecommend(Request $request, SiteSettingsManager $settings): JsonResponse
+    {
+        $signals = $request->input('signals', []);
+        $scores  = $request->input('scores', []);
+        $apiKey  = $settings->anthropicApiKey();
+
+        if (! $apiKey) {
+            return response()->json(['message' => 'The Claude API key is not configured.'], 503);
+        }
+
+        $prompt = $this->buildRecommendationPrompt($signals, $scores);
+
+        try {
+            $response = Http::withHeaders([
+                'x-api-key'         => $apiKey,
+                'anthropic-version' => '2023-06-01',
+                'content-type'      => 'application/json',
+            ])->timeout(60)->post('https://api.anthropic.com/v1/messages', [
+                'model'      => 'claude-haiku-4-5-20251001',
+                'max_tokens' => 1024,
+                'messages'   => [['role' => 'user', 'content' => $prompt]],
+            ]);
+
+            if (! $response->successful()) {
+                return response()->json([
+                    'message' => 'Claude did not return recommendations for this audit.',
+                ], 502);
+            }
+
+            $text = $response->json('content.0.text', '');
+
+            preg_match('/\[.*\]/s', $text, $matches);
+            $recs = json_decode($matches[0] ?? '[]', true) ?: [];
+
+            if ($recs === []) {
+                return response()->json([
+                    'message' => 'Claude returned an empty recommendation set.',
+                ], 502);
+            }
+
+            return response()->json(['recommendations' => $recs]);
+        } catch (\Exception) {
+            return response()->json([
+                'message' => 'Claude could not be reached right now.',
+            ], 502);
+        }
+    }
+
+    private function extractCruxMetric(array $metrics, string $key): ?array
+    {
+        $metric = $metrics[$key] ?? null;
+
+        if (! is_array($metric)) {
+            return null;
+        }
+
+        return [
+            'percentile' => $metric['percentiles']['p75'] ?? null,
+            'histogram' => $metric['histogram'] ?? [],
+            'good' => $metric['histogram'][0]['density'] ?? null,
+            'needsImprovement' => $metric['histogram'][1]['density'] ?? null,
+            'poor' => $metric['histogram'][2]['density'] ?? null,
+        ];
+    }
+
+    private function queryCrux(string $apiKey, array $payload): array
+    {
+        $response = Http::timeout(30)->post(
+            'https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=' . urlencode($apiKey),
+            $payload
+        );
+
+        if ($response->successful()) {
+            return [
+                'ok' => true,
+                'not_found' => false,
+                'record' => $response->json('record', []),
+            ];
+        }
+
+        $notFound = $response->status() === 404
+            && str_contains(strtolower((string) $response->json('error.message', '')), 'data not found');
+
+        return [
+            'ok' => false,
+            'not_found' => $notFound,
+            'record' => [],
+        ];
+    }
+
+    private function transformCruxRecord(array $record, string $source): array
+    {
+        $metrics = $record['metrics'] ?? [];
+
+        return [
+            'source' => $source,
+            'key' => $record['key'] ?? [],
+            'lcp' => $this->extractCruxMetric($metrics, 'largest_contentful_paint'),
+            'cls' => $this->extractCruxMetric($metrics, 'cumulative_layout_shift'),
+            'inp' => $this->extractCruxMetric($metrics, 'interaction_to_next_paint'),
+            'collectionPeriod' => $record['collectionPeriod'] ?? null,
+        ];
+    }
+
+    private function originFromUrl(string $url): ?string
+    {
+        $parts = parse_url($url);
+
+        if (! is_array($parts) || empty($parts['scheme']) || empty($parts['host'])) {
+            return null;
+        }
+
+        $origin = $parts['scheme'] . '://' . $parts['host'];
+
+        if (! empty($parts['port'])) {
+            $origin .= ':' . $parts['port'];
+        }
+
+        return $origin;
+    }
+
+    private function buildRecommendationPrompt(array $signals, array $scores): string
+    {
+        $url            = $signals['url'] ?? 'unknown';
+        $title          = $signals['title']['content'] ?? 'none';
+        $metaDesc       = $signals['metaDesc']['content'] ?? 'none';
+        $h1Count        = count($signals['h1s'] ?? []);
+        $wordCount      = $signals['wordCount'] ?? 0;
+        $isHTTPS        = ! empty($signals['isHTTPS']) ? 'yes' : 'no';
+        $schemaCount    = $signals['schema']['count'] ?? 0;
+        $hasOgImage     = ! empty($signals['og']['image']) ? 'yes' : 'no';
+        $hasCanonical   = ! empty($signals['canonical']) ? 'yes' : 'no';
+        $missingAlt     = $signals['images']['withoutAlt'] ?? 0;
+        $overall        = $scores['overall'] ?? 0;
+        $metaScore      = $scores['meta'] ?? 0;
+        $contentScore   = $scores['content'] ?? 0;
+        $technicalScore = $scores['technical'] ?? 0;
+        $socialScore    = $scores['social'] ?? 0;
+
+        return <<<PROMPT
+You are an SEO expert. Analyse the following website audit data and return a JSON array of prioritised recommendations.
+
+URL: {$url}
+Overall SEO Score: {$overall}/100
+Category Scores: Meta={$metaScore}, Content={$contentScore}, Technical={$technicalScore}, Social={$socialScore}
+
+Key signals:
+- Title tag: {$title}
+- Meta description: {$metaDesc}
+- H1 count: {$h1Count}
+- Word count: {$wordCount}
+- HTTPS: {$isHTTPS}
+- Schema markup blocks: {$schemaCount}
+- Has OG image: {$hasOgImage}
+- Has canonical tag: {$hasCanonical}
+- Images missing alt text: {$missingAlt}
+
+Return ONLY a valid JSON array (no markdown, no explanation, no code fences) with up to 6 recommendations in exactly this structure:
+[{"priority":"critical|high|medium|low","category":"Meta Tags|Content|Technical|Schema|Social|Performance","title":"Short action title","description":"1-2 sentence fix explanation.","impact":"One sentence on why this matters."}]
+PROMPT;
+    }
+
+    private function toolPage(string $slug, string $view): View
+    {
+        $tool = $this->findTool($slug);
+
+        return view($view, [
+            'tool' => $tool,
+            'relatedTools' => $this->relatedTools($slug),
+            'seo' => $this->seo(
+                "{$tool['title']} | i2Medier Tools",
+                $tool['description'],
+                "/tools/{$tool['slug']}",
+                'WebPage'
+            ),
+        ]);
+    }
+
+    private function relatedTools(string $slug): array
+    {
+        return collect($this->tools())
+            ->reject(fn (array $tool): bool => $tool['slug'] === $slug)
+            ->take(3)
+            ->values()
+            ->all();
+    }
+
+    private function findTool(string $slug): array
+    {
+        return $this->tools()[$slug] ?? abort(404);
+    }
+
+    private function tools(): array
+    {
+        return [
+            'free-seo-audit' => [
+                'slug' => 'free-seo-audit',
+                'title' => 'Free SEO Audit',
+                'route' => 'tools.seo-audit',
+                'description' => 'Check a website for core on-page SEO issues, technical signals, and quick wins before you invest further.',
+                'summary' => 'Run a quick SEO health check across titles, meta tags, headings, response speed, and crawlability basics.',
+                'label' => 'FREE TOOL',
+                'gate' => true,
+                'features' => [
+                    'Review title, meta description, H1, H2, canonical, and robots signals',
+                    'Check images without alt text and basic crawl file availability',
+                    'See a simple score with fast, practical improvement cues',
+                ],
+                'steps' => [
+                    'Enter a publicly accessible URL.',
+                    'We review key SEO signals and render your audit summary.',
+                    'Unlock the full result with your email if you want the detailed breakdown.',
+                ],
+            ],
+            'website-cost-calculator' => [
+                'slug' => 'website-cost-calculator',
+                'title' => 'Website Cost Calculator',
+                'route' => 'tools.cost-calculator',
+                'description' => 'Estimate a realistic website budget range in naira based on scope, complexity, features, and maintenance needs.',
+                'summary' => 'Get a guided cost range for brochure sites, business websites, e-commerce builds, and custom applications.',
+                'label' => 'FREE TOOL',
+                'gate' => true,
+                'features' => [
+                    'Choose the kind of website or application you need',
+                    'Layer on features like bookings, payments, and motion',
+                    'See an estimated project range plus possible monthly care costs',
+                ],
+                'steps' => [
+                    'Select the closest project type and required features.',
+                    'The estimate updates as you change scope.',
+                    'Unlock the final range with your email if you want to keep the result.',
+                ],
+            ],
+            'business-name-generator' => [
+                'slug' => 'business-name-generator',
+                'title' => 'Business Name Generator',
+                'route' => 'tools.business-name-generator',
+                'description' => 'Generate sharper, more brandable business names using your keywords and industry direction.',
+                'summary' => 'Blend keywords, prefixes, suffixes, and industry cues to produce practical naming ideas for modern businesses.',
+                'label' => 'FREE TOOL',
+                'gate' => true,
+                'features' => [
+                    'Mix user keywords with curated business naming patterns',
+                    'Support industry-aware name variants',
+                    'See a batch of reusable, copy-friendly suggestions',
+                ],
+                'steps' => [
+                    'Enter your keyword and choose an industry.',
+                    'Generate a fresh set of naming combinations.',
+                    'Unlock the result list with your email if you want to keep exploring.',
+                ],
+            ],
+            'domain-name-generator' => [
+                'slug' => 'domain-name-generator',
+                'title' => 'Domain Name Generator',
+                'route' => 'tools.domain-name-generator',
+                'description' => 'Create cleaner domain ideas with useful TLD variations so you can shortlist more credible names faster.',
+                'summary' => 'Generate domain ideas from your naming direction and explore common TLD variants for business use.',
+                'label' => 'FREE TOOL',
+                'gate' => true,
+                'features' => [
+                    'Create domain variants from business name ideas',
+                    'Try multiple TLD combinations including `.ng` and `.com.ng`',
+                    'Flag options that may be too long to remember easily',
+                ],
+                'steps' => [
+                    'Add your keyword and preferred industry or naming angle.',
+                    'Generate domain-friendly variations with different TLDs.',
+                    'Unlock the shortlist with your email and continue checking ideas.',
+                ],
+            ],
+            'website-brief-generator' => [
+                'slug' => 'website-brief-generator',
+                'title' => 'Website Brief Generator',
+                'route' => 'tools.website-brief-generator',
+                'description' => 'Turn scattered project ideas into a structured website brief you can share with your team or agency.',
+                'summary' => 'Capture business context, website goals, pages, style direction, budget, and timeline in one cleaner brief.',
+                'label' => 'FREE TOOL',
+                'gate' => true,
+                'features' => [
+                    'Walk through business info, goals, and scope in clear steps',
+                    'Generate a tidy, professional brief format',
+                    'Prepare a stronger starting point for real web projects',
+                ],
+                'steps' => [
+                    'Fill in your business context and website goals.',
+                    'Choose pages, style direction, budget, and timing.',
+                    'Unlock the final brief with your email and print or share it.',
+                ],
+            ],
+            'whatsapp-link-generator' => [
+                'slug' => 'whatsapp-link-generator',
+                'title' => 'WhatsApp Link Generator',
+                'route' => 'tools.whatsapp-link-generator',
+                'description' => 'Create a clean WhatsApp click-to-chat link with an optional pre-filled message for sales, support, or campaigns.',
+                'summary' => 'Build a ready-to-share WhatsApp link with country code handling, copy support, and QR-ready output.',
+                'label' => 'FREE TOOL',
+                'gate' => false,
+                'features' => [
+                    'Generate click-to-chat links for local or international numbers',
+                    'Add a pre-filled message for sales or support flows',
+                    'Copy and reuse the final link across your channels',
+                ],
+                'steps' => [
+                    'Choose a country code and enter the phone number.',
+                    'Add an optional pre-filled message.',
+                    'Copy the generated link and use it on your website or campaigns.',
+                ],
+            ],
+            'invoice-generator' => [
+                'slug' => 'invoice-generator',
+                'title' => 'Invoice Generator',
+                'route' => 'tools.invoice-generator',
+                'description' => 'Create a simple professional invoice with line items, tax, totals, and print-ready output for quick billing.',
+                'summary' => 'Build an invoice with sender details, client details, line items, tax, totals, and a clean print layout.',
+                'label' => 'FREE TOOL',
+                'gate' => false,
+                'features' => [
+                    'Add sender, client, dates, line items, and notes',
+                    'Calculate subtotal, tax, and total in real time',
+                    'Print or export the invoice using the browser print flow',
+                ],
+                'steps' => [
+                    'Fill in the invoice header and client details.',
+                    'Add your billable items and optional tax.',
+                    'Review the layout and print or save as PDF.',
+                ],
+            ],
+        ];
+    }
+
+    private function seo(string $title, string $description, string $path, string $schemaType): array
+    {
+        return [
+            'title' => $title,
+            'description' => $description,
+            'keywords' => 'free business tools, free SEO audit, website cost calculator, business name generator, domain name generator, website brief generator, WhatsApp link generator, invoice generator',
+            'robots' => 'index,follow',
+            'author' => 'i2Medier',
+            'url' => url($path),
+            'og_type' => 'website',
+            'schema_type' => $schemaType,
+        ];
+    }
+}

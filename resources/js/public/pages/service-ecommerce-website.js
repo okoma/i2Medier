@@ -1,0 +1,28 @@
+import { initCounters, initFaqButtons, initReveal } from './service-common';
+
+initReveal('.reveal', 0.08, 0.08);
+initCounters('.counter', 0.5, 1800);
+initFaqButtons('.faq-q');
+
+const processCards = document.querySelectorAll('.ps-card');
+const processNavItems = document.querySelectorAll('.pnav-item');
+
+if (processCards.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const id = entry.target.id;
+                processNavItems.forEach((item) => {
+                    item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
+                });
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    processCards.forEach((card) => observer.observe(card));
+}

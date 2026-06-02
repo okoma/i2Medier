@@ -2,55 +2,8 @@
 
 @section('title', 'Web Design for Personal Brands | Personal Brand Website Design Nigeria | i2Medier')
 
-@push('meta')
-<meta name="description" content="Authority-first web design for experts, founders, coaches, consultants, and creators in Nigeria. i2Medier builds compelling personal brand websites that establish your expertise, attract speaking opportunities, book clients, and generate passive income. Lagos, Abuja & UK specialists."/>
-<meta name="keywords" content="web design for personal brands Nigeria, personal brand website design Lagos, coach website design Nigeria, speaker website Nigeria, consultant personal website design, thought leader website Nigeria, expert website design Lagos, influencer website Nigeria, author website design Nigeria, personal brand website Abuja"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/personal-brand-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/personal-brand-website-design') }}"/>
-<meta property="og:title" content="Web Design for Personal Brands | i2Medier"/>
-<meta property="og:description" content="We build authority-first personal brand websites for experts, coaches, speakers, and founders in Nigeria. Establish your thought leadership, attract speaking enquiries, and book more clients."/>
-<meta property="og:image" content="{{ url('/og-personal-brand-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Personal Brands | i2Medier"/>
-<meta name="twitter:description" content="Authority-first personal brand websites for coaches, speakers, consultants, and founders in Nigeria. Lagos, Abuja & UK specialists."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Personal Brand Website Design',
-  'serviceType' => 'Personal Brand Website Design',
-  'description' => 'Authority-first web design and development services for personal brands, experts, coaches, consultants, speakers, authors, and thought leaders in Nigeria. We build compelling websites that establish expertise, attract speaking opportunities, book coaching clients, and generate passive income.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'hello@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Business coaches, Executive coaches, Public speakers, Keynote speakers, Authors, Thought leaders, Financial coaches, Life coaches, Online course creators, Consultants, Founders',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '450000',
-    'description' => 'Personal brand website starting from ₦450,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Web Design for Personal Brands', 'item' => url('/services/web-design/personal-brand-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -969,53 +922,5 @@
 @endsection
 
 @push('scripts')
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Counters
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

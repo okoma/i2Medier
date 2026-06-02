@@ -78,49 +78,7 @@
 @endpush
 
 @push('scripts')
-<script>
-// Nav: transparent → white on scroll
-const homeNav = document.querySelector('.public-nav.is-home');
-if (homeNav) {
-    window.addEventListener('scroll', () => {
-        homeNav.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-}
-
-// Scroll reveal
-const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) {
-            const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-            const idx = siblings.indexOf(e.target);
-            e.target.style.transitionDelay = (idx * 0.1) + 's';
-            e.target.classList.add('visible');
-            revealObs.unobserve(e.target);
-        }
-    });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-// Number counter animation
-function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    const duration = 1600;
-    const step = target / (duration / 16);
-    let cur = 0;
-    const t = setInterval(() => {
-        cur += step;
-        if (cur >= target) { cur = target; clearInterval(t); }
-        el.textContent = Math.floor(cur);
-    }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); }
-    });
-}, { threshold: 0.6 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-</script>
+    @vite('resources/js/public/pages/home.js')
 @endpush
 
 @section('content')

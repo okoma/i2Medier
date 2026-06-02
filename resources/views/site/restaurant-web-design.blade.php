@@ -2,55 +2,8 @@
 
 @section('title', 'Web Design for Restaurants | Restaurant Website Design Nigeria | i2Medier')
 
-@push('meta')
-<meta name="description" content="Appetite-first web design for restaurants, bars, cafes, and food businesses in Nigeria. i2Medier builds beautiful restaurant websites with online menus, reservation systems, and direct ordering — that convert hungry visitors into paying guests. Lagos, Abuja & UK specialists."/>
-<meta name="keywords" content="web design for restaurants Nigeria, restaurant website design Lagos, cafe website design Nigeria, restaurant booking website, bar and restaurant website design, restaurant online menu Nigeria, restaurant reservation system Nigeria, food business website Lagos, restaurant website Abuja, fine dining website Nigeria"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/restaurant-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/restaurant-website-design') }}"/>
-<meta property="og:title" content="Web Design for Restaurants | Restaurant Website Design Nigeria | i2Medier"/>
-<meta property="og:description" content="Appetite-first restaurant websites with online menus, reservation systems, and commission-free ordering. Lagos, Abuja & UK specialists."/>
-<meta property="og:image" content="{{ url('/og-restaurant-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Restaurants | i2Medier"/>
-<meta name="twitter:description" content="Beautiful restaurant websites with online menus, reservations & direct ordering. Stop giving 25-30% to Jumia Food. Nigeria & UK specialists."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Restaurant Website Design',
-  'serviceType' => 'Restaurant Website Design',
-  'description' => 'Professional web design and development for restaurants, cafes, bars, food trucks, and food businesses. We build appetite-inspiring websites with digital menus, online reservation systems, and commission-free direct ordering — that convert hungry visitors into paying guests.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'hello@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Restaurants, Cafes, Bars, Food trucks, Fine dining venues, Fast food businesses, Cloud kitchens, Suya spots, Bakeries, Private dining venues',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '400000',
-    'description' => 'Restaurant website starting from ₦400,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Web Design for Restaurants', 'item' => url('/services/web-design/restaurant-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -982,53 +935,5 @@
 @endsection
 
 @push('scripts')
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Counters
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

@@ -8,20 +8,19 @@
 
 @section('content')
 <div class="blog-archive-page">
-    <div class="breadcrumb" aria-label="Breadcrumb">
-        <a href="{{ route('site.home') }}">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <a href="{{ route('blog.index') }}">Blog</a>
-        <span class="breadcrumb-sep">›</span>
-        <span aria-current="page">{{ $category->ui['label'] }}</span>
-    </div>
-
     <header class="blog-hero" style="--cat-accent:{{ $category->ui['color'] }}">
         <div class="bh-bg" style="background:{{ $category->ui['gradient'] }}" aria-hidden="true"></div>
         <div class="bh-grid" aria-hidden="true"></div>
 
         <div class="bh-inner">
             <div class="bh-left">
+                <nav class="bh-breadcrumb" aria-label="Breadcrumb">
+                    <a href="{{ route('site.home') }}">Home</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <a href="{{ route('blog.index') }}">Blog</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page">{{ $category->ui['label'] }}</span>
+                </nav>
                 <span class="bh-tag" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.12)">
                     <span class="bh-dot" style="background:{{ $category->ui['color'] }}"></span>
                     Topic Archive
@@ -191,20 +190,5 @@
 @endsection
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.blog-archive-page .reveal').forEach(function (el) {
-        observer.observe(el);
-    });
-});
-</script>
+    @vite('resources/js/public/pages/blog-category.js')
 @endpush

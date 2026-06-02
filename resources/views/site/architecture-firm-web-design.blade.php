@@ -2,55 +2,8 @@
 
 @section('title', 'Web Design for Architecture Firms | Architect Portfolio Websites Nigeria | i2Medier')
 
-@push('meta')
-<meta name="description" content="Portfolio-first web design for architecture firms, architects, and interior designers. i2Medier builds visually stunning, SEO-optimised architecture studio websites that showcase your work and attract premium project enquiries in Nigeria and worldwide."/>
-<meta name="keywords" content="web design for architecture firms, architect website design Nigeria, architecture firm portfolio website, architecture studio website Lagos, NIA registered architect website, interior design website Nigeria, architect portfolio website Abuja, architecture company website design, architectural firm web design Nigeria, portfolio website for architects"/>
-<meta name="robots" content="index, follow"/>
-<meta name="author" content="i2Medier Konceptz"/>
-<link rel="canonical" href="{{ url('/services/web-design/architecture-firm-website-design') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/services/web-design/architecture-firm-website-design') }}"/>
-<meta property="og:title" content="Web Design for Architecture Firms | i2Medier"/>
-<meta property="og:description" content="We build visually stunning portfolio websites for architecture firms that showcase your best work and attract premium project enquiries. Fast, SEO-optimised, and live in 3–5 weeks."/>
-<meta property="og:image" content="{{ url('/og-architecture-web-design.jpg') }}"/>
-<meta property="og:site_name" content="i2Medier"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Web Design for Architecture Firms | i2Medier"/>
-<meta name="twitter:description" content="Portfolio-first architecture studio websites that rank on Google and win premium project enquiries. Nigeria & worldwide specialists."/>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Service',
-  'name' => 'Web Design for Architecture Firms',
-  'serviceType' => 'Architecture Firm Website Design',
-  'description' => 'Portfolio-first web design and development services for architecture firms, studios, interior designers, and planning consultancies. We build visually exceptional, fast, and SEO-optimised architecture studio websites that showcase your work and attract premium project enquiries in Nigeria and worldwide.',
-  'provider' => [
-    '@type' => 'Organization',
-    'name' => 'i2Medier',
-    'url' => url('/'),
-    'email' => 'hello@i2medier.com',
-  ],
-  'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
-  'audience' => [
-    '@type' => 'Audience',
-    'audienceType' => 'Architecture firms, Architecture studios, Interior designers, Urban planners, Landscape architects, Masterplanning consultancies',
-  ],
-  'offers' => [
-    '@type' => 'Offer',
-    'priceCurrency' => 'NGN',
-    'price' => '400000',
-    'description' => 'Architecture firm portfolio website starting from ₦400,000',
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
-<script type="application/ld+json">{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'BreadcrumbList',
-  'itemListElement' => [
-    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
-    ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-    ['@type' => 'ListItem', 'position' => 4, 'name' => 'Web Design for Architecture Firms', 'item' => url('/services/web-design/architecture-firm-website-design')],
-  ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@push('scripts')
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
 
 @push('page_css')
@@ -982,53 +935,5 @@
 @endsection
 
 @push('scripts')
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-      const idx = siblings.indexOf(e.target);
-      e.target.style.transitionDelay = (idx * 0.08) + 's';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Counters
-function animateCounter(el) {
-  const target = parseInt(el.dataset.target);
-  const step = target / (1800 / 16);
-  let cur = 0;
-  const t = setInterval(() => {
-    cur += step;
-    if (cur >= target) { cur = target; clearInterval(t); }
-    el.textContent = Math.floor(cur);
-  }, 16);
-}
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
-}, { threshold: 0.5 });
-document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-// FAQ
-document.querySelectorAll('.faq-q').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.getAttribute('aria-controls');
-    const answer = document.getElementById(id);
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.setAttribute('aria-expanded', 'false');
-      const a = document.getElementById(b.getAttribute('aria-controls'));
-      if (a) a.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.setAttribute('aria-expanded', 'true');
-      answer.classList.add('open');
-    }
-  });
-});
-</script>
+    @vite('resources/js/public/pages/industry-web-design.js')
 @endpush

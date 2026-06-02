@@ -23,10 +23,11 @@
 .blog-archive-page .blog-icon-cta{width:1.7rem;height:1.7rem;color:var(--gold)}
 .blog-archive-page .blog-icon-topic{width:1.35rem;height:1.35rem;color:var(--black)}
 
-.blog-archive-page .breadcrumb{background:var(--off);border-bottom:1px solid var(--g200);padding:12px 5%;display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--g400)}
-.blog-archive-page .breadcrumb a{text-decoration:none;color:var(--g700);transition:color .2s}
-.blog-archive-page .breadcrumb a:hover{color:var(--gold)}
-.blog-archive-page .breadcrumb-sep{color:var(--g200)}
+.blog-archive-page .bh-breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1.5rem;flex-wrap:wrap}
+.blog-archive-page .bh-breadcrumb a{text-decoration:none;color:rgba(255,255,255,.72);transition:color .2s}
+.blog-archive-page .bh-breadcrumb a:hover{color:var(--gold)}
+.blog-archive-page .bh-breadcrumb .breadcrumb-sep{color:rgba(255,255,255,.24)}
+.blog-archive-page .bh-breadcrumb [aria-current="page"]{color:var(--gold)}
 
 .blog-archive-page .blog-hero{background:var(--black);padding:0;position:relative;overflow:hidden;min-height:540px;display:flex;flex-direction:column;justify-content:flex-end}
 .blog-archive-page .bh-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 120%,rgba(200,169,110,.18) 0%,transparent 55%),radial-gradient(ellipse 40% 50% at 15% 50%,rgba(12,31,58,.7) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 85% 50%,rgba(12,31,58,.7) 0%,transparent 60%)}
@@ -74,7 +75,7 @@
 .blog-archive-page .bfc-cta{font-size:.72rem;font-weight:700;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
 .blog-archive-page .bfc-cta:hover{color:var(--white)}
 
-.blog-archive-page .filter-wrap{background:var(--white);border-bottom:1px solid var(--g200);position:sticky;top:68px;z-index:100}
+.blog-archive-page .filter-wrap{background:var(--white);border-bottom:1px solid var(--g200);position:sticky;top:58px;z-index:100}
 .blog-archive-page .filter-inner{padding:0 5%;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
 .blog-archive-page .filter-inner::-webkit-scrollbar{display:none}
 .blog-archive-page .f-btn{flex-shrink:0;display:inline-flex;align-items:center;gap:.4rem;padding:.85rem 1rem;font-size:.78rem;font-weight:500;color:var(--g400);cursor:pointer;border:none;background:none;font-family:var(--sans);border-bottom:2px solid transparent;transition:color .2s,border-color .2s;white-space:nowrap}

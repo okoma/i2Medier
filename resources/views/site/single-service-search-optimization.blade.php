@@ -7,61 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('reveal'));
-        const idx = siblings.indexOf(e.target);
-        e.target.style.transitionDelay = (idx * 0.08) + 's';
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const step = target / (1800 / 16);
-    let cur = 0;
-    const t = setInterval(() => {
-      cur += step;
-      if (cur >= target) { cur = target; clearInterval(t); }
-      el.textContent = Math.floor(cur);
-    }, 16);
-  }
-
-  const cObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        animateCounter(e.target);
-        cObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
-
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('aria-controls');
-      const answer = document.getElementById(id);
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.faq-q').forEach(b => {
-        b.setAttribute('aria-expanded', 'false');
-        const a = document.getElementById(b.getAttribute('aria-controls'));
-        if (a) a.classList.remove('open');
-      });
-      if (! isOpen && answer) {
-        btn.setAttribute('aria-expanded', 'true');
-        answer.classList.add('open');
-      }
-    });
-  });
-});
-</script>
+    @vite('resources/js/public/pages/service-search-optimization.js')
 @endpush
 
 @section('content')

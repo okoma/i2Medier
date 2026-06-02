@@ -91,18 +91,18 @@
         top: 0;
         z-index: 200;
         background: rgba(255, 255, 255, 0.96);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--g200);
+        backdrop-filter: blur(8px);
+        border-bottom: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 5%;
-        height: 68px;
+        height: 58px;
     }
 
     .public-nav.is-dark {
         background: rgba(10, 10, 8, 0.85);
-        border-bottom-color: var(--border);
+        border-bottom-color: transparent;
     }
 
     .public-logo {

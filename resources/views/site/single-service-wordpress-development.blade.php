@@ -7,63 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-  const wpObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const siblings = [...entry.target.parentElement.children].filter((child) => child.classList.contains('reveal'));
-        const idx = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = (idx * 0.08) + 's';
-        entry.target.classList.add('visible');
-        wpObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.wp-service-page .reveal').forEach((el) => wpObs.observe(el));
-
-  function animateWpCounter(el) {
-    const target = parseInt(el.dataset.target);
-    const step = target / (1800 / 16);
-    let cur = 0;
-    const timer = setInterval(() => {
-      cur += step;
-      if (cur >= target) {
-        cur = target;
-        clearInterval(timer);
-      }
-      el.textContent = Math.floor(cur);
-    }, 16);
-  }
-
-  const wpCounterObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateWpCounter(entry.target);
-        wpCounterObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.wp-service-page .counter').forEach((el) => wpCounterObs.observe(el));
-
-  document.querySelectorAll('.wp-service-page .faq-q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('aria-controls');
-      const answer = document.getElementById(id);
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      document.querySelectorAll('.wp-service-page .faq-q').forEach((other) => {
-        other.setAttribute('aria-expanded', 'false');
-        const target = document.getElementById(other.getAttribute('aria-controls'));
-        if (target) {
-          target.classList.remove('open');
-        }
-      });
-      if (!isOpen) {
-        btn.setAttribute('aria-expanded', 'true');
-        answer.classList.add('open');
-      }
-    });
-  });
-</script>
+    @vite('resources/js/public/pages/service-wordpress-development.js')
 @endpush
 
 @section('content')

@@ -7,67 +7,7 @@
 @endpush
 
 @push('scripts')
-<script>
-  const serviceObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const siblings = [...entry.target.parentElement.children].filter((child) => child.classList.contains('reveal'));
-        const idx = siblings.indexOf(entry.target);
-        entry.target.style.transitionDelay = (idx * 0.09) + 's';
-        entry.target.classList.add('visible');
-        serviceObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.single-service-page .reveal').forEach((el) => serviceObs.observe(el));
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    const step = target / (1800 / 16);
-    let cur = 0;
-    const timer = setInterval(() => {
-      cur += step;
-      if (cur >= target) {
-        cur = target;
-        clearInterval(timer);
-      }
-      el.textContent = Math.floor(cur);
-    }, 16);
-  }
-
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        counterObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.single-service-page .counter').forEach((el) => counterObs.observe(el));
-
-  document.querySelectorAll('.single-service-page .faq-q').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('aria-controls');
-      const answer = document.getElementById(id);
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-
-      document.querySelectorAll('.single-service-page .faq-q').forEach((other) => {
-        other.setAttribute('aria-expanded', 'false');
-        const target = document.getElementById(other.getAttribute('aria-controls'));
-        if (target) {
-          target.classList.remove('open');
-        }
-      });
-
-      if (!isOpen) {
-        btn.setAttribute('aria-expanded', 'true');
-        answer.classList.add('open');
-      }
-    });
-  });
-</script>
+    @vite('resources/js/public/pages/service-web-design.js')
 @endpush
 
 @section('content')

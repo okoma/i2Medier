@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Tools;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ToolRoutesTest extends TestCase
 {
