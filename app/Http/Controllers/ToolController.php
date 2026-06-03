@@ -387,6 +387,42 @@ class ToolController extends Controller
         }
     }
 
+    public function domainNameGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
+    {
+        $description = trim((string) $request->string('description'));
+        $tlds = collect($request->input('tlds', []))
+            ->map(fn ($tld) => trim((string) $tld))
+            ->filter()
+            ->values()
+            ->all();
+
+        if ($description === '') {
+            return response()->json(['message' => 'Please describe the business first.'], 422);
+        }
+
+        if ($tlds === []) {
+            return response()->json(['message' => 'Please select at least one TLD.'], 422);
+        }
+
+        try {
+            $result = $service->generateDomains($settings->businessNameAiConfig(), $this->buildDomainNamePrompt([
+                'description' => $description,
+                'keywords' => trim((string) $request->string('keywords')),
+                'must_include' => trim((string) $request->string('mustInclude')),
+                'style' => trim((string) $request->string('style', 'Any')),
+                'max_length' => trim((string) $request->string('maxLength', 'any')),
+                'tlds' => $tlds,
+            ]));
+
+            return response()->json([
+                'domains' => array_values($result['data']),
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
+        }
+    }
+
     private function extractCruxMetric(array $metrics, string $key): ?array
     {
         $metric = $metrics[$key] ?? null;
@@ -498,6 +534,56 @@ Key signals:
 
 Return ONLY a valid JSON array (no markdown, no explanation, no code fences) with up to 6 recommendations in exactly this structure:
 [{"priority":"critical|high|medium|low","category":"Meta Tags|Content|Technical|Schema|Social|Performance","title":"Short action title","description":"1-2 sentence fix explanation.","impact":"One sentence on why this matters."}]
+PROMPT;
+    }
+
+    private function buildDomainNamePrompt(array $input): string
+    {
+        $description = trim((string) ($input['description'] ?? ''));
+        $keywords = trim((string) ($input['keywords'] ?? ''));
+        $mustInclude = trim((string) ($input['must_include'] ?? ''));
+        $style = trim((string) ($input['style'] ?? 'Any'));
+        $maxLength = trim((string) ($input['max_length'] ?? 'any'));
+        $tlds = collect($input['tlds'] ?? [])->map(fn ($tld) => trim((string) $tld))->filter()->values()->all();
+
+        $tldString = implode(', ', $tlds);
+        $lengthRule = $maxLength === 'any'
+            ? 'any length is acceptable'
+            : "maximum {$maxLength} characters for the name part (before the TLD)";
+        $styleRule = $style === 'Any'
+            ? 'mix of brandable, keyword-rich, short, and creative names'
+            : 'names that are specifically ' . strtolower($style);
+
+        return <<<PROMPT
+Generate exactly 12 domain name suggestions for the following business:
+
+Description: {$description}
+Keywords/inspiration: {$keywords}
+Must include this word or root: {$mustInclude}
+Preferred TLDs to use: {$tldString}
+Domain style: {$styleRule}
+Length limit: {$lengthRule}
+
+Rules:
+- Assign each domain the most appropriate TLD from the preferred list
+- Use .com first when suitable, but use other TLDs when they better suit the brand or create a clever hack
+- Names must be memorable, pronounceable, spell-check friendly, and not obvious trademarks
+- Vary the styles: some short, some brandable invented words, some keyword combos, 1-2 creative domain hacks if suitable
+- For Nigerian market domains (.ng, .co.ng, .com.ng), include 2-3 if those TLDs are selected
+- Score each domain out of 100 based on memorability, pronounceability, brandability, and length
+
+Return ONLY a valid JSON array of exactly 12 objects. No markdown, no text outside the JSON array. Each object must have:
+- "domain": string (name part only, lowercase, no spaces)
+- "tld": string (with leading dot)
+- "full": string (complete domain)
+- "type": string (one of: Brandable, Keyword-rich, Short, Creative, Exact Match, Hack)
+- "score": number (0-100)
+- "length": number
+- "explanation": string (2-3 sentences)
+- "tags": array of 2-4 strings
+- "altTLDs": array of 2-4 alternative TLD strings chosen from the preferred TLDs
+- "isHack": boolean
+- "hackNote": string or null
 PROMPT;
     }
 

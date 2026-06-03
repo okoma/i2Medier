@@ -81,6 +81,29 @@ class SiteSettings extends Page implements HasForms
                                             ->acceptedFileTypes(['image/png', 'image/svg+xml', 'image/webp'])
                                             ->imagePreviewHeight('80')
                                             ->columnSpan(1),
+
+                                        FileUpload::make('favicon')
+                                            ->label('Favicon')
+                                            ->helperText('Shown in browser tabs and bookmarks. Square PNG, SVG, or ICO recommended.')
+                                            ->disk('public')
+                                            ->directory('branding')
+                                            ->visibility('public')
+                                            ->maxSize(1024)
+                                            ->acceptedFileTypes(['image/png', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon'])
+                                            ->imagePreviewHeight('48')
+                                            ->columnSpan(1),
+
+                                        FileUpload::make('apple_touch_icon')
+                                            ->label('Apple Touch Icon')
+                                            ->helperText('Used when people save your website to an iPhone or iPad home screen. PNG recommended.')
+                                            ->image()
+                                            ->disk('public')
+                                            ->directory('branding')
+                                            ->visibility('public')
+                                            ->maxSize(1024)
+                                            ->acceptedFileTypes(['image/png', 'image/webp'])
+                                            ->imagePreviewHeight('48')
+                                            ->columnSpan(1),
                                     ]),
                             ]),
 
@@ -164,7 +187,7 @@ class SiteSettings extends Page implements HasForms
                                             ->placeholder('sk-ant-…'),
 
                                         Section::make('Business Name Generator AI Providers')
-                                            ->description('Configure multiple AI providers for the business name generator. The tool will try your preferred provider first, then automatically switch to any other configured provider if needed.')
+                                            ->description('Configure shared AI providers for the business name generator and SEO audit recommendations. The app will try your preferred provider first, then automatically switch to any other configured provider if needed.')
                                             ->columns(1)
                                             ->schema([
                                                 Select::make('ai_primary_provider')
@@ -203,6 +226,54 @@ class SiteSettings extends Page implements HasForms
                                                     ->revealable()
                                                     ->maxLength(200)
                                                     ->placeholder('…'),
+
+                                                Select::make('anthropic_model')
+                                                    ->label('Anthropic Model')
+                                                    ->options([
+                                                        'claude-haiku-4-5-20251001' => 'Claude Haiku 4.5',
+                                                        'claude-sonnet-4-20250514' => 'Claude Sonnet 4',
+                                                    ])
+                                                    ->default('claude-haiku-4-5-20251001')
+                                                    ->native(false)
+                                                    ->searchable()
+                                                    ->helperText('Used when Anthropic is selected or reached through fallback.'),
+
+                                                Select::make('openai_model')
+                                                    ->label('OpenAI Model')
+                                                    ->options([
+                                                        'gpt-4o-mini' => 'GPT-4o mini',
+                                                        'gpt-4o' => 'GPT-4o',
+                                                    ])
+                                                    ->default('gpt-4o-mini')
+                                                    ->native(false)
+                                                    ->searchable()
+                                                    ->helperText('Used when OpenAI is selected or reached through fallback.'),
+
+                                                Select::make('gemini_model')
+                                                    ->label('Gemini Model')
+                                                    ->options([
+                                                        'gemini-2.5-flash' => 'Gemini 2.5 Flash',
+                                                        'gemini-2.5-pro' => 'Gemini 2.5 Pro',
+                                                    ])
+                                                    ->default('gemini-2.5-flash')
+                                                    ->native(false)
+                                                    ->searchable()
+                                                    ->helperText('Used when Gemini is selected or reached through fallback.'),
+
+                                                Select::make('mistral_model')
+                                                    ->label('Mistral Model')
+                                                    ->options([
+                                                        'mistral-small-latest' => 'Mistral Small Latest',
+                                                        'ministral-3b-2512' => 'Ministral 3 3B',
+                                                        'ministral-8b-2512' => 'Ministral 3 8B',
+                                                        'ministral-14b-2512' => 'Ministral 3 14B',
+                                                        'magistral-small-2509' => 'Magistral Small 2509',
+                                                        'magistral-medium-2509' => 'Magistral Medium 2509',
+                                                    ])
+                                                    ->default('mistral-small-latest')
+                                                    ->native(false)
+                                                    ->searchable()
+                                                    ->helperText('Used when Mistral is selected or reached through fallback.'),
                                             ]),
                                     ]),
                             ]),

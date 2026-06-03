@@ -25,6 +25,20 @@ class SiteSettings
         return $path ? asset('storage/' . $path) : null;
     }
 
+    public function favicon(): ?string
+    {
+        $path = $this->record()?->favicon;
+
+        return $path ? asset('storage/' . $path) : null;
+    }
+
+    public function appleTouchIcon(): ?string
+    {
+        $path = $this->record()?->apple_touch_icon;
+
+        return $path ? asset('storage/' . $path) : null;
+    }
+
     public function analyticsEnabled(): bool
     {
         return (bool) ($this->record()?->analytics_enabled ?? false);
@@ -88,6 +102,26 @@ class SiteSettings
         return (string) ($this->record()?->ai_primary_provider ?? 'auto');
     }
 
+    public function anthropicModel(): string
+    {
+        return (string) ($this->record()?->anthropic_model ?? '');
+    }
+
+    public function openAiModel(): string
+    {
+        return (string) ($this->record()?->openai_model ?? '');
+    }
+
+    public function geminiModel(): string
+    {
+        return (string) ($this->record()?->gemini_model ?? '');
+    }
+
+    public function mistralModel(): string
+    {
+        return (string) ($this->record()?->mistral_model ?? '');
+    }
+
     public function businessNameAiConfig(): array
     {
         return [
@@ -96,6 +130,10 @@ class SiteSettings
             'openai' => $this->openAiApiKey(),
             'gemini' => $this->geminiApiKey(),
             'mistral' => $this->mistralApiKey(),
+            'anthropic_model' => $this->anthropicModel(),
+            'openai_model' => $this->openAiModel(),
+            'gemini_model' => $this->geminiModel(),
+            'mistral_model' => $this->mistralModel(),
         ];
     }
 
@@ -106,6 +144,8 @@ class SiteSettings
         return [
             'logo_dark'                => $record?->logo_dark,
             'logo_light'               => $record?->logo_light,
+            'favicon'                  => $record?->favicon,
+            'apple_touch_icon'         => $record?->apple_touch_icon,
             'analytics_enabled'        => $record?->analytics_enabled ?? false,
             'analytics_measurement_id' => $record?->analytics_measurement_id ?? '',
             'cookie_consent_enabled'   => $record?->cookie_consent_enabled ?? true,
@@ -117,6 +157,10 @@ class SiteSettings
             'gemini_api_key'           => $record?->gemini_api_key ?? '',
             'mistral_api_key'          => $record?->mistral_api_key ?? '',
             'ai_primary_provider'      => $record?->ai_primary_provider ?? 'auto',
+            'anthropic_model'          => $record?->anthropic_model ?? '',
+            'openai_model'             => $record?->openai_model ?? '',
+            'gemini_model'             => $record?->gemini_model ?? '',
+            'mistral_model'            => $record?->mistral_model ?? '',
         ];
     }
 }

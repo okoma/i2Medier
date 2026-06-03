@@ -9,6 +9,8 @@ class SiteSetting extends Model
     protected $fillable = [
         'logo_dark',
         'logo_light',
+        'favicon',
+        'apple_touch_icon',
         'analytics_enabled',
         'analytics_measurement_id',
         'cookie_consent_enabled',
@@ -20,6 +22,10 @@ class SiteSetting extends Model
         'gemini_api_key',
         'mistral_api_key',
         'ai_primary_provider',
+        'anthropic_model',
+        'openai_model',
+        'gemini_model',
+        'mistral_model',
     ];
 
     protected $casts = [

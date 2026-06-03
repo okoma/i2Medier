@@ -1,6 +1,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ $title }}</title>
+@php($siteSettings = app(\App\Support\SiteSettings::class))
+@if ($siteSettings->favicon())
+<link rel="icon" href="{{ $siteSettings->favicon() }}">
+<link rel="shortcut icon" href="{{ $siteSettings->favicon() }}">
+@endif
+@if ($siteSettings->appleTouchIcon())
+<link rel="apple-touch-icon" href="{{ $siteSettings->appleTouchIcon() }}">
+@endif
 @isset($seo)
 <meta name="description" content="{{ $seo['description'] }}">
 @if(filled($seo['keywords']))

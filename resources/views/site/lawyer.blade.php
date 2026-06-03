@@ -240,7 +240,7 @@
   <div class="pricing-grid">
     <div class="pricing-card fade-up">
       <div class="pricing-tier">Starter</div>
-      <div class="pricing-price"><span>$</span>1,200</div>
+      <div class="pricing-price"><span>₦</span>350,000</div>
       <div class="pricing-period">One-time payment · Delivered in 7 days</div>
       <div class="pricing-divider"></div>
       <div class="pricing-features">
@@ -258,7 +258,7 @@
     <div class="pricing-card featured fade-up">
       <div class="featured-tag">Most Popular</div>
       <div class="pricing-tier">Professional</div>
-      <div class="pricing-price"><span>$</span>2,800</div>
+      <div class="pricing-price"><span>₦</span>750,000</div>
       <div class="pricing-period">One-time payment · Delivered in 14 days</div>
       <div class="pricing-divider"></div>
       <div class="pricing-features">

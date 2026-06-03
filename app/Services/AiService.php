@@ -8,15 +8,21 @@ use RuntimeException;
 class AiService
 {
     private const PROVIDER_ORDER = ['anthropic', 'openai', 'gemini', 'mistral'];
+    private const DEFAULT_MODELS = [
+        'anthropic' => 'claude-haiku-4-5-20251001',
+        'openai' => 'gpt-4o-mini',
+        'gemini' => 'gemini-2.5-flash',
+        'mistral' => 'mistral-small-latest',
+    ];
 
     public function generateNames(array $config, array $input): array
     {
-        return $this->runAcrossProviders($config, function (string $provider, string $apiKey) use ($input): array {
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($input): array {
             $result = match ($provider) {
-                'anthropic' => $this->generateWithAnthropic($apiKey, $this->buildBusinessNamePrompt($input)),
-                'openai' => $this->generateWithOpenAi($apiKey, $this->buildBusinessNamePrompt($input)),
-                'gemini' => $this->generateWithGemini($apiKey, $this->buildBusinessNamePrompt($input)),
-                'mistral' => $this->generateWithMistral($apiKey, $this->buildBusinessNamePrompt($input)),
+                'anthropic' => $this->generateWithAnthropic($apiKey, $model, $this->buildBusinessNamePrompt($input)),
+                'openai' => $this->generateWithOpenAi($apiKey, $model, $this->buildBusinessNamePrompt($input)),
+                'gemini' => $this->generateWithGemini($apiKey, $model, $this->buildBusinessNamePrompt($input)),
+                'mistral' => $this->generateWithMistral($apiKey, $model, $this->buildBusinessNamePrompt($input)),
                 default => throw new RuntimeException('Unsupported AI provider.'),
             };
 
@@ -30,14 +36,14 @@ class AiService
 
     public function generateVariations(array $config, string $name, string $tagline): array
     {
-        return $this->runAcrossProviders($config, function (string $provider, string $apiKey) use ($name, $tagline): array {
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($name, $tagline): array {
             $prompt = $this->buildBusinessNameVariationPrompt($name, $tagline);
 
             $result = match ($provider) {
-                'anthropic' => $this->generateWithAnthropic($apiKey, $prompt),
-                'openai' => $this->generateWithOpenAi($apiKey, $prompt),
-                'gemini' => $this->generateWithGemini($apiKey, $prompt),
-                'mistral' => $this->generateWithMistral($apiKey, $prompt),
+                'anthropic' => $this->generateWithAnthropic($apiKey, $model, $prompt),
+                'openai' => $this->generateWithOpenAi($apiKey, $model, $prompt),
+                'gemini' => $this->generateWithGemini($apiKey, $model, $prompt),
+                'mistral' => $this->generateWithMistral($apiKey, $model, $prompt),
                 default => throw new RuntimeException('Unsupported AI provider.'),
             };
 
@@ -51,17 +57,36 @@ class AiService
 
     public function generateSeoRecommendations(array $config, string $prompt): array
     {
-        return $this->runAcrossProviders($config, function (string $provider, string $apiKey) use ($prompt): array {
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($prompt): array {
             $result = match ($provider) {
-                'anthropic' => $this->generateWithAnthropic($apiKey, $prompt),
-                'openai' => $this->generateWithOpenAi($apiKey, $prompt),
-                'gemini' => $this->generateWithGemini($apiKey, $prompt),
-                'mistral' => $this->generateWithMistral($apiKey, $prompt),
+                'anthropic' => $this->generateWithAnthropic($apiKey, $model, $prompt),
+                'openai' => $this->generateWithOpenAi($apiKey, $model, $prompt),
+                'gemini' => $this->generateWithGemini($apiKey, $model, $prompt),
+                'mistral' => $this->generateWithMistral($apiKey, $model, $prompt),
                 default => throw new RuntimeException('Unsupported AI provider.'),
             };
 
             if ($result === [] || count($result) > 6) {
                 throw new RuntimeException('Returned an invalid SEO recommendation set.');
+            }
+
+            return $result;
+        });
+    }
+
+    public function generateDomains(array $config, string $prompt): array
+    {
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($prompt): array {
+            $result = match ($provider) {
+                'anthropic' => $this->generateWithAnthropic($apiKey, $model, $prompt),
+                'openai' => $this->generateWithOpenAi($apiKey, $model, $prompt),
+                'gemini' => $this->generateWithGemini($apiKey, $model, $prompt),
+                'mistral' => $this->generateWithMistral($apiKey, $model, $prompt),
+                default => throw new RuntimeException('Unsupported AI provider.'),
+            };
+
+            if (count($result) !== 12) {
+                throw new RuntimeException('Returned an invalid domain suggestion set.');
             }
 
             return $result;
@@ -79,10 +104,13 @@ class AiService
                 continue;
             }
 
+            $model = $this->modelForProvider($provider, $config);
+
             try {
                 return [
                     'provider' => $provider,
-                    'data' => $runner($provider, $apiKey),
+                    'model' => $model,
+                    'data' => $runner($provider, $apiKey, $model),
                 ];
             } catch (\Throwable $exception) {
                 $errors[] = strtoupper($provider) . ': ' . $exception->getMessage();
@@ -90,7 +118,7 @@ class AiService
         }
 
         if ($errors === []) {
-            throw new RuntimeException('No AI provider is configured for the business name generator.');
+            throw new RuntimeException('No AI provider is configured.');
         }
 
         throw new RuntimeException('All configured AI providers failed. ' . implode(' | ', $errors));
@@ -105,14 +133,21 @@ class AiService
         return array_values(array_unique([$preferred, ...self::PROVIDER_ORDER]));
     }
 
-    private function generateWithAnthropic(string $apiKey, string $prompt): array
+    private function modelForProvider(string $provider, array $config): string
+    {
+        $configured = trim((string) ($config[$provider . '_model'] ?? ''));
+
+        return $configured !== '' ? $configured : self::DEFAULT_MODELS[$provider];
+    }
+
+    private function generateWithAnthropic(string $apiKey, string $model, string $prompt): array
     {
         $response = Http::withHeaders([
             'x-api-key' => $apiKey,
             'anthropic-version' => '2023-06-01',
             'content-type' => 'application/json',
         ])->timeout(65)->post('https://api.anthropic.com/v1/messages', [
-            'model' => 'claude-haiku-4-5-20251001',
+            'model' => $model,
             'max_tokens' => 2200,
             'system' => 'You are a world-class brand naming expert. Return only valid JSON arrays that match the requested schema exactly.',
             'messages' => [['role' => 'user', 'content' => $prompt]],
@@ -125,13 +160,13 @@ class AiService
         return $this->decodeJsonArray($response->json('content.0.text', ''));
     }
 
-    private function generateWithOpenAi(string $apiKey, string $prompt): array
+    private function generateWithOpenAi(string $apiKey, string $model, string $prompt): array
     {
         $response = Http::withToken($apiKey)
             ->acceptJson()
             ->timeout(65)
             ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => 'gpt-4o-mini',
+                'model' => $model,
                 'response_format' => ['type' => 'json_object'],
                 'messages' => [
                     ['role' => 'system', 'content' => 'You are a world-class brand naming expert. Return only JSON matching the requested schema.'],
@@ -153,10 +188,10 @@ class AiService
         return $this->decodeJsonArray($content);
     }
 
-    private function generateWithGemini(string $apiKey, string $prompt): array
+    private function generateWithGemini(string $apiKey, string $model, string $prompt): array
     {
         $response = Http::timeout(65)
-            ->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' . urlencode($apiKey), [
+            ->post('https://generativelanguage.googleapis.com/v1beta/models/' . urlencode($model) . ':generateContent?key=' . urlencode($apiKey), [
                 'systemInstruction' => [
                     'parts' => [[
                         'text' => 'You are a world-class brand naming expert. Return only JSON matching the requested schema.',
@@ -187,13 +222,13 @@ class AiService
         return $this->decodeJsonArray($text);
     }
 
-    private function generateWithMistral(string $apiKey, string $prompt): array
+    private function generateWithMistral(string $apiKey, string $model, string $prompt): array
     {
         $response = Http::withToken($apiKey)
             ->acceptJson()
             ->timeout(65)
             ->post('https://api.mistral.ai/v1/chat/completions', [
-                'model' => 'mistral-small-latest',
+                'model' => $model,
                 'response_format' => ['type' => 'json_object'],
                 'messages' => [
                     ['role' => 'system', 'content' => 'You are a world-class brand naming expert. Return only JSON matching the requested schema.'],

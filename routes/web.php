@@ -53,6 +53,7 @@ Route::get('/tools/business-name-generator', [ToolController::class, 'businessNa
 Route::post('/tools/business-name-generator/generate', [ToolController::class, 'businessNameGenerate'])->name('tools.business-name-generator.generate')->middleware('throttle:8,1');
 Route::post('/tools/business-name-generator/variations', [ToolController::class, 'businessNameVariations'])->name('tools.business-name-generator.variations')->middleware('throttle:12,1');
 Route::get('/tools/domain-name-generator', [ToolController::class, 'domainNameGenerator'])->name('tools.domain-name-generator');
+Route::post('/tools/domain-name-generator/generate', [ToolController::class, 'domainNameGenerate'])->name('tools.domain-name-generator.generate')->middleware('throttle:8,1');
 Route::get('/tools/website-brief-generator', [ToolController::class, 'websiteBriefGenerator'])->name('tools.website-brief-generator');
 Route::get('/tools/whatsapp-link-generator', [ToolController::class, 'whatsappLinkGenerator'])->name('tools.whatsapp-link-generator');
 Route::get('/tools/invoice-generator', [ToolController::class, 'invoiceGenerator'])->name('tools.invoice-generator');
