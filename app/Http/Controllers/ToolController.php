@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ToolLead;
+use App\Services\AiService;
 use App\Support\SiteSettings as SiteSettingsManager;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -318,51 +319,71 @@ class ToolController extends Controller
         }
     }
 
-    public function seoRecommend(Request $request, SiteSettingsManager $settings): JsonResponse
+    public function seoRecommend(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
         $signals = $request->input('signals', []);
         $scores  = $request->input('scores', []);
-        $apiKey  = $settings->anthropicApiKey();
-
-        if (! $apiKey) {
-            return response()->json(['message' => 'The Claude API key is not configured.'], 503);
-        }
-
         $prompt = $this->buildRecommendationPrompt($signals, $scores);
 
         try {
-            $response = Http::withHeaders([
-                'x-api-key'         => $apiKey,
-                'anthropic-version' => '2023-06-01',
-                'content-type'      => 'application/json',
-            ])->timeout(60)->post('https://api.anthropic.com/v1/messages', [
-                'model'      => 'claude-haiku-4-5-20251001',
-                'max_tokens' => 1024,
-                'messages'   => [['role' => 'user', 'content' => $prompt]],
+            $result = $service->generateSeoRecommendations($settings->businessNameAiConfig(), $prompt);
+
+            return response()->json([
+                'recommendations' => $result['data'],
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 502);
+        }
+    }
+
+    public function businessNameGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
+    {
+        $description = trim((string) $request->string('description'));
+
+        if ($description === '') {
+            return response()->json(['message' => 'Please describe the business first.'], 422);
+        }
+
+        try {
+            $result = $service->generateNames($settings->businessNameAiConfig(), [
+                'description' => $description,
+                'styles' => $request->input('styles', []),
+                'length' => trim((string) $request->string('length', 'any')),
+                'market' => trim((string) $request->string('market', 'Nigeria')),
+                'keywords' => trim((string) $request->string('keywords')),
+                'avoid' => trim((string) $request->string('avoid')),
             ]);
 
-            if (! $response->successful()) {
-                return response()->json([
-                    'message' => 'Claude did not return recommendations for this audit.',
-                ], 502);
-            }
-
-            $text = $response->json('content.0.text', '');
-
-            preg_match('/\[.*\]/s', $text, $matches);
-            $recs = json_decode($matches[0] ?? '[]', true) ?: [];
-
-            if ($recs === []) {
-                return response()->json([
-                    'message' => 'Claude returned an empty recommendation set.',
-                ], 502);
-            }
-
-            return response()->json(['recommendations' => $recs]);
-        } catch (\Exception) {
             return response()->json([
-                'message' => 'Claude could not be reached right now.',
-            ], 502);
+                'names' => array_values($result['data']),
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
+        }
+    }
+
+    public function businessNameVariations(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
+    {
+        $name = trim((string) $request->string('name'));
+        $tagline = trim((string) $request->string('tagline'));
+
+        if ($name === '') {
+            return response()->json(['message' => 'A base name is required.'], 422);
+        }
+
+        try {
+            $result = $service->generateVariations($settings->businessNameAiConfig(), $name, $tagline);
+
+            return response()->json([
+                'variations' => array_values($result['data']),
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
         }
     }
 

@@ -68,6 +68,37 @@ class SiteSettings
         return (string) ($this->record()?->anthropic_api_key ?? '');
     }
 
+    public function openAiApiKey(): string
+    {
+        return (string) ($this->record()?->openai_api_key ?? '');
+    }
+
+    public function geminiApiKey(): string
+    {
+        return (string) ($this->record()?->gemini_api_key ?? '');
+    }
+
+    public function mistralApiKey(): string
+    {
+        return (string) ($this->record()?->mistral_api_key ?? '');
+    }
+
+    public function aiPrimaryProvider(): string
+    {
+        return (string) ($this->record()?->ai_primary_provider ?? 'auto');
+    }
+
+    public function businessNameAiConfig(): array
+    {
+        return [
+            'preferred' => $this->aiPrimaryProvider(),
+            'anthropic' => $this->anthropicApiKey(),
+            'openai' => $this->openAiApiKey(),
+            'gemini' => $this->geminiApiKey(),
+            'mistral' => $this->mistralApiKey(),
+        ];
+    }
+
     public function formDefaults(): array
     {
         $record = $this->record();
@@ -82,6 +113,10 @@ class SiteSettings
             'pagespeed_api_key'        => $record?->pagespeed_api_key ?? '',
             'crux_api_key'             => $record?->crux_api_key ?? '',
             'anthropic_api_key'        => $record?->anthropic_api_key ?? '',
+            'openai_api_key'           => $record?->openai_api_key ?? '',
+            'gemini_api_key'           => $record?->gemini_api_key ?? '',
+            'mistral_api_key'          => $record?->mistral_api_key ?? '',
+            'ai_primary_provider'      => $record?->ai_primary_provider ?? 'auto',
         ];
     }
 }

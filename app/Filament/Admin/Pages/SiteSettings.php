@@ -7,6 +7,7 @@ use App\Support\SiteSettings as SiteSettingsManager;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -161,6 +162,48 @@ class SiteSettings extends Page implements HasForms
                                             ->revealable()
                                             ->maxLength(200)
                                             ->placeholder('sk-ant-…'),
+
+                                        Section::make('Business Name Generator AI Providers')
+                                            ->description('Configure multiple AI providers for the business name generator. The tool will try your preferred provider first, then automatically switch to any other configured provider if needed.')
+                                            ->columns(1)
+                                            ->schema([
+                                                Select::make('ai_primary_provider')
+                                                    ->label('Preferred AI Provider')
+                                                    ->options([
+                                                        'auto' => 'Auto-select best available',
+                                                        'anthropic' => 'Anthropic (Claude)',
+                                                        'openai' => 'OpenAI',
+                                                        'gemini' => 'Google Gemini',
+                                                        'mistral' => 'Mistral',
+                                                    ])
+                                                    ->default('auto')
+                                                    ->native(false)
+                                                    ->helperText('If the preferred provider fails, the tool automatically falls through to the next configured provider.'),
+
+                                                TextInput::make('openai_api_key')
+                                                    ->label('OpenAI API Key')
+                                                    ->helperText('Used for business name generation fallback or as the preferred provider.')
+                                                    ->password()
+                                                    ->revealable()
+                                                    ->maxLength(200)
+                                                    ->placeholder('sk-…'),
+
+                                                TextInput::make('gemini_api_key')
+                                                    ->label('Google Gemini API Key')
+                                                    ->helperText('Used for business name generation fallback or as the preferred provider.')
+                                                    ->password()
+                                                    ->revealable()
+                                                    ->maxLength(200)
+                                                    ->placeholder('AIza…'),
+
+                                                TextInput::make('mistral_api_key')
+                                                    ->label('Mistral API Key')
+                                                    ->helperText('Used for business name generation fallback or as the preferred provider.')
+                                                    ->password()
+                                                    ->revealable()
+                                                    ->maxLength(200)
+                                                    ->placeholder('…'),
+                                            ]),
                                     ]),
                             ]),
                     ]),

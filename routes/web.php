@@ -50,6 +50,8 @@ Route::get('/tools', [ToolController::class, 'hub'])->name('tools.hub');
 Route::get('/tools/free-seo-audit', [ToolController::class, 'seoAudit'])->name('tools.seo-audit');
 Route::get('/tools/website-cost-calculator', [ToolController::class, 'costCalculator'])->name('tools.cost-calculator');
 Route::get('/tools/business-name-generator', [ToolController::class, 'businessNameGenerator'])->name('tools.business-name-generator');
+Route::post('/tools/business-name-generator/generate', [ToolController::class, 'businessNameGenerate'])->name('tools.business-name-generator.generate')->middleware('throttle:8,1');
+Route::post('/tools/business-name-generator/variations', [ToolController::class, 'businessNameVariations'])->name('tools.business-name-generator.variations')->middleware('throttle:12,1');
 Route::get('/tools/domain-name-generator', [ToolController::class, 'domainNameGenerator'])->name('tools.domain-name-generator');
 Route::get('/tools/website-brief-generator', [ToolController::class, 'websiteBriefGenerator'])->name('tools.website-brief-generator');
 Route::get('/tools/whatsapp-link-generator', [ToolController::class, 'whatsappLinkGenerator'])->name('tools.whatsapp-link-generator');

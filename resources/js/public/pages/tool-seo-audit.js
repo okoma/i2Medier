@@ -460,14 +460,18 @@ if (page) {
 
     async function fetchRecommendations(signals, scores) {
         try {
-            const data = await postJson(routeRecommend, { signals, scores }, 65000, 'Claude recommendations');
-            renderRecommendations(data.recommendations);
+            const data = await postJson(routeRecommend, { signals, scores }, 65000, 'AI recommendations');
+            renderRecommendations(data.recommendations, data.provider || '');
         } catch (error) {
-            renderRecommendationsError(error?.message || 'Claude recommendations are unavailable.');
+            renderRecommendationsError(error?.message || 'AI recommendations are unavailable.');
         }
     }
 
-    function renderRecommendations(recommendations) {
+    function renderRecommendations(recommendations, provider) {
+        const badge = document.getElementById('ai-provider-badge');
+        if (badge) {
+            badge.textContent = provider ? `Powered by ${formatProviderName(provider)}` : 'Powered by AI';
+        }
         document.getElementById('ai-content').innerHTML = `<div class="rec-list">${recommendations.map((recommendation, index) => `
             <div class="rec-item" style="animation-delay:${index * 0.08}s">
                 <div class="rec-top">
@@ -481,7 +485,26 @@ if (page) {
     }
 
     function renderRecommendationsError(message) {
+        const badge = document.getElementById('ai-provider-badge');
+        if (badge) {
+            badge.textContent = 'Powered by AI';
+        }
         document.getElementById('ai-content').innerHTML = `<div class="issues-empty">${esc(message)}</div>`;
+    }
+
+    function formatProviderName(provider) {
+        switch ((provider || '').toLowerCase()) {
+            case 'anthropic':
+                return 'Claude';
+            case 'openai':
+                return 'OpenAI';
+            case 'gemini':
+                return 'Gemini';
+            case 'mistral':
+                return 'Mistral';
+            default:
+                return 'AI';
+        }
     }
 
     function showResults(signals, psi, crux, scores, url) {

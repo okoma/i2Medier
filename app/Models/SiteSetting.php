@@ -16,6 +16,10 @@ class SiteSetting extends Model
         'pagespeed_api_key',
         'crux_api_key',
         'anthropic_api_key',
+        'openai_api_key',
+        'gemini_api_key',
+        'mistral_api_key',
+        'ai_primary_provider',
     ];
 
     protected $casts = [

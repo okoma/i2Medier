@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    @include('public.partials.head', [
-        'title' => 'SEO Audit Tool — i2Medier',
-        'seo' => $seo,
-    ])
-    @vite('resources/css/public/pages/seo-audit.css')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
-<body
-  id="seo-audit-page"
-  data-fetch-html-route="{{ route('tools.seo-audit.fetch-html') }}"
-  data-psi-route="{{ route('tools.seo-audit.psi') }}"
-  data-crux-route="{{ route('tools.seo-audit.crux') }}"
-  data-recommend-route="{{ route('tools.seo-audit.recommend') }}"
->
+@extends('public.layouts.seotool')
 
+@section('title', 'SEO Audit Tool — i2Medier')
+
+@push('page_meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
+
+@push('page_css')
+    @vite('resources/css/public/pages/seo-audit.css')
+@endpush
+
+@section('body_attrs')
+id="seo-audit-page"
+data-fetch-html-route="{{ route('tools.seo-audit.fetch-html') }}"
+data-psi-route="{{ route('tools.seo-audit.psi') }}"
+data-crux-route="{{ route('tools.seo-audit.crux') }}"
+data-recommend-route="{{ route('tools.seo-audit.recommend') }}"
+@endsection
+
+@section('content')
 <nav>
   <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
   <span class="nav-tag">SEO Audit Tool</span>
@@ -38,7 +41,7 @@
           <div class="btn-spinner"></div>
         </button>
       </div>
-      <p class="audit-note">Powered by real HTML analysis, Google PageSpeed Insights, Chrome UX Report, and Claude AI &nbsp;·&nbsp; Free, no sign-up required</p>
+      <p class="audit-note">Powered by real HTML analysis, Google PageSpeed Insights, Chrome UX Report, and multi-provider AI &nbsp;·&nbsp; Free, no sign-up required</p>
     </div>
   </div>
 </div>
@@ -126,13 +129,13 @@
       <div class="checks-block" id="checks-block"></div>
 
       <span class="section-subtitle">AI Analysis</span>
-      <div class="section-title">Recommendations from Claude</div>
+      <div class="section-title">AI Recommendations</div>
       <div class="ai-block">
         <div class="ai-block-head">
           <div>
             <div class="ai-title">Prioritised Action Plan</div>
           </div>
-          <span class="ai-badge">Powered by Claude</span>
+          <span class="ai-badge" id="ai-provider-badge">Powered by AI</span>
         </div>
         <div id="ai-content">
           <div class="ai-loading"><div class="ai-spinner"></div> Generating recommendations…</div>
@@ -172,7 +175,8 @@
     </div>
   </div>
 </div>
+@endsection
 
-@vite('resources/js/public/pages/tool-seo-audit.js')
-</body>
-</html>
+@push('scripts')
+    @vite('resources/js/public/pages/tool-seo-audit.js')
+@endpush
