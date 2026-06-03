@@ -23,7 +23,8 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
     </div>
     <div class="nav-right">
         <button class="nav-btn" type="button" onclick="toggleFavPanel()">
-            ❤ Saved <span class="fav-count-badge" id="fav-count">0</span>
+            <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span>
+            <span>Saved</span> <span class="fav-count-badge" id="fav-count">0</span>
         </button>
     </div>
 </nav>
@@ -34,13 +35,13 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
     <div class="hero-domains" id="hero-domains" aria-hidden="true"></div>
 
     <div class="hero-content">
-        <div class="hero-eyebrow">🌐 &nbsp; AI Domain Generator</div>
+        <div class="hero-eyebrow"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg></span><span>AI Domain Generator</span></div>
         <h1 class="hero-title">Find a domain that's<br><em>perfectly yours</em></h1>
         <p class="hero-sub">Describe your business, choose your preferred extensions, and let AI generate short, brandable, available-sounding domain names across .com, .ng, .io and more.</p>
 
         <div class="hero-url-demo">
             <div class="hud-bar">
-                <span class="hud-lock">🔒</span>
+                <span class="hud-lock ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
                 <div class="hud-text">
                     <span class="hud-name" id="hud-name">your</span><span class="hud-tld" id="hud-tld">.com</span><span class="hud-cursor"></span>
                 </div>
@@ -103,7 +104,7 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
             </div>
 
             <button class="gen-btn" id="gen-btn" type="button" onclick="generateDomains()">
-                <span class="btn-text">🌐 Generate Domain Names</span>
+                <span class="btn-text"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg></span><span>Generate Domain Names</span></span>
                 <div class="btn-spinner"></div>
             </button>
         </div>
@@ -111,7 +112,7 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
 </div>
 
 <div id="loading-section">
-    <span class="loading-icon">🔍</span>
+    <span class="loading-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
     <div class="loading-title">Searching the domain space…</div>
     <div class="loading-msg" id="loading-msg">Scanning combinations…</div>
     <div class="loading-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
@@ -135,7 +136,7 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
                 <option value="length">Sort: Shortest first</option>
                 <option value="alpha">Sort: A–Z</option>
             </select>
-            <button class="regen-btn" type="button" onclick="generateDomains()">↻ Regenerate</button>
+            <button class="regen-btn" type="button" onclick="generateDomains()"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v6h-6"/></svg></span><span>Regenerate</span></button>
         </div>
     </div>
     <div class="domain-grid" id="domain-grid"></div>
@@ -143,9 +144,9 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
 
 <div class="fav-panel" id="fav-panel">
     <div class="fav-header">
-        <h2 class="fav-title">❤ Saved Domains</h2>
+        <h2 class="fav-title"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>Saved Domains</span></h2>
         <div class="fav-actions-row">
-            <button class="fav-copy-all" type="button" onclick="copyAllFavs()">📋 Copy All</button>
+            <button class="fav-copy-all" type="button" onclick="copyAllFavs()"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span><span>Copy All</span></button>
             <button class="fav-clear" type="button" onclick="clearFavs()">Clear All</button>
         </div>
     </div>

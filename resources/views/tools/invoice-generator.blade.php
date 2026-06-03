@@ -11,13 +11,13 @@
     <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
     <div class="nav-center">
         <span class="nav-tag">Invoice Generator</span>
-        <button class="nav-status draft" id="status-btn" onclick="cycleStatus()">● Draft</button>
+        <button class="nav-status draft" id="status-btn" onclick="cycleStatus()"><span class="icon-dot" aria-hidden="true"></span><span>Draft</span></button>
     </div>
     <div class="nav-right">
-        <button class="nav-btn" onclick="loadSaved()">📂 Load</button>
-        <button class="nav-btn" onclick="saveInvoice()">💾 Save</button>
-        <button class="nav-btn" onclick="newInvoice()">＋ New</button>
-        <button class="nav-btn primary" onclick="printInvoice()">⬇ Download PDF</button>
+        <button class="nav-btn" onclick="loadSaved()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6H10l2 2h6.5A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><path d="M4 10h16"/></svg></span><span>Load</span></button>
+        <button class="nav-btn" onclick="saveInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v6h8V4"/><path d="M9 19v-5h6v5"/></svg></span><span>Save</span></button>
+        <button class="nav-btn" onclick="newInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span>New</span></button>
+        <button class="nav-btn primary" onclick="printInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg></span><span>Download PDF</span></button>
     </div>
 </nav>
 
@@ -25,7 +25,7 @@
     <div class="form-panel" id="form-panel">
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">🏢</span> From (Sender)</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V7l8-3 8 3v13"/><path d="M9 20v-5h6v5"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 13h.01"/><path d="M16 13h.01"/></svg></span> From (Sender)</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -39,7 +39,7 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">👤</span> Bill To (Client)</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span> Bill To (Client)</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -52,7 +52,7 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">📄</span> Invoice Details</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6"/><path d="M10 17h6"/><path d="M10 9h2"/></svg></span> Invoice Details</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -64,18 +64,18 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">🧾</span> Line Items</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10v18l-2-1-2 1-2-1-2 1-2-1z"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h4"/></svg></span> Line Items</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
                 <div class="items-list" id="items-list"></div>
-                <button class="add-item-btn" onclick="addItem()">＋ Add Line Item</button>
+                <button class="add-item-btn" onclick="addItem()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span>Add Line Item</span></button>
             </div>
         </div>
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">💰</span> Taxes & Discount</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 6.5c0-1.93-2.24-3.5-5-3.5S7 4.57 7 6.5 9.24 10 12 10s5 1.57 5 3.5-2.24 3.5-5 3.5-5-1.57-5-3.5"/></svg></span> Taxes & Discount</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -96,7 +96,7 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">🏦</span> Payment Details</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6"/><path d="M5 10v9"/><path d="M19 10v9"/><path d="M9 10v9"/><path d="M15 10v9"/><path d="M3 19h18"/></svg></span> Payment Details</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -108,7 +108,7 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">📝</span> Notes & Terms</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="m12 6 4 4"/><path d="M4 20h16"/></svg></span> Notes & Terms</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
@@ -119,15 +119,15 @@
 
         <div class="fp-section">
             <div class="fp-section-head open" onclick="toggleSection(this)">
-                <span class="fp-section-title"><span class="fst-ico">⚙️</span> Save & Actions</span>
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 1 0 12 8.5z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 1-2 0 1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 1 0-2 1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 1 2 0 1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c0 .38.22.74.6 1a1.7 1.7 0 0 1 0 2c-.38.26-.6.62-.6 1z"/></svg></span> Save & Actions</span>
                 <span class="fp-section-arrow">›</span>
             </div>
             <div class="fp-body open">
                 <div class="actions-grid">
-                    <button class="action-btn print" onclick="printInvoice()">⬇ Download PDF</button>
-                    <button class="action-btn save" onclick="saveInvoice()">💾 Save Draft</button>
-                    <button class="action-btn new" onclick="newInvoice()">＋ New Invoice</button>
-                    <button class="action-btn clear" onclick="clearForm()">🗑 Clear Form</button>
+                    <button class="action-btn print" onclick="printInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg></span><span>Download PDF</span></button>
+                    <button class="action-btn save" onclick="saveInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v6h8V4"/><path d="M9 19v-5h6v5"/></svg></span><span>Save Draft</span></button>
+                    <button class="action-btn new" onclick="newInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span>New Invoice</span></button>
+                    <button class="action-btn clear" onclick="clearForm()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M6 7l1 13h10l1-13"/><path d="M9 7V4h6v3"/></svg></span><span>Clear Form</span></button>
                 </div>
                 <div id="saved-list-wrap" style="margin-top:.75rem">
                     <div style="font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.5rem">Saved Invoices</div>
@@ -195,7 +195,7 @@
 
             <div class="inv-footer">
                 <div class="inv-footer-brand" id="inv-footer-brand">i2Medi<span>er</span></div>
-                <div class="inv-footer-thanks">❤️ Thank you for your business</div>
+                <div class="inv-footer-thanks"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>Thank you for your business</span></div>
                 <div class="inv-footer-note" id="inv-footer-note">hello@i2medier.com · i2medier.com</div>
             </div>
         </div>

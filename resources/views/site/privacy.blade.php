@@ -2,17 +2,6 @@
 
 @section('title', 'Privacy Policy — i2Medier')
 
-@push('meta')
-<meta name="description" content="i2Medier's Privacy Policy. Learn how we collect, use, protect, and handle your personal data when you use our website or engage our digital services."/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="{{ url('/privacy') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/privacy') }}"/>
-<meta property="og:title" content="Privacy Policy — i2Medier"/>
-<meta property="og:description" content="How i2Medier collects, uses, and protects your personal data."/>
-<meta property="og:site_name" content="i2Medier"/>
-@endpush
-
 @push('page_css')
     <link rel="stylesheet" href="{{ asset('legal.css') }}">
 @endpush

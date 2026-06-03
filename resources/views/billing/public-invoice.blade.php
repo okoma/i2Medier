@@ -3,7 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice {{ $invoice->invoice_number }} | i2Medier</title>
+    <title>{{ $seo['title'] }}</title>
+    <meta name="description" content="{{ $seo['description'] }}">
+    <meta name="robots" content="{{ $seo['robots'] }}">
+    <link rel="canonical" href="{{ $seo['url'] }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $seo['url'] }}">
+    <meta property="og:title" content="{{ $seo['title'] }}">
+    <meta property="og:description" content="{{ $seo['description'] }}">
+    <meta property="og:site_name" content="i2Medier">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $seo['title'] }}">
+    <meta name="twitter:description" content="{{ $seo['description'] }}">
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Invoice',
+        'name' => $seo['title'],
+        'description' => $seo['description'],
+        'url' => $seo['url'],
+        'identifier' => $invoice->invoice_number,
+        'provider' => [
+            '@type' => 'Organization',
+            'name' => 'i2Medier',
+            'url' => url('/'),
+        ],
+        'totalPaymentDue' => [
+            '@type' => 'MonetaryAmount',
+            'currency' => $invoice->currency,
+            'value' => number_format((float) $invoice->total, 2, '.', ''),
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#f4ede2] text-stone-900">

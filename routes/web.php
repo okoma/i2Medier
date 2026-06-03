@@ -6,11 +6,13 @@ use App\Http\Controllers\BlogImageUploadController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PortalAssetController;
 use App\Http\Controllers\PublicInvoiceController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ToolController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');

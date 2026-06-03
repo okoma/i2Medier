@@ -164,9 +164,9 @@ if (page) {
             <div class="nc-explanation">${esc(name.explanation || '')}</div>
             <div class="nc-domains">${domains}</div>
             <div class="nc-actions">
-                <button class="nc-action-btn copy-btn" type="button" onclick="copyName('${jsEsc(name.name)}', this)">📋 Copy</button>
-                <button class="nc-action-btn fav-btn ${isFav ? 'active' : ''}" type="button" onclick="toggleFav(${idx}, this)">${isFav ? '❤ Saved' : '♡ Save'}</button>
-                <button class="nc-action-btn vars-btn" type="button" onclick="toggleVariations(${idx}, this, '${jsEsc(name.name)}', '${jsEsc(name.tagline || '')}')">🔀 Variations</button>
+                <button class="nc-action-btn copy-btn" type="button" onclick="copyName('${jsEsc(name.name)}', this)"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span><span>Copy</span></button>
+                <button class="nc-action-btn fav-btn ${isFav ? 'active' : ''}" type="button" onclick="toggleFav(${idx}, this)"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>${isFav ? 'Saved' : 'Save'}</span></button>
+                <button class="nc-action-btn vars-btn" type="button" onclick="toggleVariations(${idx}, this, '${jsEsc(name.name)}', '${jsEsc(name.tagline || '')}')"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 3h4v4"/><path d="M21 3l-7 7"/><path d="M7 21H3v-4"/><path d="M3 21l7-7"/></svg></span><span>Variations</span></button>
             </div>
             <div class="nc-variations" id="variations-${idx}">
                 <div class="nc-var-label">Name variations</div>
@@ -203,11 +203,12 @@ if (page) {
 
     window.copyName = function copyName(name, btn) {
         navigator.clipboard.writeText(name).then(() => {
-            const original = btn.textContent;
-            btn.textContent = '✓ Copied!';
+            const label = btn.querySelector('span:last-child');
+            const original = label?.textContent || 'Copy';
+            if (label) label.textContent = 'Copied';
             btn.classList.add('copied');
             window.setTimeout(() => {
-                btn.textContent = original.includes('Variation') ? original : '📋 Copy';
+                if (label) label.textContent = original;
                 btn.classList.remove('copied');
             }, 2000);
         }).catch(() => toast('Could not copy. Please copy manually.'));
@@ -221,16 +222,18 @@ if (page) {
 
         if (existingIndex !== -1) {
             favorites.splice(existingIndex, 1);
-            btn.textContent = '♡ Save';
+            const label = btn.querySelector('span:last-child');
+            if (label) label.textContent = 'Save';
             btn.classList.remove('active');
             card?.classList.remove('favorited');
             toast(`"${name.name}" removed from saved names.`);
         } else {
             favorites.push({ name: name.name, tagline: name.tagline, domain: name.domain, style: name.style });
-            btn.textContent = '❤ Saved';
+            const label = btn.querySelector('span:last-child');
+            if (label) label.textContent = 'Saved';
             btn.classList.add('active');
             card?.classList.add('favorited');
-            toast(`"${name.name}" saved! ❤`);
+            toast(`"${name.name}" saved.`);
         }
 
         localStorage.setItem('i2m_bng_favs', JSON.stringify(favorites));
@@ -251,7 +254,7 @@ if (page) {
         const grid = document.getElementById('fav-grid');
         if (!grid) return;
         if (favorites.length === 0) {
-            grid.innerHTML = '<div class="fav-empty">No saved names yet — hit ♡ Save on any name card to save it here.</div>';
+            grid.innerHTML = '<div class="fav-empty">No saved names yet — use Save on any name card to keep it here.</div>';
             return;
         }
 
@@ -291,12 +294,14 @@ if (page) {
 
         if (container.classList.contains('open')) {
             container.classList.remove('open');
-            btn.textContent = '🔀 Variations';
+            const label = btn.querySelector('span:last-child');
+            if (label) label.textContent = 'Variations';
             return;
         }
 
         container.classList.add('open');
-        btn.textContent = '⏳ Loading…';
+        const buttonLabel = btn.querySelector('span:last-child');
+        if (buttonLabel) buttonLabel.textContent = 'Loading...';
         btn.disabled = true;
         container.innerHTML = `<div class="nc-var-label">Name variations</div><div class="var-loading"><div class="var-spinner"></div> Generating variations of "${esc(name)}"…</div>`;
 
@@ -353,7 +358,7 @@ if (page) {
         document.getElementById('results-section').style.display = 'block';
         document.getElementById('names-grid').innerHTML = `
             <div class="empty-state">
-                <div class="empty-icon">😕</div>
+                <div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M9 16c.9-.8 1.9-1.2 3-1.2s2.1.4 3 1.2"/></svg></div>
                 <div class="empty-title">Something went wrong</div>
                 <div class="empty-desc">${esc(message)}</div>
             </div>

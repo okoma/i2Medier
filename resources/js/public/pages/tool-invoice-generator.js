@@ -3,7 +3,7 @@ let invoiceStatus = 'draft';
 let itemIdCounter = 0;
 const items = [];
 const statuses = ['draft', 'sent', 'paid'];
-const statusLabels = { draft: '● Draft', sent: '▶ Sent', paid: '✓ Paid' };
+const statusLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid' };
 const SYMBOLS = { NGN: '₦', USD: '$', GBP: '£', EUR: '€' };
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -110,7 +110,7 @@ function cycleStatus() {
     invoiceStatus = statuses[(index + 1) % statuses.length];
     const button = document.getElementById('status-btn');
     if (button) {
-        button.textContent = statusLabels[invoiceStatus];
+        button.innerHTML = `<span class="icon-dot" aria-hidden="true"></span><span>${statusLabels[invoiceStatus]}</span>`;
         button.className = `nav-status ${invoiceStatus}`;
     }
     render();
@@ -170,7 +170,7 @@ function render() {
     if (po) datesHTML += `<div class="inv-date-row"><span class="idr-label">PO:</span><span class="idr-val">${esc(po)}</span></div>`;
     document.getElementById('inv-dates-display').innerHTML = datesHTML;
 
-    const badgeLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid ✓' };
+    const badgeLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid' };
     document.getElementById('inv-status-badge-display').innerHTML = `<span class="inv-status-badge ${invoiceStatus}">${badgeLabels[invoiceStatus]}</span>`;
 
     const toName = value('to-name');
@@ -349,7 +349,7 @@ function saveInvoice() {
     const key = 'i2m_inv_' + data.number.replace(/[^a-zA-Z0-9-]/g, '_');
     localStorage.setItem(key, JSON.stringify(data));
     refreshSavedList();
-    toast(`Invoice ${data.number} saved ✓`);
+    toast(`Invoice ${data.number} saved`);
 }
 
 function getSavedKeys() {
@@ -372,7 +372,7 @@ function loadInvoice(key) {
     }
 
     applyInvoiceData(data);
-    toast(`Invoice ${data.number} loaded ✓`);
+    toast(`Invoice ${data.number} loaded`);
 }
 
 function applyInvoiceData(data) {
@@ -412,7 +412,7 @@ function applyInvoiceData(data) {
     invoiceStatus = data.status || 'draft';
     const button = document.getElementById('status-btn');
     if (button) {
-        button.textContent = statusLabels[invoiceStatus];
+        button.innerHTML = `<span class="icon-dot" aria-hidden="true"></span><span>${statusLabels[invoiceStatus]}</span>`;
         button.className = `nav-status ${invoiceStatus}`;
     }
 
@@ -474,7 +474,7 @@ function newInvoice() {
 
     const button = document.getElementById('status-btn');
     if (button) {
-        button.textContent = '● Draft';
+        button.innerHTML = '<span class="icon-dot" aria-hidden="true"></span><span>Draft</span>';
         button.className = 'nav-status draft';
     }
 
@@ -496,7 +496,7 @@ function newInvoice() {
 
     addItem('', 1, 0);
     render();
-    toast('New invoice created ✓');
+    toast('New invoice created');
 }
 
 function clearForm() {

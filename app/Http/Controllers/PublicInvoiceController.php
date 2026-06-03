@@ -20,6 +20,12 @@ class PublicInvoiceController extends Controller
             'invoice' => $invoice->load('client', 'website', 'items', 'payments'),
             'settings' => $settings,
             'bankTransfer' => $settings->bankTransferDetails(),
+            'seo' => [
+                'title' => "Invoice {$invoice->invoice_number} | i2Medier",
+                'description' => "Secure payment page for invoice {$invoice->invoice_number} from i2Medier.",
+                'url' => route('public.invoices.show', ['token' => $invoice->public_token]),
+                'robots' => 'noindex, nofollow',
+            ],
         ]);
     }
 

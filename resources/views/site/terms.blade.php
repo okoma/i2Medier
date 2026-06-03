@@ -2,17 +2,6 @@
 
 @section('title', 'Terms of Service — i2Medier')
 
-@push('meta')
-<meta name="description" content="i2Medier's Terms of Service. The agreement governing all web design, development, and managed digital services delivered by i2Medier Konceptz."/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="{{ url('/terms') }}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="{{ url('/terms') }}"/>
-<meta property="og:title" content="Terms of Service — i2Medier"/>
-<meta property="og:description" content="The terms governing web design, development, and managed digital services from i2Medier."/>
-<meta property="og:site_name" content="i2Medier"/>
-@endpush
-
 @push('page_css')
     <link rel="stylesheet" href="{{ asset('legal.css') }}">
 @endpush

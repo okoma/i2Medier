@@ -145,7 +145,7 @@ if (page) {
         } catch (error) {
             allDomains = [];
             document.getElementById('results-section').style.display = 'block';
-            document.getElementById('domain-grid').innerHTML = `<div class="empty-state"><div class="empty-icon">😕</div><div class="empty-title">Something went wrong</div><div class="empty-desc">${esc(error?.message || 'We could not generate domain names right now. Please try again.')}</div></div>`;
+            document.getElementById('domain-grid').innerHTML = `<div class="empty-state"><div class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M9 16c.9-.8 1.9-1.2 3-1.2s2.1.4 3 1.2"/></svg></div><div class="empty-title">Something went wrong</div><div class="empty-desc">${esc(error?.message || 'We could not generate domain names right now. Please try again.')}</div></div>`;
         } finally {
             window.clearInterval(msgTimer);
             setLoading(false);
@@ -171,7 +171,7 @@ if (page) {
         const isSaved = savedDomains.some((saved) => saved.full === domain.full);
         const typeClass = 'type-' + String(domain.type || 'brandable').toLowerCase().replace(/[^a-z]/g, '').replace('keywordrich', 'keyword').replace('exactmatch', 'exact');
         const lengthClass = domain.length <= 7 ? 'len-short' : domain.length <= 12 ? 'len-medium' : 'len-long';
-        const lengthLabel = domain.length <= 7 ? '⚡ Short' : domain.length <= 12 ? 'Medium' : 'Long';
+        const lengthLabel = domain.length <= 7 ? 'Short' : domain.length <= 12 ? 'Medium' : 'Long';
         const scoreColor = (domain.score || 0) >= 80 ? '#16a34a' : (domain.score || 0) >= 60 ? '#c8a96e' : '#dc2626';
         const circumference = 125.66;
         const offset = circumference * (1 - Math.min(100, domain.score || 0) / 100);
@@ -191,9 +191,9 @@ if (page) {
             </div>
             <span class="dc-type ${typeClass}">${esc(domain.type || 'Brandable')}</span>
             <div class="dc-url-bar">
-                <span class="dc-url-lock">🔒</span>
+                <span class="dc-url-lock ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
                 <div class="dc-url-text"><span class="dc-url-name">${esc(domain.domain || '')}</span><span class="dc-url-tld">${esc(domain.tld || '')}</span></div>
-                <span class="dc-url-copy-icon" onclick="copyDomain('${jsEsc(domain.full || '')}', event)" title="Copy domain">📋</span>
+                <span class="dc-url-copy-icon ui-icon" onclick="copyDomain('${jsEsc(domain.full || '')}', event)" title="Copy domain" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span>
             </div>
             <div class="dc-meta">
                 <span class="dc-length-badge ${lengthClass}">${lengthLabel} · ${domain.length || 0} chars</span>
@@ -201,12 +201,12 @@ if (page) {
             </div>
             ${(domain.tags || []).length > 2 ? `<div class="dc-tags">${(domain.tags || []).slice(2).map((tag) => `<span class="dc-tag">${esc(tag)}</span>`).join('')}</div>` : ''}
             <div class="dc-explanation">${esc(domain.explanation || '')}</div>
-            ${domain.isHack && domain.hackNote ? `<div class="dc-hack-note"><div class="dc-hack-note-label">✨ Domain Hack</div>${esc(domain.hackNote)}</div>` : ''}
+            ${domain.isHack && domain.hackNote ? `<div class="dc-hack-note"><div class="dc-hack-note-label">Domain Hack</div>${esc(domain.hackNote)}</div>` : ''}
             ${altTlds.length > 0 ? `<div class="dc-alt-tlds"><span class="dc-alt-label">Also:</span>${altTlds.map((tld) => `<span class="dc-tld-pill ${getTLDPillClass(tld)}" onclick="checkDomain('${jsEsc(domain.domain || '')}','${jsEsc(tld)}')">${esc((domain.domain || '') + tld)}</span>`).join('')}</div>` : ''}
             ${buildStrengthBar(domain.score || 0)}
             <div class="dc-actions">
-                <button class="dc-btn copy-btn" id="copy-btn-${idx}" type="button" onclick="copyDomain('${jsEsc(domain.full || '')}', event, ${idx})">📋 Copy</button>
-                <button class="dc-btn save-btn ${isSaved ? 'saved' : ''}" id="save-btn-${idx}" type="button" onclick="toggleSave(${idx}, this)">${isSaved ? '❤ Saved' : '♡ Save'}</button>
+                <button class="dc-btn copy-btn" id="copy-btn-${idx}" type="button" onclick="copyDomain('${jsEsc(domain.full || '')}', event, ${idx})"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span><span>Copy</span></button>
+                <button class="dc-btn save-btn ${isSaved ? 'saved' : ''}" id="save-btn-${idx}" type="button" onclick="toggleSave(${idx}, this)"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>${isSaved ? 'Saved' : 'Save'}</span></button>
                 <a class="dc-btn reg-btn reg-namecheap" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(domain.full || '')}" target="_blank" rel="noopener">Namecheap ↗</a>
                 <a class="dc-btn reg-btn reg-godaddy" href="https://www.godaddy.com/domainsearch/find?domainToCheck=${encodeURIComponent(domain.full || '')}" target="_blank" rel="noopener">GoDaddy ↗</a>
             </div>
@@ -272,10 +272,12 @@ if (page) {
                 toast(`Copied ${domain}`);
                 return;
             }
-            button.textContent = '✓ Copied';
+            const label = button.querySelector('span:last-child');
+            if (label) label.textContent = 'Copied';
             button.classList.add('copied');
             window.setTimeout(() => {
-                button.textContent = '📋 Copy';
+                const resetLabel = button.querySelector('span:last-child');
+                if (resetLabel) resetLabel.textContent = 'Copy';
                 button.classList.remove('copied');
             }, 2000);
         }).catch(() => toast('Could not copy. Please copy manually.'));
@@ -289,16 +291,18 @@ if (page) {
 
         if (existingIndex !== -1) {
             savedDomains.splice(existingIndex, 1);
-            btn.textContent = '♡ Save';
+            const label = btn.querySelector('span:last-child');
+            if (label) label.textContent = 'Save';
             btn.classList.remove('saved');
             card?.classList.remove('saved');
             toast(`"${domain.full}" removed from saved domains.`);
         } else {
             savedDomains.push({ full: domain.full, tld: domain.tld, type: domain.type });
-            btn.textContent = '❤ Saved';
+            const label = btn.querySelector('span:last-child');
+            if (label) label.textContent = 'Saved';
             btn.classList.add('saved');
             card?.classList.add('saved');
-            toast(`"${domain.full}" saved! ❤`);
+            toast(`"${domain.full}" saved.`);
         }
 
         localStorage.setItem('i2m_dom_saved', JSON.stringify(savedDomains));
@@ -319,7 +323,7 @@ if (page) {
         const grid = document.getElementById('fav-grid');
         if (!grid) return;
         if (savedDomains.length === 0) {
-            grid.innerHTML = '<div class="fav-empty">No saved domains yet — hit ♡ Save on any domain card to keep it here.</div>';
+            grid.innerHTML = '<div class="fav-empty">No saved domains yet — use Save on any domain card to keep it here.</div>';
             return;
         }
 

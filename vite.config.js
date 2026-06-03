@@ -41,6 +41,7 @@ export default defineConfig({
                 'resources/css/public/pages/lawyer.css',
                 'resources/css/public/pages/cloud-architecture.css',
                 'resources/css/public/pages/seo-audit.css',
+                'resources/css/public/pages/invoice-generator.css',
                 'resources/css/public/pages/business-name-generator.css',
                 'resources/css/public/pages/domain-name-generator.css',
                 'resources/css/public/pages/saas-application.css',
