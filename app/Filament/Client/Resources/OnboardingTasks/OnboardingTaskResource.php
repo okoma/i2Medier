@@ -80,12 +80,8 @@ class OnboardingTaskResource extends Resource
         $user = auth()->user();
 
         $query = parent::getEloquentQuery()
-            ->with(['website.client', 'assignee'])
-            ->whereHas('website', fn (Builder $websiteQuery) => $websiteQuery->where('client_id', $user?->client_id));
-
-        if ($user?->isClientMember()) {
-            $query->whereHas('website', fn (Builder $websiteQuery) => $websiteQuery->whereIn('websites.id', $user->assignedWebsites()->pluck('websites.id')));
-        }
+            ->with(['project.client', 'assignee'])
+            ->whereHas('project', fn (Builder $projectQuery) => $projectQuery->where('client_id', $user?->client_id));
 
         return $query->orderBy('status')->orderBy('sort_order')->orderBy('due_at');
     }

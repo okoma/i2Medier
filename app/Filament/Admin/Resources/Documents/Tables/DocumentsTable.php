@@ -21,9 +21,6 @@ class DocumentsTable
                 TextColumn::make('client.company_name')
                     ->label('Client')
                     ->searchable(),
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->placeholder('General'),
                 TextColumn::make('category')
                     ->badge(),
                 TextColumn::make('folder')

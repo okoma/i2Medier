@@ -3,9 +3,9 @@
 namespace App\Filament\Client\Widgets;
 
 use App\Models\Invoice;
+use App\Models\Project;
 use App\Models\ServiceSubscription;
 use App\Models\SupportTicket;
-use App\Models\Website;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -22,15 +22,7 @@ class PortalOverview extends StatsOverviewWidget
             return [];
         }
 
-        $websitesQuery = Website::query()->where('client_id', $user->client_id);
-
-        if ($user->isClientMember()) {
-            $websiteIds = $user->assignedWebsites()->pluck('websites.id');
-
-            $websitesQuery->whereIn('id', $websiteIds);
-        }
-
-        $websiteIds = (clone $websitesQuery)->pluck('id');
+        $projectCount = Project::query()->where('client_id', $user->client_id)->count();
 
         $activeSubscriptions = ServiceSubscription::query()
             ->where('client_id', $user->client_id)
@@ -48,8 +40,8 @@ class PortalOverview extends StatsOverviewWidget
             ->count();
 
         return [
-            Stat::make('Managed Websites', (string) $websiteIds->count())
-                ->description('Projects currently visible in your portal')
+            Stat::make('Projects', (string) $projectCount)
+                ->description('Projects in your portal')
                 ->color('primary'),
             Stat::make('Active Subscriptions', (string) $activeSubscriptions)
                 ->description('Recurring services currently running')

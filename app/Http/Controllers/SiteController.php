@@ -2,9 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
+use App\Models\Client;
+use App\Models\OnboardingAddon;
+use App\Models\OnboardingServiceVariant;
+use App\Models\OnboardingService;
 use App\Models\PortfolioCategory;
 use App\Models\PortfolioProject;
+use App\Models\Project;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -262,9 +272,13 @@ class SiteController extends Controller
         ]);
     }
 
-    public function start(): View
+    public function start(Request $request): View
     {
+        $onboardingCatalog = $this->publicOnboardingCatalog();
+
         return view('site.onboarding', [
+            'onboardingCatalog' => $onboardingCatalog,
+            'onboardingPreset' => $this->onboardingPreset($request, $onboardingCatalog),
             'seo' => $this->seo(
                 'Start a Project — i2Medier',
                 'Tell i2Medier about your project, select the services you need, choose useful add-ons, and receive a tailored, itemised proposal within 24 hours.',
@@ -275,6 +289,302 @@ class SiteController extends Controller
                 ],
             ),
         ]);
+    }
+
+    public function storeStart(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'contact.name' => ['required', 'string', 'max:255'],
+            'contact.business' => ['required', 'string', 'max:255'],
+            'contact.email' => ['required', 'email:rfc,dns', 'max:255'],
+            'contact.phone' => ['required', 'string', 'max:255'],
+            'contact.country' => ['required', 'string', 'max:255'],
+            'services' => ['required', 'array', 'min:1'],
+            'services.*.id' => ['required', 'string', 'max:255'],
+            'services.*.platform' => ['nullable', 'string', 'max:255'],
+            'services.*.addons' => ['array'],
+            'services.*.addons.*.id' => ['required', 'string', 'max:255'],
+            'services.*.addons.*.quantity' => ['nullable', 'integer', 'min:1'],
+            'brief.timeline' => ['required', 'string', 'max:255'],
+            'brief.budget' => ['nullable', 'string', 'max:255'],
+            'brief.source' => ['nullable', 'string', 'max:255'],
+            'brief.domain_preference' => ['nullable', 'string', 'max:255'],
+            'brief.hosting_preference' => ['nullable', 'string', 'max:255'],
+            'brief.message' => ['nullable', 'string', 'max:5000'],
+            'terms_accepted' => ['accepted'],
+            'source_page' => ['nullable', 'string', 'max:255'],
+            'source_label' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $catalog = OnboardingService::query()
+            ->where('is_active', true)
+            ->where('show_on_public_onboarding', true)
+            ->with([
+                'addons' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order'),
+                'variants' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')->with([
+                    'addons' => fn ($addonQuery) => $addonQuery->where('is_active', true)->orderBy('sort_order'),
+                ]),
+            ])
+            ->get()
+            ->keyBy('key');
+
+        $resolvedSelections = collect($validated['services'])->map(function (array $servicePayload) use ($catalog): array {
+            /** @var OnboardingService|null $service */
+            $service = $catalog->get($servicePayload['id']);
+
+            abort_unless($service !== null, 422, 'One of the selected services is no longer available.');
+
+            /** @var OnboardingServiceVariant|null $variant */
+            $variant = null;
+            if (filled($servicePayload['platform'] ?? null)) {
+                $variant = $service->variants->firstWhere('key', $servicePayload['platform']);
+                abort_unless($variant !== null, 422, "The selected direction for {$service->name} is invalid.");
+            }
+
+            if ($service->variants->isNotEmpty() && $variant === null) {
+                abort(422, "Please choose a direction for {$service->name}.");
+            }
+
+            $availableAddons = ($variant?->addons ?? $service->addons)->keyBy('key');
+
+            $addons = collect($servicePayload['addons'] ?? [])->map(function (array $addonPayload) use ($availableAddons, $service, $variant): array {
+                /** @var OnboardingAddon|null $addon */
+                $addon = $availableAddons->get($addonPayload['id']);
+
+                $contextName = $variant?->name ?? $service->name;
+                abort_unless($addon !== null, 422, "The add-on selection for {$contextName} is invalid.");
+
+                $quantity = $addon->is_quantity_based ? max(1, (int) ($addonPayload['quantity'] ?? 1)) : 1;
+
+                return [
+                    'addon' => $addon,
+                    'quantity' => $quantity,
+                ];
+            })->values();
+
+            return [
+                'service' => $service,
+                'variant' => $variant,
+                'addons' => $addons,
+            ];
+        })->values();
+
+        $owner = $this->primaryAgencyUser();
+        $contact = $validated['contact'];
+        $brief = $validated['brief'] ?? [];
+
+        $servicesSnapshot = $resolvedSelections->map(function (array $selection): array {
+            /** @var OnboardingService $service */
+            $service = $selection['service'];
+            /** @var OnboardingServiceVariant|null $variant */
+            $variant = $selection['variant'];
+            $billable = $variant ?? $service;
+
+            return [
+                'service_id' => $service->id,
+                'service_key' => $service->key,
+                'service_name' => $service->name,
+                'variant_id' => $variant?->id,
+                'variant_key' => $variant?->key,
+                'variant_name' => $variant?->name,
+                'price' => (float) $billable->base_price,
+                'currency' => $billable->currency,
+                'billing_type' => $billable->billing_type,
+                'billing_cycle' => $billable->billing_cycle,
+                'addons' => collect($selection['addons'])->map(function (array $addonSelection): array {
+                    /** @var OnboardingAddon $addon */
+                    $addon = $addonSelection['addon'];
+                    $quantity = $addonSelection['quantity'];
+
+                    return [
+                        'addon_id' => $addon->id,
+                        'addon_key' => $addon->key,
+                        'addon_name' => $addon->name,
+                        'quantity' => $quantity,
+                        'unit_price' => (float) $addon->price,
+                        'total_price' => (float) ($addon->price * $quantity),
+                        'currency' => $addon->currency,
+                        'billing_type' => $addon->billing_type,
+                        'billing_cycle' => $addon->billing_cycle,
+                    ];
+                })->values()->all(),
+            ];
+        })->values()->all();
+
+        $result = DB::transaction(function () use ($validated, $servicesSnapshot, $owner, $contact, $brief): array {
+            $client = Client::query()->create([
+                'company_name' => $contact['business'],
+                'contact_name' => $contact['name'],
+                'email' => $contact['email'],
+                'phone' => $contact['phone'],
+                'whatsapp_number' => $contact['phone'],
+                'country' => $contact['country'],
+                'status' => 'lead',
+                'created_by' => $owner?->id,
+            ]);
+
+            $project = Project::query()->create([
+                'client_id' => $client->id,
+                'created_by' => $owner?->id,
+                'status' => ProjectStatus::Enquiry,
+                'timeline' => $brief['timeline'] ?? null,
+                'budget' => $brief['budget'] ?? null,
+                'source' => $brief['source'] ?? null,
+                'domain_preference' => $brief['domain_preference'] ?? null,
+                'hosting_preference' => $brief['hosting_preference'] ?? null,
+                'message' => $brief['message'] ?? null,
+                'source_page' => $validated['source_page'] ?? null,
+                'source_label' => $validated['source_label'] ?? null,
+                'services' => $servicesSnapshot,
+                'terms_accepted_at' => now(),
+                'reference' => $this->generateProjectReference(),
+            ]);
+
+            return [
+                'client' => $client,
+                'project' => $project,
+            ];
+        });
+
+        return response()->json([
+            'message' => 'Your enquiry has been logged successfully.',
+            'reference' => $result['project']->reference,
+            'project_id' => $result['project']->id,
+            'client_id' => $result['client']->id,
+        ], 201);
+    }
+
+    private function onboardingPreset(Request $request, array $catalog): array
+    {
+        $services = collect(explode(',', (string) $request->query('services', '')))
+            ->map(fn (string $value): string => trim($value))
+            ->filter()
+            ->values();
+
+        $serviceMap = collect($catalog)->keyBy('id');
+        $validServices = $services->filter(fn (string $serviceId): bool => $serviceMap->has($serviceId))->values();
+
+        $platform = trim((string) $request->query('platform', ''));
+        $addons = collect(explode(',', (string) $request->query('addons', '')))
+            ->map(fn (string $value): string => trim($value))
+            ->filter()
+            ->values();
+
+        $validPlatform = '';
+        if ($platform !== '' && $validServices->count() === 1) {
+            $service = $serviceMap->get($validServices->first());
+            $platforms = collect($service['platforms'] ?? [])->pluck('id');
+            if ($platforms->contains($platform)) {
+                $validPlatform = $platform;
+            }
+        }
+
+        $validAddons = $addons->filter(function (string $addonId) use ($validServices, $serviceMap, $validPlatform): bool {
+            foreach ($validServices as $serviceId) {
+                $service = $serviceMap->get($serviceId);
+                $serviceAddons = collect($service['addons'] ?? [])->pluck('id');
+
+                if ($serviceAddons->contains($addonId)) {
+                    return true;
+                }
+
+                foreach ($service['platforms'] ?? [] as $platform) {
+                    if ($validPlatform !== '' && $platform['id'] !== $validPlatform) {
+                        continue;
+                    }
+
+                    if (collect($platform['addons'] ?? [])->pluck('id')->contains($addonId)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        })->values();
+
+        return [
+            'services' => $validServices->all(),
+            'platform' => $validPlatform,
+            'addons' => $validAddons->all(),
+            'source_page' => trim((string) $request->query('source_page', '')),
+            'source_label' => trim((string) $request->query('source_label', '')),
+        ];
+    }
+
+    private function onboardingCatalog(): array
+    {
+        return OnboardingService::query()
+            ->where('is_active', true)
+            ->with([
+                'addons' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order'),
+                'variants' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')->with([
+                    'addons' => fn ($addonQuery) => $addonQuery->where('is_active', true)->orderBy('sort_order'),
+                ]),
+            ])
+            ->orderBy('sort_order')
+            ->get()
+            ->map(function (OnboardingService $service): array {
+                return [
+                    'id' => $service->key,
+                    'name' => $service->name,
+                    'desc' => $service->description,
+                    'icon' => $service->icon,
+                    'price' => (float) $service->base_price,
+                    'priceLabel' => $service->price_label,
+                    'type' => $service->billing_type === 'recurring' ? 'monthly' : 'one-time',
+                    'showOnPublicOnboarding' => (bool) $service->show_on_public_onboarding,
+                    'addons' => $service->addons->map(fn ($addon): array => $this->mapOnboardingAddon($addon))->values()->all(),
+                    'platforms' => $service->variants->map(function ($variant): array {
+                        return [
+                            'id' => $variant->key,
+                            'name' => $variant->name,
+                            'desc' => $variant->description,
+                            'price' => (float) $variant->base_price,
+                            'priceLabel' => $variant->price_label,
+                            'addons' => $variant->addons->map(fn ($addon): array => $this->mapOnboardingAddon($addon))->values()->all(),
+                        ];
+                    })->values()->all(),
+                ];
+            })
+            ->values()
+            ->all();
+    }
+
+    private function publicOnboardingCatalog(): array
+    {
+        return array_values(array_filter(
+            $this->onboardingCatalog(),
+            fn (array $service): bool => (bool) ($service['showOnPublicOnboarding'] ?? true),
+        ));
+    }
+
+    private function mapOnboardingAddon($addon): array
+    {
+        return [
+            'id' => $addon->key,
+            'name' => $addon->name,
+            'price' => (float) $addon->price,
+            'desc' => $addon->description,
+            'monthly' => $addon->billing_type === 'recurring' || $addon->billing_cycle === 'monthly',
+            'quantity' => (bool) $addon->is_quantity_based,
+            'quantityLabel' => $addon->quantity_label,
+        ];
+    }
+
+    private function primaryAgencyUser(): ?User
+    {
+        return User::query()
+            ->whereNull('client_id')
+            ->where('is_active', true)
+            ->orderBy('id')
+            ->first();
+    }
+
+    private function generateProjectReference(): string
+    {
+        $next = (Project::query()->withTrashed()->max('id') ?? 0) + 1;
+
+        return 'i2M-' . str_pad((string) $next, 6, '0', STR_PAD_LEFT);
     }
 
     public function portfolio(): View

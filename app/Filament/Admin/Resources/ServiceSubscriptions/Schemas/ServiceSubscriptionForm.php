@@ -2,11 +2,13 @@
 
 namespace App\Filament\Admin\Resources\ServiceSubscriptions\Schemas;
 
+use App\Models\OnboardingServiceVariant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -26,25 +28,34 @@ class ServiceSubscriptionForm
                                     ->searchable()
                                     ->preload()
                                     ->required(),
-                                Select::make('website_id')
-                                    ->relationship('website', 'name')
+                                Select::make('onboarding_service_id')
+                                    ->relationship('onboardingService', 'name')
                                     ->searchable()
                                     ->preload()
+                                    ->live()
+                                    ->afterStateUpdated(fn ($set) => $set('onboarding_service_variant_id', null))
                                     ->required(),
-                                Select::make('service_id')
-                                    ->relationship('service', 'name')
+                                Select::make('onboarding_service_variant_id')
+                                    ->label('Direction / Variant')
+                                    ->options(fn (Get $get): array => OnboardingServiceVariant::query()
+                                        ->where('onboarding_service_id', $get('onboarding_service_id'))
+                                        ->where('is_active', true)
+                                        ->orderBy('sort_order')
+                                        ->pluck('name', 'id')
+                                        ->all())
                                     ->searchable()
                                     ->preload()
-                                    ->required(),
+                                    ->helperText('Leave blank if this subscription is for the base service rather than a specific direction.'),
                                 Select::make('status')
                                     ->options([
+                                        'pending' => 'Pending',
                                         'active' => 'Active',
                                         'expired' => 'Expired',
                                         'suspended' => 'Suspended',
                                         'archived' => 'Archived',
                                         'cancelled' => 'Cancelled',
                                     ])
-                                    ->default('active')
+                                    ->default('pending')
                                     ->required(),
                                 Toggle::make('auto_renew')
                                     ->default(false),

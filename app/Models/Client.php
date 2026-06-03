@@ -49,9 +49,9 @@ class Client extends Model
             ->oldestOfMany();
     }
 
-    public function websites(): HasMany
+    public function projects(): HasMany
     {
-        return $this->hasMany(Website::class);
+        return $this->hasMany(Project::class);
     }
 
     public function invoices(): HasMany

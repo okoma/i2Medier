@@ -11,7 +11,7 @@ class OnboardingTask extends Model
     use HasFactory;
 
     protected $fillable = [
-        'website_id',
+        'project_id',
         'title',
         'description',
         'type',
@@ -28,9 +28,9 @@ class OnboardingTask extends Model
         'completed_at' => 'datetime',
     ];
 
-    public function website(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Website::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function assignee(): BelongsTo

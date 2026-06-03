@@ -2,25 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Models\Addon;
 use App\Models\AffiliateProfile;
 use App\Models\AffiliateReferral;
+use App\Models\AddonSubscription;
 use App\Models\Client;
 use App\Models\Document;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\InvoicePayment;
+use App\Models\OnboardingAddon;
+use App\Models\OnboardingService;
+use App\Models\OnboardingServiceVariant;
 use App\Models\OnboardingTask;
 use App\Models\PaymentSetting;
 use App\Models\PortfolioProject;
-use App\Models\Service;
 use App\Models\ServiceSubscription;
 use App\Models\SupportTicket;
 use App\Models\TicketReply;
 use App\Models\User;
 use App\Models\Website;
-use App\Models\WebsitePackage;
-use App\Models\WebsitePackageItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -37,19 +37,19 @@ class DatabaseSeeder extends Seeder
             Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
         }
 
+        $this->call(OnboardingCatalogSeeder::class);
+
         $admin = $this->seedAdmin();
         $staff = $this->seedStaff();
         [$client, $clientOwner, $clientMember] = $this->seedClientUsers($admin);
-        [$services, $addons] = $this->seedCatalog();
-        $packages = $this->seedPackages($services, $addons);
-        $websites = $this->seedWebsites($client, $admin, $packages);
+        $websites = $this->seedWebsites($client, $admin);
 
         $clientMember->assignedWebsites()->syncWithoutDetaching([
             $websites['corporate']->id,
             $websites['store']->id,
         ]);
 
-        $subscriptions = $this->seedSubscriptions($client, $admin, $websites, $services, $addons);
+        $subscriptions = $this->seedSubscriptions($client, $admin, $websites);
         $this->seedOnboardingTasks($staff, $websites);
         $this->seedSupportTickets($client, $clientOwner, $clientMember, $staff, $websites);
         $this->seedPaymentSettings();
@@ -166,193 +166,13 @@ class DatabaseSeeder extends Seeder
         return [$client, $clientOwner, $clientMember];
     }
 
-    protected function seedCatalog(): array
-    {
-        $services = [
-            'maintenance' => Service::query()->updateOrCreate(
-                ['slug' => 'website-maintenance'],
-                [
-                    'name' => 'Website Maintenance',
-                    'description' => 'Ongoing updates, uptime checks, backups, and technical support.',
-                    'type' => 'maintenance',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'monthly',
-                    'price' => 45000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_core' => true,
-                    'sort_order' => 1,
-                ],
-            ),
-            'hosting' => Service::query()->updateOrCreate(
-                ['slug' => 'managed-hosting'],
-                [
-                    'name' => 'Managed Hosting',
-                    'description' => 'Managed hosting with monitoring, patching, and support.',
-                    'type' => 'hosting',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'monthly',
-                    'price' => 30000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_core' => true,
-                    'sort_order' => 2,
-                ],
-            ),
-            'domain' => Service::query()->updateOrCreate(
-                ['slug' => 'domain-management'],
-                [
-                    'name' => 'Domain Management',
-                    'description' => 'Domain registration, renewals, and DNS management.',
-                    'type' => 'domain',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'yearly',
-                    'price' => 25000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_core' => true,
-                    'sort_order' => 3,
-                ],
-            ),
-            'email' => Service::query()->updateOrCreate(
-                ['slug' => 'business-email'],
-                [
-                    'name' => 'Business Email',
-                    'description' => 'Professional mailbox setup and mail support.',
-                    'type' => 'email',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'yearly',
-                    'price' => 24000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_core' => false,
-                    'sort_order' => 4,
-                ],
-            ),
-            'seo' => Service::query()->updateOrCreate(
-                ['slug' => 'seo-retainer'],
-                [
-                    'name' => 'SEO Retainer',
-                    'description' => 'Monthly SEO reporting, optimization, and analytics review.',
-                    'type' => 'marketing',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'monthly',
-                    'price' => 60000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_core' => false,
-                    'sort_order' => 5,
-                ],
-            ),
-        ];
-
-        $addons = [
-            'seo_setup' => Addon::query()->updateOrCreate(
-                ['slug' => 'seo-setup'],
-                [
-                    'service_id' => $services['maintenance']->id,
-                    'name' => 'SEO Setup',
-                    'description' => 'On-page SEO configuration, sitemap, and analytics setup.',
-                    'billing_type' => 'one_time',
-                    'billing_cycle' => null,
-                    'price' => 50000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'sort_order' => 1,
-                ],
-            ),
-            'priority_care' => Addon::query()->updateOrCreate(
-                ['slug' => 'priority-care'],
-                [
-                    'service_id' => $services['maintenance']->id,
-                    'name' => 'Priority Care',
-                    'description' => 'Faster turnaround for support and small website updates.',
-                    'billing_type' => 'recurring',
-                    'billing_cycle' => 'monthly',
-                    'price' => 20000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'sort_order' => 2,
-                ],
-            ),
-            'content_upload' => Addon::query()->updateOrCreate(
-                ['slug' => 'content-upload-sprint'],
-                [
-                    'service_id' => $services['maintenance']->id,
-                    'name' => 'Content Upload Sprint',
-                    'description' => 'Bulk content upload and publishing support.',
-                    'billing_type' => 'one_time',
-                    'billing_cycle' => null,
-                    'price' => 35000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'sort_order' => 3,
-                ],
-            ),
-        ];
-
-        return [$services, $addons];
-    }
-
-    protected function seedPackages(array $services, array $addons): array
-    {
-        $packages = [
-            'starter' => WebsitePackage::query()->updateOrCreate(
-                ['slug' => 'growth-starter'],
-                [
-                    'name' => 'Growth Starter',
-                    'description' => 'A starter managed website package for growing businesses.',
-                    'price' => 120000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_featured' => true,
-                    'sort_order' => 1,
-                    'features' => ['design', 'maintenance', 'hosting', 'ssl', 'support'],
-                ],
-            ),
-            'scale' => WebsitePackage::query()->updateOrCreate(
-                ['slug' => 'business-scale'],
-                [
-                    'name' => 'Business Scale',
-                    'description' => 'A broader package with hosting, support, email, and SEO coverage.',
-                    'price' => 220000,
-                    'currency' => 'NGN',
-                    'is_active' => true,
-                    'is_featured' => true,
-                    'sort_order' => 2,
-                    'features' => ['maintenance', 'hosting', 'domain', 'email', 'seo'],
-                ],
-            ),
-        ];
-
-        $this->syncPackageItems($packages['starter'], [
-            [Service::class, $services['maintenance']->id, 1, false],
-            [Service::class, $services['hosting']->id, 1, false],
-            [Service::class, $services['domain']->id, 1, false],
-            [Addon::class, $addons['seo_setup']->id, 1, true],
-            [Addon::class, $addons['priority_care']->id, 1, true],
-        ]);
-
-        $this->syncPackageItems($packages['scale'], [
-            [Service::class, $services['maintenance']->id, 1, false],
-            [Service::class, $services['hosting']->id, 1, false],
-            [Service::class, $services['domain']->id, 1, false],
-            [Service::class, $services['email']->id, 1, false],
-            [Service::class, $services['seo']->id, 1, true],
-            [Addon::class, $addons['priority_care']->id, 1, false],
-        ]);
-
-        return $packages;
-    }
-
-    protected function seedWebsites(Client $client, User $admin, array $packages): array
+    protected function seedWebsites(Client $client, User $admin): array
     {
         return [
             'corporate' => Website::query()->updateOrCreate(
                 ['primary_domain' => 'acme-client.test'],
                 [
                     'client_id' => $client->id,
-                    'package_id' => $packages['starter']->id,
                     'name' => 'Acme Client Website',
                     'staging_url' => 'https://staging.acme-client.test',
                     'niche' => 'Corporate',
@@ -385,7 +205,6 @@ class DatabaseSeeder extends Seeder
                 ['primary_domain' => 'store.acme-client.test'],
                 [
                     'client_id' => $client->id,
-                    'package_id' => $packages['scale']->id,
                     'name' => 'Acme Storefront',
                     'staging_url' => 'https://staging-store.acme-client.test',
                     'niche' => 'Ecommerce',
@@ -418,7 +237,6 @@ class DatabaseSeeder extends Seeder
                 ['primary_domain' => 'campaign.acme-client.test'],
                 [
                     'client_id' => $client->id,
-                    'package_id' => $packages['starter']->id,
                     'name' => 'Acme Campaign Microsite',
                     'staging_url' => 'https://staging-campaign.acme-client.test',
                     'niche' => 'Marketing',
@@ -450,35 +268,68 @@ class DatabaseSeeder extends Seeder
         ];
     }
 
-    protected function seedSubscriptions(Client $client, User $admin, array $websites, array $services, array $addons): array
+    protected function seedSubscriptions(Client $client, User $admin, array $websites): array
     {
+        $services = [
+            'webmaintenance' => $this->requireOnboardingService('webmaintenance'),
+            'cloud' => $this->requireOnboardingService('cloud'),
+            'email' => $this->requireOnboardingService('email'),
+            'seo' => $this->requireOnboardingService('seo'),
+        ];
+
+        $addons = [
+            'wm_priority' => $this->requireOnboardingAddon('wm-priority'),
+            'seo_audit' => $this->requireOnboardingAddon('seo-audit'),
+        ];
+
+        $websiteIds = collect($websites)->pluck('id');
+
+        ServiceSubscription::query()
+            ->where('client_id', $client->id)
+            ->whereIn('website_id', $websiteIds)
+            ->whereNull('onboarding_service_id')
+            ->delete();
+
+        AddonSubscription::query()
+            ->where('client_id', $client->id)
+            ->whereNull('onboarding_addon_id')
+            ->delete();
+
         $subscriptions = [
-            'corp_maintenance' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['maintenance'], [
+            'corp_maintenance' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['webmaintenance'], [
                 'status' => 'active',
+                'price' => 120000,
                 'starts_at' => now()->subMonths(6)->toDateString(),
                 'expires_at' => now()->addMonth()->toDateString(),
                 'last_renewed_at' => now()->subDays(4),
                 'auto_renew' => true,
                 'notes' => 'Core maintenance plan for the corporate website.',
             ]),
-            'corp_hosting' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['hosting'], [
+            'corp_cloud' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['cloud'], [
                 'status' => 'active',
+                'billing_type' => 'recurring',
+                'billing_cycle' => 'monthly',
+                'price' => 500000,
                 'starts_at' => now()->subMonths(6)->toDateString(),
                 'expires_at' => now()->addMonth()->toDateString(),
                 'last_renewed_at' => now()->subDays(4),
                 'auto_renew' => true,
-                'notes' => 'Managed hosting with routine monitoring.',
+                'notes' => 'Cloud infrastructure oversight with routine monitoring.',
             ]),
-            'corp_domain' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['domain'], [
+            'corp_seo' => $this->upsertSubscription($client, $admin, $websites['corporate'], $services['seo'], [
                 'status' => 'active',
-                'starts_at' => now()->subYear()->toDateString(),
-                'expires_at' => now()->addMonths(11)->toDateString(),
+                'billing_type' => 'recurring',
+                'billing_cycle' => 'monthly',
+                'price' => 400000,
+                'starts_at' => now()->subMonth()->toDateString(),
+                'expires_at' => now()->addMonth()->toDateString(),
                 'last_renewed_at' => now()->subMonth(),
-                'auto_renew' => false,
-                'notes' => 'Primary domain renewal handled annually.',
+                'auto_renew' => true,
+                'notes' => 'Search visibility improvements and reporting.',
             ]),
-            'store_maintenance' => $this->upsertSubscription($client, $admin, $websites['store'], $services['maintenance'], [
+            'store_maintenance' => $this->upsertSubscription($client, $admin, $websites['store'], $services['webmaintenance'], [
                 'status' => 'active',
+                'price' => 120000,
                 'starts_at' => now()->subWeeks(2)->toDateString(),
                 'expires_at' => now()->addMonth()->toDateString(),
                 'last_renewed_at' => now()->subWeeks(2),
@@ -487,14 +338,20 @@ class DatabaseSeeder extends Seeder
             ]),
             'store_email' => $this->upsertSubscription($client, $admin, $websites['store'], $services['email'], [
                 'status' => 'active',
+                'billing_type' => 'recurring',
+                'billing_cycle' => 'yearly',
+                'price' => 120000,
                 'starts_at' => now()->subWeeks(2)->toDateString(),
                 'expires_at' => now()->addYear()->toDateString(),
                 'last_renewed_at' => now()->subWeeks(2),
                 'auto_renew' => true,
                 'notes' => 'Mailbox service for sales and support teams.',
             ]),
-            'campaign_hosting' => $this->upsertSubscription($client, $admin, $websites['campaign'], $services['hosting'], [
+            'campaign_cloud' => $this->upsertSubscription($client, $admin, $websites['campaign'], $services['cloud'], [
                 'status' => 'active',
+                'billing_type' => 'recurring',
+                'billing_cycle' => 'monthly',
+                'price' => 500000,
                 'starts_at' => now()->subMonths(11)->toDateString(),
                 'expires_at' => now()->addDays(20)->toDateString(),
                 'last_renewed_at' => now()->subMonths(11),
@@ -503,6 +360,9 @@ class DatabaseSeeder extends Seeder
             ]),
             'campaign_seo' => $this->upsertSubscription($client, $admin, $websites['campaign'], $services['seo'], [
                 'status' => 'active',
+                'billing_type' => 'recurring',
+                'billing_cycle' => 'monthly',
+                'price' => 400000,
                 'starts_at' => now()->subMonths(2)->toDateString(),
                 'expires_at' => now()->addDays(12)->toDateString(),
                 'last_renewed_at' => now()->subMonths(1),
@@ -512,13 +372,13 @@ class DatabaseSeeder extends Seeder
         ];
 
         $subscriptions['corp_maintenance']->addonSubscriptions()->updateOrCreate(
-            ['addon_id' => $addons['priority_care']->id, 'client_id' => $client->id],
+            ['onboarding_addon_id' => $addons['wm_priority']->id, 'client_id' => $client->id],
             [
                 'status' => 'active',
-                'price' => $addons['priority_care']->price,
-                'currency' => $addons['priority_care']->currency,
-                'billing_type' => $addons['priority_care']->billing_type,
-                'billing_cycle' => $addons['priority_care']->billing_cycle,
+                'price' => $addons['wm_priority']->price,
+                'currency' => $addons['wm_priority']->currency,
+                'billing_type' => $addons['wm_priority']->billing_type,
+                'billing_cycle' => $addons['wm_priority']->billing_cycle,
                 'starts_at' => now()->subMonths(3)->toDateString(),
                 'expires_at' => now()->addMonth()->toDateString(),
                 'auto_renew' => true,
@@ -526,13 +386,13 @@ class DatabaseSeeder extends Seeder
         );
 
         $subscriptions['store_maintenance']->addonSubscriptions()->updateOrCreate(
-            ['addon_id' => $addons['seo_setup']->id, 'client_id' => $client->id],
+            ['onboarding_addon_id' => $addons['seo_audit']->id, 'client_id' => $client->id],
             [
                 'status' => 'active',
-                'price' => $addons['seo_setup']->price,
-                'currency' => $addons['seo_setup']->currency,
-                'billing_type' => $addons['seo_setup']->billing_type,
-                'billing_cycle' => $addons['seo_setup']->billing_cycle,
+                'price' => $addons['seo_audit']->price,
+                'currency' => $addons['seo_audit']->currency,
+                'billing_type' => $addons['seo_audit']->billing_type,
+                'billing_cycle' => $addons['seo_audit']->billing_cycle,
                 'starts_at' => now()->subWeeks(2)->toDateString(),
                 'expires_at' => null,
                 'auto_renew' => false,
@@ -674,8 +534,8 @@ class DatabaseSeeder extends Seeder
                 'paid_at' => now()->subDays(16),
                 'payment_reference' => 'paystack_demo_1001',
                 'items' => [
-                    [$subscriptions['corp_maintenance'], 'Website Maintenance - April Cycle', 1, 45000],
-                    [$subscriptions['corp_hosting'], 'Managed Hosting - April Cycle', 1, 30000],
+                    [$subscriptions['corp_maintenance'], 'Website Maintenance - April Cycle', 1, 120000],
+                    [$subscriptions['corp_cloud'], 'Cloud Infrastructure Support - April Cycle', 1, 500000],
                 ],
                 'payments' => [
                     ['paid', Invoice::PAYMENT_METHOD_PAYSTACK, 'paystack', 75000, 'paystack_demo_1001', now()->subDays(17), now()->subDays(16)],
@@ -690,8 +550,8 @@ class DatabaseSeeder extends Seeder
                 'paid_at' => null,
                 'payment_reference' => null,
                 'items' => [
-                    [$subscriptions['corp_maintenance'], 'Website Maintenance - Current Cycle', 1, 45000],
-                    [$subscriptions['corp_hosting'], 'Managed Hosting - Current Cycle', 1, 30000],
+                    [$subscriptions['corp_maintenance'], 'Website Maintenance - Current Cycle', 1, 120000],
+                    [$subscriptions['corp_cloud'], 'Cloud Infrastructure Support - Current Cycle', 1, 500000],
                 ],
                 'payments' => [],
             ],
@@ -704,8 +564,8 @@ class DatabaseSeeder extends Seeder
                 'paid_at' => null,
                 'payment_reference' => null,
                 'items' => [
-                    [$subscriptions['store_maintenance'], 'Storefront Launch Support', 1, 45000],
-                    [$subscriptions['store_email'], 'Business Email Annual Setup', 1, 24000],
+                    [$subscriptions['store_maintenance'], 'Storefront Care Plan', 1, 120000],
+                    [$subscriptions['store_email'], 'Business Email Annual Management', 1, 120000],
                 ],
                 'payments' => [],
             ],
@@ -718,8 +578,8 @@ class DatabaseSeeder extends Seeder
                 'paid_at' => null,
                 'payment_reference' => null,
                 'items' => [
-                    [$subscriptions['campaign_hosting'], 'Campaign Hosting Renewal', 1, 30000],
-                    [$subscriptions['campaign_seo'], 'SEO Retainer - Campaign Cycle', 1, 60000],
+                    [$subscriptions['campaign_cloud'], 'Campaign Cloud Infrastructure Renewal', 1, 500000],
+                    [$subscriptions['campaign_seo'], 'SEO Retainer - Campaign Cycle', 1, 400000],
                 ],
                 'payments' => [
                     ['pending', Invoice::PAYMENT_METHOD_BANK_TRANSFER, 'manual', 90000, 'manual_review_1004', now()->subDays(3), null],
@@ -905,37 +765,21 @@ class DatabaseSeeder extends Seeder
         );
     }
 
-    protected function syncPackageItems(WebsitePackage $package, array $items): void
-    {
-        foreach ($items as [$type, $id, $quantity, $optional]) {
-            WebsitePackageItem::query()->updateOrCreate(
-                [
-                    'website_package_id' => $package->id,
-                    'itemable_type' => $type,
-                    'itemable_id' => $id,
-                ],
-                [
-                    'quantity' => $quantity,
-                    'is_optional' => $optional,
-                ],
-            );
-        }
-    }
-
-    protected function upsertSubscription(Client $client, User $admin, Website $website, Service $service, array $overrides): ServiceSubscription
+    protected function upsertSubscription(Client $client, User $admin, Website $website, OnboardingService $service, array $overrides, ?OnboardingServiceVariant $variant = null): ServiceSubscription
     {
         return ServiceSubscription::query()->updateOrCreate(
             [
                 'website_id' => $website->id,
-                'service_id' => $service->id,
+                'onboarding_service_id' => $service->id,
+                'onboarding_service_variant_id' => $variant?->id,
                 'client_id' => $client->id,
             ],
             array_merge([
                 'status' => 'active',
-                'billing_type' => $service->billing_type,
-                'billing_cycle' => $service->billing_cycle,
-                'price' => $service->price,
-                'currency' => $service->currency,
+                'billing_type' => $variant?->billing_type ?? $service->billing_type,
+                'billing_cycle' => $variant?->billing_cycle ?? $service->billing_cycle,
+                'price' => $variant?->base_price ?? $service->base_price,
+                'currency' => $variant?->currency ?? $service->currency,
                 'starts_at' => now()->toDateString(),
                 'expires_at' => now()->addMonth()->toDateString(),
                 'auto_renew' => false,
@@ -943,5 +787,19 @@ class DatabaseSeeder extends Seeder
                 'notes' => 'Seeded subscription',
             ], $overrides),
         );
+    }
+
+    protected function requireOnboardingService(string $key): OnboardingService
+    {
+        return OnboardingService::query()
+            ->where('key', $key)
+            ->firstOrFail();
+    }
+
+    protected function requireOnboardingAddon(string $key): OnboardingAddon
+    {
+        return OnboardingAddon::query()
+            ->where('key', $key)
+            ->firstOrFail();
     }
 }

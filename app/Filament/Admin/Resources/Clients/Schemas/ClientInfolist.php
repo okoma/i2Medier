@@ -33,9 +33,6 @@ class ClientInfolist
                                 TextEntry::make('state'),
                                 TextEntry::make('city'),
                                 TextEntry::make('address'),
-                                TextEntry::make('websites_count')
-                                    ->state(fn ($record): int => $record->websites()->count())
-                                    ->label('Websites'),
                                 TextEntry::make('invoices_count')
                                     ->state(fn ($record): int => $record->invoices()->count())
                                     ->label('Invoices'),

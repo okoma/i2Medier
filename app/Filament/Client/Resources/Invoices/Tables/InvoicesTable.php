@@ -15,8 +15,6 @@ class InvoicesTable
                 TextColumn::make('invoice_number')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('website.name')
-                    ->label('Website'),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('total')

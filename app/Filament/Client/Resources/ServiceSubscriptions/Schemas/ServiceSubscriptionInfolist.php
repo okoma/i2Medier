@@ -18,10 +18,11 @@ class ServiceSubscriptionInfolist
                         Section::make('Subscription')
                             ->columnSpanFull()
                             ->schema([
-                                TextEntry::make('website.name')
-                                    ->label('Website'),
-                                TextEntry::make('service.name')
+                                TextEntry::make('catalog_name')
                                     ->label('Service'),
+                                TextEntry::make('onboardingVariant.name')
+                                    ->label('Direction')
+                                    ->placeholder('Base service'),
                                 TextEntry::make('status')
                                     ->badge(),
                                 TextEntry::make('billing_type')

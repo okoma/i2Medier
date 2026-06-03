@@ -17,8 +17,6 @@ class SupportTicketsTable
                 TextColumn::make('subject')
                     ->searchable()
                     ->wrap(),
-                TextColumn::make('website.name')
-                    ->label('Website'),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('priority')

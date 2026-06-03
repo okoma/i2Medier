@@ -2,7 +2,6 @@
 
 namespace App\Filament\Client\Resources\SupportTickets\Schemas;
 
-use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -17,23 +16,6 @@ class SupportTicketForm
             ->components([
                 Section::make('New Support Ticket')
                     ->schema([
-                        Select::make('website_id')
-                            ->options(function (): array {
-                                /** @var User|null $user */
-                                $user = auth()->user();
-
-                                if (! $user) {
-                                    return [];
-                                }
-
-                                $query = $user->isClientOwner()
-                                    ? $user->client?->websites()
-                                    : $user->assignedWebsites();
-
-                                return $query?->pluck('name', 'websites.id')->all() ?? [];
-                            })
-                            ->searchable()
-                            ->preload(),
                         TextInput::make('subject')
                             ->required()
                             ->maxLength(255),

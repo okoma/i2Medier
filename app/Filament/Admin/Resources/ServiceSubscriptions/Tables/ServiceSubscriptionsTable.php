@@ -19,12 +19,8 @@ class ServiceSubscriptionsTable
                 TextColumn::make('client.company_name')
                     ->label('Client')
                     ->searchable(),
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->searchable(),
-                TextColumn::make('service.name')
-                    ->label('Service')
-                    ->searchable(),
+                TextColumn::make('catalog_name')
+                    ->label('Service'),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('expires_at')
@@ -34,6 +30,7 @@ class ServiceSubscriptionsTable
             ->filters([
                 SelectFilter::make('status')
                     ->options([
+                        'pending' => 'Pending',
                         'active' => 'Active',
                         'expired' => 'Expired',
                         'suspended' => 'Suspended',

@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\AffiliateProfile;
 use App\Models\Document;
 use App\Models\Invoice;
-use App\Models\Service;
+use App\Models\OnboardingAddon;
+use App\Models\OnboardingService;
 use App\Models\ServiceSubscription;
 use App\Models\SupportTicket;
-use App\Models\Website;
-use App\Models\WebsitePackage;
+use App\Models\Project;
 use App\Support\PaymentSettings;
 use Illuminate\Contracts\View\View;
 
@@ -18,10 +18,10 @@ class PortalController extends Controller
     public function dashboard(): View
     {
         $user = request()->user();
-        $websites = $this->visibleWebsites();
+        $projects = $this->visibleProjects();
         $tickets = $this->visibleTickets();
         $openInvoices = $this->clientInvoices()->whereNotIn('status', ['paid', 'cancelled', 'refunded'])->get();
-        $subscriptions = $this->clientSubscriptions()->with('service', 'website')->get();
+        $subscriptions = $this->clientSubscriptions()->with('onboardingService', 'onboardingVariant')->get();
         $documents = $this->clientDocuments()->latest()->limit(5)->get();
 
         return view('portal.dashboard', [
@@ -29,11 +29,11 @@ class PortalController extends Controller
             'pageTitle' => 'Dashboard',
             'pageDescription' => "Here's what's happening with your account today.",
             'pageCss' => 'dashboard.css',
-            'activeProjects' => $websites->count(),
+            'activeProjects' => $projects->count(),
             'pendingInvoices' => $openInvoices->count(),
             'activeSubscriptions' => $subscriptions->where('status', 'active')->count(),
             'openTickets' => $tickets->whereNotIn('status', ['resolved', 'closed'])->count(),
-            'projects' => $websites->take(3),
+            'projects' => $projects->take(3),
             'recentInvoices' => $openInvoices->sortBy('due_at')->take(4),
             'recentTickets' => $tickets->sortByDesc('created_at')->take(4),
             'recentDocuments' => $documents,
@@ -42,7 +42,7 @@ class PortalController extends Controller
 
     public function projects(): View
     {
-        $projects = $this->visibleWebsites();
+        $projects = $this->visibleProjects();
 
         return view('portal.projects', [
             'user' => request()->user(),
@@ -51,17 +51,16 @@ class PortalController extends Controller
             'pageCss' => 'projects.css',
             'projects' => $projects,
             'totalProjects' => $projects->count(),
-            'activeProjects' => $projects->where('health_state', 'active')->count(),
-            'pendingProjects' => $projects->where('health_state', 'pending_setup')->count(),
-            'atRiskProjects' => $projects->where('health_state', 'at_risk')->count(),
+            'activeProjects' => $projects->where('status', 'converted')->count(),
+            'pendingProjects' => $projects->where('status', 'enquiry')->count(),
         ]);
     }
 
     public function services(): View
     {
-        $subscriptions = $this->clientSubscriptions()->with('service', 'website')->get();
-        $services = Service::query()->active()->orderBy('sort_order')->get();
-        $packages = WebsitePackage::query()->where('is_active', true)->orderByDesc('is_featured')->orderBy('sort_order')->get();
+        $subscriptions = $this->clientSubscriptions()->with('onboardingService', 'onboardingVariant')->get();
+        $services = OnboardingService::query()->where('is_active', true)->orderBy('sort_order')->get();
+        $addons = OnboardingAddon::query()->where('is_active', true)->orderBy('sort_order')->get();
 
         return view('portal.services', [
             'user' => request()->user(),
@@ -70,50 +69,44 @@ class PortalController extends Controller
             'pageCss' => 'services.css',
             'subscriptions' => $subscriptions,
             'services' => $services,
-            'packages' => $packages,
+            'addons' => $addons,
             'activeServicesCount' => $subscriptions->where('status', 'active')->count(),
             'expiringSoonCount' => $subscriptions->filter(fn ($subscription) => $subscription->expires_at?->isBetween(now(), now()->addDays(30)))->count(),
-            'catalogCount' => $services->count(),
+            'catalogCount' => $services->count() + $addons->count(),
         ]);
     }
 
     public function domains(): View
     {
-        $domains = $this->visibleWebsites()->filter(fn ($website) => filled($website->primary_domain))->values();
-
         return view('portal.domains', [
             'user' => request()->user(),
             'pageTitle' => 'Domains',
             'pageDescription' => 'Domains',
             'pageCss' => 'domains.css',
-            'domains' => $domains,
-            'totalDomains' => $domains->count(),
-            'activeDomains' => $domains->where('domain_status', 'active')->count(),
-            'expiringDomains' => $domains->where('domain_status', 'expiring')->count(),
+            'domains' => collect(),
+            'totalDomains' => 0,
+            'activeDomains' => 0,
+            'expiringDomains' => 0,
         ]);
     }
 
     public function hosting(): View
     {
-        $hosting = $this->visibleWebsites()->filter(
-            fn ($website) => filled($website->hosting_provider) || filled($website->hosting_status) || filled($website->hosting_expiry_date)
-        )->values();
-
         return view('portal.hosting', [
             'user' => request()->user(),
             'pageTitle' => 'Hosting',
             'pageDescription' => 'Hosting',
             'pageCss' => 'hosting.css',
-            'hostingRecords' => $hosting,
-            'totalHosting' => $hosting->count(),
-            'activeHosting' => $hosting->where('hosting_status', 'active')->count(),
-            'expiringHosting' => $hosting->where('hosting_status', 'expiring')->count(),
+            'hostingRecords' => collect(),
+            'totalHosting' => 0,
+            'activeHosting' => 0,
+            'expiringHosting' => 0,
         ]);
     }
 
     public function invoices(): View
     {
-        $invoices = $this->clientInvoices()->with('website', 'payments')->latest('issued_at')->get();
+        $invoices = $this->clientInvoices()->with('payments')->latest('issued_at')->get();
         $outstanding = $invoices->whereNotIn('status', ['paid', 'cancelled', 'refunded']);
         $recentPayment = $invoices->flatMap->payments->sortByDesc('paid_at')->first();
 
@@ -139,7 +132,7 @@ class PortalController extends Controller
             'pageTitle' => 'Invoice',
             'pageDescription' => $invoice->invoice_number,
             'pageCss' => 'invoices.css',
-            'invoice' => $invoice->load('website', 'items', 'payments'),
+            'invoice' => $invoice->load('items', 'payments'),
             'paymentSettings' => app(PaymentSettings::class),
         ]);
     }
@@ -147,7 +140,7 @@ class PortalController extends Controller
     public function billing(): View
     {
         $settings = app(PaymentSettings::class);
-        $invoices = $this->clientInvoices()->with('website', 'payments')->latest('issued_at')->get();
+        $invoices = $this->clientInvoices()->with('payments')->latest('issued_at')->get();
         $payments = $invoices->flatMap->payments->sortByDesc('created_at')->values();
         $outstanding = $invoices->whereNotIn('status', ['paid', 'cancelled', 'refunded']);
 
@@ -178,7 +171,7 @@ class PortalController extends Controller
 
     public function subscriptions(): View
     {
-        $subscriptions = $this->clientSubscriptions()->with('service', 'website')->latest()->get();
+        $subscriptions = $this->clientSubscriptions()->with('onboardingService', 'onboardingVariant')->latest()->get();
 
         return view('portal.subscriptions', [
             'user' => request()->user(),
@@ -212,7 +205,7 @@ class PortalController extends Controller
 
     public function documents(): View
     {
-        $documents = $this->clientDocuments()->with('website')->latest()->get();
+        $documents = $this->clientDocuments()->latest()->get();
         $storageUsed = (int) $documents->sum('size');
 
         return view('portal.documents', [
@@ -269,24 +262,22 @@ class PortalController extends Controller
         ]);
     }
 
-    protected function visibleWebsites()
+    protected function visibleProjects()
     {
         $user = request()->user();
 
-        $query = Website::query()->with(['package', 'serviceSubscriptions.service', 'onboardingTasks'])->where('client_id', $user?->client_id);
-
-        if ($user?->isClientMember()) {
-            $query->whereIn('id', $user->assignedWebsites()->pluck('websites.id'));
-        }
-
-        return $query->get();
+        return Project::query()
+            ->with(['serviceSubscriptions.onboardingService', 'serviceSubscriptions.onboardingVariant', 'onboardingTasks'])
+            ->where('client_id', $user?->client_id)
+            ->latest()
+            ->get();
     }
 
     protected function visibleTickets()
     {
         $user = request()->user();
 
-        $query = SupportTicket::query()->with(['website', 'assignee'])->where('client_id', $user?->client_id);
+        $query = SupportTicket::query()->with(['assignee'])->where('client_id', $user?->client_id);
 
         if ($user?->isClientMember()) {
             $query->where('submitted_by', $user->id);
@@ -311,11 +302,6 @@ class PortalController extends Controller
 
         $query = Document::query()->where('client_id', $user?->client_id)->where('visibility', 'client');
 
-        if ($user?->isClientMember()) {
-            $query->where(function ($documentQuery) use ($user): void {
-                $documentQuery->whereNull('website_id')->orWhereIn('website_id', $user->assignedWebsites()->pluck('websites.id'));
-            });
-        }
 
         return $query;
     }

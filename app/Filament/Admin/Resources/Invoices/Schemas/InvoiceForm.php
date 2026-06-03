@@ -25,10 +25,6 @@ class InvoiceForm
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Select::make('website_id')
-                            ->relationship('website', 'name')
-                            ->searchable()
-                            ->preload(),
                         Select::make('status')
                             ->options([
                                 'draft' => 'Draft',

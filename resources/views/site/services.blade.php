@@ -110,7 +110,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.web-design') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a Website Project →</a>
+          <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'services-overview-webdesign', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a Website Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -170,7 +170,7 @@
         </div>
         <br>
         <a href="{{ route('site.services.mobile-app-development') }}" class="deep-cta ghost">Read More</a>
-        <a href="#contact" class="deep-cta">Start a Mobile Project →</a>
+        <a href="{{ route('site.start', ['services' => 'mobileapps', 'source_page' => 'services-overview-mobileapps', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a Mobile Project →</a>
       </div>
       <div class="feature-list">
         <div class="feature-item">
@@ -229,7 +229,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.search-optimization') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Improve Your Visibility →</a>
+          <a href="{{ route('site.start', ['services' => 'seo', 'source_page' => 'services-overview-seo', 'source_label' => 'Services Page']) }}" class="deep-cta">Improve Your Visibility →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -289,7 +289,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.ui-ux-design') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a Design Project →</a>
+          <a href="{{ route('site.start', ['services' => 'uiux', 'source_page' => 'services-overview-uiux', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a Design Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -350,7 +350,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.wordpress-development') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a WordPress Project →</a>
+          <a href="{{ route('site.start', ['services' => 'wordpress', 'source_page' => 'services-overview-wordpress', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a WordPress Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -411,7 +411,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.laravel-development') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a Laravel Project →</a>
+          <a href="{{ route('site.start', ['services' => 'laravel', 'source_page' => 'services-overview-laravel', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a Laravel Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -473,7 +473,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.ecommerce-website') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start an E-Commerce Project →</a>
+          <a href="{{ route('site.start', ['services' => 'ecommerce', 'source_page' => 'services-overview-ecommerce', 'source_label' => 'Services Page']) }}" class="deep-cta">Start an E-Commerce Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -535,7 +535,7 @@
         </div>
         <div class="deep-cta-group">
           <a href="{{ route('site.services.saas-application') }}" class="deep-cta">Read More →</a>
-          <a href="#contact" class="deep-cta">Start a SaaS Project →</a>
+          <a href="{{ route('site.start', ['services' => 'saas', 'source_page' => 'services-overview-saas', 'source_label' => 'Services Page']) }}" class="deep-cta">Start a SaaS Project →</a>
         </div>
       </div>
       <div class="feature-list">
@@ -596,7 +596,7 @@
         </div>
         <br>
         <a href="{{ route('site.services.business-email-setup') }}" class="deep-cta">Read More →</a>
-        <a href="#contact" class="deep-cta ghost">Set Up Business Email</a>
+        <a href="{{ route('site.start', ['services' => 'email', 'source_page' => 'services-overview-email', 'source_label' => 'Services Page']) }}" class="deep-cta ghost">Set Up Business Email</a>
       </div>
       <div class="feature-list">
         <div class="feature-item">
@@ -657,7 +657,7 @@
         </div>
         <br>
         <a href="{{ route('site.services.cloud-architecture') }}" class="deep-cta">Read More →</a>
-        <a href="#contact" class="deep-cta ghost">Discuss Your Infrastructure</a>
+        <a href="{{ route('site.start', ['services' => 'cloud', 'source_page' => 'services-overview-cloud', 'source_label' => 'Services Page']) }}" class="deep-cta ghost">Discuss Your Infrastructure</a>
       </div>
       <div class="feature-list">
         <div class="feature-item">

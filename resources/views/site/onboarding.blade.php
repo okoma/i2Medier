@@ -263,6 +263,7 @@
                                 <div class="terms-text" onclick="toggleTerms()">I confirm the above information is correct and I agree to i2Medier's <a target="_blank" href="{{ route('site.terms') }}" onclick="event.stopPropagation()">Terms of Service</a> and <a target="_blank" href="{{ route('site.privacy') }}" onclick="event.stopPropagation()">Privacy Policy</a>. I understand this is an enquiry — not a binding order — and that a formal proposal will be provided before any payment is required.</div>
                             </div>
                             <span class="field-error" id="err-terms">Please accept the terms to continue</span>
+                            <div class="submit-error" id="err-submit"></div>
                             <div class="step-nav">
                                 <button class="btn-back" onclick="goBack(5)">← Back</button>
                                 <button class="btn-next submit" id="btn-submit" onclick="submitForm()">
@@ -279,13 +280,13 @@
                         <h2 class="success-title">Enquiry received!</h2>
                         <p class="success-desc">Thank you for reaching out. We have received your project brief and our team will review it carefully. Expect a detailed, personalised proposal in your inbox within <strong>24 hours</strong>.</p>
                         <div class="success-steps">
-                            <div class="success-step">
-                                <div class="ss-num">1</div>
-                                <div class="ss-body">
-                                    <h4>Check your email</h4>
-                                    <p>A confirmation email is on its way to your inbox right now with your reference number and a summary of your enquiry.</p>
-                                </div>
+                        <div class="success-step">
+                            <div class="ss-num">1</div>
+                            <div class="ss-body">
+                                <h4>Your enquiry is logged</h4>
+                                <p>Your project brief, selected services, and add-ons have been saved internally with the reference above.</p>
                             </div>
+                        </div>
                             <div class="success-step">
                                 <div class="ss-num">2</div>
                                 <div class="ss-body">
@@ -356,5 +357,4 @@
         </aside>
     </div>
 @endsection
-
 

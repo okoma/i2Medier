@@ -2,7 +2,7 @@
 
 namespace App\Filament\Client\Pages;
 
-use App\Models\Website;
+use App\Models\Project;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
@@ -32,18 +32,14 @@ class ProjectsHub extends Page
         /** @var \App\Models\User|null $user */
         $user = auth()->user();
 
-        $query = Website::query()
-            ->with(['package', 'serviceSubscriptions.service', 'onboardingTasks'])
-            ->where('client_id', $user?->client_id);
-
-        if ($user?->isClientMember()) {
-            $query->whereIn('id', $user->assignedWebsites()->pluck('websites.id'));
-        }
-
-        $this->projects = $query->latest()->get();
-        $this->activeProjects = $this->projects->where('health_state', 'active')->count();
-        $this->atRiskProjects = $this->projects->where('health_state', 'at_risk')->count();
-        $this->pendingSetupProjects = $this->projects->where('health_state', 'pending_setup')->count();
+        $this->projects = Project::query()
+            ->with(['serviceSubscriptions.onboardingService', 'serviceSubscriptions.onboardingVariant', 'onboardingTasks'])
+            ->where('client_id', $user?->client_id)
+            ->latest()
+            ->get();
+        $this->activeProjects = $this->projects->where('status', 'converted')->count();
+        $this->atRiskProjects = $this->projects->where('status', 'negotiating')->count();
+        $this->pendingSetupProjects = $this->projects->where('status', 'enquiry')->count();
     }
 
 }

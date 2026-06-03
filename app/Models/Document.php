@@ -13,7 +13,6 @@ class Document extends Model
 
     protected $fillable = [
         'client_id',
-        'website_id',
         'uploaded_by',
         'title',
         'folder',
@@ -37,11 +36,6 @@ class Document extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function website(): BelongsTo
-    {
-        return $this->belongsTo(Website::class);
     }
 
     public function uploader(): BelongsTo

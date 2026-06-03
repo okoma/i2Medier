@@ -76,14 +76,6 @@ class DocumentResource extends Resource
             ->where('client_id', $user?->client_id)
             ->where('visibility', 'client');
 
-        if ($user?->isClientMember()) {
-            $query->where(function (Builder $documentQuery) use ($user): void {
-                $documentQuery
-                    ->whereNull('website_id')
-                    ->orWhereIn('website_id', $user->assignedWebsites()->pluck('websites.id'));
-            });
-        }
-
         return $query->latest();
     }
 }

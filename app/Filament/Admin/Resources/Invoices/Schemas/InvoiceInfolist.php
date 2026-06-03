@@ -20,7 +20,6 @@ class InvoiceInfolist
                             ->schema([
                                 TextEntry::make('invoice_number'),
                                 TextEntry::make('client.company_name')->label('Client'),
-                                TextEntry::make('website.name')->label('Website'),
                                 TextEntry::make('status')->badge(),
                                 TextEntry::make('issued_at')->date(),
                                 TextEntry::make('due_at')->date(),

@@ -21,9 +21,6 @@ class DocumentInfolist
                                 TextEntry::make('title'),
                                 TextEntry::make('client.company_name')
                                     ->label('Client'),
-                                TextEntry::make('website.name')
-                                    ->label('Website')
-                                    ->placeholder('General file'),
                                 TextEntry::make('category')
                                     ->badge(),
                                 TextEntry::make('folder')

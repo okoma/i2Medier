@@ -14,7 +14,6 @@ class SupportTicket extends Model
     protected $fillable = [
         'ticket_number',
         'client_id',
-        'website_id',
         'submitted_by',
         'assigned_to',
         'subject',
@@ -36,11 +35,6 @@ class SupportTicket extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function website(): BelongsTo
-    {
-        return $this->belongsTo(Website::class);
     }
 
     public function submitter(): BelongsTo

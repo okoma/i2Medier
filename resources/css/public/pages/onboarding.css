@@ -513,6 +513,8 @@
 .onboarding-body .terms-check.checked { background:var(--gold); border-color:var(--gold); color:var(--black); }
 .onboarding-body .terms-text { font-size:.82rem; color:var(--g700); line-height:1.65; cursor:pointer; user-select:none; }
 .onboarding-body .terms-text a { color:var(--gold); text-decoration:underline; text-underline-offset:2px; }
+.onboarding-body .submit-error { display:none; margin:-.5rem 0 1rem; padding:.85rem 1rem; border-radius:6px; border:1px solid #fecaca; background:#fef2f2; color:#991b1b; font-size:.8rem; line-height:1.5; }
+.onboarding-body .submit-error.visible { display:block; }
 
 .onboarding-body .step-nav { display:flex; align-items:center; justify-content:space-between; padding-top:1.5rem; border-top:1px solid var(--g100); margin-top:1.25rem; }
 .onboarding-body .btn-back { background:none; border:1.5px solid var(--g200); color:var(--g700); padding:.75rem 1.5rem; border-radius:6px; font-family:var(--sans); font-size:.875rem; font-weight:600; cursor:pointer; transition:border-color .2s,color .2s; }

@@ -18,9 +18,9 @@ class OnboardingTaskInfolist
                         Section::make('Task Details')
                             ->columnSpanFull()
                             ->schema([
-                                TextEntry::make('website.name')
-                                    ->label('Website'),
-                                TextEntry::make('website.client.company_name')
+                                TextEntry::make('project.reference')
+                                    ->label('Project'),
+                                TextEntry::make('project.client.company_name')
                                     ->label('Client'),
                                 TextEntry::make('title'),
                                 TextEntry::make('description')

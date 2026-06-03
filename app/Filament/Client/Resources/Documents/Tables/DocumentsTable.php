@@ -17,10 +17,6 @@ class DocumentsTable
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->placeholder('General')
-                    ->searchable(),
                 TextColumn::make('category')
                     ->badge(),
                 TextColumn::make('folder')

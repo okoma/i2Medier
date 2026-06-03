@@ -41,6 +41,7 @@ Route::get('/services/ecommerce-website', [SiteController::class, 'ecommerceWebs
 Route::get('/who-we-help', [SiteController::class, 'whoWeHelp'])->name('site.who-we-help');
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
 Route::get('/start', [SiteController::class, 'start'])->name('site.start');
+Route::post('/start', [SiteController::class, 'storeStart'])->name('site.start.store')->middleware('throttle:8,1');
 Route::get('/services/web-design/law-firm-website-design', [SiteController::class, 'lawyerLanding'])->name('site.lawyer');
 Route::get('/services/web-design/{industry}', [SiteController::class, 'webDesignIndustry'])
     ->where('industry', 'accounting-firm-website-design|clinic-website-design|real-estate-website-design|consulting-firm-website-design|construction-company-website-design|engineering-firm-website-design|architecture-firm-website-design|school-website-design|church-website-design|hotel-website-design|restaurant-website-design|beauty-wellness-website-design|fitness-website-design|cleaning-company-website-design|logistics-company-website-design|travel-agency-website-design|ecommerce-website-design|fashion-brand-website-design|event-planner-website-design|photography-website-design|personal-brand-website-design')

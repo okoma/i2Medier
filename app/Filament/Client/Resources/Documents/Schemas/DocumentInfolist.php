@@ -19,9 +19,6 @@ class DocumentInfolist
                             ->columnSpanFull()
                             ->schema([
                                 TextEntry::make('title'),
-                                TextEntry::make('website.name')
-                                    ->label('Website')
-                                    ->placeholder('General file'),
                                 TextEntry::make('category')
                                     ->badge(),
                                 TextEntry::make('folder')

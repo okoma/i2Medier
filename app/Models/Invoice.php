@@ -20,7 +20,6 @@ class Invoice extends Model
         'invoice_number',
         'public_token',
         'client_id',
-        'website_id',
         'status',
         'subtotal',
         'tax_rate',
@@ -65,11 +64,6 @@ class Invoice extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function website(): BelongsTo
-    {
-        return $this->belongsTo(Website::class);
     }
 
     public function creator(): BelongsTo

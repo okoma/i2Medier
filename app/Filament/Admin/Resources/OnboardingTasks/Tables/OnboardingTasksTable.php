@@ -2,6 +2,9 @@
 
 namespace App\Filament\Admin\Resources\OnboardingTasks\Tables;
 
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
@@ -14,11 +17,11 @@ class OnboardingTasksTable
     {
         return $table
             ->columns([
-                TextColumn::make('website.client.company_name')
+                TextColumn::make('project.client.company_name')
                     ->label('Client')
                     ->searchable(),
-                TextColumn::make('website.name')
-                    ->label('Website')
+                TextColumn::make('project.reference')
+                    ->label('Project')
                     ->searchable(),
                 TextColumn::make('title')
                     ->searchable()
@@ -47,6 +50,12 @@ class OnboardingTasksTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
     }
 }

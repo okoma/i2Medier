@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ trim($__env->yieldContent('title')) ?: 'i2Medier' }}</title>
     @isset($seo)
         <meta name="description" content="{{ $seo['description'] }}">
@@ -44,7 +45,13 @@
     @vite('resources/js/public/pages/onboarding.js')
     @stack('page_css')
 </head>
-<body class="onboarding-body" data-onboarding-fallback-url="{{ route('site.home') }}">
+<body
+    class="onboarding-body"
+    data-onboarding-fallback-url="{{ route('site.home') }}"
+    data-onboarding-submit-url="{{ route('site.start.store') }}"
+    data-onboarding-catalog='@json($onboardingCatalog ?? [])'
+    data-onboarding-preset='@json($onboardingPreset ?? [])'
+>
     @yield('content')
 
     @stack('scripts')

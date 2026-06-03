@@ -26,9 +26,6 @@ class ClientsTable
                 TextColumn::make('status')
                     ->badge()
                     ->sortable(),
-                TextColumn::make('websites_count')
-                    ->counts('websites')
-                    ->label('Websites'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),

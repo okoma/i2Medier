@@ -1,5 +1,8 @@
-import SERVICES from './onboarding-services';
+import FALLBACK_SERVICES from './onboarding-services';
 
+
+    const SERVICES = resolveServices();
+    const PRESET = resolvePreset();
 
     let currentStep = 1;
     const totalSteps = 5;
@@ -14,6 +17,8 @@ import SERVICES from './onboarding-services';
     let hostingPreference = '';
 
     const fallbackUrl = document.body.dataset.onboardingFallbackUrl || '/';
+    const submitUrl = document.body.dataset.onboardingSubmitUrl || window.location.pathname;
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
     const ICONS = {
         wordpress: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 8.5c1 4.5 3 7.5 3.5 7.5s2.5-3 3.5-7.5"></path><path d="M7.5 10h9"></path></svg>`,
@@ -42,7 +47,51 @@ import SERVICES from './onboarding-services';
         return ICONS[name] || ICONS.spark;
     }
 
+    function resolveServices() {
+        const raw = document.body?.dataset?.onboardingCatalog;
+
+        if (!raw) {
+            return FALLBACK_SERVICES;
+        }
+
+        try {
+            const parsed = JSON.parse(raw);
+
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
+        } catch (error) {
+            console.warn('Failed to parse onboarding catalog payload, falling back to bundled data.', error);
+        }
+
+        return FALLBACK_SERVICES;
+    }
+
+    function resolvePreset() {
+        const raw = document.body?.dataset?.onboardingPreset;
+
+        if (!raw) {
+            return { services: [], platform: '', addons: [], source_page: '', source_label: '' };
+        }
+
+        try {
+            const parsed = JSON.parse(raw);
+
+            return {
+                services: Array.isArray(parsed?.services) ? parsed.services : [],
+                platform: typeof parsed?.platform === 'string' ? parsed.platform : '',
+                addons: Array.isArray(parsed?.addons) ? parsed.addons : [],
+                source_page: typeof parsed?.source_page === 'string' ? parsed.source_page : '',
+                source_label: typeof parsed?.source_label === 'string' ? parsed.source_label : '',
+            };
+        } catch (error) {
+            console.warn('Failed to parse onboarding preset payload.', error);
+            return { services: [], platform: '', addons: [], source_page: '', source_label: '' };
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+        applyPresetSelections();
         renderServiceGrid();
         updateQuoteSidebar();
 
@@ -61,7 +110,67 @@ import SERVICES from './onboarding-services';
         if (window.innerWidth <= 900) {
             document.getElementById('quote-sidebar')?.classList.add('collapsed');
         }
+
+        renderPresetHint();
     });
+
+    function applyPresetSelections() {
+        PRESET.services.forEach(serviceId => {
+            const service = getServiceConfig(serviceId);
+
+            if (!service) {
+                return;
+            }
+
+            selectedServices.add(serviceId);
+            selectedAddons[serviceId] = new Set();
+            addonQuantities[serviceId] = {};
+
+            if (serviceId === 'ecommerce') {
+                selectedPlatforms[serviceId] = PRESET.platform || '';
+            }
+        });
+
+        PRESET.addons.forEach(addonId => {
+            for (const serviceId of selectedServices) {
+                const addon = getAddon(serviceId, addonId);
+
+                if (!addon) {
+                    continue;
+                }
+
+                if (!selectedAddons[serviceId]) selectedAddons[serviceId] = new Set();
+                selectedAddons[serviceId].add(addonId);
+
+                if (addon.quantity) {
+                    addonQuantities[serviceId][addonId] = Math.max(1, getAddonQuantity(serviceId, addonId) || 1);
+                }
+
+                break;
+            }
+        });
+    }
+
+    function renderPresetHint() {
+        if (!PRESET.services.length) {
+            return;
+        }
+
+        const hint = document.getElementById('svc-hint');
+
+        if (!hint) {
+            return;
+        }
+
+        const selectedNames = PRESET.services
+            .map(serviceId => getServiceDisplayName(serviceId))
+            .filter(Boolean)
+            .join(', ');
+
+        const source = PRESET.source_label ? ` from ${PRESET.source_label}` : '';
+        hint.textContent = `Preselected${source}: ${selectedNames}. You can change this before continuing.`;
+        hint.classList.add('visible');
+    }
 
     function renderServiceGrid() {
         const grid = document.getElementById('service-grid');
@@ -113,11 +222,11 @@ import SERVICES from './onboarding-services';
         container.innerHTML = [...selectedServices].map(sid => {
             const svc = SERVICES.find(s => s.id === sid);
             if (!svc) return '';
-            const platformMarkup = svc.platforms ? `
+            const platformMarkup = svc.platforms?.length ? `
               <div class="platform-section">
                 <div class="platform-heading">
-                  <div class="platform-title">Choose your platform direction</div>
-                  <div class="platform-subtitle">Pricing and add-ons below will follow the selected platform.</div>
+                  <div class="platform-title">Choose your direction</div>
+                  <div class="platform-subtitle">Pricing and add-ons below will follow the selected direction.</div>
                 </div>
                 <div class="platform-grid">
                   ${svc.platforms.map(platform => `
@@ -128,7 +237,7 @@ import SERVICES from './onboarding-services';
                     </button>
                   `).join('')}
                 </div>
-                ${selectedPlatforms[sid] ? '' : '<div class="platform-hint visible">Please choose a platform for your e-commerce website.</div>'}
+                ${selectedPlatforms[sid] ? '' : `<div class="platform-hint visible">Please choose a direction for your ${svc.name}.</div>`}
               </div>
             ` : '';
             const addons = getServiceAddons(sid).filter(addon => !(sid === 'wordpress' && addon.id === 'wp-ecommerce' && selectedServices.has('ecommerce')));
@@ -416,6 +525,20 @@ import SERVICES from './onboarding-services';
         return ok;
     }
 
+    function clearSubmitError() {
+        const error = document.getElementById('err-submit');
+        if (!error) return;
+        error.textContent = '';
+        error.classList.remove('visible');
+    }
+
+    function showSubmitError(message) {
+        const error = document.getElementById('err-submit');
+        if (!error) return;
+        error.textContent = message;
+        error.classList.add('visible');
+    }
+
     function validateField(fieldId, errId, test) {
         const el = document.getElementById(fieldId);
         const err = document.getElementById(errId);
@@ -507,23 +630,81 @@ import SERVICES from './onboarding-services';
         }
     }
 
-    function submitForm() {
+    function buildSubmissionPayload() {
+        return {
+            contact: {
+                name: document.getElementById('f-name')?.value?.trim() || '',
+                business: document.getElementById('f-business')?.value?.trim() || '',
+                email: document.getElementById('f-email')?.value?.trim() || '',
+                phone: document.getElementById('f-phone')?.value?.trim() || '',
+                country: document.getElementById('f-country')?.value || '',
+            },
+            services: [...selectedServices].map(serviceId => ({
+                id: serviceId,
+                platform: getSelectedPlatform(serviceId) || null,
+                addons: [...(selectedAddons[serviceId] || [])].map(addonId => ({
+                    id: addonId,
+                    quantity: getAddon(serviceId, addonId)?.quantity ? getAddonQuantity(serviceId, addonId) : 1,
+                })),
+            })),
+            brief: {
+                timeline,
+                budget: document.getElementById('f-budget')?.value || '',
+                source,
+                domain_preference: domainPreference,
+                hosting_preference: hostingPreference,
+                message: document.getElementById('f-message')?.value?.trim() || '',
+            },
+            terms_accepted: termsAccepted,
+            source_page: PRESET.source_page || '',
+            source_label: PRESET.source_label || '',
+        };
+    }
+
+    async function submitForm() {
         if (!termsAccepted) {
             document.getElementById('err-terms')?.classList.add('visible');
             return;
         }
+
+        clearSubmitError();
+
         const btn = document.getElementById('btn-submit');
         if (!btn) return;
         btn.classList.add('loading');
         btn.disabled = true;
-        setTimeout(() => {
+
+        try {
+            const response = await fetch(submitUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: JSON.stringify(buildSubmissionPayload()),
+            });
+
+            const payload = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const validationMessage = payload?.errors
+                    ? Object.values(payload.errors).flat().find(Boolean)
+                    : null;
+
+                throw new Error(validationMessage || payload?.message || 'We could not save your enquiry right now. Please try again.');
+            }
+
+            showSuccess(payload.reference || '');
+        } catch (error) {
+            showSubmitError(error?.message || 'We could not save your enquiry right now. Please try again.');
+        } finally {
             btn.classList.remove('loading');
             btn.disabled = false;
-            showSuccess();
-        }, 2000);
+        }
     }
 
-    function showSuccess() {
+    function showSuccess(reference = '') {
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         const fill = document.getElementById('progress-fill');
         if (fill) fill.style.width = '100%';
@@ -531,7 +712,7 @@ import SERVICES from './onboarding-services';
         if (label) label.textContent = 'Enquiry Sent!';
         const success = document.getElementById('step-success');
         if (success) success.style.display = 'block';
-        const ref = 'i2M-' + Date.now().toString().slice(-6);
+        const ref = reference || ('i2M-' + Date.now().toString().slice(-6));
         const refEl = document.getElementById('success-ref');
         if (refEl) refEl.textContent = 'REF: ' + ref;
         document.getElementById('form-panel')?.scrollIntoView({ behavior:'smooth', block:'start' });

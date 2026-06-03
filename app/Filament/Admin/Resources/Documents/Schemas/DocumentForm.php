@@ -24,10 +24,6 @@ class DocumentForm
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Select::make('website_id')
-                            ->relationship('website', 'name')
-                            ->searchable()
-                            ->preload(),
                         TextInput::make('title')
                             ->required()
                             ->maxLength(255),

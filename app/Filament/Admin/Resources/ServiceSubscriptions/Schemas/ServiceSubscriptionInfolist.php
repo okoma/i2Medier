@@ -18,8 +18,10 @@ class ServiceSubscriptionInfolist
                         Section::make('Subscription')
                             ->schema([
                                 TextEntry::make('client.company_name')->label('Client'),
-                                TextEntry::make('website.name')->label('Website'),
-                                TextEntry::make('service.name')->label('Service'),
+                                TextEntry::make('catalog_name')->label('Service'),
+                                TextEntry::make('onboardingVariant.name')
+                                    ->label('Direction')
+                                    ->placeholder('Base service'),
                                 TextEntry::make('status')->badge(),
                                 TextEntry::make('auto_renew')
                                     ->badge()

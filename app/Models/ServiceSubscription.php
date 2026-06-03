@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,8 +13,9 @@ class ServiceSubscription extends Model
     use HasFactory;
 
     protected $fillable = [
-        'website_id',
-        'service_id',
+        'project_id',
+        'onboarding_service_id',
+        'onboarding_service_variant_id',
         'client_id',
         'status',
         'billing_type',
@@ -42,14 +44,19 @@ class ServiceSubscription extends Model
         'price' => 'decimal:2',
     ];
 
-    public function website(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Website::class);
+        return $this->belongsTo(Project::class);
     }
 
-    public function service(): BelongsTo
+    public function onboardingService(): BelongsTo
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(OnboardingService::class, 'onboarding_service_id');
+    }
+
+    public function onboardingVariant(): BelongsTo
+    {
+        return $this->belongsTo(OnboardingServiceVariant::class, 'onboarding_service_variant_id');
     }
 
     public function client(): BelongsTo
@@ -96,5 +103,14 @@ class ServiceSubscription extends Model
     {
         return $query->where('status', 'active')
             ->whereBetween('expires_at', [now(), now()->addDays($days)]);
+    }
+
+    protected function catalogName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->onboardingVariant?->name
+                ?? $this->onboardingService?->name
+                ?? null,
+        );
     }
 }

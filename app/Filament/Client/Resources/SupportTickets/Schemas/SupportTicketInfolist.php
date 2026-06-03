@@ -26,8 +26,6 @@ class SupportTicketInfolist
                         Section::make('Status')
                             ->columnSpanFull()
                             ->schema([
-                                TextEntry::make('website.name')
-                                    ->label('Website'),
                                 TextEntry::make('status')
                                     ->badge(),
                                 TextEntry::make('priority')

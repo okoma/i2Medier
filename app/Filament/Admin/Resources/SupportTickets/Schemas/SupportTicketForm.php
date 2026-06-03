@@ -27,10 +27,6 @@ class SupportTicketForm
                             ->searchable()
                             ->preload()
                             ->required(),
-                        Select::make('website_id')
-                            ->relationship('website', 'name')
-                            ->searchable()
-                            ->preload(),
                         Select::make('submitted_by')
                             ->relationship('submitter', 'name')
                             ->searchable()

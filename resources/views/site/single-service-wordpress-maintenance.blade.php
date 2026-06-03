@@ -495,7 +495,7 @@
           <div class="pkg-feat no">Emergency response SLA</div>
           <div class="pkg-feat no">Included support hours</div>
         </div>
-        <div class="pkg-foot"><a href="{{ route('site.start') }}" class="pkg-btn outline">Get Started</a></div>
+        <div class="pkg-foot"><a href="{{ route('site.start', ['services' => 'wpmaintenance', 'source_page' => 'service-wordpress-maintenance', 'source_label' => 'WordPress Maintenance Service Page']) }}" class="pkg-btn outline">Get Started</a></div>
       </div>
       <div class="pkg-card featured reveal">
         <div class="pkg-head">

@@ -22,8 +22,6 @@ class InvoiceInfolist
                                 TextEntry::make('invoice_number'),
                                 TextEntry::make('status')
                                     ->badge(),
-                                TextEntry::make('website.name')
-                                    ->label('Website'),
                                 TextEntry::make('issued_at')
                                     ->date(),
                                 TextEntry::make('due_at')

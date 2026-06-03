@@ -2,10 +2,9 @@
 
 namespace App\Filament\Client\Pages;
 
-use App\Models\Addon;
-use App\Models\Service;
+use App\Models\OnboardingAddon;
+use App\Models\OnboardingService;
 use App\Models\ServiceSubscription;
-use App\Models\WebsitePackage;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Collection;
@@ -26,8 +25,6 @@ class ServicesHub extends Page
 
     public Collection $catalogServices;
 
-    public Collection $featuredPackages;
-
     public Collection $addons;
 
     public int $activeSubscriptions = 0;
@@ -40,25 +37,18 @@ class ServicesHub extends Page
         $user = auth()->user();
 
         $this->subscriptions = ServiceSubscription::query()
-            ->with(['service', 'website'])
+            ->with(['onboardingService', 'onboardingVariant', 'website'])
             ->where('client_id', $user?->client_id)
             ->latest()
             ->get();
 
-        $this->catalogServices = Service::query()
-            ->active()
+        $this->catalogServices = OnboardingService::query()
+            ->where('is_active', true)
             ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
-        $this->featuredPackages = WebsitePackage::query()
-            ->where('is_active', true)
-            ->orderByDesc('is_featured')
-            ->orderBy('sort_order')
-            ->limit(4)
-            ->get();
-
-        $this->addons = Addon::query()
+        $this->addons = OnboardingAddon::query()
             ->where('is_active', true)
             ->orderBy('sort_order')
             ->orderBy('name')

@@ -19,12 +19,8 @@ class UpcomingRenewals extends TableWidget
         return $table
             ->query($this->getTableQuery())
             ->columns([
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->searchable(),
-                TextColumn::make('service.name')
-                    ->label('Service')
-                    ->searchable(),
+                TextColumn::make('catalog_name')
+                    ->label('Service'),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('expires_at')
@@ -42,7 +38,7 @@ class UpcomingRenewals extends TableWidget
         $user = auth()->user();
 
         return ServiceSubscription::query()
-            ->with(['website', 'service'])
+            ->with(['onboardingService', 'onboardingVariant'])
             ->where('client_id', $user?->client_id)
             ->whereNotNull('expires_at')
             ->orderBy('expires_at')

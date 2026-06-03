@@ -20,9 +20,6 @@ class SupportTicketsTable
                 TextColumn::make('client.company_name')
                     ->label('Client')
                     ->searchable(),
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->placeholder('General'),
                 TextColumn::make('subject')
                     ->searchable()
                     ->wrap(),

@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\ServiceSubscriptions\Pages\CreateServiceSubscri
 use App\Filament\Admin\Resources\ServiceSubscriptions\Pages\EditServiceSubscription;
 use App\Filament\Admin\Resources\ServiceSubscriptions\Pages\ListServiceSubscriptions;
 use App\Filament\Admin\Resources\ServiceSubscriptions\Pages\ViewServiceSubscription;
+use App\Filament\Admin\Resources\ServiceSubscriptions\RelationManagers\AddonSubscriptionsRelationManager;
 use App\Filament\Admin\Resources\ServiceSubscriptions\Schemas\ServiceSubscriptionForm;
 use App\Filament\Admin\Resources\ServiceSubscriptions\Schemas\ServiceSubscriptionInfolist;
 use App\Filament\Admin\Resources\ServiceSubscriptions\Tables\ServiceSubscriptionsTable;
@@ -44,7 +45,7 @@ class ServiceSubscriptionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AddonSubscriptionsRelationManager::class,
         ];
     }
 

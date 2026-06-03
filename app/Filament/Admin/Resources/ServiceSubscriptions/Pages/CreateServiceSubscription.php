@@ -3,7 +3,8 @@
 namespace App\Filament\Admin\Resources\ServiceSubscriptions\Pages;
 
 use App\Filament\Admin\Resources\ServiceSubscriptions\ServiceSubscriptionResource;
-use App\Models\Service;
+use App\Models\OnboardingService;
+use App\Models\OnboardingServiceVariant;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateServiceSubscription extends CreateRecord
@@ -12,13 +13,16 @@ class CreateServiceSubscription extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $service = Service::find($data['service_id'] ?? null);
+        $service = OnboardingService::find($data['onboarding_service_id'] ?? null);
+        $variant = OnboardingServiceVariant::find($data['onboarding_service_variant_id'] ?? null);
 
-        if ($service) {
-            $data['billing_type'] ??= $service->billing_type;
-            $data['billing_cycle'] ??= $service->billing_cycle;
-            $data['price'] ??= $service->price;
-            $data['currency'] ??= $service->currency;
+        $billingSource = $variant ?? $service;
+
+        if ($billingSource) {
+            $data['billing_type'] ??= $billingSource->billing_type;
+            $data['billing_cycle'] ??= $billingSource->billing_cycle;
+            $data['price'] ??= $billingSource->base_price;
+            $data['currency'] ??= $billingSource->currency;
         }
 
         $data['created_by'] = auth()->id();

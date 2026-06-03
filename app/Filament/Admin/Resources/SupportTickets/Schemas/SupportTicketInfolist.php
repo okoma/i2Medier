@@ -21,9 +21,6 @@ class SupportTicketInfolist
                                 TextEntry::make('ticket_number'),
                                 TextEntry::make('client.company_name')
                                     ->label('Client'),
-                                TextEntry::make('website.name')
-                                    ->label('Website')
-                                    ->placeholder('General ticket'),
                                 TextEntry::make('subject'),
                                 TextEntry::make('description')
                                     ->columnSpanFull(),

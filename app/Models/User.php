@@ -6,7 +6,6 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,11 +44,6 @@ class User extends Authenticatable implements FilamentUser
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function assignedWebsites(): BelongsToMany
-    {
-        return $this->belongsToMany(Website::class, 'client_member_websites');
     }
 
     public function tickets(): HasMany

@@ -12,12 +12,8 @@ class ServiceSubscriptionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('website.name')
-                    ->label('Website')
-                    ->searchable(),
-                TextColumn::make('service.name')
-                    ->label('Service')
-                    ->searchable(),
+                TextColumn::make('catalog_name')
+                    ->label('Service'),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('billing_cycle')

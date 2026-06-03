@@ -19,8 +19,8 @@ class OnboardingTaskForm
                     ->columnSpanFull()
                     ->columns(2)
                     ->schema([
-                        Select::make('website_id')
-                            ->relationship('website', 'name')
+                        Select::make('project_id')
+                            ->relationship('project', 'reference')
                             ->searchable()
                             ->preload()
                             ->required(),
