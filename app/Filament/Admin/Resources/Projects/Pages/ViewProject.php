@@ -3,7 +3,10 @@
 namespace App\Filament\Admin\Resources\Projects\Pages;
 
 use App\Filament\Admin\Resources\Projects\ProjectResource;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewProject extends ViewRecord
@@ -14,6 +17,9 @@ class ViewProject extends ViewRecord
     {
         return [
             EditAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }
