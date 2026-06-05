@@ -7,7 +7,9 @@
 </head>
 <body @yield('body_attrs')>
     @yield('content')
+    @include('public.partials.mobile-menu')
 
+    @vite('resources/js/public.js')
     @stack('scripts')
 </body>
 </html>

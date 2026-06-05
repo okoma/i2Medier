@@ -14,13 +14,13 @@
 
 @php
     $baseCardClass = match ($layout) {
-        'linked' => 'grid gap-x-3 gap-y-3 rounded-[20px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[18px] pb-4 pt-[18px] [grid-template-columns:auto_1fr]',
-        default => 'flex min-h-[100px] items-center gap-[14px] rounded-[16px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-4 py-4',
+        'linked' => 'grid gap-x-3 gap-y-2 rounded-[16px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] px-4 pb-[14px] pt-4 [grid-template-columns:auto_1fr]',
+        default => 'flex min-h-[82px] items-center gap-3 rounded-[14px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] px-4 py-3',
     };
 
     $baseIconWrapperClass = match ($layout) {
-        'linked' => 'grid size-11 place-items-center rounded-xl',
-        default => 'grid size-11 shrink-0 place-items-center rounded-xl',
+        'linked' => 'grid size-9 place-items-center rounded-[10px]',
+        default => 'grid size-9 shrink-0 place-items-center rounded-[10px]',
     };
 
     $baseBodyClass = match ($layout) {
@@ -29,8 +29,8 @@
     };
 
     $baseLabelClass = match ($layout) {
-        'linked' => 'mb-1.5 block text-[var(--i2-text-sm)] text-[var(--i2-color-text-soft)]',
-        default => 'mb-1 block text-sm text-[var(--i2-color-text-soft)]',
+        'linked' => 'mb-1.5 block text-[var(--i2-text-sm)] text-[var(--i2-color-text-soft)] dark:text-white/55',
+        default => 'mb-1 block text-sm text-[var(--i2-color-text-soft)] dark:text-white/55',
     };
 
     $baseValueClass = match ($layout) {
@@ -39,8 +39,8 @@
     };
 
     $baseNoteClass = match ($layout) {
-        'linked' => 'text-[.88rem] text-[var(--i2-color-text-faint)]',
-        default => 'text-[.88rem] text-[var(--i2-color-text-faint)]',
+        'linked' => 'text-[.88rem] text-[var(--i2-color-text-faint)] dark:text-white/35',
+        default => 'text-[.88rem] text-[var(--i2-color-text-faint)] dark:text-white/35',
     };
 @endphp
 

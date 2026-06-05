@@ -25,10 +25,13 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        $adminDomain = config('app.admin_domain');
+        $hasDedicatedDomain = is_string($adminDomain) && $adminDomain !== '';
+
+        $panel = $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path($hasDedicatedDomain ? '' : 'admin')
             ->login()
             ->spa()
             ->databaseNotifications()
@@ -68,5 +71,11 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+        if ($hasDedicatedDomain) {
+            $panel->domain($adminDomain);
+        }
+
+        return $panel;
     }
 }

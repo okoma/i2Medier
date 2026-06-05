@@ -58,7 +58,13 @@ Route::post('/tools/business-name-generator/variations', [ToolController::class,
 Route::get('/tools/domain-name-generator', [ToolController::class, 'domainNameGenerator'])->name('tools.domain-name-generator');
 Route::post('/tools/domain-name-generator/generate', [ToolController::class, 'domainNameGenerate'])->name('tools.domain-name-generator.generate')->middleware('throttle:8,1');
 Route::get('/tools/website-brief-generator', [ToolController::class, 'websiteBriefGenerator'])->name('tools.website-brief-generator');
+Route::post('/tools/website-brief-generator/generate', [ToolController::class, 'websiteBriefGenerate'])->name('tools.website-brief-generator.generate')->middleware('throttle:6,1');
 Route::get('/tools/whatsapp-link-generator', [ToolController::class, 'whatsappLinkGenerator'])->name('tools.whatsapp-link-generator');
+Route::get('/tools/email-deliverability-checker', [ToolController::class, 'emailDeliverabilityChecker'])->name('tools.email-deliverability-checker');
+Route::post('/tools/email-deliverability-checker/generate', [ToolController::class, 'emailDeliverabilityGenerate'])->name('tools.email-deliverability-checker.generate')->middleware('throttle:6,1');
+Route::post('/tools/email-deliverability-checker/live-test/start', [ToolController::class, 'emailDeliverabilityStartLiveTest'])->name('tools.email-deliverability-checker.live-test.start')->middleware('throttle:6,1');
+Route::post('/tools/email-deliverability-checker/live-test/poll', [ToolController::class, 'emailDeliverabilityPollLiveTest'])->name('tools.email-deliverability-checker.live-test.poll')->middleware('throttle:20,1');
+Route::post('/webhooks/postmark/email-deliverability/{token}', [ToolController::class, 'emailDeliverabilityPostmarkWebhook'])->name('tools.email-deliverability-checker.postmark');
 Route::get('/tools/invoice-generator', [ToolController::class, 'invoiceGenerator'])->name('tools.invoice-generator');
 Route::post('/tools/leads', [ToolController::class, 'storeLead'])->name('tools.leads.store');
 Route::post('/tools/seo-audit/fetch-html', [ToolController::class, 'seoFetchHtml'])->name('tools.seo-audit.fetch-html')->middleware('throttle:15,1');

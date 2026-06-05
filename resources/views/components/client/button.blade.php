@@ -16,11 +16,11 @@
     };
 
     $variantClasses = match ($variant) {
-        'primary' => 'bg-[var(--i2-color-brand-ink)] text-white border border-transparent',
-        'secondary' => 'border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-brand-ink)]',
-        'info' => 'border border-[var(--i2-color-info-soft)] bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]',
-        'violet' => 'border border-[var(--i2-color-violet-soft)] bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]',
-        default => 'border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-brand-ink)]',
+        'primary' => 'bg-[var(--i2-color-brand-ink)] text-white border border-transparent dark:bg-white/10 dark:border dark:border-white/15 dark:text-white',
+        'secondary' => 'border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] text-[var(--i2-color-brand-ink)] dark:border-white/8 dark:bg-[#1e1f26] dark:text-white/90',
+        'info' => 'border border-[var(--i2-color-info-soft)] bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)] dark:bg-[rgba(60,124,255,.18)] dark:border-[rgba(60,124,255,.18)] dark:text-[var(--i2-color-info)]',
+        'violet' => 'border border-[var(--i2-color-violet-soft)] bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)] dark:bg-[rgba(124,85,255,.18)] dark:border-[rgba(124,85,255,.18)] dark:text-[var(--i2-color-violet)]',
+        default => 'border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] text-[var(--i2-color-brand-ink)] dark:border-white/8 dark:bg-[#1e1f26] dark:text-white/90',
     };
 @endphp
 

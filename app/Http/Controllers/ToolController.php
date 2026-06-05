@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmailDeliverabilityTest;
 use App\Models\ToolLead;
 use App\Services\AiService;
+use App\Services\EmailDeliverabilityService;
+use App\Services\EmailDeliverabilityLiveTestService;
 use App\Support\SiteSettings as SiteSettingsManager;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +23,7 @@ class ToolController extends Controller
             'tools' => $tools,
             'seo' => $this->seo(
                 'Free Business Tools for Nigerian Businesses | i2Medier',
-                'Explore free business tools from i2Medier including an SEO audit, website cost calculator, name generators, a website brief generator, a WhatsApp link generator, and an invoice generator.',
+                'Explore free business tools from i2Medier including an SEO audit, website cost calculator, name generators, an email deliverability checker, a website brief generator, a WhatsApp link generator, and an invoice generator.',
                 '/tools',
                 'CollectionPage'
             ),
@@ -55,6 +58,11 @@ class ToolController extends Controller
     public function whatsappLinkGenerator(): View
     {
         return $this->toolPage('whatsapp-link-generator', 'tools.whatsapp-link-generator');
+    }
+
+    public function emailDeliverabilityChecker(): View
+    {
+        return $this->toolPage('email-deliverability-checker', 'tools.email-deliverability-checker');
     }
 
     public function invoiceGenerator(): View
@@ -423,6 +431,233 @@ class ToolController extends Controller
         }
     }
 
+    public function websiteBriefGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
+    {
+        $data = [
+            'bizName' => trim((string) $request->string('bizName')),
+            'bizIndustry' => trim((string) $request->string('bizIndustry')),
+            'bizDesc' => trim((string) $request->string('bizDesc')),
+            'bizAudience' => trim((string) $request->string('bizAudience')),
+            'bizLocation' => trim((string) $request->string('bizLocation')),
+            'bizCurrentUrl' => trim((string) $request->string('bizCurrentUrl')),
+            'bizCompetitors' => trim((string) $request->string('bizCompetitors')),
+            'websiteType' => trim((string) $request->string('websiteType')),
+            'primaryGoal' => trim((string) $request->string('primaryGoal')),
+            'successMetrics' => trim((string) $request->string('successMetrics')),
+            'stakeholders' => trim((string) $request->string('stakeholders')),
+            'pages' => collect($request->input('pages', []))->map(fn ($page) => trim((string) $page))->filter()->values()->all(),
+            'contentStatus' => trim((string) $request->string('contentStatus')),
+            'copywriting' => trim((string) $request->string('copywriting')),
+            'specialPages' => trim((string) $request->string('specialPages')),
+            'visualStyle' => trim((string) $request->string('visualStyle')),
+            'colors' => [
+                'primary' => trim((string) data_get($request->input('colors', []), 'primary')),
+                'accent' => trim((string) data_get($request->input('colors', []), 'accent')),
+                'bg' => trim((string) data_get($request->input('colors', []), 'bg')),
+            ],
+            'noBrandColors' => (bool) $request->boolean('noBrandColors'),
+            'sitesLove' => trim((string) $request->string('sitesLove')),
+            'sitesAvoid' => trim((string) $request->string('sitesAvoid')),
+            'designNotes' => trim((string) $request->string('designNotes')),
+            'features' => collect($request->input('features', []))->map(fn ($feature) => trim((string) $feature))->filter()->values()->all(),
+            'platform' => trim((string) $request->string('platform')),
+            'domainStatus' => trim((string) $request->string('domainStatus')),
+            'hosting' => trim((string) $request->string('hosting')),
+            'existingTools' => trim((string) $request->string('existingTools')),
+            'seoReq' => trim((string) $request->string('seoReq')),
+            'timeline' => trim((string) $request->string('timeline')),
+            'budget' => trim((string) $request->string('budget')),
+            'extraNotes' => trim((string) $request->string('extraNotes')),
+        ];
+
+        if ($data['bizName'] === '' || $data['bizIndustry'] === '' || $data['bizDesc'] === '' || $data['bizAudience'] === '') {
+            return response()->json(['message' => 'Please complete the business details first.'], 422);
+        }
+
+        if ($data['websiteType'] === '' || $data['primaryGoal'] === '') {
+            return response()->json(['message' => 'Please complete the project goals section.'], 422);
+        }
+
+        if ($data['pages'] === []) {
+            return response()->json(['message' => 'Please select at least one page.'], 422);
+        }
+
+        if ($data['visualStyle'] === '') {
+            return response()->json(['message' => 'Please choose a design direction first.'], 422);
+        }
+
+        if ($data['timeline'] === '' || $data['budget'] === '') {
+            return response()->json(['message' => 'Please choose a timeline and budget range.'], 422);
+        }
+
+        try {
+            $result = $service->generateWebsiteBrief(
+                $settings->businessNameAiConfig(),
+                $this->buildWebsiteBriefPrompt($data)
+            );
+
+            return response()->json([
+                'brief' => $result['data'],
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
+        }
+    }
+
+    public function emailDeliverabilityGenerate(
+        Request $request,
+        SiteSettingsManager $settings,
+        AiService $aiService,
+        EmailDeliverabilityService $deliverabilityService
+    ): JsonResponse
+    {
+        $input = trim((string) $request->string('input'));
+        $data = [
+            'input' => $input,
+            'checkType' => trim((string) $request->string('checkType', 'full')),
+            'clientTarget' => trim((string) $request->string('clientTarget', 'all')),
+            'esp' => trim((string) $request->string('esp', 'unknown')),
+            'volume' => trim((string) $request->string('volume', 'low')),
+            'sendingDomain' => trim((string) $request->string('sendingDomain')),
+            'subject' => trim((string) $request->string('subject')),
+        ];
+
+        if ($input === '') {
+            return response()->json(['message' => 'Please enter an email address or domain first.'], 422);
+        }
+
+        if (! $this->looksLikeEmailOrDomain($input)) {
+            return response()->json(['message' => 'Enter a valid email address or domain.'], 422);
+        }
+
+        try {
+            $result = $deliverabilityService->analyze(
+                $data,
+                $settings->businessNameAiConfig(),
+                $aiService
+            );
+
+            return response()->json([
+                'report' => $result['data'],
+                'provider' => $result['provider'],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
+        }
+    }
+
+    public function emailDeliverabilityStartLiveTest(
+        Request $request,
+        SiteSettingsManager $settings,
+        EmailDeliverabilityLiveTestService $liveTestService
+    ): JsonResponse {
+        $input = trim((string) $request->string('input'));
+        $data = [
+            'input' => $input,
+            'checkType' => trim((string) $request->string('checkType', 'full')),
+            'clientTarget' => trim((string) $request->string('clientTarget', 'all')),
+            'esp' => trim((string) $request->string('esp', 'unknown')),
+            'volume' => trim((string) $request->string('volume', 'low')),
+            'sendingDomain' => trim((string) $request->string('sendingDomain')),
+            'subject' => trim((string) $request->string('subject')),
+        ];
+
+        if ($input === '') {
+            return response()->json(['message' => 'Please enter an email address or domain first.'], 422);
+        }
+
+        if (! $this->looksLikeEmailOrDomain($input)) {
+            return response()->json(['message' => 'Enter a valid email address or domain.'], 422);
+        }
+
+        try {
+            $test = $liveTestService->createTest($data, $settings->deliverabilityTestConfig());
+
+            return response()->json([
+                'test' => [
+                    'id' => $test->public_id,
+                    'recipient_address' => $test->test_recipient,
+                    'subject_line' => $test->expected_subject,
+                    'instructions' => 'Send a real email from the address or domain you want to test to this generated address. You can use the suggested subject line or your own realistic campaign subject.',
+                ],
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 422);
+        }
+    }
+
+    public function emailDeliverabilityPollLiveTest(
+        Request $request,
+        SiteSettingsManager $settings,
+        EmailDeliverabilityLiveTestService $liveTestService,
+        EmailDeliverabilityService $deliverabilityService,
+        AiService $aiService
+    ): JsonResponse {
+        $testId = trim((string) $request->string('testId'));
+
+        if ($testId === '') {
+            return response()->json(['message' => 'Missing live test reference.'], 422);
+        }
+
+        $test = EmailDeliverabilityTest::query()->where('public_id', $testId)->first();
+
+        if (! $test) {
+            return response()->json(['message' => 'Live test not found.'], 404);
+        }
+
+        try {
+            $test = $liveTestService->pollAndProcess(
+                $test,
+                $settings->deliverabilityTestConfig(),
+                $deliverabilityService,
+                $settings->businessNameAiConfig(),
+                $aiService
+            );
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 502);
+        }
+
+        if ($test->status !== 'completed' || ! is_array($test->report)) {
+            return response()->json([
+                'status' => $test->status,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'completed',
+            'report' => $test->report,
+            'provider' => $test->meta['summary_provider'] ?? 'system',
+        ]);
+    }
+
+    public function emailDeliverabilityPostmarkWebhook(
+        Request $request,
+        string $token,
+        SiteSettingsManager $settings,
+        EmailDeliverabilityLiveTestService $liveTestService,
+        EmailDeliverabilityService $deliverabilityService,
+        AiService $aiService
+    ): JsonResponse {
+        try {
+            $test = $liveTestService->captureFromPostmark(
+                $request->all(),
+                $token,
+                $settings->deliverabilityTestConfig(),
+                $deliverabilityService,
+                $settings->businessNameAiConfig(),
+                $aiService
+            );
+
+            return response()->json([
+                'accepted' => true,
+                'matched' => $test !== null,
+            ]);
+        } catch (\RuntimeException $exception) {
+            return response()->json(['message' => $exception->getMessage()], 403);
+        }
+    }
+
     private function extractCruxMetric(array $metrics, string $key): ?array
     {
         $metric = $metrics[$key] ?? null;
@@ -535,6 +770,135 @@ Key signals:
 Return ONLY a valid JSON array (no markdown, no explanation, no code fences) with up to 6 recommendations in exactly this structure:
 [{"priority":"critical|high|medium|low","category":"Meta Tags|Content|Technical|Schema|Social|Performance","title":"Short action title","description":"1-2 sentence fix explanation.","impact":"One sentence on why this matters."}]
 PROMPT;
+    }
+
+    private function buildWebsiteBriefPrompt(array $data): string
+    {
+        $refNumber = 'WB-' . now()->format('Y') . '-' . str_pad((string) random_int(1, 999), 3, '0', STR_PAD_LEFT);
+        $pages = implode(', ', $data['pages']);
+        $features = $data['features'] !== [] ? implode(', ', $data['features']) : 'Standard brochure-site functionality';
+        $location = $data['bizLocation'] !== '' ? $data['bizLocation'] : 'Nigeria';
+        $currentWebsite = $data['bizCurrentUrl'] !== '' ? $data['bizCurrentUrl'] : 'None';
+        $competitors = $data['bizCompetitors'] !== '' ? $data['bizCompetitors'] : 'Not provided';
+        $successMetrics = $data['successMetrics'] !== '' ? $data['successMetrics'] : 'To be defined';
+        $stakeholders = $data['stakeholders'] !== '' ? $data['stakeholders'] : 'Not provided';
+        $contentStatus = $data['contentStatus'] !== '' ? $data['contentStatus'] : 'Not specified';
+        $copywriting = $data['copywriting'] !== '' ? $data['copywriting'] : 'Not specified';
+        $specialPages = $data['specialPages'] !== '' ? $data['specialPages'] : 'None specified';
+        $sitesLove = $data['sitesLove'] !== '' ? $data['sitesLove'] : 'None provided';
+        $sitesAvoid = $data['sitesAvoid'] !== '' ? $data['sitesAvoid'] : 'None provided';
+        $designNotes = $data['designNotes'] !== '' ? $data['designNotes'] : 'None';
+        $platform = $data['platform'] !== '' ? $data['platform'] : 'No preference';
+        $domainStatus = $data['domainStatus'] !== '' ? $data['domainStatus'] : 'Not specified';
+        $hosting = $data['hosting'] !== '' ? $data['hosting'] : 'Not specified';
+        $existingTools = $data['existingTools'] !== '' ? $data['existingTools'] : 'None specified';
+        $seoReq = $data['seoReq'] !== '' ? $data['seoReq'] : 'Standard SEO setup';
+        $extraNotes = $data['extraNotes'] !== '' ? $data['extraNotes'] : 'None';
+        $brandColors = $data['noBrandColors']
+            ? 'No brand colours yet. The design team should propose a suitable palette.'
+            : sprintf(
+                'Primary %s, Accent %s, Background %s',
+                $data['colors']['primary'] ?: 'not provided',
+                $data['colors']['accent'] ?: 'not provided',
+                $data['colors']['bg'] ?: 'not provided'
+            );
+
+        return <<<PROMPT
+Generate a comprehensive website project brief for this client. Return ONLY a valid JSON object with this exact structure:
+
+{
+  "refNumber": "{$refNumber}",
+  "executiveSummary": "string",
+  "sections": [
+    {
+      "number": "01",
+      "title": "Business Overview",
+      "paragraphs": ["string", "string"],
+      "table": [{"key": "string", "value": "string"}]
+    }
+  ],
+  "siteArchitecture": {
+    "description": "string",
+    "pages": [{"name": "string", "purpose": "string"}]
+  },
+  "featureRequirements": {
+    "mustHave": ["string"],
+    "niceToHave": ["string"],
+    "outOfScope": ["string"]
+  },
+  "timeline": [
+    {"phase": "string", "duration": "string", "deliverables": ["string"]}
+  ],
+  "budgetGuidance": "string",
+  "nextSteps": ["string", "string", "string", "string"]
+}
+
+Rules:
+- Return no markdown, no prose outside JSON, and no extra top-level keys.
+- The "sections" array must contain exactly these 7 sections in this order:
+  1. Business Overview
+  2. Target Audience
+  3. Project Objectives & Success Metrics
+  4. Design & Brand Direction
+  5. Technical Architecture
+  6. Content Strategy & SEO
+  7. Risk Considerations
+- Make every section specific to this client's inputs. Mention the business name, industry, target audience, and goals directly.
+- Keep the writing professional, practical, and useful for a design and development team.
+- Site architecture pages should reflect the selected pages and explain why each one matters.
+- Feature requirements should separate must-have, nice-to-have, and out-of-scope items realistically based on the client's budget and timeline.
+- Timeline should be plausible for the stated budget and urgency.
+
+CLIENT DATA
+Business: {$data['bizName']}
+Industry: {$data['bizIndustry']}
+Business description: {$data['bizDesc']}
+Target audience: {$data['bizAudience']}
+Location/market: {$location}
+Current website: {$currentWebsite}
+Competitors: {$competitors}
+
+PROJECT GOALS
+Website type: {$data['websiteType']}
+Primary goal: {$data['primaryGoal']}
+Success metrics: {$successMetrics}
+Stakeholders: {$stakeholders}
+
+CONTENT & PAGES
+Selected pages: {$pages}
+Content status: {$contentStatus}
+Copywriting needs: {$copywriting}
+Special pages/sections: {$specialPages}
+
+DESIGN
+Visual style: {$data['visualStyle']}
+Brand colours: {$brandColors}
+Reference sites liked: {$sitesLove}
+Reference sites to avoid: {$sitesAvoid}
+Additional design notes: {$designNotes}
+
+FEATURES & TECH
+Requested features: {$features}
+Platform preference: {$platform}
+Domain status: {$domainStatus}
+Hosting preference: {$hosting}
+Existing tools/integrations: {$existingTools}
+SEO requirements: {$seoReq}
+
+DELIVERY
+Timeline: {$data['timeline']}
+Budget: {$data['budget']}
+Additional notes: {$extraNotes}
+PROMPT;
+    }
+
+    private function looksLikeEmailOrDomain(string $input): bool
+    {
+        if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        }
+
+        return preg_match('/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i', $input) === 1;
     }
 
     private function buildDomainNamePrompt(array $input): string
@@ -734,6 +1098,25 @@ PROMPT;
                     'Copy the generated link and use it on your website or campaigns.',
                 ],
             ],
+            'email-deliverability-checker' => [
+                'slug' => 'email-deliverability-checker',
+                'title' => 'Email Deliverability Checker',
+                'route' => 'tools.email-deliverability-checker',
+                'description' => 'Check how healthy your email setup looks across SPF, DKIM, DMARC, spam risk, and inbox placement signals.',
+                'summary' => 'Run a practical deliverability audit for an email address or domain and get a clearer action plan for inbox placement.',
+                'label' => 'FREE TOOL',
+                'gate' => false,
+                'features' => [
+                    'Review DNS, SPF, DKIM, DMARC, blacklist, and reputation signals',
+                    'Get a simple score with realistic inbox placement guidance',
+                    'See practical recommendations to improve deliverability',
+                ],
+                'steps' => [
+                    'Enter an email address or domain and choose your audit focus.',
+                    'We analyse key deliverability signals and simulate likely inbox outcomes.',
+                    'Review the score, checks, recommendations, and inbox preview.',
+                ],
+            ],
             'invoice-generator' => [
                 'slug' => 'invoice-generator',
                 'title' => 'Invoice Generator',
@@ -761,7 +1144,7 @@ PROMPT;
         return [
             'title' => $title,
             'description' => $description,
-            'keywords' => 'free business tools, free SEO audit, website cost calculator, business name generator, domain name generator, website brief generator, WhatsApp link generator, invoice generator',
+            'keywords' => 'free business tools, free SEO audit, website cost calculator, business name generator, domain name generator, website brief generator, WhatsApp link generator, email deliverability checker, invoice generator',
             'robots' => 'index,follow',
             'author' => 'i2Medier',
             'url' => url($path),

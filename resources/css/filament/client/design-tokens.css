@@ -41,6 +41,38 @@
     --text-portal-stat: var(--i2-text-stat);
 }
 
+.dark {
+    /* Surfaces */
+    --i2-color-surface: #1e1f26;
+    --i2-color-surface-alt: #141417;
+    --i2-color-surface-soft: #252630;
+
+    /* Text */
+    --i2-color-text: rgba(255, 255, 255, 0.88);
+    --i2-color-text-soft: rgba(255, 255, 255, 0.55);
+    --i2-color-text-faint: rgba(255, 255, 255, 0.35);
+    --i2-color-text-muted: rgba(255, 255, 255, 0.30);
+
+    /* Borders */
+    --i2-color-border-soft: rgba(255, 255, 255, 0.08);
+    --i2-color-border-strong: rgba(201, 168, 76, 0.22);
+    --i2-color-border-brand: rgba(201, 168, 76, 0.22);
+
+    /* Neutrals (used for icon bg, progress track, etc.) */
+    --i2-color-neutral-100: rgba(255, 255, 255, 0.06);
+    --i2-color-neutral-200: rgba(255, 255, 255, 0.10);
+    --i2-color-neutral-400: rgba(255, 255, 255, 0.30);
+    --i2-color-neutral-700: rgba(255, 255, 255, 0.55);
+
+    /* Semantic soft backgrounds */
+    --i2-color-success-soft: rgba(26, 107, 58, 0.28);
+    --i2-color-warning-soft: rgba(218, 132, 0, 0.22);
+    --i2-color-danger-soft: rgba(255, 59, 48, 0.18);
+    --i2-color-info-soft: rgba(60, 124, 255, 0.18);
+    --i2-color-violet-soft: rgba(124, 85, 255, 0.18);
+    --i2-color-accent-soft: rgba(200, 169, 110, 0.18);
+}
+
 :root {
     /* Public brand colors */
     --i2-color-brand-ink: #0d0d0d;

@@ -56,6 +56,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Panel Domains
+    |--------------------------------------------------------------------------
+    |
+    | Optional dedicated domains for Filament panels. Leave these null to
+    | keep using the main app domain with the existing panel paths.
+    |
+    */
+
+    'admin_domain' => env('ADMIN_DOMAIN'),
+    'client_domain' => env('CLIENT_DOMAIN'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

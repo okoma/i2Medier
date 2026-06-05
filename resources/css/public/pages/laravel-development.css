@@ -63,7 +63,7 @@ body{font-family:var(--sans);background:var(--white);color:var(--black);font-siz
 .hero-right{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;animation:fadeUp .9s .5s ease both}
 .terminal-wrap{position:relative;width:100%;max-width:480px}
 .float-badge{position:absolute;top:-16px;right:-12px;background:var(--gold);color:var(--black);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .75rem;border-radius:100px;box-shadow:0 4px 20px rgba(200,169,110,.4);animation:floatY 3s ease-in-out infinite;white-space:nowrap}
-.float-badge2{position:absolute;bottom:-16px;left:-12px;background:rgba(255,255,255,.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);color:var(--white);font-size:.62rem;font-weight:600;letter-spacing:.06em;padding:.35rem .75rem;border-radius:100px;animation:floatY 3.5s .5s ease-in-out infinite;white-space:nowrap}
+.float-badge2{position:absolute;bottom:-16px;left:-12px;background:rgba(255,255,255,.07);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);color:var(--white);font-size:.62rem;font-weight:600;letter-spacing:.06em;padding:.35rem .75rem;border-radius:100px;animation:floatY 3.5s .5s ease-in-out infinite;white-space:nowrap}
 .terminal{background:#0f1117;border-radius:10px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06)}
 .terminal-bar{background:#1c1e26;padding:.6rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
 .t-dot{width:10px;height:10px;border-radius:50%}

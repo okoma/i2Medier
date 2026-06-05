@@ -18,15 +18,17 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
 @section('content')
 <nav>
     <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
-    <div class="nav-center">
-        <span class="nav-tag">Domain Name Generator</span>
-    </div>
-    <div class="nav-right">
-        <button class="nav-btn" type="button" onclick="toggleFavPanel()">
-            <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span>
-            <span>Saved</span> <span class="fav-count-badge" id="fav-count">0</span>
-        </button>
-    </div>
+    @include('public.partials.menu')
+    <span class="nav-tag">Domain Name Generator</span>
+    <button class="nav-btn" type="button" onclick="toggleFavPanel()">
+        <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span>
+        <span>Saved</span> <span class="fav-count-badge" id="fav-count">0</span>
+    </button>
+    <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
 
 <div class="hero">

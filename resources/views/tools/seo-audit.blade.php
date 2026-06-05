@@ -21,8 +21,13 @@ data-recommend-route="{{ route('tools.seo-audit.recommend') }}"
 @section('content')
 <nav>
   <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
-  <span class="nav-tag">SEO Audit Tool</span>
+  @include('public.partials.menu')
   <a href="{{ route('site.home') }}" class="nav-back">← Back to site</a>
+  <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <div id="input-state">

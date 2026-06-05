@@ -17,7 +17,7 @@ class PublicInvoiceController extends Controller
         $invoice = $this->findInvoice($token);
 
         return view('billing.public-invoice', [
-            'invoice' => $invoice->load('client', 'website', 'items', 'payments'),
+            'invoice' => $invoice->load('client', 'items', 'payments'),
             'settings' => $settings,
             'bankTransfer' => $settings->bankTransferDetails(),
             'seo' => [

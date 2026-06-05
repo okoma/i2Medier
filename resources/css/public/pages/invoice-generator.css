@@ -15,7 +15,7 @@
 }
 html{height:100%}
 body{font-family:var(--sans);background:var(--off);color:var(--black);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
-nav{background:var(--black);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
+nav{background:var(--black);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
 .logo{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.02em}
 .logo span{color:var(--gold)}
 .nav-center{display:flex;align-items:center;gap:.65rem}

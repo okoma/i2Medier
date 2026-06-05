@@ -93,6 +93,73 @@ class AiService
         });
     }
 
+    public function generateWebsiteBrief(array $config, string $prompt): array
+    {
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($prompt): array {
+            $result = match ($provider) {
+                'anthropic' => $this->generateObjectWithAnthropic($apiKey, $model, $prompt),
+                'openai' => $this->generateObjectWithOpenAi($apiKey, $model, $prompt),
+                'gemini' => $this->generateObjectWithGemini($apiKey, $model, $prompt),
+                'mistral' => $this->generateObjectWithMistral($apiKey, $model, $prompt),
+                default => throw new RuntimeException('Unsupported AI provider.'),
+            };
+
+            if (
+                ($result['executiveSummary'] ?? null) === null
+                || ! is_array($result['sections'] ?? null)
+                || ! is_array($result['featureRequirements'] ?? null)
+                || ! is_array($result['timeline'] ?? null)
+                || ! is_array($result['nextSteps'] ?? null)
+            ) {
+                throw new RuntimeException('Returned an invalid website brief.');
+            }
+
+            return $result;
+        });
+    }
+
+    public function summarizeEmailDeliverability(array $config, array $context): array
+    {
+        $prompt = <<<PROMPT
+You are summarising a real technical email deliverability audit. Do not invent checks or findings.
+
+Return ONLY a valid JSON object with this exact structure:
+{
+  "summary": "One concise sentence summarising the main deliverability state.",
+  "preview_text": "One short inbox-preview sentence, no more than 22 words."
+}
+
+Audit context:
+- Domain: {$context['domain']}
+- Score: {$context['score']}/100
+- Verdict: {$context['verdict']}
+- Failed checks: {$this->implodeForPrompt($context['failed'] ?? [])}
+- Warned checks: {$this->implodeForPrompt($context['warned'] ?? [])}
+- Priority technical notes: {$this->implodeForPrompt($context['recommendations'] ?? [])}
+
+Rules:
+- Be accurate to the provided findings.
+- Keep both fields plain English and practical.
+- No markdown. No extra keys.
+PROMPT;
+
+        return $this->runAcrossProviders($config, function (string $provider, string $apiKey, string $model) use ($prompt): array {
+            $result = match ($provider) {
+                'anthropic' => $this->generateObjectWithAnthropic($apiKey, $model, $prompt),
+                'openai' => $this->generateObjectWithOpenAi($apiKey, $model, $prompt),
+                'gemini' => $this->generateObjectWithGemini($apiKey, $model, $prompt),
+                'mistral' => $this->generateObjectWithMistral($apiKey, $model, $prompt),
+                default => throw new RuntimeException('Unsupported AI provider.'),
+            };
+
+            if (! is_string($result['summary'] ?? null)) {
+                throw new RuntimeException('Returned an invalid deliverability summary.');
+            }
+
+            return $result;
+        });
+    }
+
     private function runAcrossProviders(array $config, callable $runner): array
     {
         $order = $this->providerOrder((string) ($config['preferred'] ?? 'auto'));
@@ -250,6 +317,97 @@ class AiService
         return $this->decodeJsonArray($content);
     }
 
+    private function generateObjectWithAnthropic(string $apiKey, string $model, string $prompt): array
+    {
+        $response = Http::withHeaders([
+            'x-api-key' => $apiKey,
+            'anthropic-version' => '2023-06-01',
+            'content-type' => 'application/json',
+        ])->timeout(65)->post('https://api.anthropic.com/v1/messages', [
+            'model' => $model,
+            'max_tokens' => 3200,
+            'system' => 'You are a senior digital project manager. Return only a valid JSON object that matches the requested schema exactly.',
+            'messages' => [['role' => 'user', 'content' => $prompt]],
+        ]);
+
+        if (! $response->successful()) {
+            throw new RuntimeException('Anthropic did not return a successful response.');
+        }
+
+        return $this->decodeJsonObject($response->json('content.0.text', ''));
+    }
+
+    private function generateObjectWithOpenAi(string $apiKey, string $model, string $prompt): array
+    {
+        $response = Http::withToken($apiKey)
+            ->acceptJson()
+            ->timeout(65)
+            ->post('https://api.openai.com/v1/chat/completions', [
+                'model' => $model,
+                'response_format' => ['type' => 'json_object'],
+                'messages' => [
+                    ['role' => 'system', 'content' => 'You are a senior digital project manager. Return only JSON matching the requested schema.'],
+                    ['role' => 'user', 'content' => $prompt],
+                ],
+            ]);
+
+        if (! $response->successful()) {
+            throw new RuntimeException('OpenAI did not return a successful response.');
+        }
+
+        return $this->decodeJsonObject((string) $response->json('choices.0.message.content', ''));
+    }
+
+    private function generateObjectWithGemini(string $apiKey, string $model, string $prompt): array
+    {
+        $response = Http::timeout(65)
+            ->post('https://generativelanguage.googleapis.com/v1beta/models/' . urlencode($model) . ':generateContent?key=' . urlencode($apiKey), [
+                'systemInstruction' => [
+                    'parts' => [[
+                        'text' => 'You are a senior digital project manager. Return only JSON matching the requested schema.',
+                    ]],
+                ],
+                'contents' => [[
+                    'parts' => [[
+                        'text' => $prompt,
+                    ]],
+                ]],
+                'generationConfig' => [
+                    'responseMimeType' => 'application/json',
+                ],
+            ]);
+
+        if (! $response->successful()) {
+            throw new RuntimeException('Gemini did not return a successful response.');
+        }
+
+        $parts = $response->json('candidates.0.content.parts', []);
+        $text = collect(is_array($parts) ? $parts : [])->pluck('text')->implode('');
+
+        return $this->decodeJsonObject($text);
+    }
+
+    private function generateObjectWithMistral(string $apiKey, string $model, string $prompt): array
+    {
+        $response = Http::withToken($apiKey)
+            ->acceptJson()
+            ->timeout(65)
+            ->post('https://api.mistral.ai/v1/chat/completions', [
+                'model' => $model,
+                'response_format' => ['type' => 'json_object'],
+                'messages' => [
+                    ['role' => 'system', 'content' => 'You are a senior digital project manager. Return only JSON matching the requested schema.'],
+                    ['role' => 'user', 'content' => $prompt],
+                ],
+            ]);
+
+        if (! $response->successful()) {
+            throw new RuntimeException('Mistral did not return a successful response.');
+        }
+
+        return $this->decodeJsonObject((string) $response->json('choices.0.message.content', ''));
+    }
+
     private function buildBusinessNamePrompt(array $input): string
     {
         $lengthMap = [
@@ -325,5 +483,30 @@ PROMPT;
         }
 
         return [];
+    }
+
+    private function decodeJsonObject(string $text): array
+    {
+        $clean = trim(str_replace(['```json', '```'], '', $text));
+        $decoded = json_decode($clean, true);
+
+        if (is_array($decoded) && ! array_is_list($decoded)) {
+            return $decoded;
+        }
+
+        if (preg_match('/\{[\s\S]*\}/', $clean, $matches) === 1) {
+            $decoded = json_decode($matches[0], true);
+
+            return is_array($decoded) && ! array_is_list($decoded) ? $decoded : [];
+        }
+
+        return [];
+    }
+
+    private function implodeForPrompt(array $values): string
+    {
+        $items = collect($values)->map(fn ($value) => trim((string) $value))->filter()->values()->all();
+
+        return $items === [] ? 'None' : implode('; ', $items);
     }
 }

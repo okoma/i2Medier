@@ -21,12 +21,14 @@ class ClientPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        return $panel
+        $panel = $panel
             ->id('client')
             ->path('portal')
             ->login()
             ->spa()
             ->databaseNotifications()
+            ->sidebarWidth('16rem')
+            ->collapsedSidebarWidth('3.5rem')
             ->sidebarCollapsibleOnDesktop()
             ->collapsibleNavigationGroups()
             ->brandName('i2Medier Client Portal')
@@ -57,5 +59,13 @@ class ClientPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+
+        $clientDomain = config('app.client_domain');
+
+        if (is_string($clientDomain) && $clientDomain !== '') {
+            $panel->domain($clientDomain);
+        }
+
+        return $panel;
     }
 }

@@ -295,6 +295,7 @@
 .tool-result--blurred > *:not(.tool-gate) {
   filter: blur(6px);
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 

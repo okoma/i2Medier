@@ -41,7 +41,6 @@ class BillingCenter extends Page
         $clientId = $user?->client_id;
 
         $this->outstandingInvoices = Invoice::query()
-            ->with('website')
             ->where('client_id', $clientId)
             ->whereNotIn('status', ['paid', 'cancelled', 'refunded'])
             ->orderBy('due_at')
@@ -49,7 +48,7 @@ class BillingCenter extends Page
             ->get();
 
         $this->recentPayments = InvoicePayment::query()
-            ->with('invoice.website')
+            ->with('invoice')
             ->whereHas('invoice', fn ($query) => $query->where('client_id', $clientId))
             ->latest('paid_at')
             ->latest('created_at')

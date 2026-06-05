@@ -1,35 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
 @import "tailwindcss";
+@import "../client/design-tokens.css";
 
 /* Filament core styles (REQUIRED) */
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
-
-:root {
-    --i2-panel-warm: oklch(0.96 0.02 83.39);
-    --i2-panel-dark: oklch(0.24 0.02 264.05);
-    --i2-panel-accent: oklch(0.76 0.15 73.14);
-}
-
 .fi-sidebar {
     backdrop-filter: blur(18px);
-    background: color-mix(in oklab, white 82%, var(--i2-panel-warm) 18%);
+    background: color-mix(in oklab, white 82%, var(--i2-color-brand-cream) 18%);
 }
 
 .fi-topbar {
     backdrop-filter: blur(16px);
-    background: color-mix(in oklab, white 88%, var(--i2-panel-warm) 12%);
+    background: color-mix(in oklab, white 88%, var(--i2-color-brand-off) 12%);
 }
 
 .dark .fi-body {
     background:
-        radial-gradient(circle at top left, color-mix(in oklab, var(--i2-panel-accent) 14%, transparent), transparent 30%),
-        linear-gradient(180deg, color-mix(in oklab, var(--i2-panel-dark) 96%, black 4%) 0%, #111827 100%);
+        radial-gradient(circle at top left, color-mix(in oklab, var(--i2-color-brand-gold) 14%, transparent), transparent 30%),
+        linear-gradient(180deg, color-mix(in oklab, var(--i2-portal-shell-dark) 96%, black 4%) 0%, #111827 100%);
 }
 
 .dark .fi-sidebar,
 .dark .fi-topbar {
-    background: color-mix(in oklab, #111827 88%, var(--i2-panel-dark) 12%);
+    background: color-mix(in oklab, #111827 88%, var(--i2-portal-shell-dark) 12%);
 }
 
 /* — WordPress-style title input — */

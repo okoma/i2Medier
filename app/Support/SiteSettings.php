@@ -122,6 +122,56 @@ class SiteSettings
         return (string) ($this->record()?->mistral_model ?? '');
     }
 
+    public function deliverabilityCaptureDriver(): string
+    {
+        return (string) ($this->record()?->deliverability_capture_driver ?? 'imap');
+    }
+
+    public function deliverabilityTestInboxAddress(): string
+    {
+        return (string) ($this->record()?->deliverability_test_inbox_address ?? '');
+    }
+
+    public function deliverabilityAutoDelete(): bool
+    {
+        return (bool) ($this->record()?->deliverability_auto_delete ?? true);
+    }
+
+    public function deliverabilityPostmarkWebhookToken(): string
+    {
+        return (string) ($this->record()?->deliverability_postmark_webhook_token ?? '');
+    }
+
+    public function deliverabilityImapHost(): string
+    {
+        return (string) ($this->record()?->deliverability_imap_host ?? '');
+    }
+
+    public function deliverabilityImapPort(): int
+    {
+        return (int) ($this->record()?->deliverability_imap_port ?? 993);
+    }
+
+    public function deliverabilityImapEncryption(): string
+    {
+        return (string) ($this->record()?->deliverability_imap_encryption ?? 'ssl');
+    }
+
+    public function deliverabilityImapUsername(): string
+    {
+        return (string) ($this->record()?->deliverability_imap_username ?? '');
+    }
+
+    public function deliverabilityImapPassword(): string
+    {
+        return (string) ($this->record()?->deliverability_imap_password ?? '');
+    }
+
+    public function deliverabilityImapFolder(): string
+    {
+        return (string) ($this->record()?->deliverability_imap_folder ?? 'INBOX');
+    }
+
     public function businessNameAiConfig(): array
     {
         return [
@@ -134,6 +184,22 @@ class SiteSettings
             'openai_model' => $this->openAiModel(),
             'gemini_model' => $this->geminiModel(),
             'mistral_model' => $this->mistralModel(),
+        ];
+    }
+
+    public function deliverabilityTestConfig(): array
+    {
+        return [
+            'driver' => $this->deliverabilityCaptureDriver(),
+            'test_inbox_address' => $this->deliverabilityTestInboxAddress(),
+            'auto_delete' => $this->deliverabilityAutoDelete(),
+            'postmark_webhook_token' => $this->deliverabilityPostmarkWebhookToken(),
+            'imap_host' => $this->deliverabilityImapHost(),
+            'imap_port' => $this->deliverabilityImapPort(),
+            'imap_encryption' => $this->deliverabilityImapEncryption(),
+            'imap_username' => $this->deliverabilityImapUsername(),
+            'imap_password' => $this->deliverabilityImapPassword(),
+            'imap_folder' => $this->deliverabilityImapFolder(),
         ];
     }
 
@@ -161,6 +227,16 @@ class SiteSettings
             'openai_model'             => $record?->openai_model ?? '',
             'gemini_model'             => $record?->gemini_model ?? '',
             'mistral_model'            => $record?->mistral_model ?? '',
+            'deliverability_capture_driver' => $record?->deliverability_capture_driver ?? 'imap',
+            'deliverability_test_inbox_address' => $record?->deliverability_test_inbox_address ?? '',
+            'deliverability_auto_delete' => $record?->deliverability_auto_delete ?? true,
+            'deliverability_postmark_webhook_token' => $record?->deliverability_postmark_webhook_token ?? '',
+            'deliverability_imap_host' => $record?->deliverability_imap_host ?? '',
+            'deliverability_imap_port' => $record?->deliverability_imap_port ?? 993,
+            'deliverability_imap_encryption' => $record?->deliverability_imap_encryption ?? 'ssl',
+            'deliverability_imap_username' => $record?->deliverability_imap_username ?? '',
+            'deliverability_imap_password' => $record?->deliverability_imap_password ?? '',
+            'deliverability_imap_folder' => $record?->deliverability_imap_folder ?? 'INBOX',
         ];
     }
 }

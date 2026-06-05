@@ -64,6 +64,7 @@ class SitemapController extends Controller
             $this->makeUrl(route('tools.domain-name-generator'), null, 'monthly', '0.7'),
             $this->makeUrl(route('tools.website-brief-generator'), null, 'monthly', '0.7'),
             $this->makeUrl(route('tools.whatsapp-link-generator'), null, 'monthly', '0.7'),
+            $this->makeUrl(route('tools.email-deliverability-checker'), null, 'monthly', '0.7'),
             $this->makeUrl(route('tools.invoice-generator'), null, 'monthly', '0.7'),
             $this->makeUrl(route('site.terms'), null, 'yearly', '0.3'),
             $this->makeUrl(route('site.privacy'), null, 'yearly', '0.3'),

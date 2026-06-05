@@ -5,35 +5,35 @@
                 'label' => 'Total Referrals',
                 'value' => '128',
                 'note' => 'All time',
-                'iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]',
+                'iconClass' => 'bg-[var(--i2-color-violet-soft)] dark:bg-[rgba(124,85,255,.18)] text-[var(--i2-color-violet)]',
                 'icon' => 'users',
             ],
             [
                 'label' => 'Total Earnings',
                 'value' => '₦250,000',
                 'note' => 'All time',
-                'iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]',
+                'iconClass' => 'bg-[var(--i2-color-success-soft)] dark:bg-[rgba(26,107,58,.28)] text-[var(--i2-color-success)]',
                 'icon' => 'cart',
             ],
             [
                 'label' => 'Pending Payout',
                 'value' => '₦45,000',
                 'note' => 'Awaiting approval',
-                'iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]',
+                'iconClass' => 'bg-[var(--i2-color-warning-soft)] dark:bg-[rgba(218,132,0,.22)] text-[var(--i2-color-warning)]',
                 'icon' => 'calendar',
             ],
             [
                 'label' => 'Paid Earnings',
                 'value' => '₦205,000',
                 'note' => 'All time',
-                'iconClass' => 'bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]',
+                'iconClass' => 'bg-[var(--i2-color-info-soft)] dark:bg-[rgba(60,124,255,.18)] text-[var(--i2-color-info)]',
                 'icon' => 'chart',
             ],
             [
                 'label' => 'Conversion Rate',
                 'value' => '18.75%',
                 'note' => 'All time',
-                'iconClass' => 'bg-[var(--i2-color-danger-soft)] text-[var(--i2-color-danger)]',
+                'iconClass' => 'bg-[var(--i2-color-danger-soft)] dark:bg-[rgba(255,59,48,.18)] text-[var(--i2-color-danger)]',
                 'icon' => 'close-circle',
             ],
         ];
@@ -46,11 +46,11 @@
         ];
 
         $referrals = [
-            ['id' => '#R128', 'referral' => 'example.com', 'product' => 'Premium Hosting', 'amount' => '₦90,000', 'commission' => '₦18,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 29, 2025'],
-            ['id' => '#R127', 'referral' => 'acmeweb.com', 'product' => '.com Domain', 'amount' => '₦15,000', 'commission' => '₦3,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 28, 2025'],
-            ['id' => '#R126', 'referral' => 'bestsite.ng', 'product' => 'SSL Certificate', 'amount' => '₦10,000', 'commission' => '₦2,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]'], 'date' => 'May 28, 2025'],
-            ['id' => '#R125', 'referral' => 'mysite.io', 'product' => 'Business Email', 'amount' => '₦20,000', 'commission' => '₦4,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]'], 'date' => 'May 27, 2025'],
-            ['id' => '#R124', 'referral' => 'webhub.net', 'product' => 'Cloud Hosting', 'amount' => '₦150,000', 'commission' => '₦30,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]'], 'date' => 'May 26, 2025'],
+            ['id' => '#R128', 'referral' => 'example.com', 'product' => 'Premium Hosting', 'amount' => '₦90,000', 'commission' => '₦18,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] dark:bg-[rgba(26,107,58,.28)] text-[var(--i2-color-success)]'], 'date' => 'May 29, 2025'],
+            ['id' => '#R127', 'referral' => 'acmeweb.com', 'product' => '.com Domain', 'amount' => '₦15,000', 'commission' => '₦3,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] dark:bg-[rgba(26,107,58,.28)] text-[var(--i2-color-success)]'], 'date' => 'May 28, 2025'],
+            ['id' => '#R126', 'referral' => 'bestsite.ng', 'product' => 'SSL Certificate', 'amount' => '₦10,000', 'commission' => '₦2,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] dark:bg-[rgba(218,132,0,.22)] text-[var(--i2-color-warning)]'], 'date' => 'May 28, 2025'],
+            ['id' => '#R125', 'referral' => 'mysite.io', 'product' => 'Business Email', 'amount' => '₦20,000', 'commission' => '₦4,000', 'status' => ['label' => 'Pending', 'class' => 'bg-[var(--i2-color-warning-soft)] dark:bg-[rgba(218,132,0,.22)] text-[var(--i2-color-warning)]'], 'date' => 'May 27, 2025'],
+            ['id' => '#R124', 'referral' => 'webhub.net', 'product' => 'Cloud Hosting', 'amount' => '₦150,000', 'commission' => '₦30,000', 'status' => ['label' => 'Paid', 'class' => 'bg-[var(--i2-color-success-soft)] dark:bg-[rgba(26,107,58,.28)] text-[var(--i2-color-success)]'], 'date' => 'May 26, 2025'],
         ];
 
         $infoCards = [
@@ -58,21 +58,21 @@
                 'title' => 'How It Works',
                 'body' => 'Refer customers using your unique link and earn commission on their purchases.',
                 'link' => 'Learn More',
-                'iconClass' => 'bg-[var(--i2-color-violet-soft)] text-[var(--i2-color-violet)]',
+                'iconClass' => 'bg-[var(--i2-color-violet-soft)] dark:bg-[rgba(124,85,255,.18)] text-[var(--i2-color-violet)]',
                 'icon' => 'check-card',
             ],
             [
                 'title' => 'Commission Rate',
                 'body' => 'Earn up to 20% commission on hosting, domains, services and other products.',
                 'link' => 'View Rates',
-                'iconClass' => 'bg-[var(--i2-color-success-soft)] text-[var(--i2-color-success)]',
+                'iconClass' => 'bg-[var(--i2-color-success-soft)] dark:bg-[rgba(26,107,58,.28)] text-[var(--i2-color-success)]',
                 'icon' => 'plus-card',
             ],
             [
                 'title' => 'Payout Cycle',
                 'body' => 'Payouts are processed every Monday for balances above ₦10,000.',
                 'link' => 'View Payout Policy',
-                'iconClass' => 'bg-[var(--i2-color-warning-soft)] text-[var(--i2-color-warning)]',
+                'iconClass' => 'bg-[var(--i2-color-warning-soft)] dark:bg-[rgba(218,132,0,.22)] text-[var(--i2-color-warning)]',
                 'icon' => 'calendar-card',
             ],
             [
@@ -80,7 +80,7 @@
                 'body' => 'Our affiliate team is here to help you succeed.',
                 'link' => 'Contact Support',
                 'href' => './ticket.html',
-                'iconClass' => 'bg-[var(--i2-color-info-soft)] text-[var(--i2-color-info)]',
+                'iconClass' => 'bg-[var(--i2-color-info-soft)] dark:bg-[rgba(60,124,255,.18)] text-[var(--i2-color-info)]',
                 'icon' => 'chat-card',
             ],
         ];
@@ -100,7 +100,7 @@
         ];
     @endphp
 
-    <div class="font-[var(--i2-font-sans)] text-[var(--i2-color-text)]">
+    <div class="font-[var(--i2-font-sans)] text-[var(--i2-color-text)] dark:text-white/88">
         <section aria-label="Affiliate summary" class="mb-4 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
             @foreach ($stats as $stat)
                 <x-client.stat-card
@@ -132,39 +132,39 @@
                 <section class="grid grid-cols-1 gap-4 2xl:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)]">
                     <x-client.panel class="px-[18px] pb-4 pt-[18px]">
                         <div class="mb-3 flex items-center justify-between gap-3">
-                            <h2 class="text-base">Referral Overview</h2>
-                            <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)]">
+                            <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Referral Overview</h2>
+                            <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)] dark:text-white/90">
                                 This Month <span aria-hidden="true" class="ml-1">˅</span>
                             </button>
                         </div>
 
-                        <div class="mb-2 flex flex-wrap items-center gap-5 text-[.88rem] text-[var(--i2-color-text-soft)]">
+                        <div class="mb-2 flex flex-wrap items-center gap-5 text-[.88rem] text-[var(--i2-color-text-soft)] dark:text-white/55">
                             <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-info)]"></i>Clicks</span>
                             <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-success)]"></i>Signups</span>
                             <span class="inline-flex items-center gap-2"><i class="inline-block h-1 w-[14px] rounded-full bg-[var(--i2-color-violet)]"></i>Conversions</span>
                         </div>
 
                         <div aria-hidden="true" class="mt-[14px] grid grid-cols-[auto_minmax(0,1fr)] gap-3">
-                            <div class="flex flex-col justify-between py-1 pb-[22px] text-[.82rem] text-[var(--i2-color-text-faint)]">
+                            <div class="flex flex-col justify-between py-1 pb-[22px] text-[.82rem] text-[var(--i2-color-text-faint)] dark:text-white/35">
                                 <span>80</span>
                                 <span>60</span>
                                 <span>40</span>
                                 <span>20</span>
                                 <span>0</span>
                             </div>
-                            <div class="relative min-h-[240px]">
-                                <div class="absolute left-0 right-0 top-[22px] border-t border-[var(--i2-color-border-soft)]/60"></div>
-                                <div class="absolute left-0 right-0 top-[68px] border-t border-[var(--i2-color-border-soft)]/60"></div>
-                                <div class="absolute left-0 right-0 top-[114px] border-t border-[var(--i2-color-border-soft)]/60"></div>
-                                <div class="absolute left-0 right-0 top-[160px] border-t border-[var(--i2-color-border-soft)]/60"></div>
-                                <div class="absolute left-0 right-0 top-[206px] border-t border-[var(--i2-color-border-soft)]/60"></div>
+                            <div class="relative min-h-[160px]">
+                                <div class="absolute left-0 right-0 top-[22px] border-t border-[var(--i2-color-border-soft)] dark:border-white/8/60 dark:border-white/8"></div>
+                                <div class="absolute left-0 right-0 top-[68px] border-t border-[var(--i2-color-border-soft)] dark:border-white/8/60 dark:border-white/8"></div>
+                                <div class="absolute left-0 right-0 top-[114px] border-t border-[var(--i2-color-border-soft)] dark:border-white/8/60 dark:border-white/8"></div>
+                                <div class="absolute left-0 right-0 top-[160px] border-t border-[var(--i2-color-border-soft)] dark:border-white/8/60 dark:border-white/8"></div>
+                                <div class="absolute left-0 right-0 top-[206px] border-t border-[var(--i2-color-border-soft)] dark:border-white/8/60 dark:border-white/8"></div>
                                 <svg viewBox="0 0 520 220" preserveAspectRatio="none" class="absolute inset-x-0 bottom-[18px] top-0 h-[calc(100%-18px)] w-full">
                                     <path d="M16 168 L42 160 L70 120 L96 132 L124 98 L150 78 L178 132 L204 124 L232 98 L258 86 L286 120 L314 136 L342 122 L370 104 L398 116 L426 96 L454 58 L482 68 L504 36" class="fill-none stroke-[var(--i2-color-info)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
                                     <path d="M16 192 L42 188 L70 150 L96 160 L124 126 L150 122 L178 160 L204 156 L232 136 L258 148 L286 132 L314 156 L342 148 L370 136 L398 144 L426 132 L454 112 L482 128 L504 114" class="fill-none stroke-[var(--i2-color-success)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
                                     <path d="M16 206 L42 204 L70 186 L96 190 L124 174 L150 168 L178 192 L204 188 L232 176 L258 186 L286 172 L314 188 L342 184 L370 176 L398 184 L426 174 L454 162 L482 172 L504 158" class="fill-none stroke-[var(--i2-color-violet)] [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]"></path>
                                     <circle cx="504" cy="36" r="4" class="fill-[var(--i2-color-info)] stroke-white [stroke-width:3]"></circle>
                                 </svg>
-                                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-[.82rem] text-[var(--i2-color-text-faint)]">
+                                <div class="absolute bottom-0 left-0 right-0 flex justify-between text-[.82rem] text-[var(--i2-color-text-faint)] dark:text-white/35">
                                     <span class="whitespace-nowrap">May 1</span>
                                     <span class="whitespace-nowrap">May 6</span>
                                     <span class="whitespace-nowrap">May 11</span>
@@ -178,25 +178,25 @@
                     </x-client.panel>
 
                     <x-client.panel class="px-[18px] pb-4 pt-[18px]">
-                        <h2 class="text-base">Top Performing Links</h2>
+                        <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Top Performing Links</h2>
                         <div class="my-7 flex flex-col gap-6">
                             @foreach ($topLinks as $link)
                                 <div class="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
                                     <a href="#" class="break-all text-[var(--i2-color-info)]">{{ $link['url'] }}</a>
-                                    <span class="shrink-0 whitespace-nowrap text-[.9rem] text-[var(--i2-color-brand-ink)]">{{ $link['clicks'] }}</span>
+                                    <span class="shrink-0 whitespace-nowrap text-[.9rem] text-[var(--i2-color-brand-ink)] dark:text-white/90">{{ $link['clicks'] }}</span>
                                 </div>
                             @endforeach
                         </div>
-                        <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)]">View All Links</button>
+                        <button type="button" class="inline-flex min-h-8 items-center justify-center rounded-[10px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] px-[14px] text-[.94rem] text-[var(--i2-color-brand-ink)] dark:text-white/90">View All Links</button>
                     </x-client.panel>
                 </section>
 
                 <x-client.panel class="px-[18px] pb-4 pt-[18px]">
                     <div class="mb-3 flex items-center justify-between gap-3">
-                        <h2 class="text-base">Recent Referrals</h2>
+                        <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Recent Referrals</h2>
                     </div>
 
-                    <div class="hidden border-b border-[var(--i2-color-border-soft)] px-0 pb-3 text-[.92rem] text-[var(--i2-color-text-faint)] xl:grid xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
+                    <div class="hidden border-b border-[var(--i2-color-border-soft)] dark:border-white/8 px-0 pb-3 text-[.92rem] text-[var(--i2-color-text-faint)] dark:text-white/35 xl:grid xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
                         <span>ID</span>
                         <span>Referral</span>
                         <span>Product / Service</span>
@@ -207,14 +207,14 @@
                     </div>
 
                     @foreach ($referrals as $referral)
-                        <article class="grid gap-2 border-t border-[var(--i2-color-border-soft)] px-0 py-[14px] text-[.93rem] text-[var(--i2-color-text-soft)] first:border-t-0 xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">ID:</span>{{ $referral['id'] }}</span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Referral:</span>{{ $referral['referral'] }}</span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Product:</span>{{ $referral['product'] }}</span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Amount:</span>{{ $referral['amount'] }}</span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Commission:</span>{{ $referral['commission'] }}</span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Status:</span><b class="{{ $referral['status']['class'] }} inline-flex min-h-6 items-center justify-center rounded-[7px] px-2 text-[.74rem] font-semibold not-italic">{{ $referral['status']['label'] }}</b></span>
-                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] xl:hidden">Date:</span>{{ $referral['date'] }}</span>
+                        <article class="grid gap-2 border-t border-[var(--i2-color-border-soft)] dark:border-white/8 px-0 py-[10px] text-[.93rem] text-[var(--i2-color-text-soft)] dark:text-white/55 first:border-t-0 xl:grid-cols-[62px_1.15fr_1.25fr_100px_105px_95px_116px] xl:gap-[14px] xl:items-center">
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">ID:</span>{{ $referral['id'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Referral:</span>{{ $referral['referral'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Product:</span>{{ $referral['product'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Amount:</span>{{ $referral['amount'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Commission:</span>{{ $referral['commission'] }}</span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Status:</span><b class="{{ $referral['status']['class'] }} inline-flex min-h-[20px] items-center justify-center rounded-[5px] px-2 text-[0.72rem] font-semibold not-italic">{{ $referral['status']['label'] }}</b></span>
+                            <span><span class="mr-2 text-[var(--i2-color-text-faint)] dark:text-white/35 xl:hidden">Date:</span>{{ $referral['date'] }}</span>
                         </article>
                     @endforeach
 
@@ -223,7 +223,7 @@
 
                 <section class="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-4">
                     @foreach ($infoCards as $card)
-                        <x-client.panel class="flex min-h-[150px] gap-[14px] px-[18px] pb-4 pt-[18px]">
+                        <x-client.panel class="flex min-h-[150px] gap-[14px] p-3">
                             <div class="{{ $card['iconClass'] }} grid size-[46px] shrink-0 place-items-center rounded-[14px]">
                                 @if ($card['icon'] === 'check-card')
                                     <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="5.5" width="14" height="13" rx="2"></rect><path d="m8 9 3 3 5-5"></path></svg>
@@ -236,8 +236,8 @@
                                 @endif
                             </div>
                             <div>
-                                <h2 class="mb-3 text-base">{{ $card['title'] }}</h2>
-                                <p class="mb-4 text-[.92rem] leading-[1.6] text-[var(--i2-color-text-faint)]">{{ $card['body'] }}</p>
+                                <h2 class="mb-3 text-[0.88rem] font-semibold tracking-[-0.02em]">{{ $card['title'] }}</h2>
+                                <p class="mb-4 text-[.92rem] leading-[1.6] text-[var(--i2-color-text-faint)] dark:text-white/35">{{ $card['body'] }}</p>
                                 <a href="{{ $card['href'] ?? '#' }}" class="inline-flex items-center gap-2 font-medium text-[var(--i2-color-info)]">{{ $card['link'] }} <span aria-hidden="true">→</span></a>
                             </div>
                         </x-client.panel>
@@ -247,20 +247,20 @@
 
             <div class="grid gap-4">
                 <x-client.panel class="px-[18px] pb-4 pt-[18px]">
-                    <h2 class="text-base">Your Affiliate Link</h2>
-                    <div class="mt-[18px] grid grid-cols-1 gap-[10px] sm:grid-cols-[minmax(0,1fr)_42px] sm:gap-0">
-                        <span class="flex min-h-[42px] items-center overflow-hidden text-ellipsis whitespace-nowrap rounded-[12px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface-alt)] px-[14px] text-[var(--i2-color-text-soft)] sm:rounded-r-none sm:border-r-0">https://i2medier.com/aff.php?ref=JohnDoe</span>
-                        <button type="button" class="inline-flex min-h-[42px] items-center justify-center rounded-[12px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-text-soft)] sm:rounded-l-none" aria-label="Copy affiliate link">
+                    <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Your Affiliate Link</h2>
+                    <div class="mt-3 mb-3 grid grid-cols-1 gap-[10px] sm:grid-cols-[minmax(0,1fr)_42px] sm:gap-0">
+                        <span class="flex min-h-[42px] items-center overflow-hidden text-ellipsis whitespace-nowrap rounded-[12px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface-alt)] dark:bg-[#141417] px-[14px] text-[var(--i2-color-text-soft)] dark:text-white/55 sm:rounded-r-none sm:border-r-0">https://i2medier.com/aff.php?ref=JohnDoe</span>
+                        <button type="button" class="inline-flex min-h-[42px] items-center justify-center rounded-[12px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] text-[var(--i2-color-text-soft)] dark:text-white/55 sm:rounded-l-none" aria-label="Copy affiliate link">
                             <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="9" y="9" width="10" height="10" rx="2"></rect><rect x="5" y="5" width="10" height="10" rx="2"></rect></svg>
                         </button>
                     </div>
-                    <div class="mt-[18px] flex flex-wrap items-center gap-[18px] text-[var(--i2-color-text-soft)]">
+                    <div class="mt-[18px] flex flex-wrap items-center gap-[18px] text-[var(--i2-color-text-soft)] dark:text-white/55">
                         <span>Share</span>
                         <div class="flex items-center gap-[10px]">
-                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Facebook">f</button>
-                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Twitter">t</button>
-                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on LinkedIn">in</button>
-                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] text-[var(--i2-color-info)]" aria-label="Share more">
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Facebook">f</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on Twitter">t</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] text-[.92rem] font-bold text-[var(--i2-color-info)]" aria-label="Share on LinkedIn">in</button>
+                            <button type="button" class="inline-flex size-[34px] items-center justify-center rounded-full border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] text-[var(--i2-color-info)]" aria-label="Share more">
                                 <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><circle cx="6" cy="12" r="1.5"></circle><circle cx="12" cy="7" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle><path d="M7.3 11.2 10.7 8.1"></path><path d="m13.3 8.1 3.4 3.1"></path></svg>
                             </button>
                         </div>
@@ -268,12 +268,12 @@
                 </x-client.panel>
 
                 <x-client.panel class="px-[18px] pb-4 pt-[18px]">
-                    <h2 class="text-base">Quick Tools</h2>
-                    <div class="mt-4 grid gap-3">
+                    <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Quick Tools</h2>
+                    <div class="mt-3 grid gap-2.5">
                         @foreach ($quickTools as $tool)
-                            <button type="button" class="flex w-full items-center justify-between gap-3 rounded-[14px] border border-[var(--i2-color-border-soft)] bg-[var(--i2-color-surface)] p-3 text-left">
+                            <button type="button" class="flex w-full items-center justify-between gap-3 rounded-[14px] border border-[var(--i2-color-border-soft)] dark:border-white/8 bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] p-3 text-left">
                                 <span class="flex items-center gap-3">
-                                    <span class="grid size-[46px] shrink-0 place-items-center rounded-[14px] bg-[var(--i2-color-surface-alt)] text-[var(--i2-color-text-soft)]">
+                                    <span class="grid size-[46px] shrink-0 place-items-center rounded-[14px] bg-[var(--i2-color-surface-alt)] dark:bg-[#141417] text-[var(--i2-color-text-soft)] dark:text-white/55">
                                         @if ($tool['icon'] === 'banner')
                                             <svg viewBox="0 0 24 24" class="size-[18px] fill-none stroke-current [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:1.8]" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h6"></path></svg>
                                         @elseif ($tool['icon'] === 'report')
@@ -285,32 +285,32 @@
                                         @endif
                                     </span>
                                     <span>
-                                        <strong class="mb-1 block text-[.98rem] text-[var(--i2-color-brand-ink)]">{{ $tool['title'] }}</strong>
-                                        <small class="text-[var(--i2-color-text-faint)]">{{ $tool['body'] }}</small>
+                                        <strong class="mb-1 block text-[.98rem] text-[var(--i2-color-brand-ink)] dark:text-white/90">{{ $tool['title'] }}</strong>
+                                        <small class="text-[var(--i2-color-text-faint)] dark:text-white/35">{{ $tool['body'] }}</small>
                                     </span>
                                 </span>
-                                <span class="text-[1.25rem] text-[var(--i2-color-text-faint)]">›</span>
+                                <span class="text-[1.25rem] text-[var(--i2-color-text-faint)] dark:text-white/35">›</span>
                             </button>
                         @endforeach
                     </div>
                 </x-client.panel>
 
                 <x-client.panel class="px-[18px] pb-4 pt-[18px]">
-                    <h2 class="text-base">Commission Overview</h2>
+                    <h2 class="text-[0.88rem] font-semibold tracking-[-0.02em]">Commission Overview</h2>
                     <div class="mt-[14px] grid gap-[18px]">
-                        <div class="relative mx-auto size-[148px] rounded-full bg-[conic-gradient(var(--i2-color-info)_0_48%,var(--i2-color-success)_48%_72%,var(--i2-color-violet)_72%_90%,var(--i2-color-warning)_90%_100%)]">
-                            <div class="absolute inset-[18px] rounded-full bg-[var(--i2-color-surface)] shadow-[inset_0_0_0_1px_var(--i2-color-border-soft)]"></div>
+                        <div class="relative mx-auto size-28 rounded-full bg-[conic-gradient(var(--i2-color-info)_0_48%,var(--i2-color-success)_48%_72%,var(--i2-color-violet)_72%_90%,var(--i2-color-warning)_90%_100%)]">
+                            <div class="absolute inset-[16px] rounded-full bg-[var(--i2-color-surface)] dark:bg-[#1e1f26] shadow-[inset_0_0_0_1px_var(--i2-color-border-soft)]"></div>
                             <div class="absolute inset-0 z-[1] grid place-content-center text-center">
                                 <strong class="text-[1.7rem] tracking-[-0.05em]">₦250,000</strong>
-                                <span class="mt-1.5 text-[.9rem] text-[var(--i2-color-text-faint)]">Total Earnings</span>
+                                <span class="mt-1.5 text-[.9rem] text-[var(--i2-color-text-faint)] dark:text-white/35">Total Earnings</span>
                             </div>
                         </div>
                         <div class="grid gap-3">
                             @foreach ($commissionLegend as $row)
-                                <div class="grid grid-cols-[12px_minmax(0,1fr)_auto] items-center gap-[10px] text-[.93rem] text-[var(--i2-color-text-soft)]">
+                                <div class="grid grid-cols-[12px_minmax(0,1fr)_auto] items-center gap-[10px] text-[.93rem] text-[var(--i2-color-text-soft)] dark:text-white/55">
                                     <span class="{{ $row['class'] }} size-[10px] rounded-full"></span>
                                     <span>{{ $row['label'] }}</span>
-                                    <strong class="text-[.92rem] text-[var(--i2-color-brand-ink)]">{{ $row['value'] }}</strong>
+                                    <strong class="text-[.92rem] text-[var(--i2-color-brand-ink)] dark:text-white/90">{{ $row['value'] }}</strong>
                                 </div>
                             @endforeach
                         </div>

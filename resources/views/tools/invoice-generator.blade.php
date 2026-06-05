@@ -9,16 +9,19 @@
 @section('content')
 <nav>
     <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
-    <div class="nav-center">
-        <span class="nav-tag">Invoice Generator</span>
-        <button class="nav-status draft" id="status-btn" onclick="cycleStatus()"><span class="icon-dot" aria-hidden="true"></span><span>Draft</span></button>
-    </div>
+    @include('public.partials.menu')
     <div class="nav-right">
+        <button class="nav-status draft" id="status-btn" onclick="cycleStatus()"><span class="icon-dot" aria-hidden="true"></span><span>Draft</span></button>
         <button class="nav-btn" onclick="loadSaved()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6H10l2 2h6.5A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><path d="M4 10h16"/></svg></span><span>Load</span></button>
         <button class="nav-btn" onclick="saveInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v6h8V4"/><path d="M9 19v-5h6v5"/></svg></span><span>Save</span></button>
         <button class="nav-btn" onclick="newInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span>New</span></button>
         <button class="nav-btn primary" onclick="printInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg></span><span>Download PDF</span></button>
     </div>
+    <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
 
 <div class="app">

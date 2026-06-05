@@ -276,6 +276,99 @@ class SiteSettings extends Page implements HasForms
                                                     ->helperText('Used when Mistral is selected or reached through fallback.'),
                                             ]),
                                     ]),
+                                Section::make('Email Deliverability Live Tester')
+                                    ->description('Configure the inbox the live deliverability tool should watch when visitors send a real test message. Results are read either from Postmark inbound webhooks or a cPanel mailbox over IMAP.')
+                                    ->columns(2)
+                                    ->schema([
+                                        Select::make('deliverability_capture_driver')
+                                            ->label('Capture Driver')
+                                            ->options([
+                                                'imap' => 'cPanel / IMAP mailbox',
+                                                'postmark' => 'Postmark inbound webhook',
+                                            ])
+                                            ->default('imap')
+                                            ->native(false)
+                                            ->required()
+                                            ->helperText('Choose how the tool should receive the real test email.'),
+
+                                        Toggle::make('deliverability_auto_delete')
+                                            ->label('Auto-delete captured test emails')
+                                            ->helperText('Recommended for IMAP mailboxes so the inbox stays clean after a test is processed.'),
+
+                                        TextInput::make('deliverability_test_inbox_address')
+                                            ->label('Test Inbox Domain / Catch-all Domain')
+                                            ->placeholder('test-inbox.i2medier.com')
+                                            ->helperText('The tool generates unique addresses like token@test-inbox.i2medier.com for each live test. Point this domain to your catch-all mailbox or Postmark inbound.')
+                                            ->maxLength(255)
+                                            ->columnSpan(2),
+
+                                        TextInput::make('deliverability_postmark_webhook_token')
+                                            ->label('Postmark Webhook Token')
+                                            ->helperText('Used to secure the inbound Postmark webhook endpoint.')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->columnSpan(2)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'postmark'),
+
+                                        Placeholder::make('deliverability_postmark_path')
+                                            ->label('Postmark Webhook URL')
+                                            ->content(function (callable $get): string {
+                                                $token = trim((string) $get('deliverability_postmark_webhook_token'));
+
+                                                return $token === ''
+                                                    ? 'Save a webhook token first, then use the generated URL in Postmark inbound settings.'
+                                                    : route('tools.email-deliverability-checker.postmark', ['token' => $token]);
+                                            })
+                                            ->columnSpan(2)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'postmark'),
+
+                                        TextInput::make('deliverability_imap_host')
+                                            ->label('IMAP Host')
+                                            ->placeholder('mail.yourdomain.com')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+
+                                        TextInput::make('deliverability_imap_port')
+                                            ->label('IMAP Port')
+                                            ->numeric()
+                                            ->default(993)
+                                            ->minValue(1)
+                                            ->maxValue(65535)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+
+                                        Select::make('deliverability_imap_encryption')
+                                            ->label('IMAP Encryption')
+                                            ->options([
+                                                'ssl' => 'SSL',
+                                                'tls' => 'TLS',
+                                                'none' => 'None',
+                                            ])
+                                            ->default('ssl')
+                                            ->native(false)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+
+                                        TextInput::make('deliverability_imap_folder')
+                                            ->label('Mailbox Folder')
+                                            ->default('INBOX')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+
+                                        TextInput::make('deliverability_imap_username')
+                                            ->label('IMAP Username')
+                                            ->placeholder('catchall@test-inbox.i2medier.com')
+                                            ->maxLength(255)
+                                            ->columnSpan(1)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+
+                                        TextInput::make('deliverability_imap_password')
+                                            ->label('IMAP Password')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->columnSpan(1)
+                                            ->visible(fn (callable $get) => $get('deliverability_capture_driver') === 'imap'),
+                                    ]),
                             ]),
                     ]),
             ]);
