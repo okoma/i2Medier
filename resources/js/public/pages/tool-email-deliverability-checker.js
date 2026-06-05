@@ -357,11 +357,11 @@ if (page) {
                             </div>
                             <div class="cc-desc">${escapeHtml(check.description)}</div>
                             ${check.detail ? `<div class="cc-detail">${escapeHtml(check.detail)}</div>` : ''}
-                            ${check.score_impact !== undefined ? `
+                            ${check.score_impact != null ? `
                             <div class="cc-bar-wrap">
                                 <div class="cc-bar-label">
                                     <span>Score Impact</span>
-                                    <span style="color:${Number(check.score_impact) >= 0 ? 'var(--ok-dk)' : 'var(--err-dk)'}">${Number(check.score_impact) >= 0 ? '+' : ''}${escapeHtml(check.score_impact)}</span>
+                                    <span style="color:${Number(check.score_impact) >= 0 ? 'var(--ok-dk)' : 'var(--err-dk)'}">${Number(check.score_impact) > 0 ? '+' : ''}${escapeHtml(check.score_impact)}</span>
                                 </div>
                                 <div class="cc-bar-track"><div class="cc-bar-fill ${barClass}" style="--target-w:${barWidth}%"></div></div>
                             </div>` : ''}
