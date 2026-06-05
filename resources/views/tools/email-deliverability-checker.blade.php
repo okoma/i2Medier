@@ -69,8 +69,16 @@ data-live-poll-route="{{ route('tools.email-deliverability-checker.live-test.pol
 
         <div class="form-card">
             <div class="fc-full">
-                <label class="fc-label">Email address or domain to check <span class="req">*</span></label>
+                <label class="fc-label">Audit Mode</label>
+                <div class="pill-group mode-switch" id="audit-mode-group">
+                    <button class="pill active" data-val="basic" type="button">Basic Audit</button>
+                    <button class="pill" data-val="live" type="button">Live Inbox Test</button>
+                </div>
+            </div>
+            <div class="fc-full">
+                <label class="fc-label" id="target-label">Email address or domain to check <span class="req">*</span></label>
                 <input class="fc-text-input" id="email-input" placeholder="hello@yourdomain.com  or  yourdomain.com" autocomplete="off" spellcheck="false"/>
+                <p class="fc-help" id="target-help">Use a domain for DNS/authentication checks or an email address for sender-specific context.</p>
             </div>
 
             <div class="fc-row">
@@ -129,16 +137,10 @@ data-live-poll-route="{{ route('tools.email-deliverability-checker.live-test.pol
                 </div>
             </div>
 
-            <div class="action-row">
-                <button class="check-btn" id="check-btn" type="button">
-                    <span class="btn-text"><span class="ui-icon"><svg><use href="#icon-spark"></use></svg></span> Run Deliverability Audit</span>
-                    <span class="btn-spinner" aria-hidden="true"></span>
-                </button>
-                <button class="check-btn secondary" id="live-check-btn" type="button">
-                    <span class="btn-text"><span class="ui-icon"><svg><use href="#icon-mail"></use></svg></span> Run Live Inbox Test</span>
-                    <span class="btn-spinner" aria-hidden="true"></span>
-                </button>
-            </div>
+            <button class="check-btn" id="check-btn" type="button">
+                <span class="btn-text" id="check-btn-text"><span class="ui-icon"><svg><use href="#icon-spark"></use></svg></span> Run Deliverability Audit</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
 
             <div class="live-test-panel" id="live-test-panel" hidden>
                 <div class="lt-head">

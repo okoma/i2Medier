@@ -40,6 +40,25 @@ if (page) {
 
     const activeValue = (id) => document.querySelector(`#${id} .pill.active`)?.dataset.val ?? '';
 
+    const looksLikeEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value).trim());
+
+    const modeConfig = {
+        basic: {
+            label: 'Email address or domain to check',
+            placeholder: 'hello@yourdomain.com  or  yourdomain.com',
+            help: 'Use a domain for DNS/authentication checks or an email address for sender-specific context.',
+            button: 'Run Deliverability Audit',
+            buttonIcon: 'icon-spark',
+        },
+        live: {
+            label: 'Sender email address to test',
+            placeholder: 'hello@yourdomain.com',
+            help: 'Live inbox tests require a real sender email address so we can compare the delivered message headers against the sender identity.',
+            button: 'Start Live Inbox Test',
+            buttonIcon: 'icon-mail',
+        },
+    };
+
     const toast = (message, duration = 3000) => {
         const el = document.getElementById('toast');
         if (!el) return;
@@ -52,6 +71,39 @@ if (page) {
         const btn = document.getElementById(id);
         btn?.classList.toggle('loading', on);
         if (btn) btn.disabled = on;
+    };
+
+    const syncModeUi = () => {
+        const mode = activeValue('audit-mode-group') || 'basic';
+        const config = modeConfig[mode] || modeConfig.basic;
+        const label = document.getElementById('target-label');
+        const input = document.getElementById('email-input');
+        const help = document.getElementById('target-help');
+        const buttonText = document.getElementById('check-btn-text');
+
+        if (label) {
+            label.innerHTML = `${escapeHtml(config.label)} <span class="req">*</span>`;
+        }
+
+        if (input) {
+            input.placeholder = config.placeholder;
+            input.setAttribute('inputmode', mode === 'live' ? 'email' : 'text');
+        }
+
+        if (help) {
+            help.textContent = config.help;
+        }
+
+        if (buttonText) {
+            buttonText.innerHTML = `<span class="ui-icon"><svg><use href="#${config.buttonIcon}"></use></svg></span> ${escapeHtml(config.button)}`;
+        }
+
+        if (mode !== 'live') {
+            liveTestId = null;
+            liveTestInput = '';
+            clearIntervals();
+            hideLiveTestPanel();
+        }
     };
 
     const escapeHtml = (value) => String(value ?? '')
@@ -403,12 +455,26 @@ if (page) {
         subject: document.getElementById('adv-subject')?.value.trim() ?? '',
     });
 
+    const validateForMode = (payload, mode) => {
+        if (!payload.input) {
+            toast(mode === 'live' ? 'Please enter the sender email address.' : 'Please enter an email address or domain.');
+            document.getElementById('email-input')?.focus();
+            return false;
+        }
+
+        if (mode === 'live' && !looksLikeEmail(payload.input)) {
+            toast('Live inbox tests require a real sender email address.');
+            document.getElementById('email-input')?.focus();
+            return false;
+        }
+
+        return true;
+    };
+
     const runCheck = async () => {
         const payload = buildPayload();
 
-        if (!payload.input) {
-            toast('Please enter an email address or domain.');
-            document.getElementById('email-input')?.focus();
+        if (!validateForMode(payload, 'basic')) {
             return;
         }
 
@@ -469,7 +535,7 @@ if (page) {
                 }
 
                 clearIntervals();
-                setButtonLoading('live-check-btn', false);
+                setButtonLoading('check-btn', false);
                 currentResult = { ...data.report, input: liveTestInput, timestamp: Date.now(), provider: data.provider };
                 saveToHistory(currentResult);
                 renderResults(currentResult);
@@ -477,7 +543,7 @@ if (page) {
                 document.getElementById('results-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } catch (error) {
                 clearIntervals();
-                setButtonLoading('live-check-btn', false);
+                setButtonLoading('check-btn', false);
                 updateLiveTestStatus('Stopped', error.message || 'The live inbox test stopped unexpectedly.');
                 toast(error.message || 'The live inbox test failed.');
             }
@@ -487,13 +553,11 @@ if (page) {
     const startLiveCheck = async () => {
         const payload = buildPayload();
 
-        if (!payload.input) {
-            toast('Please enter an email address or domain.');
-            document.getElementById('email-input')?.focus();
+        if (!validateForMode(payload, 'live')) {
             return;
         }
 
-        setButtonLoading('live-check-btn', true);
+        setButtonLoading('check-btn', true);
         hideLiveTestPanel();
         clearIntervals();
 
@@ -518,15 +582,17 @@ if (page) {
             showLiveTestPanel(data.test);
             pollLiveTest();
         } catch (error) {
-            setButtonLoading('live-check-btn', false);
+            setButtonLoading('check-btn', false);
             toast(error.message || 'Could not start the live inbox test.');
         }
     };
 
+    setupPillGroup('audit-mode-group');
     setupPillGroup('check-type-group');
     setupPillGroup('client-group');
     setupPillGroup('esp-group');
     setupPillGroup('volume-group');
+    syncModeUi();
     renderHistoryGrid();
     spawnParticles();
 
@@ -558,8 +624,19 @@ if (page) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    document.getElementById('check-btn')?.addEventListener('click', runCheck);
-    document.getElementById('live-check-btn')?.addEventListener('click', startLiveCheck);
+    document.getElementById('audit-mode-group')?.addEventListener('click', (event) => {
+        if (!event.target.closest('.pill')) return;
+        syncModeUi();
+    });
+
+    document.getElementById('check-btn')?.addEventListener('click', () => {
+        if ((activeValue('audit-mode-group') || 'basic') === 'live') {
+            startLiveCheck();
+            return;
+        }
+
+        runCheck();
+    });
     document.getElementById('copy-live-address')?.addEventListener('click', async () => {
         const value = document.getElementById('live-test-address')?.textContent?.trim();
         if (!value) return;
@@ -575,6 +652,11 @@ if (page) {
     document.getElementById('email-input')?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
+            if ((activeValue('audit-mode-group') || 'basic') === 'live') {
+                startLiveCheck();
+                return;
+            }
+
             runCheck();
         }
     });
