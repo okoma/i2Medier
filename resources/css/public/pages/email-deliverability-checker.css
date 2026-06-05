@@ -118,10 +118,12 @@ nav{background:var(--black);height:62px;display:flex;align-items:center;justify-
 .sa-btn:hover{border-color:var(--gold);color:var(--gold)}
 .summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;animation:cardIn .5s .1s var(--ease) both}
 .sb-card{background:var(--white);border:1.5px solid var(--g200);border-radius:10px;padding:1.1rem 1.25rem;text-align:center;transition:border-color .2s,box-shadow .2s}
-.sb-card:hover{border-color:var(--gold-lt);box-shadow:0 4px 16px rgba(0,0,0,.07)}.sb-icon{width:1.4rem;height:1.4rem;color:var(--gold-dk);margin:0 auto .4rem;display:flex;align-items:center;justify-content:center}.sb-icon svg{width:100%;height:100%}
+.sb-card:hover{border-color:var(--gold-lt);box-shadow:0 4px 16px rgba(0,0,0,.07)}.sb-icon{width:1rem;height:1rem;color:var(--gold-dk);margin:0 auto .35rem;display:flex;align-items:center;justify-content:center}.sb-icon svg{width:100%;height:100%;stroke-width:2}
 .sb-val{font-family:var(--serif);font-size:1.5rem;font-weight:900;letter-spacing:-.04em;line-height:1}.sb-val.ok{color:var(--ok)}.sb-val.warn{color:var(--warn)}.sb-val.err{color:var(--err)}.sb-val.neutral{color:var(--black)}
 .sb-key{font-size:.65rem;font-weight:600;color:var(--g400);text-transform:uppercase;letter-spacing:.1em;margin-top:.35rem}
 .section-heading{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--black);letter-spacing:-.025em;margin-bottom:1.25rem;display:flex;align-items:center;gap:.65rem}
+.section-heading .ui-icon{width:1rem;height:1rem;display:inline-flex;align-items:center;justify-content:center;transform:translateY(1px);color:var(--gold-dk);flex-shrink:0}
+.section-heading .ui-icon svg{width:100%;height:100%;stroke-width:2}
 .sh-line{flex:1;height:1px;background:var(--g200)}
 .checks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2.5rem}
 .check-card{background:var(--white);border:1.5px solid var(--g200);border-radius:12px;padding:1.5rem;animation:cardIn .5s var(--ease) both;transition:border-color .2s,box-shadow .2s}
