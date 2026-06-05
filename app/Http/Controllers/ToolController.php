@@ -524,11 +524,11 @@ class ToolController extends Controller
         ];
 
         if ($input === '') {
-            return response()->json(['message' => 'Please enter the sender email address first.'], 422);
+            return response()->json(['message' => 'Please enter an email address or domain first.'], 422);
         }
 
-        if (! filter_var($input, FILTER_VALIDATE_EMAIL)) {
-            return response()->json(['message' => 'Live inbox tests require a valid sender email address.'], 422);
+        if (! $this->looksLikeEmailOrDomain($input)) {
+            return response()->json(['message' => 'Enter a valid email address or domain.'], 422);
         }
 
         try {
@@ -564,11 +564,11 @@ class ToolController extends Controller
         ];
 
         if ($input === '') {
-            return response()->json(['message' => 'Please enter an email address or domain first.'], 422);
+            return response()->json(['message' => 'Please enter the sender email address first.'], 422);
         }
 
-        if (! $this->looksLikeEmailOrDomain($input)) {
-            return response()->json(['message' => 'Enter a valid email address or domain.'], 422);
+        if (! filter_var($input, FILTER_VALIDATE_EMAIL)) {
+            return response()->json(['message' => 'Live inbox tests require a valid sender email address.'], 422);
         }
 
         try {
@@ -579,7 +579,7 @@ class ToolController extends Controller
                     'id' => $test->public_id,
                     'recipient_address' => $test->test_recipient,
                     'subject_line' => $test->expected_subject,
-                    'instructions' => 'Send a real email from the address or domain you want to test to this generated address. You can use the suggested subject line or your own realistic campaign subject.',
+                    'instructions' => 'Send a real email from the sender address you want to test to this generated address. You can use the suggested subject line or your own realistic campaign subject.',
                 ],
             ]);
         } catch (\RuntimeException $exception) {
