@@ -38,6 +38,7 @@
         overflow-x: hidden;
     }
 
+
 .main-menu {
     display: flex;
     align-items: center;
@@ -103,16 +104,58 @@
         height: 58px;
     }
 
+    .public-nav.is-home {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: transparent;
+        border-bottom-color: transparent;
+        box-shadow: none;
+        transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
     .public-nav.is-dark {
         background: rgba(10, 10, 8, 0.85);
         border-bottom-color: transparent;
     }
 
     .public-logo {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        color: var(--black);
+        text-decoration: none;
+    }
+
+    .public-logo-images {
+        display: grid;
+        align-items: center;
+    }
+
+    .public-logo-image {
+        grid-area: 1 / 1;
+        height: 34px;
+        width: auto;
+        max-width: min(200px, 38vw);
+        object-fit: contain;
+        transition: opacity 0.2s ease;
+    }
+
+    .public-logo-image--dark {
+        opacity: 1;
+    }
+
+    .public-logo-image--light {
+        opacity: 0;
+    }
+
+    .public-logo-text {
         font-family: var(--serif);
         font-size: 1.5rem;
         font-weight: 700;
-        color: var(--black);
+        color: currentColor;
         letter-spacing: -0.02em;
     }
 
@@ -120,7 +163,25 @@
         color: var(--cream);
     }
 
-    .public-logo span { color: var(--gold); }
+    .public-nav.is-home .public-logo {
+        color: var(--white);
+    }
+
+    .public-logo-text span { color: var(--gold); }
+
+    .public-logo--light.public-logo--has-light .public-logo-image--dark,
+    .public-nav.is-dark .public-logo--auto.public-logo--has-light .public-logo-image--dark,
+    .public-nav.is-home .public-logo--auto.public-logo--has-light .public-logo-image--dark,
+    .public-side-nav.is-dark .public-logo--auto.public-logo--has-light .public-logo-image--dark {
+        opacity: 0;
+    }
+
+    .public-logo--light.public-logo--has-light .public-logo-image--light,
+    .public-nav.is-dark .public-logo--auto.public-logo--has-light .public-logo-image--light,
+    .public-nav.is-home .public-logo--auto.public-logo--has-light .public-logo-image--light,
+    .public-side-nav.is-dark .public-logo--auto.public-logo--has-light .public-logo-image--light {
+        opacity: 1;
+    }
 
     .public-nav ul {
         list-style: none;
@@ -175,6 +236,12 @@
         background: rgba(255, 255, 255, 0.06);
     }
 
+    .public-nav.is-home .public-nav-toggle {
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
     .public-nav-toggle span {
         display: block;
         width: 18px;
@@ -206,6 +273,10 @@
         color: var(--cream);
     }
 
+    .public-nav.is-home ul a {
+        color: rgba(255, 255, 255, 0.65);
+    }
+
     .public-nav ul a:hover,
     .public-nav ul a.is-active { color: var(--black); }
 
@@ -214,6 +285,9 @@
 
     .public-nav.is-dark ul a:hover,
     .public-nav.is-dark ul a.is-active { color: var(--gold); }
+
+    .public-nav.is-home ul a:hover,
+    .public-nav.is-home ul a.is-active { color: var(--gold); }
 
     .nav-new {
         background: var(--black);
@@ -238,6 +312,11 @@
         color: var(--dark);
     }
 
+    .public-nav.is-home .nav-new {
+        background: var(--gold);
+        color: var(--dark);
+    }
+
     .nav-cta {
         background: var(--black) !important;
         color: var(--white) !important;
@@ -252,6 +331,11 @@
         color: var(--dark) !important;
     }
 
+    .public-nav.is-home .nav-cta {
+        background: var(--gold) !important;
+        color: var(--black) !important;
+    }
+
     .nav-cta:hover {
         background: var(--gold) !important;
         color: var(--black) !important;
@@ -259,6 +343,56 @@
 
     .public-nav.is-dark .nav-cta:hover {
         background: var(--gold-lt) !important;
+    }
+
+    .public-nav.is-home .nav-cta:hover {
+        opacity: 0.85;
+        color: var(--black) !important;
+    }
+
+    .public-nav.is-home.scrolled {
+        background: rgba(255, 255, 255, 0.97);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        border-bottom: 0;
+        box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .public-nav.is-home.scrolled .public-logo {
+        color: var(--black);
+    }
+
+    .public-nav.is-home.scrolled .public-logo--auto.public-logo--has-dark .public-logo-image--dark {
+        opacity: 1;
+    }
+
+    .public-nav.is-home.scrolled .public-logo--auto.public-logo--has-dark .public-logo-image--light {
+        opacity: 0;
+    }
+
+    .public-nav.is-home.scrolled ul a {
+        color: var(--g700);
+    }
+
+    .public-nav.is-home.scrolled ul a:hover,
+    .public-nav.is-home.scrolled ul a.is-active {
+        color: var(--black);
+    }
+
+    .public-nav.is-home.scrolled .nav-cta {
+        background: var(--black) !important;
+        color: var(--white) !important;
+    }
+
+    .public-nav.is-home.scrolled .nav-new {
+        background: var(--black);
+        color: var(--white);
+    }
+
+    .public-nav.is-home.scrolled .public-nav-toggle {
+        border-color: var(--g200);
+        color: var(--black);
+        background: rgba(255, 255, 255, 0.7);
     }
 
     .site-footer {
@@ -281,7 +415,12 @@
 
     .footer-brand .public-logo {
         color: var(--white);
-        font-size: 1.3rem;
+    }
+
+    .footer-brand .public-logo-image,
+    .site-footer.compact .public-logo-image {
+        height: 32px;
+        max-width: min(180px, 48vw);
     }
 
     .footer-brand p {
@@ -360,6 +499,10 @@
         .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
         .public-nav {
             padding: 0 1rem;
+        }
+        .public-logo-image {
+            height: 30px;
+            max-width: min(180px, 44vw);
         }
         .public-nav ul,
         .public-nav-links,

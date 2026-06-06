@@ -273,6 +273,6 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>mobile app?</h2>
   <p>Tell us about your idea and we will send a clear, detailed proposal within 24 hours, no commitment required.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Mobile App →</a>
+  <a href="{{ route('site.start', ['services' => 'mobileapps', 'source_page' => 'service-mobile-app-development', 'source_label' => 'Mobile App Development Service Page']) }}" class="btn-dark">Start Your Mobile App →</a>
 </section>
 @endsection

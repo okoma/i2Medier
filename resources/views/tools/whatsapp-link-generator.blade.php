@@ -31,7 +31,7 @@ id="whatsapp-link-generator-page"
 </svg>
 
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">
         <button class="nav-btn" id="wa-reset-btn" type="button"><span class="ui-icon"><svg><use href="#icon-refresh"></use></svg></span>Reset</button>

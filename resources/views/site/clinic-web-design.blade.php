@@ -966,7 +966,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a clinic website<br>that fills your appointment book?</h2>
   <p>Get a free, no-obligation website review and proposal tailored to your practice's specialities, patient audience, and local market.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-clinic-website-design', 'source_label' => 'Clinic Industry Page']) }}" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
 </section>
 @endsection
 

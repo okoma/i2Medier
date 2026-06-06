@@ -55,15 +55,29 @@
 }
 
 .onboarding-body .logo {
+  display:inline-flex;
+  align-items:center;
+  color:var(--white);
+  text-decoration:none;
+  flex-shrink:0;
+}
+
+.onboarding-body .logo .public-logo-image {
+  height:30px;
+  width:auto;
+  max-width:min(190px,42vw);
+  object-fit:contain;
+}
+
+.onboarding-body .logo .public-logo-text {
   font-family:var(--serif);
   font-size:1.35rem;
   font-weight:700;
-  color:var(--white);
-  text-decoration:none;
+  color:currentColor;
   letter-spacing:-.02em;
 }
 
-.onboarding-body .logo span { color:var(--gold); }
+.onboarding-body .logo .public-logo-text span { color:var(--gold); }
 
 .onboarding-body svg {
   width:1em;

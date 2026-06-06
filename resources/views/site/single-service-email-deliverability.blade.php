@@ -394,7 +394,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to land in inboxes<br>every time?</h2>
     <p>Tell us your domain and what symptoms you're seeing. We'll get back to you with an honest assessment within 24 hours.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Fix My Email Deliverability →</a>
+    <a href="{{ route('site.start', ['services' => 'email-deliverability', 'source_page' => 'service-email-deliverability', 'source_label' => 'Email Deliverability Service Page']) }}" class="btn-dark">Fix My Email Deliverability →</a>
   </section>
 </div>
 @endsection

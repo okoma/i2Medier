@@ -269,7 +269,7 @@
   <section class="cta-band" id="contact">
     <h2>Ready to build a WordPress site<br>that actually performs?</h2>
     <p>Tell us about your project and we will send you a free, detailed proposal within 24 hours, with no commitment required.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your WordPress Project →</a>
+    <a href="{{ route('site.start', ['services' => 'wordpress', 'source_page' => 'service-wordpress-development', 'source_label' => 'WordPress Development Service Page']) }}" class="btn-dark">Start Your WordPress Project →</a>
   </section>
 </div>
 @endsection

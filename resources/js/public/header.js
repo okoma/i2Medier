@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var homeStyleNav = document.querySelector('.public-nav.is-home');
+
+    if (homeStyleNav) {
+        var syncNavState = function () {
+            homeStyleNav.classList.toggle('scrolled', window.scrollY > 40);
+        };
+
+        syncNavState();
+
+        window.addEventListener('scroll', syncNavState, { passive: true });
+    }
+
     // Mega menu hover-intent (desktop only)
     var megaItems = document.querySelectorAll('.has-mega');
     var timers = {};

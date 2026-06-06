@@ -399,6 +399,6 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to rank higher<br>on Google?</h2>
   <p>Get a free SEO audit and strategy consultation. We will show you exactly what is holding your site back and what it will take to fix it.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free SEO Audit →</a>
+  <a href="{{ route('site.start', ['services' => 'seo', 'source_page' => 'service-search-optimization', 'source_label' => 'Search Optimization Service Page']) }}" class="btn-dark">Get Your Free SEO Audit →</a>
 </section>
 @endsection

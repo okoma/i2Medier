@@ -127,7 +127,7 @@ body{font-family:var(--sans);background:var(--white);color:var(--black);font-siz
 .mst-lbl{font-size:.44rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em}
 
 /* ── TICKER BAND ── */
-.ticker{background:var(--fitness);overflow:hidden;padding:.65rem 0;border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)}
+.ticker{display:none;background:var(--fitness);overflow:hidden;padding:.65rem 0;border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)}
 .ticker-track{display:flex;gap:0;width:max-content;animation:ticker 30s linear infinite}
 .ticker-track:hover{animation-play-state:paused}
 .ticker-item{display:inline-flex;align-items:center;gap:.4rem;padding:0 2rem;font-size:.72rem;font-weight:600;color:var(--white);white-space:nowrap;border-right:1px solid rgba(255,255,255,.15)}

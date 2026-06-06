@@ -50,7 +50,7 @@ data-start-route="{{ route('site.start') }}"
 </svg>
 
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     
     <div class="nav-right">

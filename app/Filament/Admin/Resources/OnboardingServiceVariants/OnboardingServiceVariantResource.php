@@ -20,9 +20,7 @@ class OnboardingServiceVariantResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Onboarding';
-
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 8;
 
     protected static ?string $navigationLabel = 'Service Variants';
 

@@ -260,7 +260,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to design a product<br>your users will love?</h2>
     <p>Tell us about your project and we will send you a free, detailed design proposal within 24 hours.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Design Project →</a>
+    <a href="{{ route('site.start', ['services' => 'uiux', 'source_page' => 'service-ui-ux-design', 'source_label' => 'UI UX Design Service Page']) }}" class="btn-dark">Start Your Design Project →</a>
   </section>
 </div>
 @endsection

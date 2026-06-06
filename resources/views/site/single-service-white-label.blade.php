@@ -320,7 +320,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to expand what<br>your agency can deliver?</h2>
     <p>Tell us about your pipeline and what you need support with. We will send you our agency partner brief within 24 hours.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start a White Label Partnership →</a>
+    <a href="{{ route('site.start', ['services' => 'whitelabel', 'source_page' => 'service-white-label', 'source_label' => 'White Label Service Page']) }}" class="btn-dark">Start a White Label Partnership →</a>
   </section>
 </div>
 @endsection

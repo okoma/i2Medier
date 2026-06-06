@@ -1,13 +1,72 @@
 @extends('public.layouts.app')
 
 @section('title', $project->title . ' — Case Study · i2Medier')
-
 @push('page_css')
     @vite('resources/css/public/pages/portfolio-single.css')
 @endpush
 
 @push('scripts')
     @vite('resources/js/public/pages/portfolio-show.js')
+@endpush
+
+@push('meta')
+<script type="application/ld+json">{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'CreativeWork',
+    'headline' => $project->title,
+    'name' => $project->title,
+    'description' => $project->summary ?: $project->description,
+    'url' => ($isPreview ?? false)
+        ? route('portfolio.preview', ['portfolioProject' => $project->slug])
+        : route('portfolio.show', ['portfolioProject' => $project->slug]),
+    'creator' => [
+        '@id' => url('/') . '#organization',
+    ],
+    'publisher' => [
+        '@id' => url('/') . '#organization',
+    ],
+    'datePublished' => optional($project->published_at)?->toDateString(),
+    'dateModified' => optional($project->updated_at)?->toDateString(),
+    'image' => filled($project->featured_image) ? [$project->featured_image] : [],
+    'keywords' => $project->categories->pluck('name')->values()->all(),
+    'about' => $project->categories->map(fn ($category) => [
+        '@type' => 'Thing',
+        'name' => $category->name,
+    ])->values()->all(),
+    'isBasedOn' => filled($project->project_url) ? $project->project_url : null,
+    'mainEntityOfPage' => [
+        '@type' => 'WebPage',
+        '@id' => ($isPreview ?? false)
+            ? route('portfolio.preview', ['portfolioProject' => $project->slug])
+            : route('portfolio.show', ['portfolioProject' => $project->slug]),
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+<script type="application/ld+json">{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => route('site.home'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Portfolio',
+            'item' => route('portfolio.index'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'name' => $project->title,
+            'item' => ($isPreview ?? false)
+                ? route('portfolio.preview', ['portfolioProject' => $project->slug])
+                : route('portfolio.show', ['portfolioProject' => $project->slug]),
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush
 
 @section('content')
@@ -199,7 +258,7 @@
     <div class="cta-sidebar reveal">
       <h4>Need something similar?</h4>
       <p>Tell us about your project. We'll get back to you within 24 hours.</p>
-      <a href="mailto:letstalk@i2medier.com" class="btn-gold">Start a Project →</a>
+      <a href="{{ route('site.start', ['source_page' => 'portfolio-case-study-sidebar', 'source_label' => 'Portfolio Case Study Sidebar CTA']) }}" class="btn-gold">Start a Project →</a>
     </div>
 
   </aside>

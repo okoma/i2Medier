@@ -17,7 +17,7 @@ data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
 
 @section('content')
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <span class="nav-tag">Domain Name Generator</span>
     <button class="nav-btn" type="button" onclick="toggleFavPanel()">

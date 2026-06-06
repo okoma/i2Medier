@@ -57,7 +57,7 @@ data-generate-route="{{ route('tools.website-brief-generator.generate') }}"
     <symbol id="icon-pencil" viewBox="0 0 24 24"><path d="m4 20 4.5-1 9-9-3.5-3.5-9 9z"></path><path d="m13.5 6.5 3.5 3.5"></path></symbol>
 </svg>
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">
         <button class="nav-btn" id="nav-new-btn" type="button" onclick="resetAll()" style="display:none">＋ New Brief</button>

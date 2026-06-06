@@ -795,7 +795,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>Laravel application?</h2>
   <p>Tell us what you are building and we will send a detailed, itemised proposal within 24 hours, with no commitment required.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Laravel Project →</a>
+  <a href="{{ route('site.start', ['services' => 'laravel', 'source_page' => 'service-laravel-development', 'source_label' => 'Laravel Development Service Page']) }}" class="btn-dark">Start Your Laravel Project →</a>
 </section>
 
 

@@ -1,6 +1,6 @@
 @if (request()->routeIs('site.lawyer'))
     <footer class="site-footer compact">
-        <a href="{{ url('/') }}" class="public-logo">i2<span>Medier</span></a>
+        @include('public.partials.logo', ['mode' => 'light'])
         <div class="footer-text">© 2026 i2Medier Konceptz. Premium Digital Solutions.</div>
         <a href="{{ url('/') }}" class="footer-back">← Back to Main Site</a>
     </footer>
@@ -8,7 +8,7 @@
     <footer class="site-footer">
         <div class="footer-grid">
             <div class="footer-brand">
-                <a href="{{ url('/') }}" class="public-logo">i2Medi<span>er</span></a>
+                @include('public.partials.logo', ['mode' => 'light'])
                 <p>i2Medier delivers premium web applications, scripts, and digital solutions that help businesses scale faster with cutting-edge technology.</p>
             </div>
             <div class="footer-col">

@@ -24,9 +24,7 @@ class PaymentSettings extends Page implements HasForms
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCreditCard;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
-
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 18;
 
     protected static ?string $title = 'Payment Settings';
 

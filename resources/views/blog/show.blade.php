@@ -1,7 +1,6 @@
 @extends('public.layouts.app')
 
 @section('title', ($post->seo_title ?: $post->title) . ' | i2Medier')
-
 @push('page_css')
     @vite('resources/css/public/pages/blog-single.css')
 @endpush

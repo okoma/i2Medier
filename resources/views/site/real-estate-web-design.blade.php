@@ -924,7 +924,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a property website<br>that generates leads?</h2>
   <p>Get a free, no-obligation website review and proposal tailored to your agency's properties, locations, and target buyers.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-real-estate-website-design', 'source_label' => 'Real Estate Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

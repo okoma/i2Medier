@@ -138,7 +138,7 @@ body{font-family:var(--sans);background:var(--white);color:var(--black);font-siz
 .rating-star svg{width:9px;height:9px;fill:currentColor;stroke:none}
 
 /* ── TICKER ── */
-.ticker{background:var(--gold);overflow:hidden;padding:.65rem 0}
+.ticker{display:none;background:var(--gold);overflow:hidden;padding:.65rem 0}
 .ticker-track{display:flex;gap:0;width:max-content;animation:ticker 30s linear infinite}
 .ticker-track:hover{animation-play-state:paused}
 .ticker-item{display:inline-flex;align-items:center;gap:.4rem;padding:0 2rem;font-size:.72rem;font-weight:600;color:var(--black);white-space:nowrap;border-right:1px solid rgba(0,0,0,.08)}

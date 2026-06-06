@@ -49,7 +49,7 @@ nav a:hover{color:var(--black)}
 .breadcrumb-sep{color:var(--g200)}
 
 /* ── HERO ── */
-.hero{position:relative;overflow:hidden;min-height:90vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:30px 5% 60px;gap:4rem;
+.hero{position:relative;overflow:hidden;min-height:90vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:80px 5% 60px;gap:4rem;
   background:linear-gradient(145deg,#021520 0%,#062a3a 50%,#041a28 100%)}
 .hero-glow{position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse 55% 65% at 80% 50%,rgba(10,90,124,.25) 0%,transparent 60%),
@@ -145,7 +145,7 @@ nav a:hover{color:var(--black)}
 .mst-lbl{font-size:.43rem;color:var(--g400);text-transform:uppercase;letter-spacing:.06em}
 
 /* ── TICKER ── */
-.ticker{background:var(--med);overflow:hidden;padding:.65rem 0}
+.ticker{display:none;background:var(--med);overflow:hidden;padding:.65rem 0}
 .ticker-track{display:flex;gap:0;width:max-content;animation:ticker 30s linear infinite}
 .ticker-track:hover{animation-play-state:paused}
 .ticker-item{display:inline-flex;align-items:center;gap:.4rem;padding:0 2rem;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.7);white-space:nowrap;border-right:1px solid rgba(255,255,255,.12)}
@@ -294,7 +294,7 @@ section{padding:88px 5%}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
 .price-card{border:1px solid var(--g200);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s;background:var(--white)}
 .price-card:hover{box-shadow:0 16px 50px rgba(0,0,0,.1);transform:translateY(-4px)}
-.price-card.featured{border-color:var(--gold)}
+.price-card.featured{border-color:var(--gold);background:var(--med);box-shadow:0 0 0 1px rgba(200,169,110,.18)}
 .price-head{padding:1.75rem 1.75rem 1.5rem}
 .price-card.featured .price-head{background:var(--med)}
 .price-badge{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(200,169,110,.1);padding:.22rem .6rem;border-radius:3px;display:inline-block;margin-bottom:.75rem}
@@ -306,11 +306,13 @@ section{padding:88px 5%}
 .price-card.featured .price-amount{color:var(--white)}
 .price-amount sub{font-family:var(--sans);font-size:.72rem;font-weight:400;vertical-align:baseline;color:var(--g400)}
 .price-body{padding:1.5rem 1.75rem;flex:1;display:flex;flex-direction:column;gap:.5rem}
+.price-card.featured .price-body{background:var(--med)}
 .price-feat{display:flex;align-items:flex-start;gap:.65rem;font-size:.862rem;color:var(--g700);line-height:1.55}
 .price-feat::before{content:'';width:14px;height:14px;flex-shrink:0;margin-top:.08rem;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8a96e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5L20 7'/%3E%3C/svg%3E")}
 .price-feat.no::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dddbd5' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E")}
 .price-feat.no{color:var(--g200)}
 .price-foot{padding:.25rem 1.75rem 1.75rem}
+.price-card.featured .price-foot{background:var(--med)}
 .price-btn{display:block;width:100%;text-align:center;padding:.8rem;border-radius:4px;font-weight:600;font-size:.875rem;text-decoration:none;transition:all .2s}
 .price-btn.outline{border:1px solid var(--g200);color:var(--black)}
 .price-btn.outline:hover{border-color:var(--med);background:var(--med);color:var(--white)}

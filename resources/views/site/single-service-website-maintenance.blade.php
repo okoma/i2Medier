@@ -651,7 +651,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Your site is working hard.<br>Make sure it stays that way.</h2>
     <p>Tell us your platform and we will send you a free onboarding audit and care plan recommendation within 24 hours, no commitment required.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start My Care Plan →</a>
+    <a href="{{ route('site.start', ['services' => 'webmaintenance', 'source_page' => 'service-website-maintenance-cta', 'source_label' => 'Website Maintenance Service CTA']) }}" class="btn-dark">Start My Care Plan →</a>
   </section>
 </div>
 @endsection

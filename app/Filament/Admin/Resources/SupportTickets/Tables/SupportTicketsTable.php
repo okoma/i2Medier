@@ -19,10 +19,44 @@ class SupportTicketsTable
                     ->sortable(),
                 TextColumn::make('client.company_name')
                     ->label('Client')
-                    ->searchable(),
+                    ->searchable()
+                    ->placeholder('Public'),
+                TextColumn::make('requester_name')
+                    ->label('Requester')
+                    ->searchable()
+                    ->placeholder('Unknown'),
+                TextColumn::make('department')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'sales' => 'Sales',
+                        'design' => 'Design',
+                        'development' => 'Development',
+                        'support' => 'Support',
+                        'careers' => 'Careers',
+                        default => $state ? ucfirst(str_replace('_', ' ', $state)) : 'Not set',
+                    })
+                    ->colors([
+                        'info' => ['sales', 'design'],
+                        'warning' => ['development'],
+                        'success' => ['support'],
+                        'gray' => ['careers'],
+                    ]),
                 TextColumn::make('subject')
                     ->searchable()
                     ->wrap(),
+                TextColumn::make('source')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'public_contact' => 'Public Contact',
+                        'portal' => 'Client Portal',
+                        'manual' => 'Manual',
+                        default => $state ? ucfirst(str_replace('_', ' ', $state)) : 'Unknown',
+                    })
+                    ->colors([
+                        'success' => ['public_contact'],
+                        'info' => ['portal'],
+                        'gray' => ['manual'],
+                    ]),
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('priority')
@@ -49,6 +83,20 @@ class SupportTicketsTable
                         'medium' => 'Medium',
                         'high' => 'High',
                         'urgent' => 'Urgent',
+                    ]),
+                SelectFilter::make('department')
+                    ->options([
+                        'sales' => 'Sales',
+                        'design' => 'Design',
+                        'development' => 'Development',
+                        'support' => 'Support',
+                        'careers' => 'Careers',
+                    ]),
+                SelectFilter::make('source')
+                    ->options([
+                        'portal' => 'Portal',
+                        'public_contact' => 'Public Contact',
+                        'manual' => 'Manual',
                     ]),
             ])
             ->recordActions([

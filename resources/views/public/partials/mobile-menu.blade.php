@@ -1,7 +1,7 @@
 <div class="public-nav-overlay" data-nav-close></div>
 <aside class="public-side-nav{{ (request()->routeIs('site.lawyer') || request()->routeIs('site.home')) ? ' is-dark' : '' }}" id="public-side-nav" aria-hidden="true">
     <div class="public-side-nav-head">
-        <a href="{{ url('/') }}" class="public-logo">i2Medi<span>er</span></a>
+        @include('public.partials.logo', ['mode' => 'auto'])
         <button class="public-side-nav-close" type="button" aria-label="Close navigation" data-nav-close>
             <span></span>
             <span></span>

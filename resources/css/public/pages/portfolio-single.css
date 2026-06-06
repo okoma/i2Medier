@@ -19,7 +19,7 @@ html { scroll-behavior: smooth }
 .ph-breadcrumb [aria-current="page"] { color: var(--gold) }
 
 /* ── PROJECT HERO ── */
-.proj-hero { background: var(--black); position: relative; overflow: hidden; padding: 0 }
+.proj-hero { background: var(--black); position: relative; overflow: hidden; padding: 58px 0 0 }
 .proj-hero-glow {
   position: absolute; inset: 0; pointer-events: none;
   background:

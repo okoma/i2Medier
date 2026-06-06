@@ -8,7 +8,7 @@
 
 @section('content')
     <nav>
-        <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+        @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
         <span class="nav-step-label" id="nav-step-label">Step 1 of 5</span>
         <a href="{{ route('site.home') }}" class="nav-back" onclick="return goBackToPrevious(event)">← Back to site</a>
     </nav>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="field">
                             <label>WhatsApp / Phone <span class="req">*</span></label>
-                            <input type="tel" id="f-phone" placeholder="+234 800 000 0000" autocomplete="tel"/>
+                            <input type="tel" id="f-phone" placeholder="+234 805 218 8396" autocomplete="tel"/>
                             <span class="field-error" id="err-phone">Please enter a phone or WhatsApp number</span>
                         </div>
                     </div>
@@ -346,7 +346,7 @@
                     <p class="qs-note">Prices shown are base starting points. Final quote confirmed within 24 hours of submission — always itemised, never with hidden fees.</p>
 
                     <div class="qs-cta">
-                        <a href="mailto:letstalk@i2medier.com" class="qs-cta-btn"><span class="btn-icon" aria-hidden="true">@include('site.partials.onboarding-icon', ['name' => 'chat'])</span> Chat on WhatsApp</a>
+                        <a href="{{ $contact['whatsapp_href'] ?? 'https://wa.me/2348052188396?text=Hi!%20I%27d%20like%20to%20enquire%20about%20your%20services.' }}" target="_blank" rel="noopener" class="qs-cta-btn"><span class="btn-icon" aria-hidden="true">@include('site.partials.onboarding-icon', ['name' => 'chat'])</span> Chat on WhatsApp</a>
                         <p class="qs-cta-note">Prefer to talk first? We're on WhatsApp.</p>
                     </div>
 
@@ -357,4 +357,3 @@
         </aside>
     </div>
 @endsection
-

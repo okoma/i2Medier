@@ -265,7 +265,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to send emails that<br>land and impress?</h2>
     <p>Tell us how many users you need, and we'll send you a detailed setup plan and cost breakdown within 24 hours.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Set Up My Business Email →</a>
+    <a href="{{ route('site.start', ['services' => 'email', 'source_page' => 'service-business-email-setup-cta', 'source_label' => 'Business Email Setup Service CTA']) }}" class="btn-dark">Set Up My Business Email →</a>
   </section>
 </div>
 @endsection

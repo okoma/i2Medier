@@ -27,9 +27,7 @@ class SiteSettings extends Page implements HasForms
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Settings';
-
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 17;
 
     protected static ?string $title = 'Site Settings';
 
@@ -104,6 +102,22 @@ class SiteSettings extends Page implements HasForms
                                             ->acceptedFileTypes(['image/png', 'image/webp'])
                                             ->imagePreviewHeight('48')
                                             ->columnSpan(1),
+
+                                        TextInput::make('about_team_eyebrow')
+                                            ->label('About Team Eyebrow')
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        TextInput::make('about_team_heading')
+                                            ->label('About Team Heading')
+                                            ->helperText('HTML line breaks like <br> are allowed.')
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        Textarea::make('about_team_intro')
+                                            ->label('About Team Intro')
+                                            ->rows(4)
+                                            ->columnSpan(2),
                                     ]),
                             ]),
 

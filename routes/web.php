@@ -42,6 +42,7 @@ Route::get('/services/saas-application', [SiteController::class, 'saasApplicatio
 Route::get('/services/ecommerce-website', [SiteController::class, 'ecommerceWebsite'])->name('site.services.ecommerce-website');
 Route::get('/who-we-help', [SiteController::class, 'whoWeHelp'])->name('site.who-we-help');
 Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+Route::post('/contact', [SiteController::class, 'storeContact'])->name('site.contact.store')->middleware('throttle:8,1');
 Route::get('/start', [SiteController::class, 'start'])->name('site.start');
 Route::post('/start', [SiteController::class, 'storeStart'])->name('site.start.store')->middleware('throttle:8,1');
 Route::get('/services/web-design/law-firm-website-design', [SiteController::class, 'lawyerLanding'])->name('site.lawyer');

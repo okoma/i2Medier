@@ -598,7 +598,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>SaaS product?</h2>
   <p>Tell us what you are building and we will send a detailed, itemised proposal within 24 hours — no commitment required.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your SaaS Project →</a>
+  <a href="{{ route('site.start', ['services' => 'saas', 'source_page' => 'service-saas-application', 'source_label' => 'SaaS Application Service Page']) }}" class="btn-dark">Start Your SaaS Project →</a>
 </section>
 
 @endsection

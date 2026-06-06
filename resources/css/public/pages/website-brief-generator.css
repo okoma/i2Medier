@@ -18,8 +18,10 @@ body{font-family:var(--sans);background:var(--off);color:var(--black);-webkit-fo
 @keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
 @keyframes progressGrow{from{width:0}to{width:var(--w)}}
 nav{background:var(--black);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
-.logo{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.02em}
-.logo span{color:var(--gold)}
+.logo{display:inline-flex;align-items:center;color:var(--white);text-decoration:none;flex-shrink:0}
+.logo .public-logo-image{height:30px;width:auto;max-width:min(190px,42vw);object-fit:contain}
+.logo .public-logo-text{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:currentColor;letter-spacing:-.02em}
+.logo .public-logo-text span{color:var(--gold)}
 .nav-tag{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);font-family:var(--mono)}
 .nav-right{display:flex;align-items:center;gap:.65rem}
 .nav-btn{background:none;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45);padding:.38rem .85rem;border-radius:4px;font-family:var(--sans);font-size:.75rem;cursor:pointer;transition:all .2s}

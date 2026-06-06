@@ -25,8 +25,7 @@ class SupportTicketForm
                         Select::make('client_id')
                             ->relationship('client', 'company_name')
                             ->searchable()
-                            ->preload()
-                            ->required(),
+                            ->preload(),
                         Select::make('submitted_by')
                             ->relationship('submitter', 'name')
                             ->searchable()
@@ -43,6 +42,15 @@ class SupportTicketForm
                             ->required()
                             ->rows(8)
                             ->columnSpanFull(),
+                        TextInput::make('requester_name')
+                            ->maxLength(255),
+                        TextInput::make('requester_email')
+                            ->email()
+                            ->maxLength(255),
+                        TextInput::make('requester_phone')
+                            ->maxLength(255),
+                        TextInput::make('requester_company')
+                            ->maxLength(255),
                     ]),
                 Section::make('Status & Priority')
                     ->columnSpanFull()
@@ -77,6 +85,29 @@ class SupportTicketForm
                             ])
                             ->default('general')
                             ->required(),
+                        Select::make('department')
+                            ->options([
+                                'sales' => 'Sales',
+                                'design' => 'Design',
+                                'development' => 'Development',
+                                'support' => 'Support',
+                                'careers' => 'Careers',
+                            ]),
+                        TextInput::make('department_email')
+                            ->email()
+                            ->maxLength(255),
+                        Select::make('source')
+                            ->options([
+                                'portal' => 'Portal',
+                                'public_contact' => 'Public Contact',
+                                'manual' => 'Manual',
+                            ])
+                            ->default('portal'),
+                        TextInput::make('channel')
+                            ->maxLength(255),
+                        TextInput::make('source_page')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
                         DateTimePicker::make('first_response_at'),
                         DateTimePicker::make('resolved_at'),
                         DateTimePicker::make('closed_at'),

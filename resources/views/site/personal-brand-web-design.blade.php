@@ -917,7 +917,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a personal brand website<br>that positions you as the authority?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, identify your biggest positioning and SEO gaps, and show you exactly what we would build — and why it will attract the right speaking enquiries, coaching clients, and media opportunities.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-personal-brand-website-design', 'source_label' => 'Personal Brand Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

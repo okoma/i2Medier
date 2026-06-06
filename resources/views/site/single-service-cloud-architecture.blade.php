@@ -318,7 +318,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to build infrastructure<br>that never lets you down?</h2>
     <p>Tell us about your application and we'll design the right cloud architecture for your scale, budget, and reliability requirements.</p>
-    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Cloud Project →</a>
+    <a href="{{ route('site.start', ['services' => 'cloud', 'source_page' => 'service-cloud-architecture', 'source_label' => 'Cloud Architecture Service Page']) }}" class="btn-dark">Start Your Cloud Project →</a>
   </section>
 </div>
 @endsection

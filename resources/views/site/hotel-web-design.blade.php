@@ -959,7 +959,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to win direct bookings<br>and cut your OTA commission?</h2>
   <p>Get a free, no-obligation hotel website audit and proposal. We'll review your current site, calculate your OTA commission cost, and show you exactly what a new website would change — and what the financial case looks like.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Hotel Audit →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-hotel-website-design', 'source_label' => 'Hotel Industry Page']) }}" class="btn-dark">Get Your Free Hotel Audit →</a>
 </section>
 @endsection
 

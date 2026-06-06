@@ -923,7 +923,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a school website<br>that drives admissions?</h2>
   <p>Get a free, no-obligation consultation and school website proposal. We will review your current site, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-school-website-design', 'source_label' => 'School Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

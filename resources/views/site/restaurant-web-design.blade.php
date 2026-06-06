@@ -930,7 +930,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a restaurant website<br>that fills tables and cuts commissions?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll audit your current online presence, calculate your monthly commission exposure, and show you exactly what we'd build — and what it would recover.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-restaurant-website-design', 'source_label' => 'Restaurant Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

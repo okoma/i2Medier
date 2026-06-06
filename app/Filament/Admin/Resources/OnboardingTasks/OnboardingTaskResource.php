@@ -22,9 +22,7 @@ class OnboardingTaskResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Operations';
-
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 10;
 
     public static function form(Schema $schema): Schema
     {

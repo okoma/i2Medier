@@ -919,7 +919,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a cleaning company<br>website that wins more contracts?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll audit your current online presence, map your local keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-cleaning-company-website-design', 'source_label' => 'Cleaning Company Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

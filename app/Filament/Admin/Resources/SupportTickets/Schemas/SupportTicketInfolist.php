@@ -20,7 +20,16 @@ class SupportTicketInfolist
                             ->schema([
                                 TextEntry::make('ticket_number'),
                                 TextEntry::make('client.company_name')
-                                    ->label('Client'),
+                                    ->label('Client')
+                                    ->placeholder('No linked client'),
+                                TextEntry::make('requester_name')
+                                    ->placeholder('Not provided'),
+                                TextEntry::make('requester_email')
+                                    ->placeholder('Not provided'),
+                                TextEntry::make('requester_phone')
+                                    ->placeholder('Not provided'),
+                                TextEntry::make('requester_company')
+                                    ->placeholder('Not provided'),
                                 TextEntry::make('subject'),
                                 TextEntry::make('description')
                                     ->columnSpanFull(),
@@ -34,6 +43,30 @@ class SupportTicketInfolist
                                     ->badge(),
                                 TextEntry::make('category')
                                     ->badge(),
+                                TextEntry::make('department')
+                                    ->badge()
+                                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                                        'sales' => 'Sales',
+                                        'design' => 'Design',
+                                        'development' => 'Development',
+                                        'support' => 'Support',
+                                        'careers' => 'Careers',
+                                        default => $state ? ucfirst(str_replace('_', ' ', $state)) : 'Not set',
+                                    })
+                                    ->placeholder('Not set'),
+                                TextEntry::make('source')
+                                    ->badge()
+                                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                                        'public_contact' => 'Public Contact',
+                                        'portal' => 'Client Portal',
+                                        'manual' => 'Manual',
+                                        default => $state ? ucfirst(str_replace('_', ' ', $state)) : 'Unknown',
+                                    }),
+                                TextEntry::make('channel')
+                                    ->badge()
+                                    ->formatStateUsing(fn (?string $state): string => $state ? ucfirst(str_replace('_', ' ', $state)) : 'Unknown'),
+                                TextEntry::make('source_page')
+                                    ->placeholder('Not provided'),
                                 TextEntry::make('submitter.name')
                                     ->label('Submitted by')
                                     ->placeholder('Unknown'),

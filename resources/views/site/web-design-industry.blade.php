@@ -78,7 +78,7 @@
   <section class="cta-band" id="contact">
     <h2>Ready to build a better {{ strtolower($industry['title']) }} page?</h2>
     <p>We can turn this industry direction into a conversion-focused website or landing page built around trust, clarity, and real enquiry flow.</p>
-    <a href="mailto:letstalk@i2medier.com?subject={{ rawurlencode($industry['title']) }}" class="cta-btn">{{ $industry['cta'] }} →</a>
+    <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-web-design-' . \Illuminate\Support\Str::slug($industry['title']), 'source_label' => $industry['title'] . ' Industry Page']) }}" class="cta-btn">{{ $industry['cta'] }} →</a>
   </section>
 </div>
 @endsection

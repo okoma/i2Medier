@@ -1,7 +1,6 @@
 @extends('public.layouts.app')
 
 @section('title', 'Blog - Web Design, SEO & Digital Strategy for Nigerian & UK Businesses | i2Medier')
-
 @push('page_css')
     @vite('resources/css/public/pages/blog-archive.css')
 @endpush
@@ -314,17 +313,6 @@
         </section>
     @endif
 
-    <section class="ticker-band" aria-label="Highlights ticker">
-        <div class="ticker-track">
-            @foreach ($popularPosts as $post)
-                <span class="ticker-item"><span class="ticker-dot"></span>{{ $post->ui['label'] }}: {{ $post->title }}</span>
-            @endforeach
-            @foreach ($popularPosts as $post)
-                <span class="ticker-item"><span class="ticker-dot"></span>{{ $post->ui['label'] }}: {{ $post->title }}</span>
-            @endforeach
-        </div>
-    </section>
-
     <section class="email-band">
         <div class="email-band-inner">
             <span class="eb-tag"><span class="eb-dot"></span>Stay in the Loop</span>
@@ -341,7 +329,7 @@
     <section class="cta-band">
         <h2>Need content and the website strategy behind it?</h2>
         <p>We do not just publish insights. We design, build, optimize, and maintain the systems that help service businesses grow online.</p>
-        <a href="{{ route('site.contact') }}" class="btn-dark">Start a Project</a>
+        <a href="{{ route('site.start', ['source_page' => 'blog-index-cta', 'source_label' => 'Blog Index CTA']) }}" class="btn-dark">Start a Project</a>
     </section>
 </div>
 @endsection

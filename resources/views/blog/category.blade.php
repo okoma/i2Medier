@@ -1,7 +1,6 @@
 @extends('public.layouts.app')
 
 @section('title', $category->ui['label'] . ' Articles | i2Medier Blog')
-
 @push('page_css')
     @vite('resources/css/public/pages/blog-archive.css')
 @endpush

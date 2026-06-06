@@ -227,7 +227,7 @@
     </h1>
     <p class="hero-desc">From a blank canvas to a live, performant, secure web product — and everything in between. We are the full-service digital partner for businesses that take their online presence seriously.</p>
     <div class="hero-actions">
-      <a href="{{ route('site.contact') }}" class="btn-primary">Start a Project →</a>
+      <a href="{{ route('site.start', ['source_page' => 'home-hero', 'source_label' => 'Homepage Hero']) }}" class="btn-primary">Start a Project →</a>
       <a href="{{ route('portfolio.index') }}" class="btn-outline-white">See Our Work</a>
     </div>
     <div class="hero-meta">
@@ -860,7 +860,7 @@
     <p>Tell us about your project and we will send you a detailed, honest proposal within 24 hours. No obligation, no sales pressure — just a straight answer about what your project needs and what it will cost.</p>
   </div>
   <div class="cta-right reveal">
-    <a href="{{ route('site.contact') }}" class="btn-cta-dark">Start a Project →</a>
+    <a href="{{ route('site.start', ['source_page' => 'home-cta', 'source_label' => 'Homepage CTA']) }}" class="btn-cta-dark">Start a Project →</a>
     <a href="{{ route('site.services') }}" class="btn-cta-ghost">Browse All Services</a>
   </div>
 </section>

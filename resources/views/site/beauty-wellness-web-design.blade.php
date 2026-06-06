@@ -936,7 +936,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a beauty website<br>that fills your appointment book?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-beauty-wellness-website-design', 'source_label' => 'Beauty Wellness Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

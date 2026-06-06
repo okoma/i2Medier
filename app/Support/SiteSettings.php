@@ -39,6 +39,21 @@ class SiteSettings
         return $path ? asset('storage/' . $path) : null;
     }
 
+    public function aboutTeamEyebrow(): string
+    {
+        return (string) ($this->record()?->about_team_eyebrow ?: 'The People');
+    }
+
+    public function aboutTeamHeading(): string
+    {
+        return (string) ($this->record()?->about_team_heading ?: 'Small team.<br>Serious craft.');
+    }
+
+    public function aboutTeamIntro(): string
+    {
+        return (string) ($this->record()?->about_team_intro ?: 'We are deliberately small. A focused team means every client gets senior attention — not a junior handed their project and told to run with it. Every person on the i2Medier team works directly on client projects.');
+    }
+
     public function analyticsEnabled(): bool
     {
         return (bool) ($this->record()?->analytics_enabled ?? false);
@@ -212,6 +227,9 @@ class SiteSettings
             'logo_light'               => $record?->logo_light,
             'favicon'                  => $record?->favicon,
             'apple_touch_icon'         => $record?->apple_touch_icon,
+            'about_team_eyebrow'       => $record?->about_team_eyebrow ?? 'The People',
+            'about_team_heading'       => $record?->about_team_heading ?? 'Small team.<br>Serious craft.',
+            'about_team_intro'         => $record?->about_team_intro ?? 'We are deliberately small. A focused team means every client gets senior attention — not a junior handed their project and told to run with it. Every person on the i2Medier team works directly on client projects.',
             'analytics_enabled'        => $record?->analytics_enabled ?? false,
             'analytics_measurement_id' => $record?->analytics_measurement_id ?? '',
             'cookie_consent_enabled'   => $record?->cookie_consent_enabled ?? true,

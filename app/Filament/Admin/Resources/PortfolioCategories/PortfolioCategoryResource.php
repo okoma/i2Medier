@@ -20,9 +20,7 @@ class PortfolioCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Portfolio';
-
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 14;
 
     public static function form(Schema $schema): Schema
     {

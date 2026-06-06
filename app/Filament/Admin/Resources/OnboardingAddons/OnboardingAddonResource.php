@@ -20,9 +20,7 @@ class OnboardingAddonResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPlusCircle;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Onboarding';
-
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 9;
 
     protected static ?string $navigationLabel = 'Add-ons';
 

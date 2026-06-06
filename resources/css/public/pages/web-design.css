@@ -89,7 +89,7 @@
   .single-service-page .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
   .single-service-page .price-card{border:1px solid var(--g200);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .3s,transform .3s}
   .single-service-page .price-card:hover{box-shadow:0 16px 50px rgba(0,0,0,.1);transform:translateY(-4px)}
-  .single-service-page .price-card.featured{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+  .single-service-page .price-card.featured{border-color:var(--gold);background:var(--black);box-shadow:0 0 0 1px var(--gold)}
   .single-service-page .price-head{padding:1.75rem 1.75rem 1.5rem;background:var(--off);border-bottom:1px solid var(--g200)}
   .single-service-page .price-card.featured .price-head{background:var(--black)}
   .single-service-page .price-badge{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:rgba(200,169,110,.12);padding:.25rem .65rem;border-radius:3px;display:inline-block;margin-bottom:.75rem}
@@ -100,11 +100,14 @@
   .single-service-page .price-amount{font-family:var(--serif);font-size:2rem;font-weight:700;letter-spacing:-.04em;margin-top:.9rem;line-height:1}
   .single-service-page .price-amount sub{font-family:var(--sans);font-size:.75rem;font-weight:400;letter-spacing:.02em;vertical-align:baseline;color:var(--g400)}
   .single-service-page .price-body{padding:1.5rem 1.75rem;flex:1;display:flex;flex-direction:column;gap:.55rem}
+  .single-service-page .price-card.featured .price-body{background:var(--black)}
   .single-service-page .price-feat{display:flex;align-items:flex-start;gap:.65rem;font-size:.875rem;color:var(--g700);line-height:1.55}
+  .single-service-page .price-card.featured .price-feat{color:rgba(255,255,255,.65)}
   .single-service-page .price-feat::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:.05rem}
   .single-service-page .price-feat.dim{color:var(--g200)}
   .single-service-page .price-feat.dim::before{color:var(--g200)}
   .single-service-page .price-foot{padding:.25rem 1.75rem 1.75rem}
+  .single-service-page .price-card.featured .price-foot{background:var(--black)}
   .single-service-page .price-btn{display:block;width:100%;text-align:center;padding:.8rem;border-radius:4px;font-weight:600;font-size:.875rem;letter-spacing:.02em;transition:opacity .2s,background .2s}
   .single-service-page .price-btn.outline{border:1px solid var(--g200);color:var(--black)}
   .single-service-page .price-btn.outline:hover{border-color:var(--black)}

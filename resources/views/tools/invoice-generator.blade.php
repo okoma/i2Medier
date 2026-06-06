@@ -8,7 +8,7 @@
 
 @section('content')
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">
         <button class="nav-status draft" id="status-btn" onclick="cycleStatus()"><span class="icon-dot" aria-hidden="true"></span><span>Draft</span></button>
@@ -35,7 +35,7 @@
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Business Name</label><input class="fp-input" id="from-name" value="i2Medier Konceptz" oninput="render()"/></div></div>
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Address</label><input class="fp-input" id="from-address" value="15 Rumuola Road" oninput="render()"/></div></div>
                 <div class="fp-row"><div class="fp-field"><label class="fp-label">City / State</label><input class="fp-input" id="from-city" value="Port Harcourt, Rivers State" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Country</label><input class="fp-input" id="from-country" value="Nigeria" oninput="render()"/></div></div>
-                <div class="fp-row"><div class="fp-field"><label class="fp-label">Email</label><input class="fp-input" id="from-email" value="letstalk@i2medier.com" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Phone</label><input class="fp-input" id="from-phone" value="+234 800 000 0000" oninput="render()"/></div></div>
+                <div class="fp-row"><div class="fp-field"><label class="fp-label">Email</label><input class="fp-input" id="from-email" value="letstalk@i2medier.com" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Phone</label><input class="fp-input" id="from-phone" value="+234 805 218 8396" oninput="render()"/></div></div>
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Website</label><input class="fp-input" id="from-website" value="i2medier.com" oninput="render()"/></div></div>
             </div>
         </div>

@@ -936,7 +936,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a consulting firm<br>website that wins mandates?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will review your current site, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-consulting-firm-website-design', 'source_label' => 'Consulting Firm Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

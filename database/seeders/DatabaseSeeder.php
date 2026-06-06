@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(OnboardingCatalogSeeder::class);
+        $this->call(TeamMembersSeeder::class);
 
         $admin = $this->seedAdmin();
         $this->seedStaff();

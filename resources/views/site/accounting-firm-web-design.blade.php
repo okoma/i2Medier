@@ -916,7 +916,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an accounting firm<br>website that wins clients?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-accounting-firm-website-design', 'source_label' => 'Accounting Firm Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

@@ -18,7 +18,7 @@ data-variations-route="{{ route('tools.business-name-generator.variations') }}"
 
 @section('content')
 <nav>
-    <a href="{{ route('site.home') }}" class="logo">i2Medi<span>er</span></a>
+    @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     
     <button class="nav-fav-btn" type="button" onclick="toggleFavPanel()">

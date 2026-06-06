@@ -10,11 +10,17 @@ use App\Models\OnboardingService;
 use App\Models\PortfolioCategory;
 use App\Models\PortfolioProject;
 use App\Models\Project;
+use App\Models\SupportTicket;
+use App\Models\TeamMember;
 use App\Models\User;
+use App\Support\SiteSettings as SiteSettingsManager;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -304,6 +310,57 @@ class SiteController extends Controller
         ]);
     }
 
+    public function storeContact(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'department_email' => ['required', 'email', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
+            'company' => ['nullable', 'string', 'max:255'],
+            'email' => ['required', 'email:rfc', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'subject' => ['nullable', 'string', 'max:255'],
+            'message' => ['required', 'string', 'max:5000'],
+            'source_page' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $department = $this->contactDepartmentFor($validated['department_email']);
+        $linkedUser = User::query()
+            ->whereRaw('LOWER(email) = ?', [Str::lower($validated['email'])])
+            ->first();
+
+        $ticket = SupportTicket::query()->create([
+            'ticket_number' => 'TKT-' . now()->format('Y') . '-' . Str::upper(Str::random(6)),
+            'client_id' => $linkedUser?->client_id,
+            'submitted_by' => $linkedUser?->id,
+            'requester_name' => $validated['name'],
+            'requester_email' => $validated['email'],
+            'requester_phone' => $validated['phone'] ?: null,
+            'requester_company' => $validated['company'] ?: null,
+            'subject' => $validated['subject'] ?: ('New ' . $department['label'] . ' enquiry'),
+            'description' => $validated['message'],
+            'status' => 'open',
+            'priority' => 'medium',
+            'category' => $department['category'],
+            'department' => $department['key'],
+            'department_email' => $department['email'],
+            'source' => 'public_contact',
+            'channel' => 'web',
+            'source_page' => $validated['source_page'] ?: '/contact',
+        ]);
+
+        try {
+            Notification::route('mail', $department['email'])
+                ->notify(new \App\Notifications\SupportTicketSubmittedNotification($ticket, $department['label']));
+        } catch (Throwable $exception) {
+            report($exception);
+        }
+
+        return response()->json([
+            'success' => true,
+            'ticket_number' => $ticket->ticket_number,
+        ]);
+    }
+
     public function start(Request $request): View
     {
         $onboardingCatalog = $this->publicOnboardingCatalog();
@@ -311,6 +368,7 @@ class SiteController extends Controller
         return view('site.onboarding', [
             'onboardingCatalog' => $onboardingCatalog,
             'onboardingPreset' => $this->onboardingPreset($request, $onboardingCatalog),
+            'contact' => $this->contactDetails(),
             'seo' => $this->seo(
                 'Start a Project - i2Medier',
                 'Tell i2Medier about your project, select the services you need, choose useful add-ons, and receive a tailored, itemised proposal within 24 hours.',
@@ -698,7 +756,15 @@ class SiteController extends Controller
 
     public function about(): View
     {
+        $settings = app(SiteSettingsManager::class);
+
         return view('site.about', [
+            'teamMembers' => TeamMember::query()->active()->ordered()->get(),
+            'teamContent' => [
+                'eyebrow' => $settings->aboutTeamEyebrow(),
+                'heading' => $settings->aboutTeamHeading(),
+                'intro' => $settings->aboutTeamIntro(),
+            ],
             'seo' => $this->seo(
                 'About Us — i2Medier',
                 'Learn about i2Medier, our approach to premium web design and development, and how we help businesses grow with thoughtful digital systems and strategy.',
@@ -948,6 +1014,7 @@ class SiteController extends Controller
      *     email: string,
      *     phone_display: string,
      *     phone_href: string,
+     *     whatsapp_href: string,
      *     address_title: string,
      *     address_lines: array<int, string>,
      *     hours: string,
@@ -960,27 +1027,45 @@ class SiteController extends Controller
     private function contactDetails(): array
     {
         return [
-            'studio' => 'i2Medier Konceptz',
+            'studio' => 'i2Medier Konceptz Ltd.',
             'email' => 'letstalk@i2medier.com',
-            'phone_display' => '+234 (0) 000 000 0000',
-            'phone_href' => 'tel:+2340000000000',
-            'address_title' => 'Lagos, Nigeria',
+            'phone_display' => '+234 805 218 8396',
+            'phone_href' => 'tel:+2348052188396',
+            'whatsapp_href' => 'https://wa.me/2348052188396?text=Hi!%20I%27d%20like%20to%20enquire%20about%20your%20services.',
+            'address_title' => 'Port Harcourt, Rivers State, Nigeria',
             'address_lines' => [
-                'Remote-first studio',
-                'Client calls and in-person meetings available by appointment',
+                '18 Emmanuel Close, NTA Mgbuoba',
+                'Port Harcourt, Rivers State',
+                'Nigeria',
             ],
-            'hours' => 'Monday to Friday · 9:00 AM to 6:00 PM WAT',
-            'map_embed' => 'https://www.google.com/maps?q=Lagos%2C+Nigeria&z=12&output=embed',
+            'hours' => 'Monday to Friday · 9:00 AM to 6:00 PM WAT · Saturday 10:00 AM to 2:00 PM',
+            'map_embed' => 'https://www.google.com/maps?q=Port+Harcourt%2C+Nigeria&z=13&output=embed',
             'yb_local_url' => 'https://yblocal.com/your-business-profile',
             'yb_local_label' => 'View i2Medier on YB Local',
             'socials' => [
-                ['label' => 'Facebook', 'handle' => 'facebook.com/yourbrand', 'url' => 'https://www.facebook.com/yourbrand'],
-                ['label' => 'Instagram', 'handle' => 'instagram.com/yourbrand', 'url' => 'https://www.instagram.com/yourbrand'],
-                ['label' => 'LinkedIn', 'handle' => 'linkedin.com/company/yourbrand', 'url' => 'https://www.linkedin.com/company/yourbrand'],
-                ['label' => 'X', 'handle' => 'x.com/yourbrand', 'url' => 'https://x.com/yourbrand'],
-                ['label' => 'YouTube', 'handle' => 'youtube.com/@yourbrand', 'url' => 'https://www.youtube.com/@yourbrand'],
+                ['label' => 'Facebook', 'handle' => 'facebook.com/i2medier', 'url' => 'https://facebook.com/i2medier'],
+                ['label' => 'Instagram', 'handle' => 'instagram.com/i2medier', 'url' => 'https://www.instagram.com/i2medier'],
+                ['label' => 'LinkedIn', 'handle' => 'linkedin.com/company/i2medier', 'url' => 'https://www.linkedin.com/company/i2medier'],
+                ['label' => 'X', 'handle' => 'x.com/i2medier', 'url' => 'https://twitter.com/i2medier'],
+                ['label' => 'YouTube', 'handle' => 'youtube.com/@i2medier', 'url' => 'https://www.youtube.com/@i2medier'],
             ],
         ];
+    }
+
+    /**
+     * @return array{key: string, label: string, email: string, category: string}
+     */
+    private function contactDepartmentFor(string $email): array
+    {
+        $departments = collect([
+            'letstalk@i2medier.com' => ['key' => 'sales', 'label' => 'Sales', 'email' => 'letstalk@i2medier.com', 'category' => 'general'],
+            'design@i2medier.com' => ['key' => 'design', 'label' => 'Design', 'email' => 'design@i2medier.com', 'category' => 'general'],
+            'dev@i2medier.com' => ['key' => 'development', 'label' => 'Development', 'email' => 'dev@i2medier.com', 'category' => 'technical'],
+            'support@i2medier.com' => ['key' => 'support', 'label' => 'Support', 'email' => 'support@i2medier.com', 'category' => 'technical'],
+            'careers@i2medier.com' => ['key' => 'careers', 'label' => 'Careers', 'email' => 'careers@i2medier.com', 'category' => 'general'],
+        ]);
+
+        return $departments->get(Str::lower($email), $departments['letstalk@i2medier.com']);
     }
 
     /**
