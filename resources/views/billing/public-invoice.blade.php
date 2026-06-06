@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $seo['title'] }}</title>
-    <meta name="description" content="{{ $seo['description'] }}">
-    <meta name="robots" content="{{ $seo['robots'] }}">
-    <link rel="canonical" href="{{ $seo['url'] }}">
+    @php(
+        $decodeSeoValue = static fn ($value) => is_string($value)
+            ? html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8')
+            : $value
+    )
+    <title>{{ $decodeSeoValue($seo['title'] ?? '') }}</title>
+    <meta name="description" content="{{ $decodeSeoValue($seo['description'] ?? '') }}">
+    <meta name="robots" content="{{ $decodeSeoValue($seo['robots'] ?? '') }}">
+    <link rel="canonical" href="{{ $seo['url'] ?? url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ $seo['url'] }}">
-    <meta property="og:title" content="{{ $seo['title'] }}">
-    <meta property="og:description" content="{{ $seo['description'] }}">
+    <meta property="og:url" content="{{ $seo['url'] ?? url()->current() }}">
+    <meta property="og:title" content="{{ $decodeSeoValue($seo['title'] ?? '') }}">
+    <meta property="og:description" content="{{ $decodeSeoValue($seo['description'] ?? '') }}">
     <meta property="og:site_name" content="i2Medier">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ $seo['title'] }}">
-    <meta name="twitter:description" content="{{ $seo['description'] }}">
+    <meta name="twitter:title" content="{{ $decodeSeoValue($seo['title'] ?? '') }}">
+    <meta name="twitter:description" content="{{ $decodeSeoValue($seo['description'] ?? '') }}">
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'Invoice',
-        'name' => $seo['title'],
-        'description' => $seo['description'],
-        'url' => $seo['url'],
+        'name' => $decodeSeoValue($seo['title'] ?? ''),
+        'description' => $decodeSeoValue($seo['description'] ?? ''),
+        'url' => $seo['url'] ?? url()->current(),
         'identifier' => $invoice->invoice_number,
         'provider' => [
             '@type' => 'Organization',
