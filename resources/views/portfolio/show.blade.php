@@ -199,7 +199,7 @@
     <div class="cta-sidebar reveal">
       <h4>Need something similar?</h4>
       <p>Tell us about your project. We'll get back to you within 24 hours.</p>
-      <a href="mailto:hello@i2medier.com" class="btn-gold">Start a Project →</a>
+      <a href="mailto:letstalk@i2medier.com" class="btn-gold">Start a Project →</a>
     </div>
 
   </aside>

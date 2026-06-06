@@ -346,7 +346,7 @@
                     <p class="qs-note">Prices shown are base starting points. Final quote confirmed within 24 hours of submission — always itemised, never with hidden fees.</p>
 
                     <div class="qs-cta">
-                        <a href="mailto:hello@i2medier.com" class="qs-cta-btn"><span class="btn-icon" aria-hidden="true">@include('site.partials.onboarding-icon', ['name' => 'chat'])</span> Chat on WhatsApp</a>
+                        <a href="mailto:letstalk@i2medier.com" class="qs-cta-btn"><span class="btn-icon" aria-hidden="true">@include('site.partials.onboarding-icon', ['name' => 'chat'])</span> Chat on WhatsApp</a>
                         <p class="qs-cta-note">Prefer to talk first? We're on WhatsApp.</p>
                     </div>
 

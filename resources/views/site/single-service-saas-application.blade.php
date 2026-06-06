@@ -528,7 +528,7 @@
     <div class="faq-sidebar reveal">
       <h3>Still have questions?</h3>
       <p>If your question is not answered below, email us. We will give you a direct answer — no sales pressure, no NDAs required for a conversation.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -598,7 +598,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>SaaS product?</h2>
   <p>Tell us what you are building and we will send a detailed, itemised proposal within 24 hours — no commitment required.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your SaaS Project →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your SaaS Project →</a>
 </section>
 
 @endsection

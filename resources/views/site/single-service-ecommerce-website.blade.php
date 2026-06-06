@@ -548,7 +548,7 @@
     <div class="faq-sidebar reveal">
       <h3>Still have questions?</h3>
       <p>If your question is not answered below, email us. We will give you a direct answer with no sales pressure and no obligation.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -618,7 +618,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>online store?</h2>
   <p>Tell us about your products and business model and we will send a detailed, itemised proposal within 24 hours — no commitment required.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Store Project →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Store Project →</a>
 </section>
 
 @endsection

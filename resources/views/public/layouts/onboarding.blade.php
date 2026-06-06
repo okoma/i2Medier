@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @php(
-        $decodeSeoValue = static fn ($value) => is_string($value)
-            ? html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8')
-            : $value
+        $decodeSeoValue = static function ($value) {
+            if (! is_string($value)) {
+                return $value;
+            }
+
+            $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $value = preg_replace('/\s*&\s*/', ' and ', $value) ?? $value;
+
+            return preg_replace('/\s+/', ' ', trim($value)) ?? trim($value);
+        }
     )
     <title>{{ $decodeSeoValue(trim($__env->yieldContent('title')) ?: 'i2Medier') }}</title>
     @isset($seo)

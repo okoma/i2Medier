@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'i2Medier — Digital Agency | Web Design, Development & Maintenance Nigeria')
+@section('title', 'i2Medier - Digital Agency in Nigeria')
 
 @push('meta')
 <script type="application/ld+json">{!! json_encode([
@@ -19,18 +19,145 @@
                 'addressCountry' => 'NG',
             ],
             'areaServed' => ['Nigeria', 'United Kingdom', 'Canada', 'United States'],
-            'email' => 'hello@i2medier.com',
-            'sameAs' => ['https://facebook.com/i2medier', 'https://twitter.com/i2medier'],
+            'email' => 'letstalk@i2medier.com',
+            'sameAs' => [
+                'https://facebook.com/i2medier',
+                'https://twitter.com/i2medier',
+                'https://www.linkedin.com/company/i2medier',
+                'https://www.instagram.com/i2medier',
+            ],
             'hasOfferCatalog' => [
                 '@type' => 'OfferCatalog',
+                '@id' => url('/') . '#services',
                 'name' => 'Digital Services',
+                'url' => route('site.services'),
                 'itemListElement' => [
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'WordPress Development', 'url' => route('site.services.wordpress-development')]],
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'UI/UX Design', 'url' => route('site.services.ui-ux-design')]],
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'Laravel Development', 'url' => route('site.services.laravel-development')]],
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'Website Maintenance', 'url' => route('site.services.website-maintenance')]],
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'Business Email Setup', 'url' => route('site.services.business-email-setup')]],
-                    ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => 'SEO & Performance', 'url' => route('site.services.search-optimization')]],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Web Design and Development',
+                            'description' => 'Custom business website design and development for brands that need fast, high-converting digital experiences.',
+                            'url' => route('site.services.web-design'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'WordPress Development',
+                            'description' => 'Custom WordPress website design, development, and implementation for businesses in Nigeria and worldwide.',
+                            'url' => route('site.services.wordpress-development'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Laravel Development',
+                            'description' => 'Custom Laravel web application development for portals, SaaS products, business systems, and APIs.',
+                            'url' => route('site.services.laravel-development'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Mobile App Development',
+                            'description' => 'Native and cross-platform mobile app development for startups and established businesses.',
+                            'url' => route('site.services.mobile-app-development'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Search Optimization',
+                            'description' => 'Technical SEO, on-page optimisation, and search visibility improvements for service businesses and digital products.',
+                            'url' => route('site.services.search-optimization'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'UI and UX Design',
+                            'description' => 'User interface and user experience design for websites, dashboards, SaaS products, and mobile applications.',
+                            'url' => route('site.services.ui-ux-design'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Business Email Setup',
+                            'description' => 'Professional business email setup with domain authentication, inbox deliverability, and team mailbox configuration.',
+                            'url' => route('site.services.business-email-setup'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'White Label Web Services',
+                            'description' => 'White label design and development support for agencies that need a reliable delivery partner.',
+                            'url' => route('site.services.white-label'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Email Deliverability Services',
+                            'description' => 'Email infrastructure audits, DNS alignment, inbox placement guidance, and deliverability troubleshooting.',
+                            'url' => route('site.services.email-deliverability'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Website Maintenance',
+                            'description' => 'Ongoing website care covering updates, backups, uptime monitoring, security checks, and support.',
+                            'url' => route('site.services.website-maintenance'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'WordPress Maintenance',
+                            'description' => 'Ongoing WordPress care plans for updates, security hardening, backups, monitoring, and performance support.',
+                            'url' => route('site.services.wordpress-maintenance'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Cloud Architecture',
+                            'description' => 'Cloud infrastructure planning and implementation for scalable, secure, and resilient digital platforms.',
+                            'url' => route('site.services.cloud-architecture'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'SaaS Application Development',
+                            'description' => 'SaaS product design and development for subscription platforms, internal tools, and software businesses.',
+                            'url' => route('site.services.saas-application'),
+                        ],
+                    ],
+                    [
+                        '@type' => 'Offer',
+                        'itemOffered' => [
+                            '@type' => 'Service',
+                            'name' => 'Ecommerce Website Development',
+                            'description' => 'Custom ecommerce website design and development for online stores that need stronger conversion and operations.',
+                            'url' => route('site.services.ecommerce-website'),
+                        ],
+                    ],
                 ],
             ],
         ],

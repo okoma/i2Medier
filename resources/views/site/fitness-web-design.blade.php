@@ -866,7 +866,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Every fitness business has different needs. Email us and we will give you a direct, honest answer specific to your gym or studio — no sales pressure.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -913,7 +913,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a fitness website<br>that fills your gym with members?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current site, map your keyword opportunities, and show you exactly what we would build — and why it will grow your member base.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

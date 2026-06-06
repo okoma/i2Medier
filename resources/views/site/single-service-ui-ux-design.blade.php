@@ -234,7 +234,7 @@
     <span class="s-label">Frequently Asked Questions</span>
     <h2 class="s-head" id="faq-heading">Questions about our<br><em>UI/UX design service</em></h2>
     <div class="faq-layout">
-      <div class="faq-sidebar"><h3>Can't find your answer here?</h3><p>We are happy to answer questions about our design process, tools, timelines, or pricing in a free 30-minute discovery call.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us Directly →</a></div>
+      <div class="faq-sidebar"><h3>Can't find your answer here?</h3><p>We are happy to answer questions about our design process, tools, timelines, or pricing in a free 30-minute discovery call.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us Directly →</a></div>
       <div class="faq-list">
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="faq1">What tools do you use for UI/UX design?<span class="faq-icon">+</span></button><div class="faq-a" id="faq1">We design exclusively in Figma and also use FigJam for workshops plus Maze or Useberry for remote usability testing when required.</div></div>
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="faq2">What is the difference between UI design and UX design?<span class="faq-icon">+</span></button><div class="faq-a" id="faq2">UX design covers the overall feel and usability of the product. UI design covers the visual layer: typography, colour, spacing, icons, components, and hierarchy. We practise both together.</div></div>
@@ -260,7 +260,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to design a product<br>your users will love?</h2>
     <p>Tell us about your project and we will send you a free, detailed design proposal within 24 hours.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Design Project →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Design Project →</a>
   </section>
 </div>
 @endsection

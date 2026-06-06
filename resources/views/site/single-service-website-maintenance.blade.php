@@ -624,7 +624,7 @@
       <div class="faq-sidebar">
         <h3>Something we did not cover?</h3>
         <p>Book a free 20-minute audit call. We will review your site, tell you what it needs, and recommend the right care plan without pressure.</p>
-        <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us Directly →</a>
+        <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us Directly →</a>
       </div>
       <div class="faq-list" role="list">
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="faq1">What platforms do you maintain?<span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="faq-a" id="faq1">We maintain websites and web applications built on WordPress, WooCommerce, Laravel, CodeIgniter, custom PHP, React, Next.js, and static HTML/CSS sites. If it runs on a web server, we can maintain it.</div></div>
@@ -651,7 +651,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Your site is working hard.<br>Make sure it stays that way.</h2>
     <p>Tell us your platform and we will send you a free onboarding audit and care plan recommendation within 24 hours, no commitment required.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start My Care Plan →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start My Care Plan →</a>
   </section>
 </div>
 @endsection

@@ -372,7 +372,7 @@
     <h2 class="cta-big">Your Next Client Is<br>Searching Right <em>Now.</em></h2>
     <p class="section-sub" style="margin:0 auto;text-align:center">Don't let them find a competitor's website first. Let's build yours today, strategic, fast, and built to win.</p>
     <div class="cta-actions">
-      <a href="mailto:hello@i2medier.com?subject=Lawyer%20Website%20Quote" class="btn-primary">Start My Project →</a>
+      <a href="mailto:letstalk@i2medier.com?subject=Lawyer%20Website%20Quote" class="btn-primary">Start My Project →</a>
       <a href="https://i2medier.com/contact" class="btn-ghost">Schedule a Call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div class="cta-note">Free consultation · No commitment · Response within 24 hours</div>

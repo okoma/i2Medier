@@ -870,7 +870,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Every personal brand has different needs, different offer structures, and different audiences. Email us and we will give you a direct, honest answer specific to your situation — no sales pressure, no generic response.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -917,7 +917,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a personal brand website<br>that positions you as the authority?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, identify your biggest positioning and SEO gaps, and show you exactly what we would build — and why it will attract the right speaking enquiries, coaching clients, and media opportunities.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

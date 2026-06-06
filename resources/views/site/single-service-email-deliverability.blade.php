@@ -367,7 +367,7 @@
       <div class="faq-sidebar">
         <h3>Not sure what the problem is?</h3>
         <p>Most deliverability issues are not visible until the audit. If you suspect your emails aren't landing or your open rates have dropped, an audit will tell you exactly what is wrong and how to fix it.</p>
-        <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us Directly →</a>
+        <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us Directly →</a>
       </div>
       <div class="faq-list" role="list">
         <div class="faq-item" role="listitem"><button class="faq-q" aria-expanded="false" aria-controls="faqd1">How do I know if I have a deliverability problem?<span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="faqd1" role="region">The clearest signs are: lower-than-usual open rates, clients saying they didn't receive emails you sent, bounce rates above 2–3%, or a sudden drop in email engagement. If any of these apply, an audit will confirm whether deliverability is the cause.</div></div>
@@ -394,7 +394,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to land in inboxes<br>every time?</h2>
     <p>Tell us your domain and what symptoms you're seeing. We'll get back to you with an honest assessment within 24 hours.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Fix My Email Deliverability →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Fix My Email Deliverability →</a>
   </section>
 </div>
 @endsection

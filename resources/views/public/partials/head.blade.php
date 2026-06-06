@@ -1,12 +1,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 @php(
-    $decodeSeoValue = static fn ($value) => is_string($value)
-        ? html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8')
-        : $value
+    $decodeSeoValue = static function ($value) {
+        if (! is_string($value)) {
+            return $value;
+        }
+
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $value = preg_replace('/\s*&\s*/', ' and ', $value) ?? $value;
+
+        return preg_replace('/\s+/', ' ', trim($value)) ?? trim($value);
+    }
 )
 <title>{{ $decodeSeoValue($title ?? 'i2Medier') }}</title>
 @php($siteSettings = app(\App\Support\SiteSettings::class))
+@php($organizationSchemaId = url('/') . '#organization')
 @if ($siteSettings->favicon())
 <link rel="icon" href="{{ $siteSettings->favicon() }}">
 <link rel="shortcut icon" href="{{ $siteSettings->favicon() }}">
@@ -30,31 +38,80 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $decodeSeoValue($seo['title'] ?? '') }}">
 <meta name="twitter:description" content="{{ $decodeSeoValue($seo['description'] ?? '') }}">
-<script type="application/ld+json">{!! json_encode([
-    '@context' => 'https://schema.org',
-    '@type' => $seo['schema_type'] ?? 'WebPage',
-    'name' => $decodeSeoValue($seo['title'] ?? ''),
-    'description' => $decodeSeoValue($seo['description'] ?? ''),
-    'url' => $seo['url'] ?? url()->current(),
-    'publisher' => [
-        '@type' => 'Organization',
-        'name' => 'i2Medier',
-        'url' => url('/'),
-    ],
-] + ((($seo['schema_type'] ?? null) === 'Service' && filled($seo['service_type'] ?? null)) ? [
-    'serviceType' => $decodeSeoValue($seo['service_type']),
-    'provider' => [
-        '@type' => 'Organization',
-        'name' => 'i2Medier',
-        'url' => url('/'),
-    ],
-] : []), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@php
+    $pageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => $seo['schema_type'] ?? 'WebPage',
+        'name' => $decodeSeoValue($seo['title'] ?? ''),
+        'description' => $decodeSeoValue($seo['description'] ?? ''),
+        'url' => $seo['url'] ?? url()->current(),
+        'publisher' => [
+            '@id' => $organizationSchemaId,
+        ],
+    ];
+
+    if (($seo['schema_type'] ?? null) === 'Service' && filled($seo['service_type'] ?? null)) {
+        $serviceName = $decodeSeoValue($seo['service_type']);
+
+        $pageSchema = array_merge($pageSchema, [
+            '@id' => ($seo['url'] ?? url()->current()) . '#service',
+            'name' => $serviceName,
+            'serviceType' => $serviceName,
+            'provider' => [
+                '@id' => $organizationSchemaId,
+            ],
+            'brand' => [
+                '@type' => 'Brand',
+                'name' => 'i2Medier',
+            ],
+            'areaServed' => [
+                ['@type' => 'Country', 'name' => 'Nigeria'],
+                ['@type' => 'Country', 'name' => 'United Kingdom'],
+                ['@type' => 'Country', 'name' => 'United States'],
+                ['@type' => 'Country', 'name' => 'Canada'],
+            ],
+            'audience' => [
+                '@type' => 'BusinessAudience',
+                'audienceType' => 'Businesses, startups, agencies, and growing organisations',
+            ],
+            'availableChannel' => [
+                '@type' => 'ServiceChannel',
+                'serviceUrl' => $seo['url'] ?? url()->current(),
+                'availableLanguage' => ['en'],
+            ],
+            'offers' => [
+                '@type' => 'Offer',
+                'url' => $seo['url'] ?? url()->current(),
+                'availability' => 'https://schema.org/InStock',
+                'priceCurrency' => 'NGN',
+                'eligibleRegion' => [
+                    'Nigeria',
+                    'United Kingdom',
+                    'United States',
+                    'Canada',
+                ],
+                'seller' => [
+                    '@id' => $organizationSchemaId,
+                ],
+            ],
+            'category' => 'Digital services',
+        ]);
+    }
+@endphp
+<script type="application/ld+json">{!! json_encode($pageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endisset
 <script type="application/ld+json">{!! json_encode([
     '@context' => 'https://schema.org',
-    '@type' => 'Organization',
+    '@type' => ['Organization', 'LocalBusiness'],
+    '@id' => $organizationSchemaId,
     'name' => 'i2Medier',
     'url' => url('/'),
+    'email' => 'letstalk@i2medier.com',
+    'areaServed' => ['Nigeria', 'United Kingdom', 'United States', 'Canada'],
+    'sameAs' => [
+        'https://www.linkedin.com/company/i2medier',
+        'https://www.instagram.com/i2medier',
+    ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @stack('meta')
 @vite('resources/css/public.css')

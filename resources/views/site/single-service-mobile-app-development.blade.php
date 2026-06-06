@@ -245,7 +245,7 @@
   <span class="s-label">FAQ</span>
   <h2 class="s-head" id="faq-heading">Mobile app questions,<br><em>answered honestly</em></h2>
   <div class="faq-layout">
-    <div class="faq-sidebar reveal"><h3>Still unsure?</h3><p>Mobile app questions are rarely simple. Every project is different. Email us and we'll give you a straight, honest answer tailored to your specific situation.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a></div>
+    <div class="faq-sidebar reveal"><h3>Still unsure?</h3><p>Mobile app questions are rarely simple. Every project is different. Email us and we'll give you a straight, honest answer tailored to your specific situation.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a></div>
     <div class="faq-list reveal">
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f1">Do you build for iOS, Android, or both?<span class="faq-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="f1">We build for both. Our primary approach is React Native, which produces a single codebase that runs natively on both iOS and Android, reducing cost and timeline without compromising native quality. For projects requiring deep platform integration, we also build fully native iOS or native Android applications.</div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f2">What is the difference between React Native and Flutter?<span class="faq-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="f2">React Native renders to native platform UI components using JavaScript. Flutter uses Dart and renders its own UI layer. We work in React Native because it integrates naturally with our Laravel API backends, has a broader ecosystem, and aligns well with platform guidelines.</div></div>
@@ -273,6 +273,6 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>mobile app?</h2>
   <p>Tell us about your idea and we will send a clear, detailed proposal within 24 hours, no commitment required.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Mobile App →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Mobile App →</a>
 </section>
 @endsection

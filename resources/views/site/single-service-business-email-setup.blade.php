@@ -239,7 +239,7 @@
     <span class="s-label">Frequently Asked Questions</span>
     <h2 class="s-head" id="faq-heading">Questions about our<br><em>business email setup service</em></h2>
     <div class="faq-layout">
-      <div class="faq-sidebar"><h3>Still have a question?</h3><p>We are happy to talk through your exact setup situation, what platform makes sense, how the migration would work, or what it will cost.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us Directly →</a></div>
+      <div class="faq-sidebar"><h3>Still have a question?</h3><p>We are happy to talk through your exact setup situation, what platform makes sense, how the migration would work, or what it will cost.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us Directly →</a></div>
       <div class="faq-list" role="list">
         <div class="faq-item" role="listitem"><button class="faq-q" aria-expanded="false" aria-controls="faq1">What is the difference between Google Workspace and a free Gmail account?<span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="faq1" role="region">A free Gmail account gives you a @gmail.com address. Google Workspace gives you a @yourbusiness.com address, more admin control, better team management, and a stronger professional signal to clients.</div></div>
         <div class="faq-item" role="listitem"><button class="faq-q" aria-expanded="false" aria-controls="faq2">Will my emails land in spam after the setup?<span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="faq2" role="region">Not if the setup is done correctly. We configure SPF, DKIM, and DMARC and test delivery before handover so your domain starts from a stronger technical baseline.</div></div>
@@ -265,7 +265,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to send emails that<br>land and impress?</h2>
     <p>Tell us how many users you need, and we'll send you a detailed setup plan and cost breakdown within 24 hours.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Set Up My Business Email →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Set Up My Business Email →</a>
   </section>
 </div>
 @endsection

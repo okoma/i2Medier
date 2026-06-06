@@ -51,7 +51,7 @@
       </ul>
       <div class="legal-contact-box">
         <p>Questions about how we handle your data? Email us directly.</p>
-        <a href="mailto:hello@i2medier.com" class="legal-contact-btn">hello@i2medier.com</a>
+        <a href="mailto:letstalk@i2medier.com" class="legal-contact-btn">letstalk@i2medier.com</a>
       </div>
     </aside>
 
@@ -191,7 +191,7 @@
           <li><strong>Right to object</strong> — you may object to processing based on legitimate interests or for direct marketing purposes.</li>
           <li><strong>Right to withdraw consent</strong> — where processing is based on consent, you may withdraw it at any time without affecting the lawfulness of processing before withdrawal.</li>
         </ul>
-        <p>To exercise any of these rights, email us at <a href="mailto:hello@i2medier.com">hello@i2medier.com</a> with your name and a description of your request. We will respond within 30 days. We may need to verify your identity before processing a request.</p>
+        <p>To exercise any of these rights, email us at <a href="mailto:letstalk@i2medier.com">letstalk@i2medier.com</a> with your name and a description of your request. We will respond within 30 days. We may need to verify your identity before processing a request.</p>
         <p>If you are unsatisfied with our response, you have the right to lodge a complaint with the <strong>Nigeria Data Protection Commission (NDPC)</strong> at <a href="https://ndpc.gov.ng" target="_blank" rel="noopener noreferrer">ndpc.gov.ng</a>.</p>
       </section>
 
@@ -221,7 +221,7 @@
 
       <section class="legal-section" id="children">
         <h2>11. Children's Privacy</h2>
-        <p>Our website and services are directed at businesses and professionals. We do not knowingly collect or solicit personal data from individuals under the age of 18. If we become aware that we have inadvertently collected personal data from a minor, we will delete it promptly. If you believe we have collected data from a child, please contact us at <a href="mailto:hello@i2medier.com">hello@i2medier.com</a>.</p>
+        <p>Our website and services are directed at businesses and professionals. We do not knowingly collect or solicit personal data from individuals under the age of 18. If we become aware that we have inadvertently collected personal data from a minor, we will delete it promptly. If you believe we have collected data from a child, please contact us at <a href="mailto:letstalk@i2medier.com">letstalk@i2medier.com</a>.</p>
       </section>
 
       <hr class="legal-divider">
@@ -238,7 +238,7 @@
         <p>If you have questions, concerns, or requests relating to this Privacy Policy or the handling of your personal data, please contact us:</p>
         <div class="legal-highlight">
           <strong>i2Medier Konceptz</strong><br>
-          Email: <a href="mailto:hello@i2medier.com">hello@i2medier.com</a><br>
+          Email: <a href="mailto:letstalk@i2medier.com">letstalk@i2medier.com</a><br>
           Website: <a href="{{ url('/') }}">i2medier.com</a><br>
           Country of operation: Federal Republic of Nigeria
         </div>
@@ -253,7 +253,7 @@
     <h2>Have questions about your data?</h2>
     <p>Reach out directly and we will respond clearly and promptly — no legal jargon, no runaround.</p>
     <div class="legal-cta-btns">
-      <a href="mailto:hello@i2medier.com" class="btn-black">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="btn-black">Email Us →</a>
       <a href="{{ route('site.terms') }}" class="btn-outline-dark">Read Our Terms of Service</a>
     </div>
   </section>

@@ -371,7 +371,7 @@
   <span class="s-label">FAQ</span>
   <h2 class="s-head" id="faq-heading">SEO questions,<br><em>answered honestly</em></h2>
   <div class="faq-layout">
-    <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>SEO can feel opaque, we know. Email us and we'll answer your specific question directly, with no sales pressure.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a></div>
+    <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>SEO can feel opaque, we know. Email us and we'll answer your specific question directly, with no sales pressure.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a></div>
     <div class="faq-list reveal">
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f1">How long does SEO take to show results?<span class="faq-icon">+</span></button><div class="faq-a" id="f1">SEO is a medium-to-long-term investment. Most businesses see measurable improvements in rankings within 3–6 months of consistent work. For new domains or those with serious technical issues, 6–12 months is more realistic before competitive keywords reach page one. That said, technical fixes, resolving crawl errors, improving Core Web Vitals, adding schema markup, can produce ranking improvements within weeks. The first 90 days typically show clear movement on lower-competition keywords, with more competitive terms following.</div></div>
       <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f2">What is included in an SEO audit?<span class="faq-icon">+</span></button><div class="faq-a" id="f2">Our audit covers four areas: Technical (crawlability, indexation, Core Web Vitals, mobile usability, structured data, site speed, duplicate content, redirect health), On-Page (title tags, meta descriptions, heading hierarchy, content quality, keyword usage, internal linking, image optimisation), Off-Page (backlink profile quality, domain authority, anchor text distribution, competitor backlink comparison), and Keyword Gaps (terms you should rank for but do not, comparing your position against the top three competitors). Every issue is classified by impact level and provided with a clear remediation action.</div></div>
@@ -399,6 +399,6 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to rank higher<br>on Google?</h2>
   <p>Get a free SEO audit and strategy consultation. We will show you exactly what is holding your site back and what it will take to fix it.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free SEO Audit →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free SEO Audit →</a>
 </section>
 @endsection

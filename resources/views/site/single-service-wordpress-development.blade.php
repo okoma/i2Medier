@@ -244,7 +244,7 @@
     <span class="s-label">FAQ</span>
     <h2 class="s-head">WordPress questions,<br><em>answered honestly</em></h2>
     <div class="faq-layout">
-      <div class="faq-sidebar reveal"><h3>Still have a question?</h3><p>If you can't find the answer below, email us directly and we'll get back to you within one business day.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a></div>
+      <div class="faq-sidebar reveal"><h3>Still have a question?</h3><p>If you can't find the answer below, email us directly and we'll get back to you within one business day.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a></div>
       <div class="faq-list reveal">
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f1">Do you use Elementor or other page builders?<span class="faq-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></button><div class="faq-a" id="f1">No, never. Every website we build runs on a custom PHP theme. That approach gives you faster load times, cleaner markup, and stronger Core Web Vitals performance.</div></div>
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f2">How long does a WordPress website take to build?<span class="faq-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></button><div class="faq-a" id="f2">A standard WordPress website with 5–10 pages typically takes 3–5 weeks from design approval to launch. Larger sites with WooCommerce or membership systems range from 5–8 weeks.</div></div>
@@ -269,7 +269,7 @@
   <section class="cta-band" id="contact">
     <h2>Ready to build a WordPress site<br>that actually performs?</h2>
     <p>Tell us about your project and we will send you a free, detailed proposal within 24 hours, with no commitment required.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your WordPress Project →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your WordPress Project →</a>
   </section>
 </div>
 @endsection

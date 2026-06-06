@@ -961,7 +961,7 @@ class SiteController extends Controller
     {
         return [
             'studio' => 'i2Medier Konceptz',
-            'email' => 'hello@i2medier.com',
+            'email' => 'letstalk@i2medier.com',
             'phone_display' => '+234 (0) 000 000 0000',
             'phone_href' => 'tel:+2340000000000',
             'address_title' => 'Lagos, Nigeria',

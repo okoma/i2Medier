@@ -291,7 +291,7 @@
     <span class="s-label">FAQ</span>
     <h2 class="s-head" id="faq-heading">Cloud architecture questions,<br><em>answered plainly</em></h2>
     <div class="faq-layout">
-      <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>Cloud infrastructure questions are often specific to your application and stack. Email us and we'll give you a direct, honest answer tailored to your situation.</p><a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a></div>
+      <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>Cloud infrastructure questions are often specific to your application and stack. Email us and we'll give you a direct, honest answer tailored to your situation.</p><a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a></div>
       <div class="faq-list reveal">
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f1">Which cloud provider do you recommend, AWS or DigitalOcean?<span class="faq-icon">+</span></button><div class="faq-a" id="f1">It depends on your application's scale and complexity. DigitalOcean is our default recommendation for most web applications, APIs, and Laravel platforms. It offers managed databases, object storage, load balancers, and an excellent developer experience at a fraction of AWS pricing, with much less operational overhead. AWS is the right choice for applications that need advanced services such as Lambda, ECS, RDS Aurora, CloudFront at scale, or enterprise-level compliance. We work with both and recommend what fits your requirements and budget, not what sounds more impressive.</div></div>
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="f2">What is a CI/CD pipeline and do I need one?<span class="faq-icon">+</span></button><div class="faq-a" id="f2">CI/CD stands for Continuous Integration and Continuous Deployment. The pipeline runs your test suite every time code is pushed and deploys to your server only when checks pass. Without one, deployments rely on manual SSH access, manual commands, and manual verification, which often leads to avoidable outages. With one, code moves from a merged pull request to a validated production deployment in minutes. We recommend a CI/CD pipeline for any application serving real users.</div></div>
@@ -318,7 +318,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to build infrastructure<br>that never lets you down?</h2>
     <p>Tell us about your application and we'll design the right cloud architecture for your scale, budget, and reliability requirements.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Cloud Project →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Cloud Project →</a>
   </section>
 </div>
 @endsection

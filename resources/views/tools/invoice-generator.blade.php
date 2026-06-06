@@ -35,7 +35,7 @@
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Business Name</label><input class="fp-input" id="from-name" value="i2Medier Konceptz" oninput="render()"/></div></div>
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Address</label><input class="fp-input" id="from-address" value="15 Rumuola Road" oninput="render()"/></div></div>
                 <div class="fp-row"><div class="fp-field"><label class="fp-label">City / State</label><input class="fp-input" id="from-city" value="Port Harcourt, Rivers State" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Country</label><input class="fp-input" id="from-country" value="Nigeria" oninput="render()"/></div></div>
-                <div class="fp-row"><div class="fp-field"><label class="fp-label">Email</label><input class="fp-input" id="from-email" value="hello@i2medier.com" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Phone</label><input class="fp-input" id="from-phone" value="+234 800 000 0000" oninput="render()"/></div></div>
+                <div class="fp-row"><div class="fp-field"><label class="fp-label">Email</label><input class="fp-input" id="from-email" value="letstalk@i2medier.com" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Phone</label><input class="fp-input" id="from-phone" value="+234 800 000 0000" oninput="render()"/></div></div>
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Website</label><input class="fp-input" id="from-website" value="i2medier.com" oninput="render()"/></div></div>
             </div>
         </div>
@@ -199,7 +199,7 @@
             <div class="inv-footer">
                 <div class="inv-footer-brand" id="inv-footer-brand">i2Medi<span>er</span></div>
                 <div class="inv-footer-thanks"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>Thank you for your business</span></div>
-                <div class="inv-footer-note" id="inv-footer-note">hello@i2medier.com · i2medier.com</div>
+                <div class="inv-footer-note" id="inv-footer-note">letstalk@i2medier.com · i2medier.com</div>
             </div>
         </div>
     </div>

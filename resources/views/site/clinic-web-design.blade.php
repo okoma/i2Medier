@@ -919,7 +919,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Email us and we'll give you a direct, honest answer specific to your clinic or practice — no sales pressure, no waiting.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -966,7 +966,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a clinic website<br>that fills your appointment book?</h2>
   <p>Get a free, no-obligation website review and proposal tailored to your practice's specialities, patient audience, and local market.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
 </section>
 @endsection
 

@@ -53,7 +53,7 @@
       </ul>
       <div class="legal-contact-box">
         <p>Questions about these terms before signing? Email us first.</p>
-        <a href="mailto:hello@i2medier.com" class="legal-contact-btn">hello@i2medier.com</a>
+        <a href="mailto:letstalk@i2medier.com" class="legal-contact-btn">letstalk@i2medier.com</a>
       </div>
     </aside>
 
@@ -283,7 +283,7 @@
         <p>All formal notices under these Terms must be in writing and delivered by email to the addresses confirmed at the start of the engagement. Notices to i2Medier should be addressed to:</p>
         <div class="legal-highlight">
           <strong>i2Medier Konceptz</strong><br>
-          Email: <a href="mailto:hello@i2medier.com">hello@i2medier.com</a><br>
+          Email: <a href="mailto:letstalk@i2medier.com">letstalk@i2medier.com</a><br>
           Website: <a href="{{ url('/') }}">i2medier.com</a><br>
           Country of operation: Federal Republic of Nigeria
         </div>

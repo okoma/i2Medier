@@ -323,7 +323,7 @@
   <section class="faq-section" id="faq" aria-labelledby="faq-heading">
     <div style="margin-bottom:0"><span class="s-label">FAQ</span><h2 class="s-head" id="faq-heading">Frequently asked <em>questions</em></h2></div>
     <div class="faq-layout">
-      <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>Can't find the answer you're looking for? Send us a message and we'll get back to you within one business day.</p><a href="mailto:hello@i2medier.com" class="faq-contact-link">Email Us →</a></div>
+      <div class="faq-sidebar reveal"><h3>Still have questions?</h3><p>Can't find the answer you're looking for? Send us a message and we'll get back to you within one business day.</p><a href="mailto:letstalk@i2medier.com" class="faq-contact-link">Email Us →</a></div>
       <div class="faq-list reveal">
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="faq1">How long does it take to build a website with i2Medier?<span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a" id="faq1">Project timelines vary by scope. A standard WordPress website typically takes 3–5 weeks. Custom Laravel applications range from 6–12 weeks depending on the complexity of features and integrations required.</div></div>
         <div class="faq-item"><button class="faq-q" aria-expanded="false" aria-controls="faq2">Do you work with clients outside Nigeria?<span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a" id="faq2">Yes. We work with clients across Nigeria, the United Kingdom, the United States, Canada, and beyond. Our remote workflow is fully optimised for international projects.</div></div>

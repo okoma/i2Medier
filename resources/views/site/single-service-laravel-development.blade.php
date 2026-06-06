@@ -715,7 +715,7 @@
     <div class="faq-sidebar reveal">
       <h3>Still have questions?</h3>
       <p>If your question isn't answered below, email us. We'll give you a straight answer — no sales preamble, no pressure.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -795,7 +795,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build your<br>Laravel application?</h2>
   <p>Tell us what you are building and we will send a detailed, itemised proposal within 24 hours, with no commitment required.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Start Your Laravel Project →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start Your Laravel Project →</a>
 </section>
 
 

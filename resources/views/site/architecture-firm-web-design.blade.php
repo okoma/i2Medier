@@ -883,7 +883,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Every architecture studio has different needs — typologies, project scale, target clients, and credential requirements vary widely. Email us and we will give you a direct, specific answer for your practice — no sales pitch.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -930,7 +930,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an architecture studio<br>website that wins premium projects?</h2>
   <p>Get a free, no-obligation consultation and portfolio website proposal. We will review your current site, audit your portfolio presentation, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

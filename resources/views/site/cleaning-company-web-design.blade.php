@@ -872,7 +872,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Every cleaning company has different needs and markets. Email us and we'll give you a direct, honest answer specific to your business — no sales pressure.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -919,7 +919,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a cleaning company<br>website that wins more contracts?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll audit your current online presence, map your local keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

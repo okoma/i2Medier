@@ -293,7 +293,7 @@
       <div class="faq-sidebar">
         <h3>Ready to expand your agency's output?</h3>
         <p>We're happy to talk through your current pipeline, what service lines you need support on, and whether a project-based or retainer model makes more sense for your situation.</p>
-        <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us Directly →</a>
+        <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us Directly →</a>
       </div>
       <div class="faq-list" role="list">
         <div class="faq-item" role="listitem"><button class="faq-q" aria-expanded="false" aria-controls="faqwl1">Will my clients find out you were involved?<span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg></span></button><div class="faq-a" id="faqwl1" role="region">No. We operate with complete invisibility. No i2Medier branding appears on any file, document, code repository, or communication. Our name does not appear in metadata, comments, Git history, or Figma file properties. Your client sees only your agency's name.</div></div>
@@ -320,7 +320,7 @@
   <section class="cta-band" id="contact" aria-labelledby="cta-h">
     <h2 id="cta-h">Ready to expand what<br>your agency can deliver?</h2>
     <p>Tell us about your pipeline and what you need support with. We will send you our agency partner brief within 24 hours.</p>
-    <a href="mailto:hello@i2medier.com" class="btn-dark">Start a White Label Partnership →</a>
+    <a href="mailto:letstalk@i2medier.com" class="btn-dark">Start a White Label Partnership →</a>
   </section>
 </div>
 @endsection

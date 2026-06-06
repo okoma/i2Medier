@@ -887,7 +887,7 @@
     <div class="faq-sidebar reveal">
       <h3>Not answered here?</h3>
       <p>Every fashion brand has different needs — from a solo designer to a multi-line label. Email us and we'll give you a direct, honest answer specific to your brand and budget.</p>
-      <a href="mailto:hello@i2medier.com" class="faq-clink">Email Us →</a>
+      <a href="mailto:letstalk@i2medier.com" class="faq-clink">Email Us →</a>
     </div>
     <div class="faq-list reveal">
 
@@ -934,7 +934,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a fashion brand<br>website as bold as your work?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, map your collection and SEO opportunities, and show you exactly what we would build — and why it would work for your brand.</p>
-  <a href="mailto:hello@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="mailto:letstalk@i2medier.com" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 
