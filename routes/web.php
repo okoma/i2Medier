@@ -33,6 +33,8 @@ Route::get('/services/mobile-app-development', [SiteController::class, 'mobileAp
 Route::get('/services/search-optimization', [SiteController::class, 'searchOptimization'])->name('site.services.search-optimization');
 Route::get('/services/ui-ux-design', [SiteController::class, 'uiUxDesign'])->name('site.services.ui-ux-design');
 Route::get('/services/business-email-setup', [SiteController::class, 'businessEmailSetup'])->name('site.services.business-email-setup');
+Route::get('/services/email-deliverability', [SiteController::class, 'emailDeliverability'])->name('site.services.email-deliverability');
+Route::get('/services/white-label', [SiteController::class, 'whiteLabel'])->name('site.services.white-label');
 Route::get('/services/website-maintenance', [SiteController::class, 'websiteMaintenance'])->name('site.services.website-maintenance');
 Route::get('/services/wordpress-maintenance', [SiteController::class, 'wordpressMaintenance'])->name('site.services.wordpress-maintenance');
 Route::get('/services/cloud-architecture', [SiteController::class, 'cloudArchitecture'])->name('site.services.cloud-architecture');
@@ -44,7 +46,7 @@ Route::get('/start', [SiteController::class, 'start'])->name('site.start');
 Route::post('/start', [SiteController::class, 'storeStart'])->name('site.start.store')->middleware('throttle:8,1');
 Route::get('/services/web-design/law-firm-website-design', [SiteController::class, 'lawyerLanding'])->name('site.lawyer');
 Route::get('/services/web-design/{industry}', [SiteController::class, 'webDesignIndustry'])
-    ->where('industry', 'accounting-firm-website-design|clinic-website-design|real-estate-website-design|consulting-firm-website-design|construction-company-website-design|engineering-firm-website-design|architecture-firm-website-design|school-website-design|church-website-design|hotel-website-design|restaurant-website-design|beauty-wellness-website-design|fitness-website-design|cleaning-company-website-design|logistics-company-website-design|travel-agency-website-design|ecommerce-website-design|fashion-brand-website-design|event-planner-website-design|photography-website-design|personal-brand-website-design')
+    ->where('industry', 'accounting-firm-website-design|clinic-website-design|real-estate-website-design|consulting-firm-website-design|construction-company-website-design|engineering-firm-website-design|architecture-firm-website-design|school-website-design|church-website-design|hotel-website-design|restaurant-website-design|beauty-wellness-website-design|fitness-website-design|cleaning-company-website-design|logistics-company-website-design|travel-agency-website-design|ecommerce-website-design|fashion-brand-website-design|event-planner-website-design|photography-website-design|personal-brand-website-design|marketing-agency-website-design')
     ->name('site.services.web-design.industry');
 Route::get('/about', [SiteController::class, 'about'])->name('site.about');
 Route::get('/terms', [SiteController::class, 'terms'])->name('site.terms');

@@ -23,7 +23,7 @@ class SiteController extends Controller
     {
         return view('welcome', [
             'seo' => $this->seo(
-                'i2Medier — Digital Agency | Web Design, Development & Maintenance Nigeria',
+                'i2Medier - Digital Agency in Nigeria',
                 'i2Medier is a premium digital agency in Nigeria delivering web design, WordPress development, UI/UX design, Laravel applications, business email setup, and website maintenance for businesses across Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/',
@@ -53,7 +53,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-web-design', [
             'seo' => $this->seo(
-                'Web Design & Development Services | i2Medier',
+                'Web Design & Development Services - i2Medier',
                 'Professional web design and custom website development by i2Medier. We build fast, high-converting business websites, landing pages, and custom digital experiences for brands in Nigeria and worldwide.',
                 [
                     'path' => '/services/web-design',
@@ -69,7 +69,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-wordpress-development', [
             'seo' => $this->seo(
-                'WordPress Web Design & Development Services | i2Medier',
+                'WordPress Web Design & Development Services - i2Medier',
                 'Professional custom WordPress website design and development services by i2Medier. We build fast, secure, SEO-optimised WordPress websites for businesses in Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/services/wordpress-development',
@@ -85,7 +85,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-laravel-development', [
             'seo' => $this->seo(
-                'Laravel Web Application Development Services | i2Medier',
+                'Laravel Web Application Development Services - i2Medier',
                 'Expert Laravel web application development by i2Medier. We build custom SaaS platforms, business portals, REST APIs, and complex web applications on Laravel for clients in Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/services/laravel-development',
@@ -101,7 +101,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-mobile-app-development', [
             'seo' => $this->seo(
-                'Mobile App Development Services | iOS & Android | i2Medier',
+                'Mobile App Development Services - i2Medier',
                 'Professional mobile app development by i2Medier. We build native iOS, Android, and cross-platform apps for startups and businesses in Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/services/mobile-app-development',
@@ -117,7 +117,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-search-optimization', [
             'seo' => $this->seo(
-                'Search Optimization Services | SEO | i2Medier',
+                'Search Optimization Services (SEO) - i2Medier',
                 'Professional SEO services by i2Medier. We help businesses rank higher on Google through technical SEO, on-page optimisation, content strategy, local SEO, and measurable reporting.',
                 [
                     'path' => '/services/search-optimization',
@@ -133,7 +133,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-ui-ux-design', [
             'seo' => $this->seo(
-                'UI/UX Design Services | i2Medier',
+                'UI/UX Design Services - i2Medier',
                 'Professional UI/UX design services by i2Medier. We create user-centred Figma designs, interactive prototypes, and scalable design systems for web and mobile products.',
                 [
                     'path' => '/services/ui-ux-design',
@@ -149,7 +149,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-business-email-setup', [
             'seo' => $this->seo(
-                'Business Email Setup Services | i2Medier',
+                'Business Email Setup Services - i2Medier',
                 'Professional business email setup by i2Medier. We configure custom domain email addresses on Google Workspace, Microsoft 365, Zoho Mail, and cPanel for businesses in Nigeria and worldwide.',
                 [
                     'path' => '/services/business-email-setup',
@@ -161,11 +161,43 @@ class SiteController extends Controller
         ]);
     }
 
+    public function whiteLabel(): View
+    {
+        return view('site.single-service-white-label', [
+            'seo' => $this->seo(
+                'White Label Digital Services - i2Medier',
+                'White label web design, development, SEO, and digital services for agencies. We deliver under your brand, sign NDAs, and remain completely invisible to your clients.',
+                [
+                    'path' => '/services/white-label',
+                    'keywords' => 'white label web design Nigeria, white label development agency Nigeria, white label digital services, agency outsourcing Nigeria, white label WordPress development, white label Laravel development',
+                    'schema_type' => 'Service',
+                    'service_type' => 'White Label Services',
+                ],
+            ),
+        ]);
+    }
+
+    public function emailDeliverability(): View
+    {
+        return view('site.single-service-email-deliverability', [
+            'seo' => $this->seo(
+                'Email Deliverability Services - i2Medier',
+                'Email deliverability services by i2Medier. We fix SPF, DKIM and DMARC, remove domain blacklistings, set up cold email infrastructure, and repair sender reputation so your emails land in inboxes, not spam.',
+                [
+                    'path' => '/services/email-deliverability',
+                    'keywords' => 'email deliverability Nigeria, fix emails going to spam Nigeria, SPF DKIM DMARC setup Nigeria, blacklist removal Nigeria, cold email setup Nigeria, email reputation repair',
+                    'schema_type' => 'Service',
+                    'service_type' => 'Email Deliverability',
+                ],
+            ),
+        ]);
+    }
+
     public function websiteMaintenance(): View
     {
         return view('site.single-service-website-maintenance', [
             'seo' => $this->seo(
-                'Website Maintenance Services | i2Medier',
+                'Website Maintenance Services - i2Medier',
                 'Professional website maintenance services by i2Medier for WordPress, Laravel, custom PHP, React, Next.js, e-commerce stores, and business websites. We handle updates, backups, uptime monitoring, security scans, and emergency support.',
                 [
                     'path' => '/services/website-maintenance',
@@ -181,7 +213,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-wordpress-maintenance', [
             'seo' => $this->seo(
-                'WordPress Maintenance Services | i2Medier',
+                'WordPress Maintenance Services - i2Medier',
                 'Professional WordPress maintenance services by i2Medier. We keep WordPress websites and WooCommerce stores secure, updated, backed up, monitored, and performing properly with monthly reports and emergency support.',
                 [
                     'path' => '/services/wordpress-maintenance',
@@ -197,7 +229,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-cloud-architecture', [
             'seo' => $this->seo(
-                'Cloud Architecture & Infrastructure Services | i2Medier',
+                'Cloud Architecture & Infrastructure Services - i2Medier',
                 'Expert cloud architecture and infrastructure services by i2Medier. We design, deploy, and manage scalable cloud infrastructure on AWS, DigitalOcean, and Cloudflare for businesses in Nigeria and worldwide.',
                 [
                     'path' => '/services/cloud-architecture',
@@ -213,7 +245,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-saas-application', [
             'seo' => $this->seo(
-                'SaaS Application Development Services | i2Medier',
+                'SaaS Application Development Services - i2Medier',
                 'Expert SaaS application development by i2Medier. We build subscription-ready software products with strong foundations for onboarding, user accounts, admin workflows, and recurring growth.',
                 [
                     'path' => '/services/saas-application',
@@ -229,7 +261,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-ecommerce-website', [
             'seo' => $this->seo(
-                'E-Commerce Website Development Services | i2Medier',
+                'E-Commerce Website Development Services - i2Medier',
                 'Premium e-commerce website development by i2Medier. We build online stores with WooCommerce, Shopify, and custom Laravel — platform fit, smooth checkout, and the operational systems needed for serious selling.',
                 [
                     'path' => '/services/ecommerce-website',
@@ -245,7 +277,7 @@ class SiteController extends Controller
     {
         return view('site.who-we-help', [
             'seo' => $this->seo(
-                'Who We Help | i2Medier',
+                'Who We Help - i2Medier',
                 'Explore the industries i2Medier serves with dedicated web design, development, and digital growth solutions for firms, agencies, schools, clinics, and service brands.',
                 [
                     'path' => '/who-we-help',
@@ -261,7 +293,7 @@ class SiteController extends Controller
         return view('site.contact', [
             'contact' => $this->contactDetails(),
             'seo' => $this->seo(
-                'Contact i2Medier',
+                'Contact Us - i2Medier',
                 'Contact i2Medier for web design, Laravel development, WordPress development, SEO, mobile apps, cloud architecture, and digital growth projects. Reach us by phone, email, social links, map, or our YB Local profile.',
                 [
                     'path' => '/contact',
@@ -280,7 +312,7 @@ class SiteController extends Controller
             'onboardingCatalog' => $onboardingCatalog,
             'onboardingPreset' => $this->onboardingPreset($request, $onboardingCatalog),
             'seo' => $this->seo(
-                'Start a Project — i2Medier',
+                'Start a Project - i2Medier',
                 'Tell i2Medier about your project, select the services you need, choose useful add-ons, and receive a tailored, itemised proposal within 24 hours.',
                 [
                     'path' => '/start',
@@ -622,7 +654,7 @@ class SiteController extends Controller
     {
         return view('site.lawyer', [
             'seo' => $this->seo(
-                'Law Firm Website Design | i2Medier',
+                'Law Firm Website Design - i2Medier',
                 'Premium law firm website design by i2Medier. We build high-converting legal websites that help attorneys and law firms generate enquiries, establish authority, and win more clients.',
                 [
                     'path' => '/services/web-design/law-firm-website-design',
@@ -735,6 +767,13 @@ class SiteController extends Controller
                 'description' => 'Real estate website design for agencies, realtors, and property developers in Nigeria. We build property websites that showcase listings clearly, attract qualified leads, and support long-term SEO growth.',
                 'keywords' => 'real estate website design Nigeria, property developer website, realtor website Nigeria, estate agency web design, property listing website Nigeria',
                 'service_type' => 'Real Estate Website Design',
+            ],
+            'marketing-agency-website-design' => [
+                'view' => 'site.marketing-agency-web-design',
+                'title' => 'Web Design for Marketing Agencies | Agency Website Design Nigeria | i2Medier',
+                'description' => 'Professional web design for marketing agencies, digital studios, and creative agencies in Nigeria. We build fast, results-led agency websites that rank on Google, showcase case studies, and convert prospects into clients.',
+                'keywords' => 'marketing agency website design Nigeria, digital marketing agency website, creative agency web design, social media agency website Nigeria, agency website design',
+                'service_type' => 'Marketing Agency Website Design',
             ],
             'consulting-firm-website-design' => [
                 'view' => 'site.consulting-firm-web-design',

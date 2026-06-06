@@ -83,6 +83,18 @@
         <a href="#business-email" class="svc-link">Learn more →</a>
       </div>
       <div class="service-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div>
+        <div class="svc-title">White Label Services</div>
+        <p class="svc-desc">We build and deliver digital work under your agency's brand — NDA protected, no i2Medier footprint, fully invisible to your clients.</p>
+        <a href="#white-label" class="svc-link">Learn more →</a>
+      </div>
+      <div class="service-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 5 3.4 7.9 8 9 4.6-1.1 8-4 8-9V7Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+        <div class="svc-title">Email Deliverability</div>
+        <p class="svc-desc">We fix emails going to spam — SPF, DKIM, DMARC setup, blacklist removal, domain warm-up, cold email infrastructure, and ongoing reputation monitoring.</p>
+        <a href="#email-deliverability" class="svc-link">Learn more →</a>
+      </div>
+      <div class="service-card">
         <div class="svc-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 17.5a4.5 4.5 0 0 0-1-8.9A6 6 0 0 0 7.2 7.5 4 4 0 0 0 7 15.5h13z"></path></svg></div>
         <div class="svc-title">Cloud Architecture</div>
         <p class="svc-desc">Managed cloud architecture designed for security, observability, resilience, and the operational demands of serious digital products.</p>
@@ -638,8 +650,128 @@
     </div>
   </section>
 
-  <section class="service-deep" id="cloud" style="background: var(--off);">
+  <section class="service-deep" id="white-label">
+    <div class="deep-inner">
+      <div class="deep-sticky">
+        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span> White Label Services</div>
+        <h2 class="deep-title">Your agency's output, under <em>your brand</em></h2>
+        <p class="deep-lead">We build, design, and deliver digital work on behalf of agencies and consultancies — under your name, to your standards, with full NDA protection. Your clients never know we exist. Your team never gets stretched beyond capacity.</p>
+        <p class="deep-lead">From a single overflow project to a long-term retainer, we operate as your invisible production partner across every service we offer — web, WordPress, Laravel, mobile, design, SEO, and maintenance.</p>
+        <div class="stack-pills">
+          <span class="stack-pill">NDA Protected</span>
+          <span class="stack-pill">Your Branding Only</span>
+          <span class="stack-pill">Web Design</span>
+          <span class="stack-pill">WordPress</span>
+          <span class="stack-pill">Laravel</span>
+          <span class="stack-pill">UI/UX</span>
+          <span class="stack-pill">SEO</span>
+          <span class="stack-pill">Mobile Apps</span>
+        </div>
+        <br>
+        <a href="{{ route('site.services.white-label') }}" class="deep-cta">Read More →</a>
+        <a href="{{ route('site.start', ['services' => 'whitelabel', 'source_page' => 'services-overview-whitelabel', 'source_label' => 'Services Page']) }}" class="deep-cta ghost">Start a White Label Project</a>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></div>
+          <div class="feature-text">
+            <h4>NDA on Every Engagement</h4>
+            <p>We sign a non-disclosure agreement before any project brief is shared. Client names, project details, and IP are protected from day one — always.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+          <div class="feature-text">
+            <h4>Zero i2Medier Footprint</h4>
+            <p>No branding, no metadata, no code comments with our name. What we produce is yours completely — indistinguishable from your own team's output.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          <div class="feature-text">
+            <h4>7 Service Lines Available</h4>
+            <p>Web design, WordPress, Laravel, mobile apps, UI/UX, SEO, and maintenance — all available under your agency's name on any brief.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          <div class="feature-text">
+            <h4>Project, Retainer, or Dedicated Team</h4>
+            <p>One-off overflow projects, a monthly hours retainer with priority scheduling, or a named dedicated team embedded in your operations.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+          <div class="feature-text">
+            <h4>Fits Your Workflow</h4>
+            <p>We adapt to your project management tool, file naming conventions, brief format, and communication cadence — not the other way around.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-deep" id="email-deliverability" style="background: var(--off);">
     <div class="deep-inner reverse">
+      <div class="deep-sticky">
+        <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 5 3.4 7.9 8 9 4.6-1.1 8-4 8-9V7Z"></path><path d="m9 12 2 2 4-4"></path></svg></span> Email Deliverability</div>
+        <h2 class="deep-title">Emails that <em>reach the inbox</em></h2>
+        <p class="deep-lead">If your emails are landing in spam, your domain is blacklisted, or open rates have dropped without explanation, the problem is deliverability. We diagnose the root cause and fix every layer: DNS authentication, sender reputation, infrastructure, and content signals.</p>
+        <p class="deep-lead">From a one-time audit and fix to cold email infrastructure builds and ongoing reputation monitoring, we handle every type of deliverability problem — correctly, and in the right order.</p>
+        <div class="stack-pills">
+          <span class="stack-pill">SPF · DKIM · DMARC</span>
+          <span class="stack-pill">Blacklist Removal</span>
+          <span class="stack-pill">Domain Warm-Up</span>
+          <span class="stack-pill">Cold Email Infra</span>
+          <span class="stack-pill">DMARC Reporting</span>
+          <span class="stack-pill">Reputation Monitoring</span>
+        </div>
+        <br>
+        <a href="{{ route('site.services.email-deliverability') }}" class="deep-cta">Read More →</a>
+        <a href="{{ route('site.start', ['services' => 'email-deliverability', 'source_page' => 'services-overview-email-deliverability', 'source_label' => 'Services Page']) }}" class="deep-cta ghost">Fix My Deliverability</a>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 5 3.4 7.9 8 9 4.6-1.1 8-4 8-9V7Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+          <div class="feature-text">
+            <h4>SPF, DKIM & DMARC Setup</h4>
+            <p>Missing or broken authentication is the most common reason emails go to spam. We configure all three DNS records, test them, and verify enforcement so your domain passes every check.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M6 6l1 14h10l1-14"></path></svg></div>
+          <div class="feature-text">
+            <h4>Blacklist Removal</h4>
+            <p>We identify every active blacklist listing on your domain or sending IP, file removal requests, and monitor clearance across all major blacklist databases.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></div>
+          <div class="feature-text">
+            <h4>Cold Email Infrastructure</h4>
+            <p>We set up dedicated sending domains with proper authentication and warm-up so cold outreach never damages the reputation of your primary business domain.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m20 20-4.2-4.2"></path><path d="M11 8v3l2 2"></path></svg></div>
+          <div class="feature-text">
+            <h4>Deliverability Audit</h4>
+            <p>A full technical inspection of your sending setup: DNS authentication, blacklist status, spam score, inbox placement across major providers, and a written fix plan.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8 16a6 6 0 0 1 8 0"></path><path d="M5 12a11 11 0 0 1 14 0"></path><path d="M2 8a16 16 0 0 1 20 0"></path></svg></div>
+          <div class="feature-text">
+            <h4>Ongoing Reputation Monitoring</h4>
+            <p>Monthly blacklist checks, DMARC report analysis, DNS change alerts, and a health summary so problems are caught and fixed before they affect delivery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-deep" id="cloud" style="background: var(--white);">
+    <div class="deep-inner">
       <div class="deep-sticky">
         <div class="deep-badge"><span class="deep-badge-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 17.5a4.5 4.5 0 0 0-1-8.9A6 6 0 0 0 7.2 7.5 4 4 0 0 0 7 15.5h13z"></path></svg></span> Cloud Architecture</div>
         <h2 class="deep-title">Infrastructure built to <em>scale</em></h2>

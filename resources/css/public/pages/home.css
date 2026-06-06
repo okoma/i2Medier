@@ -10,6 +10,10 @@
     box-shadow: none;
     transition: background .3s, border-color .3s, box-shadow .3s;
 }
+.main-menu {
+    display: flex;
+    align-items: center;
+}
 
 .public-nav.is-home .public-logo { color: var(--white); }
 
