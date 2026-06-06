@@ -133,12 +133,15 @@ Audit context:
 - Domain: {$context['domain']}
 - Score: {$context['score']}/100
 - Verdict: {$context['verdict']}
+- Mail provider: {$context['mail_provider']}
+- DNS provider: {$context['dns_provider']}
 - Failed checks: {$this->implodeForPrompt($context['failed'] ?? [])}
 - Warned checks: {$this->implodeForPrompt($context['warned'] ?? [])}
 - Priority technical notes: {$this->implodeForPrompt($context['recommendations'] ?? [])}
 
 Rules:
 - Be accurate to the provided findings.
+- If the setup appears provider-managed, explain findings in that context instead of implying the root website DNS is necessarily broken.
 - Keep both fields plain English and practical.
 - No markdown. No extra keys.
 PROMPT;

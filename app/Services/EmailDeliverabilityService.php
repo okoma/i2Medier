@@ -39,7 +39,18 @@ class EmailDeliverabilityService
         'sendgrid' => ['s1', 's2'],
         'ses' => ['amazonses', 'default'],
         'postmark' => ['pm', 'postmark', 'default'],
+        'zoho' => ['zoho', 'default'],
         'unknown' => [],
+    ];
+
+    private const PROVIDER_PATTERNS = [
+        'zoho' => ['zoho.'],
+        'google-workspace' => ['google.com', 'googlemail.com', 'aspmx.l.google.com'],
+        'microsoft-365' => ['protection.outlook.com', 'outlook.com'],
+        'postmark' => ['postmark', 'mtasv.net'],
+        'sendgrid' => ['sendgrid.net'],
+        'amazon-ses' => ['amazonses.com'],
+        'mailchimp' => ['servers.mcsv.net', 'mandrillapp.com', 'mailchimp.com'],
     ];
 
     private const DNSBLS = [
@@ -54,11 +65,20 @@ class EmailDeliverabilityService
         $domain = $context['domain'];
         $subject = $context['subject'];
 
-        $dnsCheck = $this->buildDnsCheck($domain, $context['aRecords'], $context['aaaaRecords'], $context['mxRecords']);
+        $dnsCheck = $this->buildDnsCheck(
+            $domain,
+            $context['mailDomain'],
+            $context['orgDomain'],
+            $context['aRecords'],
+            $context['aaaaRecords'],
+            $context['mxRecords'],
+            $context['txtRecords'],
+            $context['providerContext']
+        );
         $spfCheck = $this->buildSpfCheck($domain, $context['mailDomain'], $context['orgDomain'], $context['mailTxtRecords']);
         $dkimCheck = $this->buildDkimCheck($domain, $context['mailDomain'], $context['esp']);
         $dmarcCheck = $this->buildDmarcCheck($domain, $context['orgDomain']);
-        $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps']);
+        $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps'], $context['providerContext']);
         $contentCheck = $this->buildContentCheck($subject, (string) ($input['checkType'] ?? 'full'));
         $reputationCheck = $this->buildReputationCheck(
             $domain,
@@ -68,7 +88,8 @@ class EmailDeliverabilityService
             $dmarcCheck['status'],
             $blacklistCheck['status'],
             (string) ($input['volume'] ?? 'low'),
-            (string) ($input['clientTarget'] ?? 'all')
+            (string) ($input['clientTarget'] ?? 'all'),
+            $context['providerContext']
         );
 
         return $this->compileReport($email, $domain, $subject, $checks = [
@@ -79,7 +100,7 @@ class EmailDeliverabilityService
             $blacklistCheck,
             $contentCheck,
             $reputationCheck,
-        ], $aiConfig, $aiService);
+        ], $aiConfig, $aiService, $context['providerContext']);
     }
 
     public function analyzeLiveTest(array $input, array $message, array $aiConfig, AiService $aiService): array
@@ -89,11 +110,20 @@ class EmailDeliverabilityService
         $subject = trim((string) ($message['subject'] ?? $context['subject']));
         $auth = $this->parseAuthSignals((string) ($message['authentication_results'] ?? ''), (string) ($message['headers'] ?? ''));
 
-        $dnsCheck = $this->buildDnsCheck($context['domain'], $context['aRecords'], $context['aaaaRecords'], $context['mxRecords']);
+        $dnsCheck = $this->buildDnsCheck(
+            $context['domain'],
+            $context['mailDomain'],
+            $context['orgDomain'],
+            $context['aRecords'],
+            $context['aaaaRecords'],
+            $context['mxRecords'],
+            $context['txtRecords'],
+            $context['providerContext']
+        );
         $spfCheck = $this->buildLiveSpfCheck($context['domain'], $context['mailDomain'], $context['orgDomain'], $context['mailTxtRecords'], $auth);
         $dkimCheck = $this->buildLiveDkimCheck($context['domain'], $context['mailDomain'], $context['esp'], $auth, (string) ($message['headers'] ?? ''));
         $dmarcCheck = $this->buildLiveDmarcCheck($context['domain'], $context['orgDomain'], $auth);
-        $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps']);
+        $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps'], $context['providerContext']);
         $contentCheck = $this->buildContentCheck($subject, (string) ($input['checkType'] ?? 'full'));
         $reputationCheck = $this->buildReputationCheck(
             $context['domain'],
@@ -103,7 +133,8 @@ class EmailDeliverabilityService
             $dmarcCheck['status'],
             $blacklistCheck['status'],
             (string) ($input['volume'] ?? 'low'),
-            (string) ($input['clientTarget'] ?? 'all')
+            (string) ($input['clientTarget'] ?? 'all'),
+            $context['providerContext']
         );
 
         return $this->compileReport($email, $context['domain'], $subject, $checks = [
@@ -114,7 +145,7 @@ class EmailDeliverabilityService
             $blacklistCheck,
             $contentCheck,
             $reputationCheck,
-        ], $aiConfig, $aiService);
+        ], $aiConfig, $aiService, $context['providerContext']);
     }
 
     private function prepareContext(array $input): array
@@ -144,14 +175,27 @@ class EmailDeliverabilityService
         $aRecords = $this->dnsRecords($domain, DNS_A);
         $aaaaRecords = $this->dnsRecords($domain, DNS_AAAA);
         $mxRecords = $this->dnsRecords($domain, DNS_MX);
+        $orgMxRecords = $domain !== $orgDomain ? $this->dnsRecords($orgDomain, DNS_MX) : [];
+        $effectiveMxRecords = $mxRecords !== [] ? $mxRecords : $orgMxRecords;
         $txtRecords = $this->dnsRecords($domain, DNS_TXT);
+        $orgTxtRecords = $domain !== $orgDomain ? $this->dnsRecords($orgDomain, DNS_TXT) : [];
         $mailTxtRecords = $mailDomain !== $domain ? $this->dnsRecords($mailDomain, DNS_TXT) : $txtRecords;
-        $mxHosts = collect($mxRecords)
+        $nsRecords = $this->dnsRecords($domain, DNS_NS);
+        $mxHosts = collect($effectiveMxRecords)
             ->pluck('target')
             ->filter(fn ($value) => is_string($value) && $value !== '')
             ->map(fn ($value) => rtrim(strtolower($value), '.'))
             ->values()
             ->all();
+        $providerContext = $this->detectProviderContext(
+            $esp,
+            $domain,
+            $mailDomain,
+            $orgDomain,
+            $effectiveMxRecords,
+            array_merge($txtRecords, $orgTxtRecords, $mailTxtRecords),
+            $nsRecords
+        );
 
         return [
             'email' => $email,
@@ -162,21 +206,23 @@ class EmailDeliverabilityService
             'subject' => $subject,
             'aRecords' => $aRecords,
             'aaaaRecords' => $aaaaRecords,
-            'mxRecords' => $mxRecords,
+            'mxRecords' => $effectiveMxRecords,
+            'txtRecords' => $txtRecords,
             'mailTxtRecords' => $mailTxtRecords,
+            'providerContext' => $providerContext,
             'resolvedIps' => $this->resolveHostsToIps($mxHosts !== [] ? $mxHosts : [$domain]),
         ];
     }
 
-    private function compileReport(?string $email, string $domain, string $subject, array $checks, array $aiConfig, AiService $aiService): array
+    private function compileReport(?string $email, string $domain, string $subject, array $checks, array $aiConfig, AiService $aiService, array $providerContext): array
     {
         $contentStatus = collect($checks)->firstWhere('id', 'content')['status'] ?? 'info';
 
         [$score, $stats] = $this->scoreChecks($checks);
         $verdict = $this->scoreVerdict($score);
-        $tags = $this->buildTags($checks, $score, $verdict);
+        $tags = $this->buildTags($checks, $score, $verdict, $providerContext);
         $recommendations = $this->buildRecommendations($checks, $subject !== '');
-        $summary = $this->summarize($checks, $score, $verdict, $aiConfig, $aiService, $domain);
+        $summary = $this->summarize($checks, $score, $verdict, $aiConfig, $aiService, $domain, $providerContext);
         $blacklistStatus = collect($checks)->firstWhere('id', 'blacklist')['status'] ?? 'warn';
         $placement = $this->placement($score, $blacklistStatus, $contentStatus);
 
@@ -204,12 +250,29 @@ class EmailDeliverabilityService
         ];
     }
 
-    private function buildDnsCheck(string $domain, array $aRecords, array $aaaaRecords, array $mxRecords): array
+    private function buildDnsCheck(
+        string $domain,
+        string $mailDomain,
+        string $orgDomain,
+        array $aRecords,
+        array $aaaaRecords,
+        array $mxRecords,
+        array $txtRecords,
+        array $providerContext
+    ): array
     {
         $hasAddress = $aRecords !== [] || $aaaaRecords !== [];
         $mxCount = count($mxRecords);
+        $txtPayloads = collect($txtRecords)->map(fn ($record) => strtolower($this->txtPayload($record)))->all();
+        $hasSpf = collect($txtPayloads)->contains(fn ($value) => str_starts_with($value, 'v=spf1'));
+        $hasDmarc = collect($this->dnsRecords('_dmarc.' . $domain, DNS_TXT))
+            ->map(fn ($record) => strtolower($this->txtPayload($record)))
+            ->contains(fn ($value) => str_starts_with($value, 'v=dmarc1'));
+        $hasMailSignals = $mxCount > 0 || $hasSpf || $hasDmarc || ($providerContext['provider'] ?? null) !== null;
+        $providerLabel = $providerContext['label'] ?? 'your mail provider';
+        $dnsHost = $providerContext['dns_host_label'] ?? null;
 
-        if ($mxCount === 0 && ! $hasAddress) {
+        if ($mxCount === 0 && ! $hasAddress && ! $hasMailSignals) {
             return $this->check(
                 'dns',
                 'DNS',
@@ -224,10 +287,14 @@ class EmailDeliverabilityService
             return $this->check(
                 'dns',
                 'DNS',
-                'Domain resolves but MX is missing',
+                $hasMailSignals ? 'Mail DNS looks partial on this exact host' : 'Domain resolves but MX is missing',
                 'warn',
-                'The domain resolves on the internet, but inbound mail delivery has no dedicated MX records.',
-                'A/AAAA records exist, but no MX records were found. Some providers will fall back to the root host, but deliverability confidence is lower.'
+                $hasMailSignals
+                    ? 'We found authentication or provider signals, but this exact host is not publishing dedicated MX records.'
+                    : 'The domain resolves on the internet, but inbound mail delivery has no dedicated MX records.',
+                $hasMailSignals
+                    ? sprintf('This is common when mail is handled on %s or a related mail subdomain. Audit SPF, DKIM, and DMARC against %s for the real sending identity.', $providerLabel, $mailDomain)
+                    : 'A/AAAA records exist, but no MX records were found. Some providers will fall back to the root host, but deliverability confidence is lower.'
             );
         }
 
@@ -237,7 +304,16 @@ class EmailDeliverabilityService
             'DNS and MX routing look healthy',
             'pass',
             'Core DNS records needed for email routing are present.',
-            sprintf('%d MX record%s found, with %d web host record%s available as fallback signals.', $mxCount, $mxCount === 1 ? '' : 's', count($aRecords) + count($aaaaRecords), (count($aRecords) + count($aaaaRecords)) === 1 ? '' : 's')
+            trim(sprintf(
+                '%d MX record%s found for %s, with %d web host record%s available as fallback signals.%s%s',
+                $mxCount,
+                $mxCount === 1 ? '' : 's',
+                $domain !== $orgDomain && $mxRecords !== [] ? $orgDomain : $domain,
+                count($aRecords) + count($aaaaRecords),
+                (count($aRecords) + count($aaaaRecords)) === 1 ? '' : 's',
+                ($providerContext['provider_managed'] ?? false) ? ' Mail appears to be handled by ' . $providerLabel . '.' : '',
+                $dnsHost ? ' DNS appears to be managed by ' . $dnsHost . '.' : ''
+            ))
         );
     }
 
@@ -616,16 +692,20 @@ class EmailDeliverabilityService
         return $signals;
     }
 
-    private function buildBlacklistCheck(array $ips): array
+    private function buildBlacklistCheck(array $ips, array $providerContext): array
     {
         if ($ips === []) {
             return $this->check(
                 'blacklist',
                 'Blacklist',
-                'No public sending IPs resolved for blacklist checks',
-                'warn',
-                'We could not identify a public mail server IP to query against common blocklists.',
-                'This can happen when MX points to providers that hide IPs behind indirection. Confirm your sending IPs separately if needed.'
+                ($providerContext['provider_managed'] ?? false) ? 'Provider-managed sending IPs were not directly exposed' : 'No public sending IPs resolved for blacklist checks',
+                ($providerContext['provider_managed'] ?? false) ? 'info' : 'warn',
+                ($providerContext['provider_managed'] ?? false)
+                    ? 'Your mail appears to be routed through a managed provider, so the checker could not safely attribute a public sender IP from DNS alone.'
+                    : 'We could not identify a public mail server IP to query against common blocklists.',
+                ($providerContext['provider_managed'] ?? false)
+                    ? 'This is common with providers like Zoho, Google Workspace, and Microsoft 365. Use the live inbox test for the most accurate real-sender validation.'
+                    : 'This can happen when MX points to providers that hide IPs behind indirection. Confirm your sending IPs separately if needed.'
             );
         }
 
@@ -748,7 +828,8 @@ class EmailDeliverabilityService
         string $dmarcStatus,
         string $blacklistStatus,
         string $volume,
-        string $clientTarget
+        string $clientTarget,
+        array $providerContext
     ): array {
         $warnings = [];
 
@@ -790,7 +871,9 @@ class EmailDeliverabilityService
         }
 
         $detail = $ips === []
-            ? 'Authentication is aligned and no common DNSBL hits were found.'
+            ? (($providerContext['provider_managed'] ?? false)
+                ? 'Authentication is aligned and the domain appears to use a provider-managed mail path, so blacklist visibility is limited without a live header test.'
+                : 'Authentication is aligned and no common DNSBL hits were found.')
             : sprintf('Authentication is aligned and %d public sending IP%s resolved without common DNSBL hits.', count($ips), count($ips) === 1 ? '' : 's');
 
         return $this->check(
@@ -894,9 +977,17 @@ class EmailDeliverabilityService
         };
     }
 
-    private function buildTags(array $checks, int $score, string $verdict): array
+    private function buildTags(array $checks, int $score, string $verdict, array $providerContext): array
     {
         $tags = [$score >= 85 ? 'Inbox-ready baseline' : ($score >= 70 ? 'Mostly healthy setup' : 'Needs deliverability cleanup')];
+
+        if (($providerContext['label'] ?? null) !== null) {
+            $tags[] = $providerContext['label'] . ' detected';
+        }
+
+        if (($providerContext['dns_host_label'] ?? null) !== null) {
+            $tags[] = $providerContext['dns_host_label'] . ' DNS';
+        }
 
         foreach ($checks as $check) {
             if ($check['id'] === 'spf' && $check['status'] === 'pass') {
@@ -916,8 +1007,12 @@ class EmailDeliverabilityService
                 };
             }
 
-            if ($check['id'] === 'blacklist') {
-                $tags[] = $check['status'] === 'fail' ? 'Blacklist risk' : 'No common blacklist hit';
+        if ($check['id'] === 'blacklist') {
+                $tags[] = match ($check['status']) {
+                    'fail' => 'Blacklist risk',
+                    'info' => 'Provider-managed sender path',
+                    default => 'No common blacklist hit',
+                };
             }
         }
 
@@ -968,14 +1063,16 @@ class EmailDeliverabilityService
         ];
     }
 
-    private function summarize(array $checks, int $score, string $verdict, array $aiConfig, AiService $aiService, string $domain): array
+    private function summarize(array $checks, int $score, string $verdict, array $aiConfig, AiService $aiService, string $domain, array $providerContext): array
     {
         $failed = array_values(array_filter($checks, fn ($check) => $check['status'] === 'fail'));
         $warned = array_values(array_filter($checks, fn ($check) => $check['status'] === 'warn'));
+        $providerLabel = $providerContext['label'] ?? null;
+        $dnsHostLabel = $providerContext['dns_host_label'] ?? null;
 
         $fallback = [
             'provider' => 'system',
-            'summary' => $this->fallbackSummary($failed, $warned, $score, $domain),
+            'summary' => $this->fallbackSummary($failed, $warned, $score, $domain, $providerLabel, $dnsHostLabel),
             'preview_text' => $this->fallbackPreviewText($failed, $warned, $verdict),
         ];
 
@@ -987,6 +1084,8 @@ class EmailDeliverabilityService
                 'failed' => array_map(fn ($check) => $check['title'], $failed),
                 'warned' => array_map(fn ($check) => $check['title'], $warned),
                 'recommendations' => array_map(fn ($check) => $check['detail'], array_slice(array_merge($failed, $warned), 0, 3)),
+                'mail_provider' => $providerLabel,
+                'dns_provider' => $dnsHostLabel,
             ]);
 
             $summary = trim((string) ($result['data']['summary'] ?? ''));
@@ -1006,20 +1105,27 @@ class EmailDeliverabilityService
         }
     }
 
-    private function fallbackSummary(array $failed, array $warned, int $score, string $domain): string
+    private function fallbackSummary(array $failed, array $warned, int $score, string $domain, ?string $providerLabel, ?string $dnsHostLabel): string
     {
         if ($failed === [] && $warned === []) {
-            return sprintf('%s has a strong technical baseline for inbox delivery, with authentication and reputation signals looking healthy.', $domain);
+            $suffix = $providerLabel ? ' Mail appears to be handled by ' . $providerLabel . '.' : '';
+            if ($dnsHostLabel) {
+                $suffix .= ' DNS is managed through ' . $dnsHostLabel . '.';
+            }
+
+            return sprintf('%s has a strong technical baseline for inbox delivery, with authentication and reputation signals looking healthy.%s', $domain, $suffix);
         }
 
         $priority = $failed !== [] ? $failed : $warned;
         $lead = implode(', ', array_slice(array_map(fn ($check) => strtolower($check['title']), $priority), 0, 2));
+        $context = $providerLabel ? ' The checker also detected ' . $providerLabel . ' in the mail setup.' : '';
 
         return sprintf(
-            '%s scores %d/100 right now. The biggest deliverability drag comes from %s, so fixing those first will do the most to improve inbox placement.',
+            '%s scores %d/100 right now. The biggest deliverability drag comes from %s, so fixing those first will do the most to improve inbox placement.%s',
             $domain,
             $score,
-            $lead
+            $lead,
+            $context
         );
     }
 
@@ -1078,6 +1184,83 @@ class EmailDeliverabilityService
         $first = str_replace(['-', '_'], ' ', $first);
 
         return ucwords($first);
+    }
+
+    private function detectProviderContext(
+        string $esp,
+        string $domain,
+        string $mailDomain,
+        string $orgDomain,
+        array $mxRecords,
+        array $txtRecords,
+        array $nsRecords
+    ): array {
+        $mxHosts = collect($mxRecords)
+            ->pluck('target')
+            ->filter(fn ($value) => is_string($value) && $value !== '')
+            ->map(fn ($value) => strtolower(rtrim($value, '.')))
+            ->all();
+        $txtPayloads = collect($txtRecords)
+            ->map(fn ($record) => strtolower($this->txtPayload($record)))
+            ->filter()
+            ->all();
+        $nsHosts = collect($nsRecords)
+            ->pluck('target')
+            ->filter(fn ($value) => is_string($value) && $value !== '')
+            ->map(fn ($value) => strtolower(rtrim($value, '.')))
+            ->all();
+
+        $provider = $esp !== 'unknown' ? $esp : null;
+
+        if ($provider === null) {
+            foreach (self::PROVIDER_PATTERNS as $candidate => $patterns) {
+                if ($this->arrayContainsPatterns($mxHosts, $patterns) || $this->arrayContainsPatterns($txtPayloads, $patterns)) {
+                    $provider = $candidate;
+                    break;
+                }
+            }
+        }
+
+        $dnsHost = $this->arrayContainsPatterns($nsHosts, ['cloudflare.com']) ? 'Cloudflare' : null;
+
+        return [
+            'provider' => $provider,
+            'label' => $this->providerLabel($provider),
+            'provider_managed' => $provider !== null,
+            'dns_host_label' => $dnsHost,
+            'mail_domain' => $mailDomain,
+            'domain' => $domain,
+            'org_domain' => $orgDomain,
+            'mx_hosts' => $mxHosts,
+        ];
+    }
+
+    private function providerLabel(?string $provider): ?string
+    {
+        return match ($provider) {
+            'zoho' => 'Zoho Mail',
+            'google-workspace' => 'Google Workspace',
+            'microsoft-365' => 'Microsoft 365',
+            'postmark' => 'Postmark',
+            'sendgrid' => 'SendGrid',
+            'amazon-ses', 'ses' => 'Amazon SES',
+            'mailchimp' => 'Mailchimp',
+            'unknown', null => null,
+            default => ucwords(str_replace(['-', '_'], ' ', $provider)),
+        };
+    }
+
+    private function arrayContainsPatterns(array $haystack, array $patterns): bool
+    {
+        foreach ($haystack as $value) {
+            foreach ($patterns as $pattern) {
+                if (str_contains((string) $value, strtolower($pattern))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private function organizationalDomain(string $domain): string
