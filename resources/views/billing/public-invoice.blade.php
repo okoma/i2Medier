@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @php(
+    @php
         $decodeSeoValue = static function ($value) {
             if (! is_string($value)) {
                 return $value;
@@ -13,8 +13,8 @@
             $value = preg_replace('/\s*&\s*/', ' and ', $value) ?? $value;
 
             return preg_replace('/\s+/', ' ', trim($value)) ?? trim($value);
-        }
-    )
+        };
+    @endphp
     <title>{{ $decodeSeoValue($seo['title'] ?? '') }}</title>
     <meta name="description" content="{{ $decodeSeoValue($seo['description'] ?? '') }}">
     <meta name="robots" content="{{ $decodeSeoValue($seo['robots'] ?? '') }}">

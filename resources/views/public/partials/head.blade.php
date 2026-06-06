@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-@php(
+@php
     $decodeSeoValue = static function ($value) {
         if (! is_string($value)) {
             return $value;
@@ -10,11 +10,11 @@
         $value = preg_replace('/\s*&\s*/', ' and ', $value) ?? $value;
 
         return preg_replace('/\s+/', ' ', trim($value)) ?? trim($value);
-    }
-)
+    };
+    $siteSettings = app(\App\Support\SiteSettings::class);
+    $organizationSchemaId = url('/') . '#organization';
+@endphp
 <title>{{ $decodeSeoValue($title ?? 'i2Medier') }}</title>
-@php($siteSettings = app(\App\Support\SiteSettings::class))
-@php($organizationSchemaId = url('/') . '#organization')
 @if ($siteSettings->favicon())
 <link rel="icon" href="{{ $siteSettings->favicon() }}">
 <link rel="shortcut icon" href="{{ $siteSettings->favicon() }}">
