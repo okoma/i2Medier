@@ -22,98 +22,108 @@ if (page) {
         }
 
         const totals = calcTotals(data);
-        const symbol = SYMBOLS[data.currency] || '₦';
         const fromName = data.from?.name || 'i2Medier Konceptz';
         const itemsHtml = (data.items || []).length === 0
-            ? '<tr><td class="invoice-empty" colspan="4">No line items added.</td></tr>'
+            ? '<tr><td colspan="4" style="text-align:center;color:var(--g400);font-style:italic;padding:2rem">No line items added yet.</td></tr>'
             : (data.items || []).map((item) => `
                 <tr>
-                    <td>${escapeHtml(item.desc || '—')}</td>
-                    <td>${escapeHtml(String(item.qty || 0))}</td>
-                    <td>${fmt(item.price || 0, data.currency)}</td>
-                    <td>${fmt((item.qty || 0) * (item.price || 0), data.currency)}</td>
+                    <td><div class="inv-item-desc">${escapeHtml(item.desc || '—')}</div></td>
+                    <td class="inv-item-num">${escapeHtml(String(item.qty || 0))}</td>
+                    <td class="inv-item-price">${fmt(item.price || 0, data.currency)}</td>
+                    <td class="inv-item-total">${fmt((item.qty || 0) * (item.price || 0), data.currency)}</td>
                 </tr>
             `).join('');
 
-        const fromBody = [data.from?.address, data.from?.city, data.from?.country, data.from?.email, data.from?.phone, data.from?.website].filter(Boolean).join('<br>');
-        const toBody = [data.to?.company, data.to?.address, data.to?.city, data.to?.country, data.to?.email].filter(Boolean).join('<br>');
+        const fromDetails = [data.from?.address, data.from?.city, data.from?.country, data.from?.email, data.from?.phone, data.from?.website].filter(Boolean).join('<br/>');
+        const toAddr = [data.to?.address, data.to?.city, data.to?.country].filter(Boolean).join(', ');
+        const poRow = data.po ? `<div class="inv-date-row"><span class="idr-label">PO:</span><span class="idr-val">${escapeHtml(data.po)}</span></div>` : '';
+        const paymentHtml = [
+            data.bank?.name ? `<div class="inv-payment-row"><span class="ipr-label">Bank:</span><span class="ipr-val">${escapeHtml(data.bank.name)}</span></div>` : '',
+            data.bank?.acctName ? `<div class="inv-payment-row"><span class="ipr-label">Account:</span><span class="ipr-val">${escapeHtml(data.bank.acctName)}</span></div>` : '',
+            data.bank?.acctNum ? `<div class="inv-payment-row"><span class="ipr-label">Number:</span><span class="ipr-val">${escapeHtml(data.bank.acctNum)}</span></div>` : '',
+            data.bank?.sort ? `<div class="inv-payment-row"><span class="ipr-label">Sort/SWIFT:</span><span class="ipr-val">${escapeHtml(data.bank.sort)}</span></div>` : '',
+            data.bank?.ref ? `<div class="inv-payment-row"><span class="ipr-label">Reference:</span><span class="ipr-val">${escapeHtml(data.bank.ref)}</span></div>` : '',
+        ].filter(Boolean).join('');
+
+        const notesHtml = [
+            data.notes ? `<div><div class="inv-payment-title">Notes</div><div class="inv-notes-text">${escapeHtml(data.notes)}</div></div>` : '',
+            data.terms ? `<div style="margin-top:${data.notes ? '.85rem' : '0'}"><div class="inv-payment-title">Terms & Conditions</div><div class="inv-notes-text" style="font-size:.72rem;color:var(--g400)">${escapeHtml(data.terms)}</div></div>` : '',
+        ].filter(Boolean).join('');
 
         documentEl.innerHTML = `
-            <header class="invoice-header">
-                <div>
-                    <div class="invoice-brand">${escapeHtml(fromName).replace('i2Medier', 'i2Medi<span>er</span>')}</div>
-                    <div class="invoice-from">${fromBody}</div>
-                </div>
-                <div>
-                    <div class="invoice-title">Invoice</div>
-                    <div class="invoice-meta">
-                        <div class="invoice-meta-row"><span class="invoice-meta-label">Number</span><span>${escapeHtml(data.number || '—')}</span></div>
-                        <div class="invoice-meta-row"><span class="invoice-meta-label">Date</span><span>${fmtDate(data.date)}</span></div>
-                        <div class="invoice-meta-row"><span class="invoice-meta-label">Due</span><span>${fmtDate(data.due)}</span></div>
-                        ${data.po ? `<div class="invoice-meta-row"><span class="invoice-meta-label">PO / Ref</span><span>${escapeHtml(data.po)}</span></div>` : ''}
+            <div class="invoice-paper">
+                <div class="inv-header">
+                    <div>
+                        <div class="inv-from-brand">${escapeBrand(fromName)}</div>
+                        <div class="inv-from-details">${fromDetails}</div>
                     </div>
-                    <div class="invoice-status invoice-status--${escapeHtml(data.status || 'draft')}">${escapeHtml(statusLabel(data.status))}</div>
-                </div>
-            </header>
-
-            <section class="invoice-bill-grid">
-                <div class="bill-card">
-                    <div class="bill-label">Bill To</div>
-                    <div class="bill-name">${escapeHtml(data.to?.name || 'Client')}</div>
-                    <div class="bill-body">${toBody || 'Client details not provided.'}</div>
-                </div>
-                <div class="bill-card">
-                    <div class="bill-label">From</div>
-                    <div class="bill-name">${escapeHtml(fromName)}</div>
-                    <div class="bill-body">${fromBody}</div>
-                </div>
-            </section>
-
-            <table class="invoice-table">
-                <thead>
-                    <tr>
-                        <th style="width:50%">Description</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>${itemsHtml}</tbody>
-            </table>
-
-            <section class="invoice-bottom">
-                <div>
-                    ${(data.bank?.name || data.bank?.acctName || data.bank?.acctNum) ? `
-                        <div class="info-block">
-                            <div class="info-title">Payment Details</div>
-                            <div class="info-copy">${[
-                                data.bank?.name ? `Bank: ${data.bank.name}` : '',
-                                data.bank?.acctName ? `Account: ${data.bank.acctName}` : '',
-                                data.bank?.acctNum ? `Number: ${data.bank.acctNum}` : '',
-                                data.bank?.sort ? `Sort / SWIFT: ${data.bank.sort}` : '',
-                                data.bank?.ref ? `Reference: ${data.bank.ref}` : '',
-                            ].filter(Boolean).join('\n')}</div>
+                    <div class="inv-label-block">
+                        <div class="inv-label">Invoice</div>
+                        <div class="inv-number">#${escapeHtml(data.number || '—')}</div>
+                        <div class="inv-dates">
+                            <div class="inv-date-row"><span class="idr-label">Date:</span><span class="idr-val">${fmtDate(data.date)}</span></div>
+                            <div class="inv-date-row"><span class="idr-label">Due:</span><span class="idr-val">${fmtDate(data.due)}</span></div>
+                            ${poRow}
                         </div>
-                    ` : ''}
-                    ${(data.notes || data.terms) ? `
-                        <div class="info-block" style="margin-top: 1rem;">
-                            <div class="info-title">Notes & Terms</div>
-                            <div class="info-copy">${[data.notes, data.terms].filter(Boolean).map(escapeHtml).join('\n\n')}</div>
-                        </div>
-                    ` : ''}
+                        <div><span class="inv-status-badge ${escapeHtml(data.status || 'draft')}">${escapeHtml(statusLabel(data.status))}</span></div>
+                    </div>
                 </div>
 
-                <div class="totals-card">
-                    <div class="total-row"><span class="total-row__label">Subtotal</span><span>${fmt(totals.subtotal, data.currency)}</span></div>
-                    ${totals.discountAmt > 0 ? `<div class="total-row"><span class="total-row__label">Discount</span><span>- ${fmt(totals.discountAmt, data.currency)}</span></div>` : ''}
-                    ${totals.taxAmt > 0 ? `<div class="total-row"><span class="total-row__label">${escapeHtml(data.taxLabel || 'Tax')} (${totals.taxRate}%)</span><span>${fmt(totals.taxAmt, data.currency)}</span></div>` : ''}
-                    <div class="grand-total"><span>Total Due (${symbol})</span><span>${fmt(totals.total, data.currency)}</span></div>
-                </div>
-            </section>
+                <div class="inv-gold-strip"></div>
 
-            <footer class="invoice-footer">
-                Thank you for your business. ${[data.from?.email, data.from?.website].filter(Boolean).join(' · ')}
-            </footer>
+                <div class="inv-bill-section">
+                    <div class="inv-bill-col">
+                        <div class="inv-bill-label">Bill To</div>
+                        ${data.to?.name ? `<div class="inv-bill-name">${escapeHtml(data.to.name)}</div>` : ''}
+                        ${data.to?.company ? `<div class="inv-bill-company">${escapeHtml(data.to.company)}</div>` : ''}
+                        ${toAddr ? `<div class="inv-bill-addr">${escapeHtml(toAddr)}</div>` : ''}
+                        ${data.to?.email ? `<div class="inv-bill-addr" style="margin-top:.25rem;color:var(--gold-dk)">${escapeHtml(data.to.email)}</div>` : ''}
+                        ${(!data.to?.name && !data.to?.company && !toAddr && !data.to?.email) ? '<div class="inv-bill-addr" style="color:var(--g400);font-style:italic">Client details will appear here</div>' : ''}
+                    </div>
+                    <div class="inv-bill-col">
+                        <div class="inv-bill-label">From</div>
+                        <div class="inv-bill-name">${escapeHtml(fromName)}</div>
+                        ${[data.from?.address, data.from?.city, data.from?.country].filter(Boolean).join(', ') ? `<div class="inv-bill-addr">${escapeHtml([data.from?.address, data.from?.city, data.from?.country].filter(Boolean).join(', '))}</div>` : ''}
+                        ${data.from?.email ? `<div class="inv-bill-addr" style="margin-top:.2rem;color:var(--gold-dk)">${escapeHtml(data.from.email)}</div>` : ''}
+                    </div>
+                </div>
+
+                <div class="inv-items">
+                    <table class="inv-table">
+                        <thead class="inv-thead">
+                            <tr>
+                                <th style="width:50%">Description</th>
+                                <th class="right">Qty</th>
+                                <th class="right">Unit Price</th>
+                                <th class="right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="inv-tbody">${itemsHtml}</tbody>
+                    </table>
+                </div>
+
+                <div class="inv-totals-wrap">
+                    <div class="inv-totals">
+                        <div class="inv-total-row"><span class="itr-label">Subtotal</span><span class="itr-val">${fmt(totals.subtotal, data.currency)}</span></div>
+                        ${totals.discountAmt > 0 ? `<div class="inv-total-row"><span class="itr-label">Discount</span><span class="itr-val itr-discount">− ${fmt(totals.discountAmt, data.currency)}</span></div>` : ''}
+                        ${totals.taxAmt > 0 ? `<div class="inv-total-row"><span class="itr-label">${escapeHtml(data.taxLabel || 'Tax')} (${totals.taxRate}%)</span><span class="itr-val">${fmt(totals.taxAmt, data.currency)}</span></div>` : ''}
+                        <div class="inv-grand-total"><span class="igt-label">Total Due (${escapeHtml(data.currency || 'NGN')})</span><span class="igt-val">${fmt(totals.total, data.currency)}</span></div>
+                    </div>
+                </div>
+
+                ${(paymentHtml || notesHtml) ? `
+                <div class="inv-bottom">
+                    <div>${paymentHtml ? `<div><div class="inv-payment-title">Payment Details</div>${paymentHtml}</div>` : ''}</div>
+                    <div>${notesHtml}</div>
+                </div>
+                ` : ''}
+
+                <div class="inv-footer">
+                    <div class="inv-footer-brand">${escapeBrand(fromName)}</div>
+                    <div class="inv-footer-thanks"><span>Thank you for your business</span></div>
+                    <div class="inv-footer-note">${[data.from?.email, data.from?.website].filter(Boolean).join(' · ')}</div>
+                </div>
+            </div>
         `;
 
         window.setTimeout(() => window.print(), 250);
@@ -150,6 +160,11 @@ function fmtDate(dateStr) {
 
 function statusLabel(status) {
     return ({ draft: 'Draft', sent: 'Sent', paid: 'Paid' })[status || 'draft'] || 'Draft';
+}
+
+function escapeBrand(value) {
+    const safe = escapeHtml(value);
+    return safe.includes('i2Medier') ? safe.replace('i2Medier', 'i2Medi<span>er</span>') : safe;
 }
 
 function escapeHtml(value) {

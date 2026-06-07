@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <title>Invoice Print | i2Medier</title>
+    @vite('resources/css/public/pages/invoice-generator.css')
     @vite('resources/css/public/pages/invoice-generator-print.css')
 </head>
 <body id="invoice-generator-print-page">
