@@ -62,12 +62,25 @@
   flex-shrink:0;
 }
 
+.onboarding-body .logo .public-logo-images {
+  display:grid;
+  align-items:center;
+}
+
 .onboarding-body .logo .public-logo-image {
+  grid-area:1/1;
   height:30px;
   width:auto;
   max-width:min(190px,42vw);
   object-fit:contain;
+  transition:opacity 0.2s ease;
 }
+
+.onboarding-body .logo .public-logo-image--dark { opacity:1; }
+.onboarding-body .logo .public-logo-image--light { opacity:0; }
+
+.onboarding-body .logo.public-logo--light.public-logo--has-light .public-logo-image--dark { opacity:0; }
+.onboarding-body .logo.public-logo--light.public-logo--has-light .public-logo-image--light { opacity:1; }
 
 .onboarding-body .logo .public-logo-text {
   font-family:var(--serif);
