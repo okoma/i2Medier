@@ -6,6 +6,9 @@ if (page) {
     const routePsi = page.dataset.psiRoute;
     const routeCrux = page.dataset.cruxRoute;
     const routeRecommend = page.dataset.recommendRoute;
+    const honeypotField = page.dataset.honeypotField || 'company_website';
+    const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
+    const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
     let currentUrl = '';
 
     const auditButton = document.getElementById('audit-btn');
@@ -106,7 +109,7 @@ if (page) {
             const response = await fetch(routeFetchHtml, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },
-                body: JSON.stringify({ url }),
+                body: JSON.stringify({ url, [honeypotField]: '', [honeypotTimeField]: honeypotStartedAt }),
                 signal: AbortSignal.timeout(20000),
             });
 
@@ -257,7 +260,7 @@ if (page) {
         const response = await fetch(route, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({ ...payload, [honeypotField]: '', [honeypotTimeField]: honeypotStartedAt }),
             signal: AbortSignal.timeout(timeout),
         });
 

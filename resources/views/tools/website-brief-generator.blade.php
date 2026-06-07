@@ -14,6 +14,9 @@
 id="website-brief-generator-page"
 data-generate-route="{{ route('tools.website-brief-generator.generate') }}"
 data-print-route="{{ route('tools.website-brief-generator.print') }}"
+data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
+data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
+data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 @endsection
 
 @section('content')

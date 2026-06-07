@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemaps/static.xml', [SitemapController::class, 'static'])->name('sitemap.static');
+Route::get('/sitemaps/blog.xml', [SitemapController::class, 'blog'])->name('sitemap.blog');
+Route::get('/sitemaps/portfolio.xml', [SitemapController::class, 'portfolio'])->name('sitemap.portfolio');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');

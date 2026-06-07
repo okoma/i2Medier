@@ -112,6 +112,7 @@
     'sameAs' => [
         'https://www.linkedin.com/company/i2medier',
         'https://www.instagram.com/i2medier',
+        'https://www.youtube.com/@i2TechStudio',
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @stack('meta')

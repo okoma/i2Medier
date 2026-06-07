@@ -7,6 +7,7 @@ use App\Models\ToolLead;
 use App\Services\AiService;
 use App\Services\EmailDeliverabilityService;
 use App\Services\EmailDeliverabilityLiveTestService;
+use App\Support\Honeypot;
 use App\Support\SiteSettings as SiteSettingsManager;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -87,6 +88,8 @@ class ToolController extends Controller
 
     public function storeLead(Request $request): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $tool = (string) $request->string('tool');
         $email = trim((string) $request->string('email'));
 
@@ -117,6 +120,8 @@ class ToolController extends Controller
 
     public function seoFetchHtml(Request $request): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $url = (string) $request->string('url');
 
         if (! filter_var($url, FILTER_VALIDATE_URL) || ! preg_match('/^https?:\/\//i', $url)) {
@@ -219,6 +224,8 @@ class ToolController extends Controller
 
     public function seoFetchPsi(Request $request, SiteSettingsManager $settings): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $url = (string) $request->string('url');
 
         if (! filter_var($url, FILTER_VALIDATE_URL)) {
@@ -276,6 +283,8 @@ class ToolController extends Controller
 
     public function seoFetchCrux(Request $request, SiteSettingsManager $settings): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $url = (string) $request->string('url');
         $finalUrl = (string) $request->string('finalUrl');
 
@@ -344,6 +353,8 @@ class ToolController extends Controller
 
     public function seoRecommend(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $signals = $request->input('signals', []);
         $scores  = $request->input('scores', []);
         $prompt = $this->buildRecommendationPrompt($signals, $scores);
@@ -364,6 +375,8 @@ class ToolController extends Controller
 
     public function businessNameGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $description = trim((string) $request->string('description'));
 
         if ($description === '') {
@@ -391,6 +404,8 @@ class ToolController extends Controller
 
     public function businessNameVariations(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $name = trim((string) $request->string('name'));
         $tagline = trim((string) $request->string('tagline'));
 
@@ -412,6 +427,8 @@ class ToolController extends Controller
 
     public function domainNameGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $description = trim((string) $request->string('description'));
         $tlds = collect($request->input('tlds', []))
             ->map(fn ($tld) => trim((string) $tld))
@@ -448,6 +465,8 @@ class ToolController extends Controller
 
     public function websiteBriefGenerate(Request $request, SiteSettingsManager $settings, AiService $service): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $data = [
             'bizName' => trim((string) $request->string('bizName')),
             'bizIndustry' => trim((string) $request->string('bizIndustry')),
@@ -527,6 +546,8 @@ class ToolController extends Controller
         EmailDeliverabilityService $deliverabilityService
     ): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $input = trim((string) $request->string('input'));
         $data = [
             'input' => $input,
@@ -567,6 +588,8 @@ class ToolController extends Controller
         SiteSettingsManager $settings,
         EmailDeliverabilityLiveTestService $liveTestService
     ): JsonResponse {
+        Honeypot::ensureValid($request);
+
         $input = trim((string) $request->string('input'));
         $data = [
             'input' => $input,

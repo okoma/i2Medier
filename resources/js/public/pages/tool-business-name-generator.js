@@ -4,6 +4,9 @@ if (page) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const generateRoute = page.dataset.generateRoute || '';
     const variationsRoute = page.dataset.variationsRoute || '';
+    const honeypotField = page.dataset.honeypotField || 'company_website';
+    const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
+    const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
     let allNames = [];
     let favorites = JSON.parse(localStorage.getItem('i2m_bng_favs') || '[]');
 
@@ -112,6 +115,8 @@ if (page) {
 
         try {
             const data = await postJson(generateRoute, {
+                [honeypotField]: '',
+                [honeypotTimeField]: honeypotStartedAt,
                 description: desc,
                 styles,
                 length,
@@ -306,7 +311,12 @@ if (page) {
         container.innerHTML = `<div class="nc-var-label">Name variations</div><div class="var-loading"><div class="var-spinner"></div> Generating variations of "${esc(name)}"…</div>`;
 
         try {
-            const data = await postJson(variationsRoute, { name, tagline }, 50000, 'Name variations');
+            const data = await postJson(variationsRoute, {
+                [honeypotField]: '',
+                [honeypotTimeField]: honeypotStartedAt,
+                name,
+                tagline,
+            }, 50000, 'Name variations');
             const variations = Array.isArray(data.variations) ? data.variations : [];
             container.innerHTML = `<div class="nc-var-label">Variations of "${esc(name)}"</div>` + variations.map((variation) => `
                 <div class="nc-var-item" onclick="copyName('${jsEsc(variation.name)}', this)">

@@ -3,7 +3,7 @@
 
 @media (min-width: 961px) {
 
-    .has-mega > a {
+    .has-mega > .public-nav-mega-trigger {
         display: inline-flex;
         align-items: center;
         gap: 4px;
@@ -17,7 +17,7 @@
         transition: transform 0.2s ease;
     }
 
-    .has-mega.is-open > a .nav-chevron {
+    .has-mega.is-open > .public-nav-mega-trigger .nav-chevron {
         transform: rotate(180deg);
     }
 
@@ -34,12 +34,14 @@
         transition: opacity 0.18s ease, transform 0.18s ease;
         z-index: 210;
         padding-top: 8px;
+        visibility: hidden;
     }
 
     .mega-panel.is-open {
         opacity: 1;
         transform: translateY(0);
-        pointer-events: auto;
+        pointer-events: none;
+        visibility: visible;
     }
 
     .mega-inner {
@@ -49,6 +51,11 @@
         box-shadow: 0 8px 40px rgba(13, 13, 13, 0.12), 0 2px 8px rgba(13, 13, 13, 0.05);
         padding: 1rem 1.25rem 0.875rem;
         width: min(96vw, 880px);
+        pointer-events: none;
+    }
+
+    .mega-panel.is-open .mega-inner {
+        pointer-events: auto;
     }
 
     .mega-panel--who-we-help .mega-inner {

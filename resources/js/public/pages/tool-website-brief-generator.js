@@ -6,6 +6,9 @@ if (page) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const generateRoute = page.dataset.generateRoute || '';
     const printRoute = page.dataset.printRoute || '';
+    const honeypotField = page.dataset.honeypotField || 'company_website';
+    const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
+    const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
     const printStorageKey = 'i2medierWebsiteBriefPrintPayload';
     let currentStep = 1;
     const totalSteps = 6;
@@ -204,6 +207,8 @@ if (page) {
         const value = (id) => (document.getElementById(id)?.value || '').trim();
 
         return {
+            [honeypotField]: '',
+            [honeypotTimeField]: honeypotStartedAt,
             bizName: value('biz-name'),
             bizIndustry: value('biz-industry'),
             bizDesc: value('biz-desc'),

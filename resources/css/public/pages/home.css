@@ -18,8 +18,11 @@
 .public-nav.is-home .public-logo { color: var(--white); }
 
 .public-nav.is-home ul a { color: rgba(255, 255, 255, .65); }
+.public-nav.is-home ul .public-nav-mega-trigger { color: rgba(255, 255, 255, .65); }
 .public-nav.is-home ul a:hover,
 .public-nav.is-home ul a.is-active { color: var(--gold); }
+.public-nav.is-home ul .public-nav-mega-trigger:hover,
+.public-nav.is-home ul .public-nav-mega-trigger.is-active { color: var(--gold); }
 
 .public-nav.is-home .nav-cta { background: var(--gold) !important; color: var(--black) !important; }
 .public-nav.is-home .nav-cta:hover { opacity: .85; color: var(--black) !important; }
@@ -42,8 +45,11 @@
 
 .public-nav.is-home.scrolled .public-logo { color: var(--black); }
 .public-nav.is-home.scrolled ul a { color: var(--g700); }
+.public-nav.is-home.scrolled ul .public-nav-mega-trigger { color: var(--g700); }
 .public-nav.is-home.scrolled ul a:hover,
 .public-nav.is-home.scrolled ul a.is-active { color: var(--black); }
+.public-nav.is-home.scrolled ul .public-nav-mega-trigger:hover,
+.public-nav.is-home.scrolled ul .public-nav-mega-trigger.is-active { color: var(--black); }
 .public-nav.is-home.scrolled .nav-cta { background: var(--black) !important; color: var(--white) !important; }
 .public-nav.is-home.scrolled .nav-new { background: var(--black); color: var(--white); }
 .public-nav.is-home.scrolled .public-nav-toggle {
@@ -778,6 +784,8 @@
     border: 1px solid var(--g200);
     transition: box-shadow .25s, transform .25s;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .prod-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.1); transform: translateY(-3px); }

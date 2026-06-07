@@ -21,15 +21,63 @@ class SitemapController extends Controller
             ->published()
             ->max('updated_at');
 
+        $sitemaps = collect([
+            [
+                'loc' => route('sitemap.static'),
+                'lastmod' => $this->formatDate(max($blogUpdatedAt, $portfolioUpdatedAt)),
+            ],
+            [
+                'loc' => route('sitemap.blog'),
+                'lastmod' => $this->formatDate($blogUpdatedAt),
+            ],
+            [
+                'loc' => route('sitemap.portfolio'),
+                'lastmod' => $this->formatDate($portfolioUpdatedAt),
+            ],
+        ])->values();
+
+        return response()
+            ->view('sitemap.sitemap-index', ['sitemaps' => $sitemaps])
+            ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    public function static(): Response
+    {
+        $blogUpdatedAt = BlogPost::query()
+            ->published()
+            ->max('updated_at');
+
+        $portfolioUpdatedAt = PortfolioProject::query()
+            ->published()
+            ->max('updated_at');
+
         $urls = $this->staticUrls($blogUpdatedAt, $portfolioUpdatedAt)
             ->merge($this->industryUrls())
-            ->merge($this->blogCategoryUrls())
-            ->merge($this->blogPostUrls())
-            ->merge($this->portfolioUrls())
             ->values();
 
         return response()
-            ->view('sitemap.index', ['urls' => $urls])
+            ->view('sitemap.urlset', ['urls' => $urls])
+            ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    public function blog(): Response
+    {
+        $urls = $this->blogCategoryUrls()
+            ->merge($this->blogPostUrls())
+            ->values();
+
+        return response()
+            ->view('sitemap.urlset', ['urls' => $urls])
+            ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    public function portfolio(): Response
+    {
+        $urls = $this->portfolioUrls()
+            ->values();
+
+        return response()
+            ->view('sitemap.urlset', ['urls' => $urls])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
@@ -48,6 +96,8 @@ class SitemapController extends Controller
             $this->makeUrl(route('site.services.search-optimization'), null, 'monthly', '0.8'),
             $this->makeUrl(route('site.services.ui-ux-design'), null, 'monthly', '0.8'),
             $this->makeUrl(route('site.services.business-email-setup'), null, 'monthly', '0.7'),
+            $this->makeUrl(route('site.services.email-deliverability'), null, 'monthly', '0.7'),
+            $this->makeUrl(route('site.services.white-label'), null, 'monthly', '0.8'),
             $this->makeUrl(route('site.services.website-maintenance'), null, 'monthly', '0.7'),
             $this->makeUrl(route('site.services.wordpress-maintenance'), null, 'monthly', '0.7'),
             $this->makeUrl(route('site.services.cloud-architecture'), null, 'monthly', '0.7'),
@@ -95,6 +145,7 @@ class SitemapController extends Controller
             'event-planner-website-design',
             'photography-website-design',
             'personal-brand-website-design',
+            'marketing-agency-website-design',
         ])->map(fn (string $industry) => $this->makeUrl(
             route('site.services.web-design.industry', ['industry' => $industry]),
             null,

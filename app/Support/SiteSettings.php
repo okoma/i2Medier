@@ -6,6 +6,16 @@ use App\Models\SiteSetting;
 
 class SiteSettings
 {
+    public const DEFAULT_BUSINESS_HOURS = [
+        'monday' => ['enabled' => true, 'open' => '09:00 AM', 'close' => '06:00 PM'],
+        'tuesday' => ['enabled' => true, 'open' => '09:00 AM', 'close' => '06:00 PM'],
+        'wednesday' => ['enabled' => true, 'open' => '09:00 AM', 'close' => '06:00 PM'],
+        'thursday' => ['enabled' => true, 'open' => '09:00 AM', 'close' => '06:00 PM'],
+        'friday' => ['enabled' => true, 'open' => '09:00 AM', 'close' => '06:00 PM'],
+        'saturday' => ['enabled' => true, 'open' => '10:00 AM', 'close' => '02:00 PM'],
+        'sunday' => ['enabled' => false, 'open' => '', 'close' => ''],
+    ];
+
     public function record(): ?SiteSetting
     {
         return SiteSetting::query()->first();
@@ -80,6 +90,104 @@ class SiteSettings
     {
         return (string) ($this->record()?->cookie_banner_message
             ?: 'We use cookies to understand how visitors use our site and to improve your experience. Analytics cookies are only activated with your consent.');
+    }
+
+    public function businessHoursTimezone(): string
+    {
+        return (string) ($this->record()?->business_hours_timezone ?? 'Africa/Lagos');
+    }
+
+    public function businessHours(): array
+    {
+        $hours = $this->record()?->business_hours;
+
+        if (! is_array($hours) || $hours === []) {
+            return self::DEFAULT_BUSINESS_HOURS;
+        }
+
+        return array_replace_recursive(self::DEFAULT_BUSINESS_HOURS, $hours);
+    }
+
+    public function holidayOverrideEnabled(): bool
+    {
+        return (bool) ($this->record()?->holiday_override_enabled ?? false);
+    }
+
+    public function holidayOverrideStatus(): string
+    {
+        return (string) ($this->record()?->holiday_override_status ?? 'closed');
+    }
+
+    public function holidayOverrideNotice(): string
+    {
+        return (string) ($this->record()?->holiday_override_notice ?? '');
+    }
+
+    public function footerHoursLines(): array
+    {
+        $businessHours = $this->businessHours();
+        $orderedDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $dayShortLabels = [
+            'monday' => 'Mon',
+            'tuesday' => 'Tue',
+            'wednesday' => 'Wed',
+            'thursday' => 'Thu',
+            'friday' => 'Fri',
+            'saturday' => 'Saturday',
+            'sunday' => 'Sunday',
+        ];
+        $footerHoursLines = [];
+
+        for ($index = 0; $index < count($orderedDays); $index++) {
+            $dayKey = $orderedDays[$index];
+            $dayConfig = $businessHours[$dayKey] ?? ['enabled' => false, 'open' => '', 'close' => ''];
+
+            if (! ($dayConfig['enabled'] ?? false)) {
+                continue;
+            }
+
+            $startIndex = $index;
+            $endIndex = $index;
+
+            while ($endIndex + 1 < count($orderedDays)) {
+                $nextDayKey = $orderedDays[$endIndex + 1];
+                $nextConfig = $businessHours[$nextDayKey] ?? ['enabled' => false, 'open' => '', 'close' => ''];
+
+                if (
+                    ! ($nextConfig['enabled'] ?? false)
+                    || ($nextConfig['open'] ?? '') !== ($dayConfig['open'] ?? '')
+                    || ($nextConfig['close'] ?? '') !== ($dayConfig['close'] ?? '')
+                ) {
+                    break;
+                }
+
+                $endIndex++;
+            }
+
+            $label = $startIndex === $endIndex
+                ? $dayShortLabels[$dayKey]
+                : $dayShortLabels[$orderedDays[$startIndex]] . '–' . $dayShortLabels[$orderedDays[$endIndex]];
+
+            $footerHoursLines[] = sprintf('%s: %s – %s', $label, $dayConfig['open'], $dayConfig['close']);
+            $index = $endIndex;
+        }
+
+        return $footerHoursLines;
+    }
+
+    public function footerViewData(): array
+    {
+        $businessTimezone = $this->businessHoursTimezone();
+
+        return [
+            'businessHours' => $this->businessHours(),
+            'businessTimezone' => $businessTimezone,
+            'holidayOverrideEnabled' => $this->holidayOverrideEnabled(),
+            'holidayOverrideStatus' => $this->holidayOverrideStatus(),
+            'holidayOverrideNotice' => $this->holidayOverrideNotice(),
+            'timezoneLabel' => $businessTimezone === 'Africa/Lagos' ? 'WAT' : $businessTimezone,
+            'footerHoursLines' => $this->footerHoursLines(),
+        ];
     }
 
     public function pagespeedApiKey(): string
@@ -234,6 +342,11 @@ class SiteSettings
             'analytics_measurement_id' => $record?->analytics_measurement_id ?? '',
             'cookie_consent_enabled'   => $record?->cookie_consent_enabled ?? true,
             'cookie_banner_message'    => $record?->cookie_banner_message ?? '',
+            'business_hours_timezone'  => $record?->business_hours_timezone ?? 'Africa/Lagos',
+            'business_hours'           => is_array($record?->business_hours) ? array_replace_recursive(self::DEFAULT_BUSINESS_HOURS, $record->business_hours) : self::DEFAULT_BUSINESS_HOURS,
+            'holiday_override_enabled' => $record?->holiday_override_enabled ?? false,
+            'holiday_override_status'  => $record?->holiday_override_status ?? 'closed',
+            'holiday_override_notice'  => $record?->holiday_override_notice ?? '',
             'pagespeed_api_key'        => $record?->pagespeed_api_key ?? '',
             'crux_api_key'             => $record?->crux_api_key ?? '',
             'anthropic_api_key'        => $record?->anthropic_api_key ?? '',

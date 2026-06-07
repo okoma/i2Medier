@@ -18,9 +18,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
     <div class="nav-right">
         <button class="nav-status draft" id="status-btn" onclick="cycleStatus()"><span class="icon-dot" aria-hidden="true"></span><span>Draft</span></button>
         <button class="nav-btn" onclick="loadSaved()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5A1.5 1.5 0 0 1 5.5 6H10l2 2h6.5A1.5 1.5 0 0 1 20 9.5v8A1.5 1.5 0 0 1 18.5 19h-13A1.5 1.5 0 0 1 4 17.5z"/><path d="M4 10h16"/></svg></span><span>Load</span></button>
-        <button class="nav-btn" onclick="saveInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v6h8V4"/><path d="M9 19v-5h6v5"/></svg></span><span>Save</span></button>
-        <button class="nav-btn" onclick="newInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span>New</span></button>
-        <button class="nav-btn primary" onclick="printInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg></span><span>Print / Save PDF</span></button>
+        <button class="nav-btn primary nav-btn--desktop-print" onclick="printInvoice()"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 10 5 5 5-5"/><path d="M5 19h14"/></svg></span><span>Print / Save PDF</span></button>
     </div>
     <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
         <span></span>
@@ -111,6 +109,46 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
                 <div class="fp-row single"><div class="fp-field"><label class="fp-label">Bank Name</label><input class="fp-input" id="bank-name" placeholder="e.g. First Bank Nigeria" oninput="render()"/></div></div>
                 <div class="fp-row"><div class="fp-field"><label class="fp-label">Account Name</label><input class="fp-input" id="bank-acct-name" placeholder="e.g. i2Medier Konceptz" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Account Number</label><input class="fp-input" id="bank-acct-num" placeholder="0123456789" oninput="render()"/></div></div>
                 <div class="fp-row"><div class="fp-field"><label class="fp-label">Sort Code / SWIFT</label><input class="fp-input" id="bank-sort" placeholder="Optional" oninput="render()"/></div><div class="fp-field"><label class="fp-label">Payment Reference</label><input class="fp-input" id="bank-ref" placeholder="Optional" oninput="render()"/></div></div>
+            </div>
+        </div>
+
+        <div class="fp-section">
+            <div class="fp-section-head open" onclick="toggleSection(this)">
+                <span class="fp-section-title"><span class="fst-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.2a2.8 2.8 0 0 0 0-5.6H12a2 2 0 0 1 0-4h2.4A6.6 6.6 0 0 0 21 6.8 3.8 3.8 0 0 0 17.2 3z"></path><circle cx="7.5" cy="10" r=".8" fill="currentColor" stroke="none"></circle><circle cx="9.5" cy="7.5" r=".8" fill="currentColor" stroke="none"></circle><circle cx="13" cy="7" r=".8" fill="currentColor" stroke="none"></circle><circle cx="16" cy="9.5" r=".8" fill="currentColor" stroke="none"></circle></svg></span> Invoice Colors</span>
+                <span class="fp-section-arrow">›</span>
+            </div>
+            <div class="fp-body open">
+                <div class="fp-field" style="margin-bottom:.85rem">
+                    <label class="fp-label">Header Background</label>
+                    <div class="theme-grid">
+                        <button class="theme-chip selected" type="button" data-theme-target="header" data-theme-value="#0d0d0d" onclick="setHeaderTheme('#0d0d0d')"><span class="theme-swatch" style="background:#0d0d0d"></span>Classic Black</button>
+                        <button class="theme-chip" type="button" data-theme-target="header" data-theme-value="#111827" onclick="setHeaderTheme('#111827')"><span class="theme-swatch" style="background:#111827"></span>Midnight</button>
+                        <button class="theme-chip" type="button" data-theme-target="header" data-theme-value="#1f2937" onclick="setHeaderTheme('#1f2937')"><span class="theme-swatch" style="background:#1f2937"></span>Slate</button>
+                        <button class="theme-chip" type="button" data-theme-target="header" data-theme-value="#0f3d3e" onclick="setHeaderTheme('#0f3d3e')"><span class="theme-swatch" style="background:#0f3d3e"></span>Deep Teal</button>
+                        <button class="theme-chip" type="button" data-theme-target="header" data-theme-value="#f3f4f6" onclick="setHeaderTheme('#f3f4f6')"><span class="theme-swatch theme-swatch--light" style="background:#f3f4f6"></span>Light</button>
+                        <label class="theme-chip theme-chip--custom" id="theme-header-custom">
+                            <span class="theme-swatch" id="theme-header-custom-swatch" style="background:#0d0d0d"></span>
+                            <span>Custom</span>
+                            <input class="theme-picker" id="theme-header-custom-input" type="color" value="#0d0d0d" onchange="setHeaderTheme(this.value, 'custom')">
+                        </label>
+                    </div>
+                </div>
+                <div class="fp-field">
+                    <label class="fp-label">Accent Color</label>
+                    <div class="theme-grid">
+                        <button class="theme-chip selected" type="button" data-theme-target="accent" data-theme-value="#c8a96e" onclick="setAccentTheme('#c8a96e')"><span class="theme-swatch" style="background:#c8a96e"></span>Gold</button>
+                        <button class="theme-chip" type="button" data-theme-target="accent" data-theme-value="#2563eb" onclick="setAccentTheme('#2563eb')"><span class="theme-swatch" style="background:#2563eb"></span>Blue</button>
+                        <button class="theme-chip" type="button" data-theme-target="accent" data-theme-value="#16a34a" onclick="setAccentTheme('#16a34a')"><span class="theme-swatch" style="background:#16a34a"></span>Green</button>
+                        <button class="theme-chip" type="button" data-theme-target="accent" data-theme-value="#dc2626" onclick="setAccentTheme('#dc2626')"><span class="theme-swatch" style="background:#dc2626"></span>Red</button>
+                        <button class="theme-chip" type="button" data-theme-target="accent" data-theme-value="#7c3aed" onclick="setAccentTheme('#7c3aed')"><span class="theme-swatch" style="background:#7c3aed"></span>Purple</button>
+                        <label class="theme-chip theme-chip--custom" id="theme-accent-custom">
+                            <span class="theme-swatch" id="theme-accent-custom-swatch" style="background:#c8a96e"></span>
+                            <span>Custom</span>
+                            <input class="theme-picker" id="theme-accent-custom-input" type="color" value="#c8a96e" onchange="setAccentTheme(this.value, 'custom')">
+                        </label>
+                    </div>
+                </div>
+                <div class="theme-note">Header text color is adjusted automatically for readability based on the selected header color.</div>
             </div>
         </div>
 

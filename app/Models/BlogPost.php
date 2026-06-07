@@ -28,6 +28,7 @@ class BlogPost extends Model
         'seo_keywords',
         'read_time',
         'view_count',
+        'share_count',
         'is_featured',
     ];
 
@@ -37,6 +38,7 @@ class BlogPost extends Model
         'seo_keywords' => 'array',
         'read_time' => 'integer',
         'view_count' => 'integer',
+        'share_count' => 'integer',
         'is_featured' => 'boolean',
     ];
 

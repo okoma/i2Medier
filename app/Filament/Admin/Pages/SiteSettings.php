@@ -170,6 +170,117 @@ class SiteSettings extends Page implements HasForms
                                     ]),
                             ]),
 
+                        Tab::make('Business Hours')
+                            ->schema([
+                                Section::make('Timezone & Office Schedule')
+                                    ->description('Set the default working hours for i2Medier. These values can be used anywhere we show office availability, response windows, or opening hours.')
+                                    ->columns(3)
+                                    ->schema([
+                                        TextInput::make('business_hours_timezone')
+                                            ->label('Timezone')
+                                            ->default('Africa/Lagos')
+                                            ->helperText('Use a PHP timezone identifier such as Africa/Lagos.')
+                                            ->maxLength(100)
+                                            ->columnSpan(3),
+
+                                        Toggle::make('business_hours.monday.enabled')
+                                            ->label('Monday Open'),
+                                        TextInput::make('business_hours.monday.open')
+                                            ->label('Monday Opens')
+                                            ->placeholder('09:00 AM'),
+                                        TextInput::make('business_hours.monday.close')
+                                            ->label('Monday Closes')
+                                            ->placeholder('06:00 PM'),
+
+                                        Toggle::make('business_hours.tuesday.enabled')
+                                            ->label('Tuesday Open'),
+                                        TextInput::make('business_hours.tuesday.open')
+                                            ->label('Tuesday Opens')
+                                            ->placeholder('09:00 AM'),
+                                        TextInput::make('business_hours.tuesday.close')
+                                            ->label('Tuesday Closes')
+                                            ->placeholder('06:00 PM'),
+
+                                        Toggle::make('business_hours.wednesday.enabled')
+                                            ->label('Wednesday Open'),
+                                        TextInput::make('business_hours.wednesday.open')
+                                            ->label('Wednesday Opens')
+                                            ->placeholder('09:00 AM'),
+                                        TextInput::make('business_hours.wednesday.close')
+                                            ->label('Wednesday Closes')
+                                            ->placeholder('06:00 PM'),
+
+                                        Toggle::make('business_hours.thursday.enabled')
+                                            ->label('Thursday Open'),
+                                        TextInput::make('business_hours.thursday.open')
+                                            ->label('Thursday Opens')
+                                            ->placeholder('09:00 AM'),
+                                        TextInput::make('business_hours.thursday.close')
+                                            ->label('Thursday Closes')
+                                            ->placeholder('06:00 PM'),
+
+                                        Toggle::make('business_hours.friday.enabled')
+                                            ->label('Friday Open'),
+                                        TextInput::make('business_hours.friday.open')
+                                            ->label('Friday Opens')
+                                            ->placeholder('09:00 AM'),
+                                        TextInput::make('business_hours.friday.close')
+                                            ->label('Friday Closes')
+                                            ->placeholder('06:00 PM'),
+
+                                        Toggle::make('business_hours.saturday.enabled')
+                                            ->label('Saturday Open'),
+                                        TextInput::make('business_hours.saturday.open')
+                                            ->label('Saturday Opens')
+                                            ->placeholder('10:00 AM'),
+                                        TextInput::make('business_hours.saturday.close')
+                                            ->label('Saturday Closes')
+                                            ->placeholder('02:00 PM'),
+
+                                        Toggle::make('business_hours.sunday.enabled')
+                                            ->label('Sunday Open'),
+                                        TextInput::make('business_hours.sunday.open')
+                                            ->label('Sunday Opens')
+                                            ->placeholder(''),
+                                        TextInput::make('business_hours.sunday.close')
+                                            ->label('Sunday Closes')
+                                            ->placeholder(''),
+                                    ]),
+
+                                Section::make('Holiday Override')
+                                    ->description('Temporarily override the normal schedule for public holidays, short breaks, or special opening days.')
+                                    ->columns(2)
+                                    ->schema([
+                                        Toggle::make('holiday_override_enabled')
+                                            ->label('Enable Holiday Override')
+                                            ->helperText('Turn this on when today or the current period should ignore the normal weekly hours.')
+                                            ->columnSpan(2),
+
+                                        Select::make('holiday_override_status')
+                                            ->label('Holiday Status')
+                                            ->options([
+                                                'closed' => 'Closed',
+                                                'limited' => 'Limited hours',
+                                                'open' => 'Open as normal',
+                                            ])
+                                            ->default('closed')
+                                            ->native(false)
+                                            ->visible(fn (callable $get) => (bool) $get('holiday_override_enabled')),
+
+                                        Placeholder::make('holiday_override_hint')
+                                            ->label('How to Use This')
+                                            ->content('Example: “Closed for Eid today”, “Open 12 PM – 4 PM on Democracy Day”, or “Open as normal during this holiday period.”')
+                                            ->visible(fn (callable $get) => (bool) $get('holiday_override_enabled')),
+
+                                        Textarea::make('holiday_override_notice')
+                                            ->label('Holiday Notice')
+                                            ->rows(3)
+                                            ->placeholder('Closed for the public holiday today. We resume normal hours tomorrow at 9:00 AM WAT.')
+                                            ->columnSpan(2)
+                                            ->visible(fn (callable $get) => (bool) $get('holiday_override_enabled')),
+                                    ]),
+                            ]),
+
                         Tab::make('API Keys')
                             ->schema([
                                 Section::make('SEO Audit Tool')
@@ -290,6 +401,19 @@ class SiteSettings extends Page implements HasForms
                                                     ->helperText('Used when Mistral is selected or reached through fallback.'),
                                             ]),
                                     ]),
+                            ]),
+
+                        Tab::make('Email')
+                            ->schema([
+                                Section::make('SMTP Settings')
+                                    ->description('Reserved space for outgoing SMTP and transactional email settings. We can wire the real mail configuration into this section next.')
+                                    ->columns(1)
+                                    ->schema([
+                                        Placeholder::make('smtp_settings_reserved')
+                                            ->label('Coming Next')
+                                            ->content('This section is intentionally reserved above the deliverability tester so SMTP host, port, encryption, username, password, and sender settings can live here cleanly.'),
+                                    ]),
+
                                 Section::make('Email Deliverability Live Tester')
                                     ->description('Configure the inbox the live deliverability tool should watch when visitors send a real test message. Results are read either from Postmark inbound webhooks or a cPanel mailbox over IMAP.')
                                     ->columns(2)

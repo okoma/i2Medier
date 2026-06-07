@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Models\SupportTicket;
 use App\Models\TeamMember;
 use App\Models\User;
+use App\Support\Honeypot;
 use App\Support\SiteSettings as SiteSettingsManager;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -28,6 +29,14 @@ class SiteController extends Controller
     public function home(): View
     {
         return view('welcome', [
+            'inHouseProducts' => PortfolioProject::query()
+                ->published()
+                ->inhouse()
+                ->orderByDesc('is_featured')
+                ->orderBy('sort_order')
+                ->latest('published_at')
+                ->limit(3)
+                ->get(),
             'seo' => $this->seo(
                 'i2Medier - Digital Agency in Nigeria',
                 'i2Medier is a premium digital agency in Nigeria delivering web design, WordPress development, UI/UX design, Laravel applications, business email setup, and website maintenance for businesses across Nigeria, the UK, and worldwide.',
@@ -312,6 +321,8 @@ class SiteController extends Controller
 
     public function storeContact(Request $request): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $validated = $request->validate([
             'department_email' => ['required', 'email', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
@@ -383,6 +394,8 @@ class SiteController extends Controller
 
     public function storeStart(Request $request): JsonResponse
     {
+        Honeypot::ensureValid($request);
+
         $validated = $request->validate([
             'contact.name' => ['required', 'string', 'max:255'],
             'contact.business' => ['required', 'string', 'max:255'],
@@ -1047,7 +1060,7 @@ class SiteController extends Controller
                 ['label' => 'Instagram', 'handle' => 'instagram.com/i2medier', 'url' => 'https://www.instagram.com/i2medier'],
                 ['label' => 'LinkedIn', 'handle' => 'linkedin.com/company/i2medier', 'url' => 'https://www.linkedin.com/company/i2medier'],
                 ['label' => 'X', 'handle' => 'x.com/i2medier', 'url' => 'https://twitter.com/i2medier'],
-                ['label' => 'YouTube', 'handle' => 'youtube.com/@i2medier', 'url' => 'https://www.youtube.com/@i2medier'],
+                ['label' => 'YouTube', 'handle' => 'youtube.com/@i2TechStudio', 'url' => 'https://www.youtube.com/@i2TechStudio'],
             ],
         ];
     }

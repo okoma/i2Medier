@@ -16,6 +16,9 @@ data-fetch-html-route="{{ route('tools.seo-audit.fetch-html') }}"
 data-psi-route="{{ route('tools.seo-audit.psi') }}"
 data-crux-route="{{ route('tools.seo-audit.crux') }}"
 data-recommend-route="{{ route('tools.seo-audit.recommend') }}"
+data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
+data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
+data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 @endsection
 
 @section('content')

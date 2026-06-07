@@ -1,22 +1,22 @@
 <div class="main-menu">
 <ul class="public-nav-links">
     <li class="has-mega" data-mega="services">
-        <a href="{{ route('site.services') }}" class="{{ request()->routeIs('site.services*') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="public-nav-mega-trigger {{ request()->routeIs('site.services*') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
             Services
             <svg class="nav-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </a>
+        </button>
     </li>
     <li class="has-mega" data-mega="who-we-help">
-        <a href="{{ route('site.who-we-help') }}" class="{{ request()->routeIs('site.who-we-help') || request()->routeIs('site.lawyer') || request()->routeIs('site.services.web-design.industry') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="public-nav-mega-trigger {{ request()->routeIs('site.who-we-help') || request()->routeIs('site.lawyer') || request()->routeIs('site.services.web-design.industry') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
             Who We Help
             <svg class="nav-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </a>
+        </button>
     </li>
     <li class="has-mega" data-mega="tools">
-        <a href="{{ route('tools.hub') }}" class="{{ request()->routeIs('tools.*') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="public-nav-mega-trigger {{ request()->routeIs('tools.*') ? 'is-active' : '' }}" aria-haspopup="true" aria-expanded="false">
             Tools
             <svg class="nav-chevron" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </a>
+        </button>
     </li>
     <li><a href="#">Products <span class="nav-new">New</span></a></li>
     <li><a href="{{ route('portfolio.index') }}" class="{{ request()->routeIs('portfolio.index') || request()->routeIs('portfolio.case-study.*') ? 'is-active' : '' }}">Portfolios</a></li>
@@ -75,7 +75,6 @@
             <a href="{{ route('site.services.web-design.industry', ['industry' => 'event-planner-website-design']) }}" class="mega-item"><span class="mega-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span><span class="mega-text"><span class="mega-title">Event Planner</span><span class="mega-desc">Visual sites for event and wedding planners</span></span></a>
             <a href="{{ route('site.services.web-design.industry', ['industry' => 'photography-website-design']) }}" class="mega-item"><span class="mega-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></span><span class="mega-text"><span class="mega-title">Photography</span><span class="mega-desc">Portfolio sites for photographers</span></span></a>
             <a href="{{ route('site.services.web-design.industry', ['industry' => 'personal-brand-website-design']) }}" class="mega-item"><span class="mega-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span><span class="mega-text"><span class="mega-title">Personal Brand</span><span class="mega-desc">Sites that establish your personal authority</span></span></a>
-        </div>
         </div>
         <div class="mega-footer"><a href="{{ route('site.who-we-help') }}" class="mega-footer-link">View all industries →</a></div>
     </div>

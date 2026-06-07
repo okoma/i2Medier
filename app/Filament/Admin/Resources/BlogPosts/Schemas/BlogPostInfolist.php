@@ -43,6 +43,8 @@ class BlogPostInfolist
                                 TextEntry::make('read_time')
                                     ->suffix(' min'),
                                 TextEntry::make('view_count'),
+                                TextEntry::make('share_count')
+                                    ->label('Shares'),
                                 ImageEntry::make('featured_image'),
                             ]),
                     ]),

@@ -68,6 +68,35 @@
 @endif
 <div class="blog-single-page">
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+    <div class="share-rail" id="shareRail" role="complementary" aria-label="Share this article">
+        <div class="sr-count" id="rail-count">{{ (int) ($post->share_count ?? 0) }}</div>
+        <div class="sr-count-label">Shares</div>
+        <div class="sr-rule"></div>
+        <div class="sr-item">
+            <button class="sr-btn" type="button" data-share-rail="twitter" data-count="0" aria-label="Share on X">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="sr-tooltip">Post on X</span>
+            </button>
+        </div>
+        <div class="sr-item">
+            <button class="sr-btn" type="button" data-share-rail="linkedin" data-count="0" aria-label="Share on LinkedIn">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <span class="sr-tooltip">LinkedIn</span>
+            </button>
+        </div>
+        <div class="sr-item">
+            <button class="sr-btn" type="button" data-share-rail="whatsapp" data-count="0" aria-label="Share on WhatsApp">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span class="sr-tooltip">WhatsApp</span>
+            </button>
+        </div>
+        <div class="sr-item">
+            <button class="sr-btn" id="rail-copy-btn" type="button" aria-label="Copy link">
+                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                <span class="sr-tooltip" id="rail-tooltip">Copy link</span>
+            </button>
+        </div>
+    </div>
 
     <div class="blog-hero">
         <div class="blog-hero-glow" aria-hidden="true"></div>
@@ -100,10 +129,13 @@
                     </div>
                 </div>
                 <div class="post-share" aria-label="Share this article">
-                    <span class="share-label">Share</span>
-                    <a href="https://x.com/intent/tweet?url={{ urlencode(route('blog.show', $post->route_params)) }}&text={{ urlencode($post->title) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on X">𝕏</a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('blog.show', $post->route_params)) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
-                    <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . route('blog.show', $post->route_params)) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on WhatsApp">↗</a>
+                    <span class="share-label">Share this article</span>
+                    <div class="hero-share-actions">
+                        <a href="https://x.com/intent/tweet?url={{ urlencode(route('blog.show', $post->route_params)) }}&text={{ urlencode($post->title) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('blog.show', $post->route_params)) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('blog.show', $post->route_params)) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                        <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . route('blog.show', $post->route_params)) }}" class="share-btn" target="_blank" rel="noopener" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0012.08 0C5.52 0 .18 5.34.18 11.9c0 2.1.55 4.15 1.6 5.97L0 24l6.33-1.66a11.9 11.9 0 005.75 1.47h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.47-8.43zm-8.43 18.32h-.01a9.9 9.9 0 01-5.05-1.38l-.36-.21-3.76.99 1-3.67-.24-.38a9.88 9.88 0 01-1.51-5.25c0-5.45 4.43-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.89a9.84 9.84 0 012.9 7c0 5.45-4.44 9.89-9.9 9.89zm5.42-7.4c-.3-.15-1.76-.87-2.04-.96-.27-.1-.47-.15-.67.14-.2.3-.77.96-.94 1.16-.18.2-.35.22-.65.08-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.14-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.88 1.23 3.08c.15.2 2.12 3.23 5.13 4.53.72.31 1.29.5 1.73.63.73.23 1.4.2 1.93.12.59-.09 1.76-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -137,12 +169,41 @@
                     </div>
                 @endif
 
-                <div class="article-share">
-                    <span class="article-share-label">Found this useful? Share it:</span>
-                    <a href="https://x.com/intent/tweet?url={{ urlencode(route('blog.show', $post->route_params)) }}&text={{ urlencode($post->title) }}" class="share-btn-lg twitter" target="_blank" rel="noopener">𝕏 Share on X</a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('blog.show', $post->route_params)) }}" class="share-btn-lg linkedin" target="_blank" rel="noopener">in LinkedIn</a>
-                    <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . route('blog.show', $post->route_params)) }}" class="share-btn-lg whatsapp" target="_blank" rel="noopener">↗ WhatsApp</a>
-                    <a href="#" class="share-btn-lg copy" id="copyArticleLink">🔗 Copy Link</a>
+                <div class="share-card article-share">
+                    <div class="sc-glow" aria-hidden="true"></div>
+                    <div class="sc-top">
+                        <div>
+                            <div class="sc-text-eyebrow">Enjoyed this piece?</div>
+                            <div class="sc-title">Share it with someone<br>who needs to read it</div>
+                            <p class="sc-sub">Good thinking travels through good sharing. If this changed how you see website maintenance, someone in your network probably needs to see it too.</p>
+                        </div>
+                        <div class="sc-count-pill">
+                            <div class="scp-num">{{ (int) ($post->share_count ?? 0) }}</div>
+                            <div class="scp-label">Shares<br>this week</div>
+                        </div>
+                    </div>
+                    <div class="sc-platforms">
+                        <button class="scp-btn twitter" type="button" data-share-platform="twitter">
+                            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            Post on X
+                        </button>
+                        <button class="scp-btn linkedin" type="button" data-share-platform="linkedin">
+                            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            LinkedIn
+                        </button>
+                        <button class="scp-btn whatsapp" type="button" data-share-platform="whatsapp">
+                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zm-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WhatsApp
+                        </button>
+                        <button class="scp-btn facebook" type="button" data-share-platform="facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            Facebook
+                        </button>
+                    </div>
+                    <div class="sc-copy-row">
+                        <span class="scr-url">{{ route('blog.show', $post->route_params) }}</span>
+                        <button class="scr-btn" type="button" id="copyArticleLink" data-copy-url>Copy link</button>
+                    </div>
                 </div>
 
                 <div class="author-bio">
@@ -158,27 +219,6 @@
                     </div>
                 </div>
 
-                <div class="comments-section">
-                    <h3 class="comments-title">Leave a comment</h3>
-                    <div class="comment-form">
-                        <div class="comment-form-title">Share your thoughts or ask a question</div>
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label class="form-label" for="comment-name">Full Name *</label>
-                                <input class="form-input" type="text" id="comment-name" name="name" placeholder="Your name">
-                            </div>
-                            <div class="form-field">
-                                <label class="form-label" for="comment-email">Email Address *</label>
-                                <input class="form-input" type="email" id="comment-email" name="email" placeholder="your@email.com">
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <label class="form-label" for="comment-message">Your Comment *</label>
-                            <textarea class="form-input form-textarea" id="comment-message" name="message" placeholder="Share your thoughts, ask a question, or tell us your experience..."></textarea>
-                        </div>
-                        <button type="button" class="form-btn">Post Comment @include('blog.partials.archive-icon', ['name' => 'arrow-right', 'class' => 'blog-inline-icon'])</button>
-                    </div>
-                </div>
             </article>
         </main>
 
@@ -225,19 +265,6 @@
             </div>
 
             <div class="sidebar-widget">
-                <div class="sw-head">Weekly Web Tips</div>
-                <div class="sw-body">
-                    <p class="newsletter-sub">Get one practical web design or SEO tip every week. No fluff, just useful insights for business owners.</p>
-                    <div class="newsletter-form">
-                        <input class="newsletter-input" type="text" placeholder="Your first name">
-                        <input class="newsletter-input" type="email" placeholder="your@email.com">
-                        <button class="newsletter-btn" type="button">Subscribe Free @include('blog.partials.archive-icon', ['name' => 'arrow-right', 'class' => 'blog-inline-icon'])</button>
-                        <p class="newsletter-note">One email per week. Unsubscribe anytime.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar-widget">
                 <div class="sw-head">Browse by Category</div>
                 <div class="sw-body">
                     <ul class="cat-list" role="list">
@@ -248,16 +275,6 @@
                 </div>
             </div>
 
-            <div class="sidebar-widget">
-                <div class="sw-head">Popular Tags</div>
-                <div class="sw-body">
-                    <div class="tags-cloud">
-                        @foreach ($tags as $tag)
-                            <a href="#" class="tag-chip">{{ $tag->name }}</a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
         </aside>
     </div>
 

@@ -34,6 +34,10 @@ class BlogPostsTable
                 TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
+                TextColumn::make('share_count')
+                    ->label('Shares')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('author.name')
                     ->label('Author')
                     ->sortable(),

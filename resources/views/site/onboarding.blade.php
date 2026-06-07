@@ -96,6 +96,7 @@
                             <span class="field-error" id="err-country">Please select your country</span>
                         </div>
                     </div>
+                    @include('public.partials.honeypot')
                     <div class="step-nav">
                         <span></span>
                         <button class="btn-next" id="btn-next-1" onclick="goNext(1)">

@@ -15,6 +15,9 @@ id="email-deliverability-checker-page"
 data-generate-route="{{ route('tools.email-deliverability-checker.generate') }}"
 data-live-start-route="{{ route('tools.email-deliverability-checker.live-test.start') }}"
 data-live-poll-route="{{ route('tools.email-deliverability-checker.live-test.poll') }}"
+data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
+data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
+data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 @endsection
 
 @section('content')

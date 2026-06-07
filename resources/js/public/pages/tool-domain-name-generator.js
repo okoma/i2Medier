@@ -3,6 +3,9 @@ const page = document.getElementById('domain-name-generator-page');
 if (page) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const generateRoute = page.dataset.generateRoute || '';
+    const honeypotField = page.dataset.honeypotField || 'company_website';
+    const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
+    const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
     let allDomains = [];
     let savedDomains = JSON.parse(localStorage.getItem('i2m_dom_saved') || '[]');
     let currentFilter = 'all';
@@ -129,6 +132,8 @@ if (page) {
 
         try {
             const data = await postJson({
+                [honeypotField]: '',
+                [honeypotTimeField]: honeypotStartedAt,
                 description: desc,
                 tlds: selectedTLDs,
                 style,

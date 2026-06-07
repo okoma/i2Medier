@@ -14,6 +14,9 @@
 id="business-name-generator-page"
 data-generate-route="{{ route('tools.business-name-generator.generate') }}"
 data-variations-route="{{ route('tools.business-name-generator.variations') }}"
+data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
+data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
+data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 @endsection
 
 @section('content')

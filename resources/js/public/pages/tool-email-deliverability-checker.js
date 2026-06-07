@@ -5,6 +5,9 @@ if (page) {
     const liveStartRoute = page.dataset.liveStartRoute;
     const livePollRoute = page.dataset.livePollRoute;
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+    const honeypotField = page.dataset.honeypotField || 'company_website';
+    const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
+    const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
     const historyStorageKey = 'i2m_deliv_history';
     const loadingMessages = [
         'Querying MX records and DNS configuration…',
@@ -446,6 +449,8 @@ if (page) {
     };
 
     const buildPayload = () => ({
+        [honeypotField]: '',
+        [honeypotTimeField]: honeypotStartedAt,
         input: document.getElementById('email-input')?.value.trim() ?? '',
         checkType: activeValue('check-type-group') || 'full',
         clientTarget: activeValue('client-group') || 'all',

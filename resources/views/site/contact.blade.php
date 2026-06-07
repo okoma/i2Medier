@@ -84,6 +84,7 @@
 
       <!-- The form -->
       <form id="contact-form-el" data-endpoint="{{ route('site.contact.store') }}" onsubmit="submitForm(event)" novalidate>
+        @include('public.partials.honeypot')
         <div class="form-row">
           <div class="form-field">
             <label class="field-label">Full Name <span class="field-req">*</span></label>
@@ -293,7 +294,7 @@
       <div class="sc-handle">i2Medier Konceptz</div>
       <div class="sc-desc">Professional updates, case studies, team growth, and B2B partnerships and opportunities.</div>
     </a>
-    <a href="https://www.youtube.com/@i2medier" target="_blank" rel="noopener" class="social-card plat-youtube reveal">
+    <a href="https://www.youtube.com/@i2TechStudio" target="_blank" rel="noopener" class="social-card plat-youtube reveal">
       <div class="sc-platform-row">
         <div class="sc-platform-icon">▶</div>
         <span class="sc-follow-btn">Subscribe</span>

@@ -99,6 +99,8 @@ setInterval(updateLocalTime, 60000);
 window.submitForm = function submitForm(e) {
   e.preventDefault();
   const form = document.getElementById('contact-form-el');
+  const honeypotField = form?.querySelector('input[name="company_website"]');
+  const honeypotTimeField = form?.querySelector('input[name="form_started_at"]');
   const name = document.getElementById('f-name').value.trim();
   const company = document.getElementById('f-company').value.trim();
   const email = document.getElementById('f-email').value.trim();
@@ -128,6 +130,8 @@ window.submitForm = function submitForm(e) {
       'X-Requested-With': 'XMLHttpRequest',
     },
     body: JSON.stringify({
+      company_website: honeypotField?.value || '',
+      form_started_at: honeypotTimeField?.value || '',
       department_email: selectedDept,
       name,
       company,

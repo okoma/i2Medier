@@ -25,6 +25,7 @@
                 'https://twitter.com/i2medier',
                 'https://www.linkedin.com/company/i2medier',
                 'https://www.instagram.com/i2medier',
+                'https://www.youtube.com/@i2TechStudio',
             ],
             'hasOfferCatalog' => [
                 '@type' => 'OfferCatalog',
@@ -733,67 +734,56 @@
     <p>Beyond client work, we build and maintain our own digital products — proof that we eat our own cooking.</p>
   </div>
   <div class="prod-grid">
+    @php
+      $productGradients = [
+        'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',
+        'linear-gradient(135deg,#11998e 0%,#38ef7d 100%)',
+        'linear-gradient(135deg,#f7971e 0%,#ffd200 100%)',
+      ];
+    @endphp
 
-    <div class="prod-card reveal">
-      <div class="prod-thumb" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-          <div style="text-align:center;color:white;padding:1.5rem">
-            <div style="margin-bottom:.5rem"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 12v4"/><path d="M10 14h4"/></svg></div>
-            <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700">Your Career<br>Starts Here</div>
-          </div>
-        </div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">Careerclev — Resume Platform</div>
-        <p class="prod-desc">A lightweight career tool that helps users generate professional resumes in minutes.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">Laravel</span>
-          <span class="prod-tag">Livewire</span>
-          <span class="prod-tag">TailwindCSS</span>
-        </div>
-      </div>
-    </div>
+    @forelse ($inHouseProducts as $index => $product)
+      @php
+        $initials = collect(explode(' ', $product->title))
+          ->map(fn ($word) => strtoupper(mb_substr($word, 0, 1)))
+          ->take(2)
+          ->join('');
+        $gradient = $productGradients[$index % count($productGradients)];
+      @endphp
 
-    <div class="prod-card reveal">
-      <div class="prod-thumb" style="background:linear-gradient(135deg,#11998e 0%,#38ef7d 100%)">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-          <div style="text-align:center;color:white;padding:1.5rem">
-            <div style="margin-bottom:.5rem"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-            <div style="font-family:var(--serif);font-size:1rem;font-weight:700">Find Nigerian<br>Businesses Near You</div>
-          </div>
+      <a href="{{ route('portfolio.show', $product) }}" class="prod-card reveal">
+        <div class="prod-thumb" style="background:{{ $product->featured_image ? '#0d0d14' : $gradient }}">
+          @if ($product->featured_image)
+            <img src="{{ $product->featured_image }}" alt="{{ e($product->title) }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+          @else
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center;color:white;padding:1.5rem">
+                <div style="margin-bottom:.5rem;font-family:var(--serif);font-size:2rem;font-weight:700;letter-spacing:-0.04em;line-height:1">{{ $initials }}</div>
+                <div style="font-family:var(--serif);font-size:1rem;font-weight:700">{{ $product->title }}</div>
+              </div>
+            </div>
+          @endif
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">{{ $product->title }}</div>
+          <p class="prod-desc">{{ $product->summary ?: \Illuminate\Support\Str::limit(strip_tags((string) $product->description), 140) }}</p>
+          @if (filled($product->tech_stack) && count($product->tech_stack))
+            <div class="prod-tags">
+              @foreach (array_slice($product->tech_stack, 0, 3) as $tech)
+                <span class="prod-tag">{{ $tech }}</span>
+              @endforeach
+            </div>
+          @endif
+        </div>
+      </a>
+    @empty
+      <div class="prod-card reveal">
+        <div class="prod-body">
+          <div class="prod-name">In-house products coming soon</div>
+          <p class="prod-desc">Publish portfolio projects with the <strong>Inhouse</strong> type and they will appear here automatically.</p>
         </div>
       </div>
-      <div class="prod-body">
-        <div class="prod-name">Yb Local — Business Listing</div>
-        <p class="prod-desc">A production platform that handles real users, real data, and real business interactions across Nigeria.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">Laravel</span>
-          <span class="prod-tag">Filament</span>
-          <span class="prod-tag">Livewire</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card reveal">
-      <div class="prod-thumb" style="background:linear-gradient(135deg,#f7971e 0%,#ffd200 100%)">
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-          <div style="text-align:center;color:#1a1a1a;padding:1.5rem">
-            <div style="margin-bottom:.5rem"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5L2 9Z"/><path d="M6 11.5V16c2.8 2 8.2 2 11 0v-4.5"/><path d="M22 10v6"/></svg></div>
-            <div style="font-family:var(--serif);font-size:1rem;font-weight:700">Instantly Calculate<br>Your GPA Online</div>
-          </div>
-        </div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">GPA Calculation Tools</div>
-        <p class="prod-desc">A powerful academic utility tool used by students across different grading systems and universities.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">WordPress</span>
-          <span class="prod-tag">Custom Theme</span>
-          <span class="prod-tag">JavaScript</span>
-        </div>
-      </div>
-    </div>
-
+    @endforelse
   </div>
 </section>
 

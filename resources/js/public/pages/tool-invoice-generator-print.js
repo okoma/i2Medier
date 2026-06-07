@@ -126,6 +126,11 @@ if (page) {
             </div>
         `;
 
+        applyInvoiceTheme(documentEl.querySelector('.invoice-paper'), data.theme || {
+            header: '#0d0d0d',
+            accent: '#c8a96e',
+        });
+
         window.setTimeout(() => window.print(), 250);
     });
 }
@@ -160,6 +165,78 @@ function fmtDate(dateStr) {
 
 function statusLabel(status) {
     return ({ draft: 'Draft', sent: 'Sent', paid: 'Paid' })[status || 'draft'] || 'Draft';
+}
+
+function applyInvoiceTheme(element, theme) {
+    if (!element) return;
+
+    const header = normalizeHex(theme.header, '#0d0d0d');
+    const accent = normalizeHex(theme.accent, '#c8a96e');
+    const headerText = pickReadableTextColor(header);
+
+    element.style.setProperty('--invoice-header-bg', header);
+    element.style.setProperty('--invoice-header-text', headerText);
+    element.style.setProperty('--invoice-header-muted', rgbaFromHex(headerText, 0.4));
+    element.style.setProperty('--invoice-header-muted-strong', rgbaFromHex(headerText, 0.25));
+    element.style.setProperty('--invoice-header-badge-bg', rgbaFromHex(headerText, 0.08));
+    element.style.setProperty('--invoice-header-badge-text', rgbaFromHex(headerText, 0.7));
+    element.style.setProperty('--invoice-accent', accent);
+    element.style.setProperty('--invoice-accent-light', mixHex(accent, '#ffffff', 0.45));
+    element.style.setProperty('--invoice-accent-dark', mixHex(accent, '#000000', 0.22));
+}
+
+function normalizeHex(value, fallback) {
+    const hex = String(value || '').trim();
+    return /^#([0-9a-f]{6})$/i.test(hex) ? hex.toLowerCase() : fallback;
+}
+
+function rgbaFromHex(hex, alpha) {
+    const { r, g, b } = hexToRgb(hex);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function mixHex(base, mix, ratio) {
+    const a = hexToRgb(base);
+    const b = hexToRgb(mix);
+    const blend = (x, y) => Math.round(x + ((y - x) * ratio));
+    return rgbToHex(blend(a.r, b.r), blend(a.g, b.g), blend(a.b, b.b));
+}
+
+function pickReadableTextColor(background) {
+    const whiteContrast = contrastRatio(background, '#ffffff');
+    const blackContrast = contrastRatio(background, '#111111');
+    return whiteContrast >= blackContrast ? '#ffffff' : '#111111';
+}
+
+function contrastRatio(colorA, colorB) {
+    const lumA = relativeLuminance(colorA);
+    const lumB = relativeLuminance(colorB);
+    const lighter = Math.max(lumA, lumB);
+    const darker = Math.min(lumA, lumB);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+function relativeLuminance(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const channel = (value) => {
+        const normalized = value / 255;
+        return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+    };
+
+    return (0.2126 * channel(r)) + (0.7152 * channel(g)) + (0.0722 * channel(b));
+}
+
+function hexToRgb(hex) {
+    const normalized = normalizeHex(hex, '#000000').slice(1);
+    return {
+        r: parseInt(normalized.slice(0, 2), 16),
+        g: parseInt(normalized.slice(2, 4), 16),
+        b: parseInt(normalized.slice(4, 6), 16),
+    };
+}
+
+function rgbToHex(r, g, b) {
+    return `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('')}`;
 }
 
 function escapeHtml(value) {

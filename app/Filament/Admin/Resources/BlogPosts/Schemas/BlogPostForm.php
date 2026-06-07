@@ -170,6 +170,10 @@ class BlogPostForm
                                         TextInput::make('view_count')
                                             ->numeric()
                                             ->default(0),
+                                        TextInput::make('share_count')
+                                            ->numeric()
+                                            ->default(0)
+                                            ->helperText('Set the initial public share number shown on the blog post page.'),
                                     ]),
                                 Section::make('Editorial Checklist')
                                     ->icon(Heroicon::OutlinedClipboardDocumentCheck)

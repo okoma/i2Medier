@@ -7,6 +7,13 @@ const statusLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid' };
 const SYMBOLS = { NGN: '₦', USD: '$', GBP: '£', EUR: '€' };
 const printRoute = document.getElementById('invoice-generator-page')?.dataset.printRoute || '';
 const printStorageKey = 'i2medierInvoicePrintPayload';
+const DEFAULT_THEME = {
+    header: '#0d0d0d',
+    accent: '#c8a96e',
+    headerMode: 'preset',
+    accentMode: 'preset',
+};
+const invoiceTheme = { ...DEFAULT_THEME };
 
 window.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
@@ -270,6 +277,7 @@ function render() {
 
     document.getElementById('inv-footer-brand').textContent = fromName;
     document.getElementById('inv-footer-note').textContent = [value('from-email'), value('from-website')].filter(Boolean).join(' · ');
+    applyInvoiceTheme(document.getElementById('invoice-paper'));
 }
 
 function fmtDateDisplay(dateStr) {
@@ -335,6 +343,7 @@ function getInvoiceData() {
             sort: value('bank-sort'),
             ref: value('bank-ref'),
         },
+        theme: { ...invoiceTheme },
         notes: value('inv-notes'),
         terms: value('inv-terms'),
         savedAt: new Date().toISOString(),
@@ -406,6 +415,7 @@ function applyInvoiceData(data) {
     setValue('bank-ref', data.bank?.ref);
     setValue('inv-notes', data.notes);
     setValue('inv-terms', data.terms);
+    setInvoiceTheme(data.theme || DEFAULT_THEME);
 
     discType = data.discType || 'flat';
     document.getElementById('disc-flat-btn')?.classList.toggle('active', discType === 'flat');
@@ -531,6 +541,126 @@ function printInvoice() {
     }
 }
 
+function setHeaderTheme(value, mode = 'preset') {
+    invoiceTheme.header = normalizeHex(value, DEFAULT_THEME.header);
+    invoiceTheme.headerMode = mode;
+    syncThemeControls();
+    render();
+}
+
+function setAccentTheme(value, mode = 'preset') {
+    invoiceTheme.accent = normalizeHex(value, DEFAULT_THEME.accent);
+    invoiceTheme.accentMode = mode;
+    syncThemeControls();
+    render();
+}
+
+function setInvoiceTheme(theme) {
+    invoiceTheme.header = normalizeHex(theme.header, DEFAULT_THEME.header);
+    invoiceTheme.accent = normalizeHex(theme.accent, DEFAULT_THEME.accent);
+    invoiceTheme.headerMode = theme.headerMode || 'preset';
+    invoiceTheme.accentMode = theme.accentMode || 'preset';
+    syncThemeControls();
+}
+
+function syncThemeControls() {
+    document.querySelectorAll('[data-theme-target="header"]').forEach((element) => {
+        element.classList.toggle('selected', invoiceTheme.headerMode !== 'custom' && normalizeHex(element.dataset.themeValue, '') === invoiceTheme.header);
+    });
+
+    document.querySelectorAll('[data-theme-target="accent"]').forEach((element) => {
+        element.classList.toggle('selected', invoiceTheme.accentMode !== 'custom' && normalizeHex(element.dataset.themeValue, '') === invoiceTheme.accent);
+    });
+
+    const headerCustom = document.getElementById('theme-header-custom');
+    const headerInput = document.getElementById('theme-header-custom-input');
+    const headerSwatch = document.getElementById('theme-header-custom-swatch');
+    if (headerInput) headerInput.value = invoiceTheme.header;
+    if (headerSwatch) headerSwatch.style.background = invoiceTheme.header;
+    headerCustom?.classList.toggle('selected', invoiceTheme.headerMode === 'custom');
+
+    const accentCustom = document.getElementById('theme-accent-custom');
+    const accentInput = document.getElementById('theme-accent-custom-input');
+    const accentSwatch = document.getElementById('theme-accent-custom-swatch');
+    if (accentInput) accentInput.value = invoiceTheme.accent;
+    if (accentSwatch) accentSwatch.style.background = invoiceTheme.accent;
+    accentCustom?.classList.toggle('selected', invoiceTheme.accentMode === 'custom');
+}
+
+function applyInvoiceTheme(element) {
+    if (!element) return;
+
+    const headerText = pickReadableTextColor(invoiceTheme.header);
+    const headerMuted = rgbaFromHex(headerText, 0.4);
+    const headerMutedStrong = rgbaFromHex(headerText, 0.25);
+    const headerBadgeBg = rgbaFromHex(headerText, 0.08);
+    const headerBadgeText = rgbaFromHex(headerText, 0.7);
+
+    element.style.setProperty('--invoice-header-bg', invoiceTheme.header);
+    element.style.setProperty('--invoice-header-text', headerText);
+    element.style.setProperty('--invoice-header-muted', headerMuted);
+    element.style.setProperty('--invoice-header-muted-strong', headerMutedStrong);
+    element.style.setProperty('--invoice-header-badge-bg', headerBadgeBg);
+    element.style.setProperty('--invoice-header-badge-text', headerBadgeText);
+    element.style.setProperty('--invoice-accent', invoiceTheme.accent);
+    element.style.setProperty('--invoice-accent-light', mixHex(invoiceTheme.accent, '#ffffff', 0.45));
+    element.style.setProperty('--invoice-accent-dark', mixHex(invoiceTheme.accent, '#000000', 0.22));
+}
+
+function normalizeHex(value, fallback) {
+    const hex = String(value || '').trim();
+    return /^#([0-9a-f]{6})$/i.test(hex) ? hex.toLowerCase() : fallback;
+}
+
+function rgbaFromHex(hex, alpha) {
+    const { r, g, b } = hexToRgb(hex);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function mixHex(base, mix, ratio) {
+    const a = hexToRgb(base);
+    const b = hexToRgb(mix);
+    const blend = (x, y) => Math.round(x + ((y - x) * ratio));
+    return rgbToHex(blend(a.r, b.r), blend(a.g, b.g), blend(a.b, b.b));
+}
+
+function pickReadableTextColor(background) {
+    const whiteContrast = contrastRatio(background, '#ffffff');
+    const blackContrast = contrastRatio(background, '#111111');
+    return whiteContrast >= blackContrast ? '#ffffff' : '#111111';
+}
+
+function contrastRatio(colorA, colorB) {
+    const lumA = relativeLuminance(colorA);
+    const lumB = relativeLuminance(colorB);
+    const lighter = Math.max(lumA, lumB);
+    const darker = Math.min(lumA, lumB);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+function relativeLuminance(hex) {
+    const { r, g, b } = hexToRgb(hex);
+    const channel = (value) => {
+        const normalized = value / 255;
+        return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+    };
+
+    return (0.2126 * channel(r)) + (0.7152 * channel(g)) + (0.0722 * channel(b));
+}
+
+function hexToRgb(hex) {
+    const normalized = normalizeHex(hex, '#000000').slice(1);
+    return {
+        r: parseInt(normalized.slice(0, 2), 16),
+        g: parseInt(normalized.slice(2, 4), 16),
+        b: parseInt(normalized.slice(4, 6), 16),
+    };
+}
+
+function rgbToHex(r, g, b) {
+    return `#${[r, g, b].map((value) => value.toString(16).padStart(2, '0')).join('')}`;
+}
+
 function toast(message, duration = 3000) {
     const element = document.getElementById('toast');
     if (!element) {
@@ -566,3 +696,7 @@ window.clearForm = clearForm;
 window.loadSaved = loadSaved;
 window.printInvoice = printInvoice;
 window.render = render;
+window.setHeaderTheme = setHeaderTheme;
+window.setAccentTheme = setAccentTheme;
+
+syncThemeControls();

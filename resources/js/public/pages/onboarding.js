@@ -19,6 +19,8 @@ import FALLBACK_SERVICES from './onboarding-services';
     const fallbackUrl = document.body.dataset.onboardingFallbackUrl || '/';
     const submitUrl = document.body.dataset.onboardingSubmitUrl || window.location.pathname;
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const honeypotField = document.querySelector('input[name="company_website"]');
+    const honeypotTimeField = document.querySelector('input[name="form_started_at"]');
 
     const ICONS = {
         wordpress: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 8.5c1 4.5 3 7.5 3.5 7.5s2.5-3 3.5-7.5"></path><path d="M7.5 10h9"></path></svg>`,
@@ -632,6 +634,8 @@ import FALLBACK_SERVICES from './onboarding-services';
 
     function buildSubmissionPayload() {
         return {
+            company_website: honeypotField?.value || '',
+            form_started_at: honeypotTimeField?.value || '',
             contact: {
                 name: document.getElementById('f-name')?.value?.trim() || '',
                 business: document.getElementById('f-business')?.value?.trim() || '',

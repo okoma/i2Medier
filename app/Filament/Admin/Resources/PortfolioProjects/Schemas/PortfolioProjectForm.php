@@ -4,8 +4,8 @@ namespace App\Filament\Admin\Resources\PortfolioProjects\Schemas;
 
 use App\Models\PortfolioCategory;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
@@ -125,10 +125,16 @@ class PortfolioProjectForm
                                 Section::make('Media')
                                     ->icon(Heroicon::OutlinedPhoto)
                                     ->schema([
-                                        TextInput::make('featured_image')
-                                            ->label('Featured Image URL')
-                                            ->url()
-                                            ->maxLength(255)
+                                        FileUpload::make('featured_image')
+                                            ->label('Featured Image')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->disk('public')
+                                            ->directory('portfolio/featured-images')
+                                            ->visibility('public')
+                                            ->maxSize(4096)
+                                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
+                                            ->imagePreviewHeight('120')
                                             ->helperText('Main image used for the portfolio card and project hero.'),
                                     ]),
                                 Section::make('Metadata')
@@ -137,9 +143,19 @@ class PortfolioProjectForm
                                         TagsInput::make('tech_stack')
                                             ->label('Tech Stack')
                                             ->helperText('Technologies used in this project.'),
-                                        KeyValue::make('gallery')
-                                            ->keyLabel('Image Label')
-                                            ->valueLabel('Image URL'),
+                                        FileUpload::make('gallery')
+                                            ->label('Gallery')
+                                            ->image()
+                                            ->multiple()
+                                            ->reorderable()
+                                            ->appendFiles()
+                                            ->disk('public')
+                                            ->directory('portfolio/gallery')
+                                            ->visibility('public')
+                                            ->maxSize(4096)
+                                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
+                                            ->imagePreviewHeight('120')
+                                            ->helperText('Optional gallery images for this project. You can upload multiple images and drag to reorder them.'),
                                     ]),
                             ]),
                     ]),

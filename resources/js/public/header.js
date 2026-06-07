@@ -11,14 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('scroll', syncNavState, { passive: true });
     }
 
-    // Mega menu hover-intent (desktop only)
     var megaItems = document.querySelectorAll('.has-mega');
-    var timers = {};
 
     function openPanel(id) {
         var panel = document.getElementById('mega-' + id);
         var item = document.querySelector('.has-mega[data-mega="' + id + '"]');
-        var trigger = item && item.querySelector('a');
+        var trigger = item && item.querySelector('.public-nav-mega-trigger');
         if (!panel) return;
         panel.classList.add('is-open');
         if (item) item.classList.add('is-open');
@@ -28,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function closePanel(id) {
         var panel = document.getElementById('mega-' + id);
         var item = document.querySelector('.has-mega[data-mega="' + id + '"]');
-        var trigger = item && item.querySelector('a');
+        var trigger = item && item.querySelector('.public-nav-mega-trigger');
         if (!panel) return;
         panel.classList.remove('is-open');
         if (item) item.classList.remove('is-open');
@@ -46,27 +44,22 @@ document.addEventListener('DOMContentLoaded', function () {
         var id = item.getAttribute('data-mega');
         if (!id) return;
         var panel = document.getElementById('mega-' + id);
+        var inner = panel ? panel.querySelector('.mega-inner') : null;
+        var trigger = item.querySelector('.public-nav-mega-trigger');
 
-        item.addEventListener('mouseenter', function () {
-            clearTimeout(timers[id + '-hide']);
-            timers[id + '-show'] = setTimeout(function () { openPanel(id); }, 150);
-        });
-
-        item.addEventListener('mouseleave', function () {
-            clearTimeout(timers[id + '-show']);
-            timers[id + '-hide'] = setTimeout(function () { closePanel(id); }, 200);
-        });
-
-        if (panel) {
-            panel.addEventListener('mouseenter', function () {
-                clearTimeout(timers[id + '-hide']);
+        if (trigger) {
+            trigger.addEventListener('click', function (event) {
+                event.preventDefault();
+                var isOpen = item.classList.contains('is-open');
+                closeAll();
+                if (!isOpen) {
+                    openPanel(id);
+                }
             });
+        }
 
-            panel.addEventListener('mouseleave', function () {
-                timers[id + '-hide'] = setTimeout(function () { closePanel(id); }, 200);
-            });
-
-            panel.querySelectorAll('a').forEach(function (link) {
+        if (inner) {
+            inner.querySelectorAll('a').forEach(function (link) {
                 link.addEventListener('click', closeAll);
             });
         }

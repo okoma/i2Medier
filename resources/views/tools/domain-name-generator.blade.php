@@ -13,6 +13,9 @@
 @section('body_attrs')
 id="domain-name-generator-page"
 data-generate-route="{{ route('tools.domain-name-generator.generate') }}"
+data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
+data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
+data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 @endsection
 
 @section('content')

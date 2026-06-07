@@ -73,14 +73,25 @@
                          ->join('');
           $year      = $project->published_at?->year ?? now()->year;
           $clientLbl = $project->type === 'client' ? ($project->client_name ?: 'Client') : 'In-House Product';
+          $mediaImages = collect([$project->featured_image])
+                         ->merge($project->gallery ?? [])
+                         ->filter()
+                         ->unique()
+                         ->values();
 
         @endphp
         <div class="port-card reveal" data-cats="{{ $catSlugs }}">
           <a href="{{ route('portfolio.show', $project) }}" class="port-thumb" style="background:{{ $project->featured_image ? '#0d0d14' : $gradient }}">
             <div class="port-thumb-inner">
-              @if ($project->featured_image)
-                <img src="{{ $project->featured_image }}" alt="{{ e($project->title) }}"
-                     style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:block;">
+              @if ($mediaImages->isNotEmpty())
+                <div class="port-media-strip" aria-label="{{ e($project->title) }} preview gallery">
+                  @foreach ($mediaImages as $image)
+                    <div class="port-media-slide">
+                      <img src="{{ $image }}" alt="{{ e($project->title) }}"
+                           style="width:100%;height:100%;object-fit:cover;display:block;">
+                    </div>
+                  @endforeach
+                </div>
               @else
                 <div style="text-align:center;color:white;padding:2rem;position:relative;z-index:1">
                   <div style="font-family:var(--serif);font-size:2.4rem;font-weight:700;letter-spacing:-0.04em;opacity:.9;line-height:1">{{ $initials }}</div>
