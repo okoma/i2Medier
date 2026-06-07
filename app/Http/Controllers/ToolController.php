@@ -40,6 +40,11 @@ class ToolController extends Controller
         return $this->toolPage('website-cost-calculator', 'tools.cost-calculator');
     }
 
+    public function costCalculatorPrint(): View
+    {
+        return view('tools.cost-calculator-print');
+    }
+
     public function businessNameGenerator(): View
     {
         return $this->toolPage('business-name-generator', 'tools.business-name-generator');
@@ -55,6 +60,11 @@ class ToolController extends Controller
         return $this->toolPage('website-brief-generator', 'tools.website-brief-generator');
     }
 
+    public function websiteBriefPrint(): View
+    {
+        return view('tools.website-brief-generator-print');
+    }
+
     public function whatsappLinkGenerator(): View
     {
         return $this->toolPage('whatsapp-link-generator', 'tools.whatsapp-link-generator');
@@ -68,6 +78,11 @@ class ToolController extends Controller
     public function invoiceGenerator(): View
     {
         return $this->toolPage('invoice-generator', 'tools.invoice-generator');
+    }
+
+    public function invoiceGeneratorPrint(): View
+    {
+        return view('tools.invoice-generator-print');
     }
 
     public function storeLead(Request $request): JsonResponse

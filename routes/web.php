@@ -55,12 +55,14 @@ Route::get('/privacy', [SiteController::class, 'privacy'])->name('site.privacy')
 Route::get('/tools', [ToolController::class, 'hub'])->name('tools.hub');
 Route::get('/tools/free-seo-audit', [ToolController::class, 'seoAudit'])->name('tools.seo-audit');
 Route::get('/tools/website-cost-calculator', [ToolController::class, 'costCalculator'])->name('tools.cost-calculator');
+Route::get('/tools/website-cost-calculator/print', [ToolController::class, 'costCalculatorPrint'])->name('tools.cost-calculator.print');
 Route::get('/tools/business-name-generator', [ToolController::class, 'businessNameGenerator'])->name('tools.business-name-generator');
 Route::post('/tools/business-name-generator/generate', [ToolController::class, 'businessNameGenerate'])->name('tools.business-name-generator.generate')->middleware('throttle:8,1');
 Route::post('/tools/business-name-generator/variations', [ToolController::class, 'businessNameVariations'])->name('tools.business-name-generator.variations')->middleware('throttle:12,1');
 Route::get('/tools/domain-name-generator', [ToolController::class, 'domainNameGenerator'])->name('tools.domain-name-generator');
 Route::post('/tools/domain-name-generator/generate', [ToolController::class, 'domainNameGenerate'])->name('tools.domain-name-generator.generate')->middleware('throttle:8,1');
 Route::get('/tools/website-brief-generator', [ToolController::class, 'websiteBriefGenerator'])->name('tools.website-brief-generator');
+Route::get('/tools/website-brief-generator/print', [ToolController::class, 'websiteBriefPrint'])->name('tools.website-brief-generator.print');
 Route::post('/tools/website-brief-generator/generate', [ToolController::class, 'websiteBriefGenerate'])->name('tools.website-brief-generator.generate')->middleware('throttle:6,1');
 Route::get('/tools/whatsapp-link-generator', [ToolController::class, 'whatsappLinkGenerator'])->name('tools.whatsapp-link-generator');
 Route::get('/tools/email-deliverability-checker', [ToolController::class, 'emailDeliverabilityChecker'])->name('tools.email-deliverability-checker');
@@ -69,6 +71,7 @@ Route::post('/tools/email-deliverability-checker/live-test/start', [ToolControll
 Route::post('/tools/email-deliverability-checker/live-test/poll', [ToolController::class, 'emailDeliverabilityPollLiveTest'])->name('tools.email-deliverability-checker.live-test.poll')->middleware('throttle:20,1');
 Route::post('/webhooks/postmark/email-deliverability/{token}', [ToolController::class, 'emailDeliverabilityPostmarkWebhook'])->name('tools.email-deliverability-checker.postmark');
 Route::get('/tools/invoice-generator', [ToolController::class, 'invoiceGenerator'])->name('tools.invoice-generator');
+Route::get('/tools/invoice-generator/print', [ToolController::class, 'invoiceGeneratorPrint'])->name('tools.invoice-generator.print');
 Route::post('/tools/leads', [ToolController::class, 'storeLead'])->name('tools.leads.store');
 Route::post('/tools/seo-audit/fetch-html', [ToolController::class, 'seoFetchHtml'])->name('tools.seo-audit.fetch-html')->middleware('throttle:15,1');
 Route::post('/tools/seo-audit/psi', [ToolController::class, 'seoFetchPsi'])->name('tools.seo-audit.psi')->middleware('throttle:10,1');

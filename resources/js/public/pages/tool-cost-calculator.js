@@ -2,6 +2,8 @@ const page = document.getElementById('website-cost-calculator-page');
 
 if (page) {
     const startRoute = page.dataset.startRoute || '/start';
+    const printRoute = page.dataset.printRoute || '';
+    const printStorageKey = 'i2medierCostCalculatorPrintPayload';
 
     const state = {
         type: 150000,
@@ -43,6 +45,56 @@ if (page) {
         feature: '#fb923c',
         rush: '#f59e0b',
     };
+
+    function buildEstimateRows(rushAmount) {
+        const rows = [];
+
+        rows.push({ group: 'Base', name: state.typeName, price: state.type });
+        if (state.pages > 0) rows.push({ group: 'Pages', name: `Pages (${state.pageCount})`, price: state.pages });
+        if (state.design > 0) rows.push({ group: 'Design', name: `${state.designName} Design`, price: state.design });
+        if (state.content > 0) rows.push({ group: 'Content', name: 'Content / Copywriting', price: state.content });
+        if (!state.seoMonthly && state.seo > 0) rows.push({ group: 'SEO', name: state.seoName, price: state.seo });
+        if (state.platform > 0) rows.push({ group: 'Platform', name: `${state.platformName} Development`, price: state.platform });
+        Object.values(state.features).forEach((feature) => rows.push({ group: 'Feature', name: feature.name, price: feature.price }));
+        if (rushAmount !== 0) rows.push({ group: 'Timeline', name: `${state.rushName} adjustment`, price: rushAmount });
+
+        return rows;
+    }
+
+    function getEstimatePayload() {
+        const featuresTotal = Object.values(state.features).reduce((sum, item) => sum + item.price, 0);
+        const baseOnetime = state.type + state.pages + state.design + state.content + (state.seoMonthly ? 0 : state.seo) + state.platform + featuresTotal;
+        const rushAmount = state.rush !== 0 ? Math.round(baseOnetime * state.rush / 100) : 0;
+        const oneTimeTotal = baseOnetime + rushAmount;
+        const monthlyTotal = state.maintenance + (state.seoMonthly ? state.seo : 0);
+
+        return {
+            state: {
+                typeName: state.typeName,
+                pageCount: state.pageCount,
+                designName: state.designName,
+                contentName: state.contentName,
+                seoName: state.seoName,
+                seoMonthly: state.seoMonthly,
+                platformName: state.platformName,
+                maintenanceName: state.maintenanceName,
+                rushName: state.rushName,
+            },
+            rows: buildEstimateRows(rushAmount),
+            summary: {
+                featuresTotal,
+                rushAmount,
+                oneTimeTotal,
+                monthlyTotal,
+            },
+            comparison: {
+                freelancer: Math.round(oneTimeTotal * 0.7),
+                i2medier: oneTimeTotal,
+                agency: Math.round(oneTimeTotal * 2.2),
+            },
+            generatedAt: new Date().toISOString(),
+        };
+    }
 
     function selectType(card) {
         document.querySelectorAll('#type-grid .type-card').forEach((item) => item.classList.remove('selected'));
@@ -249,10 +301,16 @@ if (page) {
     }
 
     function printEstimate() {
-        const originalTitle = document.title;
-        document.title = 'Website-Cost-Estimate-i2Medier';
-        window.print();
-        document.title = originalTitle;
+        try {
+            window.localStorage.setItem(printStorageKey, JSON.stringify(getEstimatePayload()));
+            const printWindow = window.open(printRoute, '_blank', 'noopener,noreferrer');
+
+            if (!printWindow) {
+                throw new Error('Popup blocked. Please allow popups, then try again.');
+            }
+        } catch (error) {
+            window.alert(error?.message || 'Could not open the print view.');
+        }
     }
 
     function resetCalc() {

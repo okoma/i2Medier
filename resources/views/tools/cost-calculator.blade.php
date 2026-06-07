@@ -5,6 +5,7 @@
 @section('body_attrs')
 id="website-cost-calculator-page"
 data-start-route="{{ route('site.start') }}"
+data-print-route="{{ route('tools.cost-calculator.print') }}"
 @endsection
 
 @push('page_css')
@@ -458,7 +459,7 @@ data-start-route="{{ route('site.start') }}"
 
             <div class="cost-actions">
                 <button class="ca-btn primary" type="button" onclick="getQuote()">Get a Formal Quote <span class="ui-icon"><svg><use href="#icon-arrow-right"></use></svg></span></button>
-                <button class="ca-btn secondary" type="button" onclick="printEstimate()"><span class="ui-icon"><svg><use href="#icon-download"></use></svg></span>Download Estimate</button>
+                <button class="ca-btn secondary" type="button" onclick="printEstimate()"><span class="ui-icon"><svg><use href="#icon-download"></use></svg></span>Print / Save PDF</button>
             </div>
             <div class="cost-disclaimer">Prices are starting estimates for the Nigerian market. Your final, itemised quote is confirmed after a free discovery call — no commitment required.</div>
         </div>

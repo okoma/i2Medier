@@ -13,6 +13,7 @@
 @section('body_attrs')
 id="website-brief-generator-page"
 data-generate-route="{{ route('tools.website-brief-generator.generate') }}"
+data-print-route="{{ route('tools.website-brief-generator.print') }}"
 @endsection
 
 @section('content')
@@ -61,7 +62,7 @@ data-generate-route="{{ route('tools.website-brief-generator.generate') }}"
     @include('public.partials.menu')
     <div class="nav-right">
         <button class="nav-btn" id="nav-new-btn" type="button" onclick="resetAll()" style="display:none">＋ New Brief</button>
-        <button class="nav-btn primary" id="nav-print-btn" type="button" onclick="printBrief()" style="display:none">⬇ Download PDF</button>
+        <button class="nav-btn primary" id="nav-print-btn" type="button" onclick="printBrief()" style="display:none">Print / Save PDF</button>
     </div>
     <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
         <span></span>
@@ -501,7 +502,7 @@ data-generate-route="{{ route('tools.website-brief-generator.generate') }}"
         </div>
         <div class="ba-right">
             <button class="ba-btn" type="button" onclick="copyBrief()"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"></use></svg></span> Copy Text</button>
-            <button class="ba-btn print" type="button" onclick="printBrief()">⬇ Download PDF</button>
+            <button class="ba-btn print" type="button" onclick="printBrief()">Print / Save PDF</button>
             <button class="ba-btn new" type="button" onclick="resetAll()">＋ New Brief</button>
         </div>
     </div>

@@ -5,6 +5,8 @@ const items = [];
 const statuses = ['draft', 'sent', 'paid'];
 const statusLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid' };
 const SYMBOLS = { NGN: '₦', USD: '$', GBP: '£', EUR: '€' };
+const printRoute = document.getElementById('invoice-generator-page')?.dataset.printRoute || '';
+const printStorageKey = 'i2medierInvoicePrintPayload';
 
 window.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
@@ -517,11 +519,16 @@ function loadSaved() {
 }
 
 function printInvoice() {
-    const num = (document.getElementById('inv-number')?.value || 'Invoice').trim();
-    const originalTitle = document.title;
-    document.title = `Invoice-${num}`;
-    window.print();
-    document.title = originalTitle;
+    try {
+        localStorage.setItem(printStorageKey, JSON.stringify(getInvoiceData()));
+        const printWindow = window.open(printRoute, '_blank', 'noopener,noreferrer');
+
+        if (!printWindow) {
+            throw new Error('Popup blocked. Please allow popups, then try again.');
+        }
+    } catch (error) {
+        toast(error?.message || 'Could not open the print view.');
+    }
 }
 
 function toast(message, duration = 3000) {

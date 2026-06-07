@@ -1,8 +1,12 @@
+import { renderWebsiteBriefDocument } from './website-brief-render';
+
 const page = document.getElementById('website-brief-generator-page');
 
 if (page) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const generateRoute = page.dataset.generateRoute || '';
+    const printRoute = page.dataset.printRoute || '';
+    const printStorageKey = 'i2medierWebsiteBriefPrintPayload';
     let currentStep = 1;
     const totalSteps = 6;
     const selectedPages = new Set(['Home', 'About', 'Services', 'Contact']);
@@ -11,6 +15,8 @@ if (page) {
     let selectedWebsiteType = '';
     let selectedTimeline = '';
     let selectedBudget = '';
+    let latestBrief = null;
+    let latestData = null;
 
     const loadingMessages = [
         'Organising your project information…',
@@ -296,6 +302,8 @@ if (page) {
 
         try {
             const response = await postJson(data);
+            latestData = data;
+            latestBrief = response.brief || {};
             window.clearInterval(phaseTimer);
 
             phases.forEach((key, index) => {
@@ -307,7 +315,7 @@ if (page) {
 
             window.setTimeout(() => {
                 document.getElementById('loading-view').style.display = 'none';
-                renderBrief(response.brief || {}, data);
+                renderBrief(latestBrief, data);
             }, 600);
         } catch (error) {
             window.clearInterval(phaseTimer);
@@ -323,111 +331,11 @@ if (page) {
 
     function renderBrief(brief, data) {
         const refNum = brief.refNumber || `WB-${new Date().getFullYear()}-001`;
-        const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
         const refDisplay = document.getElementById('brief-ref-display');
         if (refDisplay) refDisplay.textContent = refNum;
-
-        let sectionsHtml = (brief.sections || []).map((section, index) => {
-            let tableHtml = '';
-            if (Array.isArray(section.table) && section.table.length > 0) {
-                tableHtml = `<table class="brief-table">${section.table.map((row) => `<tr><td>${esc(row.key)}</td><td>${esc(row.value)}</td></tr>`).join('')}</table>`;
-            }
-
-            const paragraphs = (section.paragraphs || []).map((p) => `<p class="bs-body">${esc(p)}</p>`).join('');
-
-            return `<div class="brief-section" style="animation-delay:${index * 0.06}s">
-                <span class="bs-number">Section ${section.number || String(index + 1).padStart(2, '0')}</span>
-                <h3 class="bs-title">${esc(section.title)}</h3>
-                ${tableHtml}${paragraphs}
-            </div>`;
-        }).join('');
-
-        if (brief.siteArchitecture) {
-            const pagesHtml = (brief.siteArchitecture.pages || []).map((item) => `<li><strong>${esc(item.name)}</strong> — ${esc(item.purpose)}</li>`).join('');
-            sectionsHtml += `<div class="brief-section" style="animation-delay:${((brief.sections?.length) || 0) * 0.06 + 0.06}s">
-                <span class="bs-number">Section ${String(((brief.sections?.length) || 0) + 1).padStart(2, '0')}</span>
-                <h3 class="bs-title">Site Architecture</h3>
-                <p class="bs-body">${esc(brief.siteArchitecture.description || '')}</p>
-                ${pagesHtml ? `<ul class="brief-list">${pagesHtml}</ul>` : ''}
-            </div>`;
-        }
-
-        if (brief.featureRequirements) {
-            const baseDelay = (((brief.sections?.length) || 0) + 2) * 0.06;
-            sectionsHtml += `<div class="brief-section" style="animation-delay:${baseDelay}s">
-                <span class="bs-number">Section ${String(((brief.sections?.length) || 0) + 2).padStart(2, '0')}</span>
-                <h3 class="bs-title">Feature Requirements</h3>
-                <div class="feature-split">
-                    <div class="fs-col">
-                        <span class="fs-col-head must">Must Have</span>
-                        <div class="fs-items">${(brief.featureRequirements.mustHave || []).map((item) => `<div class="fs-item">${esc(item)}</div>`).join('')}</div>
-                    </div>
-                    <div class="fs-col">
-                        <span class="fs-col-head nice">Nice to Have</span>
-                        <div class="fs-items">${(brief.featureRequirements.niceToHave || []).map((item) => `<div class="fs-item">${esc(item)}</div>`).join('')}</div>
-                    </div>
-                    <div class="fs-col">
-                        <span class="fs-col-head future">Out of Scope</span>
-                        <div class="fs-items">${(brief.featureRequirements.outOfScope || []).map((item) => `<div class="fs-item">${esc(item)}</div>`).join('')}</div>
-                    </div>
-                </div>
-            </div>`;
-        }
-
-        if (Array.isArray(brief.timeline) && brief.timeline.length > 0) {
-            const baseDelay = (((brief.sections?.length) || 0) + 3) * 0.06;
-            const timelineHtml = brief.timeline.map((item, index) => `
-                <div class="bt-phase">
-                    <div class="bt-phase-num">Phase ${index + 1}</div>
-                    <div class="bt-phase-body">
-                        <div class="bt-phase-name">${esc(item.phase)} <span style="font-weight:400;color:var(--gold-dk);font-size:.78rem"> · ${esc(item.duration)}</span></div>
-                        <div class="bt-phase-detail">${(item.deliverables || []).map((deliverable) => `• ${esc(deliverable)}`).join('  ')}</div>
-                    </div>
-                </div>`).join('');
-
-            sectionsHtml += `<div class="brief-section" style="animation-delay:${baseDelay}s">
-                <span class="bs-number">Section ${String(((brief.sections?.length) || 0) + 3).padStart(2, '0')}</span>
-                <h3 class="bs-title">Proposed Timeline & Milestones</h3>
-                <div class="brief-timeline">${timelineHtml}</div>
-                ${brief.budgetGuidance ? `<p class="bs-body" style="margin-top:.75rem">${esc(brief.budgetGuidance)}</p>` : ''}
-            </div>`;
-        }
-
-        if (Array.isArray(brief.nextSteps) && brief.nextSteps.length > 0) {
-            const baseDelay = (((brief.sections?.length) || 0) + 4) * 0.06;
-            sectionsHtml += `<div class="brief-section" style="animation-delay:${baseDelay}s">
-                <span class="bs-number">Section ${String(((brief.sections?.length) || 0) + 4).padStart(2, '0')}</span>
-                <h3 class="bs-title">Next Steps & Action Items</h3>
-                <div class="brief-next-steps">${brief.nextSteps.map((step, index) => `<div class="bns-item"><div class="bns-num">${index + 1}</div><div class="bns-text">${esc(step)}</div></div>`).join('')}</div>
-            </div>`;
-        }
-
-        document.getElementById('brief-document').innerHTML = `
-            <div class="brief-cover">
-                <div class="bc-logo">i2Medi<span>er</span></div>
-                <span class="bc-label">Website Project Brief</span>
-                <div class="bc-title">${esc(data.bizName)}</div>
-                <div class="bc-client">${esc(data.websiteType)} — ${esc(data.bizIndustry)}</div>
-                <div class="bc-meta">
-                    <div class="bc-meta-item"><span class="bc-meta-label">Reference</span><span class="bc-meta-val">${esc(refNum)}</span></div>
-                    <div class="bc-meta-item"><span class="bc-meta-label">Prepared</span><span class="bc-meta-val">${today}</span></div>
-                    <div class="bc-meta-item"><span class="bc-meta-label">Prepared For</span><span class="bc-meta-val">${esc(data.bizName)}</span></div>
-                    <div class="bc-meta-item"><span class="bc-meta-label">Prepared By</span><span class="bc-meta-val">i2Medier Konceptz</span></div>
-                    <div class="bc-meta-item"><span class="bc-meta-label">Budget</span><span class="bc-meta-val">${esc(data.budget)}</span></div>
-                    <div class="bc-meta-item"><span class="bc-meta-label">Timeline</span><span class="bc-meta-val">${esc(data.timeline)}</span></div>
-                </div>
-            </div>
-            <div class="brief-gold-stripe"></div>
-            <div class="brief-body">
-                ${brief.executiveSummary ? `<div class="brief-section" style="background:var(--off);border-radius:8px;padding:1.5rem;margin-bottom:2rem;border:1px solid var(--g200)"><span class="bs-number" style="margin-bottom:.3rem">Executive Summary</span><p style="font-size:.95rem;color:var(--g700);line-height:1.9;font-style:italic">${esc(brief.executiveSummary)}</p></div>` : ''}
-                ${sectionsHtml}
-            </div>
-            <div class="brief-footer">
-                <div class="bf-brand">i2Medi<span>er</span> Konceptz</div>
-                <div class="bf-note">This brief is a working document — subject to revision after discovery call</div>
-                <div class="bf-ref">${esc(refNum)} · ${today}</div>
-            </div>
-        `;
+        document.getElementById('brief-document').innerHTML = renderWebsiteBriefDocument(brief, data, {
+            footerNote: 'This brief is a working document — subject to revision after discovery call',
+        });
 
         document.getElementById('brief-view').style.display = 'block';
         document.getElementById('nav-new-btn').style.display = 'flex';
@@ -435,12 +343,46 @@ if (page) {
         document.getElementById('brief-view')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function printBrief() {
-        const bizName = (document.getElementById('biz-name')?.value || 'Website-Brief').trim().replace(/\s+/g, '-');
-        const originalTitle = document.title;
-        document.title = `Brief-${bizName}`;
-        window.print();
-        document.title = originalTitle;
+    async function printBrief() {
+        if (!latestBrief || !latestData) {
+            toast('Generate the brief first before opening the print view.');
+            return;
+        }
+
+        const buttons = [
+            document.getElementById('nav-print-btn'),
+            document.querySelector('.ba-btn.print'),
+        ].filter(Boolean);
+
+        buttons.forEach((button) => {
+            button.disabled = true;
+            button.dataset.originalText = button.innerHTML;
+            button.innerHTML = 'Opening print view...';
+        });
+
+        try {
+            window.localStorage.setItem(printStorageKey, JSON.stringify({
+                data: latestData,
+                brief: latestBrief,
+                savedAt: Date.now(),
+            }));
+
+            const printWindow = window.open(printRoute, '_blank', 'noopener,noreferrer');
+            if (!printWindow) {
+                throw new Error('Popup blocked. Please allow popups, then try again.');
+            }
+
+            toast('Print view opened. Use Save as PDF in the print dialog.');
+        } catch (error) {
+            toast(error?.message || 'Could not open the print view. Please try again.');
+        } finally {
+            buttons.forEach((button) => {
+                button.disabled = false;
+                if (button.dataset.originalText) {
+                    button.innerHTML = button.dataset.originalText;
+                }
+            });
+        }
     }
 
     function copyBrief() {
@@ -465,14 +407,6 @@ if (page) {
             el.style.transform = 'translateY(20px)';
             el.style.opacity = '0';
         }, duration);
-    }
-
-    function esc(value) {
-        return String(value || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
     }
 
     Object.assign(window, {
