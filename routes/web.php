@@ -75,7 +75,7 @@ Route::post('/tools/email-deliverability-checker/live-test/poll', [ToolControlle
 Route::post('/webhooks/postmark/email-deliverability/{token}', [ToolController::class, 'emailDeliverabilityPostmarkWebhook'])->name('tools.email-deliverability-checker.postmark');
 Route::get('/tools/invoice-generator', [ToolController::class, 'invoiceGenerator'])->name('tools.invoice-generator');
 Route::get('/tools/invoice-generator/print', [ToolController::class, 'invoiceGeneratorPrint'])->name('tools.invoice-generator.print');
-Route::post('/tools/leads', [ToolController::class, 'storeLead'])->name('tools.leads.store');
+Route::post('/tools/leads', [ToolController::class, 'storeLead'])->name('tools.leads.store')->middleware('throttle:6,1');
 Route::post('/tools/seo-audit/fetch-html', [ToolController::class, 'seoFetchHtml'])->name('tools.seo-audit.fetch-html')->middleware('throttle:15,1');
 Route::post('/tools/seo-audit/psi', [ToolController::class, 'seoFetchPsi'])->name('tools.seo-audit.psi')->middleware('throttle:10,1');
 Route::post('/tools/seo-audit/crux', [ToolController::class, 'seoFetchCrux'])->name('tools.seo-audit.crux')->middleware('throttle:10,1');
