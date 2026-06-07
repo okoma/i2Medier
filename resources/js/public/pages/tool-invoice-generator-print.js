@@ -54,7 +54,7 @@ if (page) {
             <div class="invoice-paper">
                 <div class="inv-header">
                     <div>
-                        <div class="inv-from-brand">${escapeBrand(fromName)}</div>
+                        <div class="inv-from-brand">${escapeHtml(fromName)}</div>
                         <div class="inv-from-details">${fromDetails}</div>
                     </div>
                     <div class="inv-label-block">
@@ -119,7 +119,7 @@ if (page) {
                 ` : ''}
 
                 <div class="inv-footer">
-                    <div class="inv-footer-brand">${escapeBrand(fromName)}</div>
+                    <div class="inv-footer-brand">${escapeHtml(fromName)}</div>
                     <div class="inv-footer-thanks"><span>Thank you for your business</span></div>
                     <div class="inv-footer-note">${[data.from?.email, data.from?.website].filter(Boolean).join(' · ')}</div>
                 </div>
@@ -160,11 +160,6 @@ function fmtDate(dateStr) {
 
 function statusLabel(status) {
     return ({ draft: 'Draft', sent: 'Sent', paid: 'Paid' })[status || 'draft'] || 'Draft';
-}
-
-function escapeBrand(value) {
-    const safe = escapeHtml(value);
-    return safe.includes('i2Medier') ? safe.replace('i2Medier', 'i2Medi<span>er</span>') : safe;
 }
 
 function escapeHtml(value) {

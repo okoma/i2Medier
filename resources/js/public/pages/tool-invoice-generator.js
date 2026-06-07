@@ -148,7 +148,7 @@ function render() {
     const currency = getCurrency();
     const fromName = value('from-name') || 'i2Medier Konceptz';
 
-    document.getElementById('inv-from-brand').innerHTML = fromName;
+    document.getElementById('inv-from-brand').textContent = fromName;
 
     const fromParts = [
         value('from-address'),
@@ -268,7 +268,7 @@ function render() {
         document.getElementById('inv-bottom').style.display = 'none';
     }
 
-    document.getElementById('inv-footer-brand').innerHTML = esc(fromName);
+    document.getElementById('inv-footer-brand').textContent = fromName;
     document.getElementById('inv-footer-note').textContent = [value('from-email'), value('from-website')].filter(Boolean).join(' · ');
 }
 

@@ -158,7 +158,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
         <div class="invoice-paper" id="invoice-paper">
             <div class="inv-header">
                 <div>
-                    <div class="inv-from-brand" id="inv-from-brand">i2Medi<span>er</span></div>
+                    <div class="inv-from-brand" id="inv-from-brand">Your Business Name</div>
                     <div class="inv-from-details" id="inv-from-details"></div>
                 </div>
                 <div class="inv-label-block">
@@ -202,7 +202,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
             <div class="inv-bottom" id="inv-bottom"></div>
 
             <div class="inv-footer">
-                <div class="inv-footer-brand" id="inv-footer-brand">i2Medi<span>er</span></div>
+                <div class="inv-footer-brand" id="inv-footer-brand">Your Business Name</div>
                 <div class="inv-footer-thanks"><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg></span><span>Thank you for your business</span></div>
                 <div class="inv-footer-note" id="inv-footer-note">letstalk@i2medier.com · i2medier.com</div>
             </div>
