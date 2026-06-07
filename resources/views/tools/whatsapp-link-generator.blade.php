@@ -30,7 +30,7 @@ id="whatsapp-link-generator-page"
     <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M20 11.6A8.4 8.4 0 0 1 7.6 19L4 20l1.1-3.5A8.4 8.4 0 1 1 20 11.6z"/><path d="M9.5 8.8c.3-.7.6-.7.9-.7h.7c.2 0 .5.1.6.5l.7 1.7c.1.2 0 .5-.1.7l-.5.6c.6 1 1.5 1.8 2.6 2.4l.6-.5c.2-.1.4-.2.7-.1l1.6.7c.3.1.5.3.5.6v.7c0 .3 0 .6-.7.9-.6.3-1.3.3-2 0-2.8-1.1-5.1-3.3-6.2-6.1-.3-.7-.3-1.4 0-2z"/></symbol>
 </svg>
 
-<nav>
+<nav class="is-dark">
     @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">

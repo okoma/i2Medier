@@ -60,7 +60,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
     <symbol id="icon-analytics" viewBox="0 0 24 24"><path d="M4 19h16"></path><path d="M6 17V9"></path><path d="M12 17V5"></path><path d="M18 17v-4"></path></symbol>
     <symbol id="icon-pencil" viewBox="0 0 24 24"><path d="m4 20 4.5-1 9-9-3.5-3.5-9 9z"></path><path d="m13.5 6.5 3.5 3.5"></path></symbol>
 </svg>
-<nav>
+<nav class="is-dark">
     @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">

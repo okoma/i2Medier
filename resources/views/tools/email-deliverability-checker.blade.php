@@ -42,7 +42,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
     <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20v-4"/></symbol>
 </svg>
 
-<nav>
+<nav class="is-dark">
     @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">

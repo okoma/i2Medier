@@ -12,7 +12,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
 @endsection
 
 @section('content')
-<nav>
+<nav class="is-dark">
     @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     <div class="nav-right">

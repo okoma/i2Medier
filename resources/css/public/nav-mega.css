@@ -170,3 +170,13 @@
         border-radius: 99px;
     }
 }
+
+/* Tool pages use a dark nav without .public-nav class — make mega triggers visible */
+nav.is-dark .public-nav-mega-trigger {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+nav.is-dark .public-nav-mega-trigger:hover,
+nav.is-dark .public-nav-mega-trigger.is-active {
+    color: var(--gold);
+}

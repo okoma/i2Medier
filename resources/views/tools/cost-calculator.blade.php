@@ -50,7 +50,7 @@ data-print-route="{{ route('tools.cost-calculator.print') }}"
     <symbol id="icon-warning" viewBox="0 0 24 24"><path d="M12 4 3 20h18L12 4z"/><path d="M12 9v5"/><path d="M12 17h.01"/></symbol>
 </svg>
 
-<nav>
+<nav class="is-dark">
     @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
     @include('public.partials.menu')
     
