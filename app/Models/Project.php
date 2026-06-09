@@ -24,6 +24,7 @@ class Project extends Model
         'domain_preference',
         'hosting_preference',
         'message',
+        'brief_pdf',
         'source_page',
         'source_label',
         'services',
@@ -57,6 +58,16 @@ class Project extends Model
     public function onboardingTasks(): HasMany
     {
         return $this->hasMany(OnboardingTask::class);
+    }
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(ProjectNote::class)->latest();
+    }
+
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
     }
 
     public function isConverted(): bool

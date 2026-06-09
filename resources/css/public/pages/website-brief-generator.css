@@ -28,6 +28,8 @@ nav{background:var(--black);height:62px;display:flex;align-items:center;justify-
 .nav-btn:hover{border-color:var(--gold);color:var(--gold)}
 .nav-btn.primary{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:700}
 .nav-btn.primary:hover{opacity:.88}
+.nav-btn.gold{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:700}
+.nav-btn.gold:hover{background:var(--gold-dk);border-color:var(--gold-dk)}
 .progress-strip{height:3px;background:rgba(255,255,255,.08);position:relative}
 .progress-fill{height:100%;background:linear-gradient(to right,var(--gold-dk),var(--gold));transition:width .6s var(--ease);border-radius:0 2px 2px 0}
 .step-indicator{background:var(--black);padding:0 5%;border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto}
@@ -169,8 +171,9 @@ nav{background:var(--black);height:62px;display:flex;align-items:center;justify-
 .ba-btn:hover .ui-icon{color:var(--gold)}
 .ba-btn.print{background:var(--black);border-color:var(--black);color:var(--white)}
 .ba-btn.print .ui-icon{color:var(--gold)}
-.ba-btn.print:hover,.ba-btn.new:hover{opacity:.88}
+.ba-btn.print:hover,.ba-btn.new:hover,.ba-btn.start:hover{opacity:.88}
 .ba-btn.new{background:var(--gold);border-color:var(--gold);color:var(--black);font-weight:700}
+.ba-btn.start{background:#0d0d0d;border-color:#0d0d0d;color:var(--gold);font-weight:700;letter-spacing:.01em}
 .ba-btn.new .ui-icon{color:var(--black)}
 .brief-document{max-width:860px;margin:0 auto;background:var(--white);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.06),0 12px 40px rgba(0,0,0,.1);overflow:hidden}
 .brief-cover{background:var(--black);padding:3rem 3rem 2.5rem;position:relative;overflow:hidden}

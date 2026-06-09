@@ -20,6 +20,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -396,7 +397,14 @@ class SiteController extends Controller
     {
         Honeypot::ensureValid($request);
 
-        $validated = $request->validate([
+        // Support both JSON and multipart/form-data (the latter carries a PDF brief file).
+        $raw = $request->isJson()
+            ? $request->all()
+            : json_decode($request->input('payload', '{}'), true);
+
+        abort_if(! is_array($raw), 422, 'Invalid request payload.');
+
+        $validated = Validator::make($raw, [
             'contact.name' => ['required', 'string', 'max:255'],
             'contact.business' => ['required', 'string', 'max:255'],
             'contact.email' => ['required', 'email:rfc,dns', 'max:255'],
@@ -405,6 +413,8 @@ class SiteController extends Controller
             'services' => ['required', 'array', 'min:1'],
             'services.*.id' => ['required', 'string', 'max:255'],
             'services.*.platform' => ['nullable', 'string', 'max:255'],
+            'services.*.pages' => ['nullable', 'array'],
+            'services.*.pages.*' => ['string', 'max:100'],
             'services.*.addons' => ['array'],
             'services.*.addons.*.id' => ['required', 'string', 'max:255'],
             'services.*.addons.*.quantity' => ['nullable', 'integer', 'min:1'],
@@ -417,7 +427,13 @@ class SiteController extends Controller
             'terms_accepted' => ['accepted'],
             'source_page' => ['nullable', 'string', 'max:255'],
             'source_label' => ['nullable', 'string', 'max:255'],
-        ]);
+        ])->validate();
+
+        $briefPdfPath = null;
+        if ($request->hasFile('brief_pdf')) {
+            $request->validate(['brief_pdf' => ['file', 'mimes:pdf', 'max:10240']]);
+            $briefPdfPath = $request->file('brief_pdf')->store('briefs', 'public');
+        }
 
         $catalog = OnboardingService::query()
             ->where('is_active', true)
@@ -469,6 +485,9 @@ class SiteController extends Controller
                 'service' => $service,
                 'variant' => $variant,
                 'addons' => $addons,
+                'pages' => array_values(array_filter(
+                    array_map('strval', $servicePayload['pages'] ?? [])
+                )),
             ];
         })->values();
 
@@ -511,10 +530,11 @@ class SiteController extends Controller
                         'billing_cycle' => $addon->billing_cycle,
                     ];
                 })->values()->all(),
+                'pages' => $selection['pages'],
             ];
         })->values()->all();
 
-        $result = DB::transaction(function () use ($validated, $servicesSnapshot, $owner, $contact, $brief): array {
+        $result = DB::transaction(function () use ($validated, $servicesSnapshot, $owner, $contact, $brief, $briefPdfPath): array {
             $client = Client::query()->create([
                 'company_name' => $contact['business'],
                 'contact_name' => $contact['name'],
@@ -536,6 +556,7 @@ class SiteController extends Controller
                 'domain_preference' => $brief['domain_preference'] ?? null,
                 'hosting_preference' => $brief['hosting_preference'] ?? null,
                 'message' => $brief['message'] ?? null,
+                'brief_pdf' => $briefPdfPath,
                 'source_page' => $validated['source_page'] ?? null,
                 'source_label' => $validated['source_label'] ?? null,
                 'services' => $servicesSnapshot,
@@ -548,6 +569,28 @@ class SiteController extends Controller
                 'project' => $project,
             ];
         });
+
+        try {
+            Notification::route('mail', $result['client']->email)
+                ->notify(new \App\Notifications\ProjectSubmittedClientNotification(
+                    $result['project'],
+                    $result['client']->contact_name,
+                ));
+        } catch (Throwable $exception) {
+            report($exception);
+        }
+
+        if ($owner?->email) {
+            try {
+                Notification::route('mail', $owner->email)
+                    ->notify(new \App\Notifications\ProjectSubmittedTeamNotification(
+                        $result['project'],
+                        $result['client'],
+                    ));
+            } catch (Throwable $exception) {
+                report($exception);
+            }
+        }
 
         return response()->json([
             'message' => 'Your enquiry has been logged successfully.',

@@ -227,6 +227,21 @@
   overflow:hidden;
 }
 
+.onboarding-body .brief-import-notice {
+  background:linear-gradient(135deg,rgba(200,169,110,.08),rgba(200,169,110,.04));
+  border-bottom:1px solid rgba(200,169,110,.25);
+  padding:.9rem 1.5rem;
+}
+.onboarding-body .bin-body { display:flex; align-items:flex-start; gap:.75rem; }
+.onboarding-body .bin-icon { color:var(--gold); flex-shrink:0; width:1.1rem; height:1.1rem; margin-top:.1rem; }
+.onboarding-body .bin-text { font-size:.78rem; color:var(--g700); line-height:1.6; flex:1; }
+.onboarding-body .bin-text strong { color:var(--black); }
+.onboarding-body .bin-pdf-hint { display:block; margin-top:.2rem; color:var(--g400); }
+.onboarding-body .bin-pdf-link { background:none; border:none; cursor:pointer; color:var(--gold); font-weight:600; font-size:.78rem; padding:0; text-decoration:underline; text-underline-offset:2px; }
+.onboarding-body .bin-pdf-link:hover { color:var(--gold-dk); }
+.onboarding-body .bin-close { background:none; border:none; cursor:pointer; color:var(--g400); font-size:1.1rem; line-height:1; padding:.1rem .25rem; border-radius:4px; flex-shrink:0; margin-left:.25rem; }
+.onboarding-body .bin-close:hover { color:var(--black); background:var(--g100); }
+
 .onboarding-body .form-panel-header {
   padding:2rem 2.25rem 1.5rem;
   border-bottom:1px solid var(--g100);
@@ -350,6 +365,29 @@
 .onboarding-body .field-error.visible { display:block; }
 
 .onboarding-body .field-hint { font-size:.72rem; color:var(--g400); margin-top:.15rem; line-height:1.5; }
+.onboarding-body .field-hint a { color:var(--gold); text-decoration:none; font-weight:500; }
+.onboarding-body .field-hint a:hover { text-decoration:underline; }
+
+.onboarding-body .brief-upload-area {
+  border:1.5px dashed var(--g200);
+  border-radius:8px;
+  padding:1.1rem 1rem;
+  cursor:pointer;
+  transition:border-color .2s, background .2s;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  background:var(--white);
+  position:relative;
+}
+.onboarding-body .brief-upload-area:hover { border-color:var(--gold); background:rgba(200,169,110,.04); }
+.onboarding-body .brief-upload-icon { color:var(--g400); flex-shrink:0; width:1.2rem; height:1.2rem; }
+.onboarding-body .brief-upload-area:hover .brief-upload-icon { color:var(--gold); }
+.onboarding-body .brief-upload-text { font-size:.8rem; color:var(--g500); font-weight:500; }
+.onboarding-body .brief-upload-area:hover .brief-upload-text { color:var(--g700); }
+.onboarding-body .brief-chosen-name { font-size:.8rem; color:var(--g700); font-weight:500; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.onboarding-body .brief-clear-btn { background:none; border:none; cursor:pointer; color:var(--g400); padding:.1rem .3rem; line-height:1; font-size:1rem; margin-left:auto; border-radius:4px; flex-shrink:0; }
+.onboarding-body .brief-clear-btn:hover { color:var(--error); background:rgba(180,0,0,.06); }
 
 .onboarding-body .service-grid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
 

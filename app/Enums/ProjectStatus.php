@@ -34,4 +34,17 @@ enum ProjectStatus: string implements HasColor, HasLabel
             self::Declined => 'danger',
         };
     }
+
+    public function canBeConverted(): bool
+    {
+        return match ($this) {
+            self::Enquiry, self::ProposalSent, self::Negotiating => true,
+            default => false,
+        };
+    }
+
+    public function canBeDeclined(): bool
+    {
+        return $this !== self::Converted && $this !== self::Declined;
+    }
 }

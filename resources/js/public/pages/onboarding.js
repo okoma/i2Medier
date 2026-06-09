@@ -19,6 +19,154 @@ import '../header';
     let hostingPreference = '';
     let selectedPages = new Set();
 
+    let briefPdfFile = null;
+    let briefHandoffSourcePage = '';
+    let briefHandoffSourceLabel = '';
+
+    const WEB_SERVICES = new Set(['webdesign','wordpress','ecommerce','saas','laravel','cloud','webmaintenance','wpmaintenance','performance']);
+    function needsDomainHosting() { return [...selectedServices].some(id => WEB_SERVICES.has(id)); }
+    function updateDomainHostingVisibility() {
+        const section = document.getElementById('domain-hosting-section');
+        if (!section) return;
+        const show = needsDomainHosting();
+        section.style.display = show ? '' : 'none';
+        if (!show) {
+            domainPreference = '';
+            hostingPreference = '';
+            document.querySelectorAll('#domain-grid .source-btn, #hosting-grid .source-btn').forEach(b => b.classList.remove('selected'));
+        }
+    }
+
+    // --- Brief Generator handoff ---
+    const BRIEF_HANDOFF_KEY = 'i2medierBriefHandoff';
+
+    const BRIEF_SERVICE_MAP = {
+        'New Website': 'webdesign',
+        'Website Redesign': 'webdesign',
+        'Landing Page': 'webdesign',
+        'E-Commerce Store': 'ecommerce',
+        'Web Application': 'laravel',
+        'Portfolio / Showcase': 'webdesign',
+    };
+
+    // Brief gen page name → onboarding optional page ID
+    const BRIEF_PAGE_MAP = {
+        'Portfolio': 'portfolio',
+        'Team': 'team',
+        'Testimonials': 'testimonials',
+        'FAQ': 'faq',
+        'Pricing': 'pricing',
+        'Gallery': 'gallery',
+        'Events': 'events',
+        'Careers': 'careers',
+        'Privacy Policy': 'privacy',
+        'Login / Dashboard': 'login',
+    };
+
+    const BRIEF_TIMELINE_MAP = {
+        'ASAP — within 2 weeks': 'asap',
+        '1–4 weeks': '2-4weeks',
+        '1–3 months': '1-3months',
+        '3–6 months': 'flexible',
+        'Flexible / not urgent': 'flexible',
+    };
+
+    const BRIEF_BUDGET_MAP = {
+        '₦200,000–₦500,000': '250-500k',
+        '₦500,000–₦1,000,000': '500k-1m',
+        '₦1,000,000–₦3,000,000': '1m-3m',
+        'Above ₦3,000,000': 'above3m',
+    };
+
+    const BRIEF_DOMAIN_MAP = {
+        'We already own the domain': 'own-domain',
+        'We need a new domain purchased': 'manage-domain',
+        'Not decided yet': 'unsure-domain',
+    };
+
+    const BRIEF_HOSTING_MAP = {
+        'We have existing hosting': 'own-hosting',
+        'We need hosting recommended': 'managed-hosting',
+        'We want managed WordPress hosting': 'managed-hosting',
+        'VPS / Cloud server': 'own-hosting',
+    };
+
+    function readBriefHandoff() {
+        try {
+            const raw = sessionStorage.getItem(BRIEF_HANDOFF_KEY);
+            if (!raw) return null;
+            sessionStorage.removeItem(BRIEF_HANDOFF_KEY);
+            const data = JSON.parse(raw);
+            if (data?.version !== 1 || Date.now() - data.savedAt > 600_000) return null;
+            return data;
+        } catch { return null; }
+    }
+
+    function applyBriefHandoff(handoff) {
+        // 1. Pre-select service
+        const serviceId = BRIEF_SERVICE_MAP[handoff.websiteType] || 'webdesign';
+        if (!selectedServices.has(serviceId)) {
+            selectedServices.add(serviceId);
+            selectedAddons[serviceId] = new Set();
+            addonQuantities[serviceId] = {};
+        }
+
+        // 2. Pre-select optional pages (webdesign only)
+        if (serviceId === 'webdesign' && Array.isArray(handoff.pages)) {
+            handoff.pages.forEach(pageName => {
+                const optId = BRIEF_PAGE_MAP[pageName];
+                if (optId) selectedPages.add(optId);
+            });
+        }
+
+        // 3. Pre-fill contact: business name
+        const bizField = document.getElementById('f-business');
+        if (bizField && handoff.bizName) bizField.value = handoff.bizName;
+
+        // 4. Pre-fill Brief step fields (DOM exists even when step is hidden)
+        const timelineVal = BRIEF_TIMELINE_MAP[handoff.timeline];
+        if (timelineVal) {
+            const card = document.querySelector(`.timeline-card[data-val="${timelineVal}"]`);
+            if (card) { timeline = timelineVal; card.classList.add('selected'); }
+        }
+
+        const budgetVal = BRIEF_BUDGET_MAP[handoff.budget];
+        const budgetEl = document.getElementById('f-budget');
+        if (budgetEl && budgetVal) budgetEl.value = budgetVal;
+
+        const domainVal = BRIEF_DOMAIN_MAP[handoff.domainStatus];
+        if (domainVal) {
+            const btn = document.querySelector(`#domain-grid .source-btn[data-val="${domainVal}"]`);
+            if (btn) { domainPreference = domainVal; btn.classList.add('selected'); }
+        }
+
+        const hostingVal = BRIEF_HOSTING_MAP[handoff.hosting];
+        if (hostingVal) {
+            const btn = document.querySelector(`#hosting-grid .source-btn[data-val="${hostingVal}"]`);
+            if (btn) { hostingPreference = hostingVal; btn.classList.add('selected'); }
+        }
+
+        const msgEl = document.getElementById('f-message');
+        if (msgEl && handoff.briefText) msgEl.value = handoff.briefText;
+
+        // 5. Attribution
+        briefHandoffSourcePage = '/tools/website-brief-generator';
+        briefHandoffSourceLabel = 'Website Brief Generator';
+
+        // 6. Show import notice
+        const notice = document.getElementById('brief-import-notice');
+        if (notice) notice.style.display = 'block';
+
+        // 7. Wire up PDF download link (data is already in localStorage from brief gen)
+        const pdfLink = document.getElementById('brief-pdf-open-print');
+        if (pdfLink && handoff.printRoute) {
+            pdfLink.addEventListener('click', () => window.open(handoff.printRoute, '_blank', 'noopener,noreferrer'));
+        } else if (pdfLink) {
+            pdfLink.closest('.bin-pdf-hint')?.remove();
+        }
+    }
+    // --- end Brief Generator handoff ---
+
     const fallbackUrl = document.body.dataset.onboardingFallbackUrl || '/';
     const submitUrl = document.body.dataset.onboardingSubmitUrl || window.location.pathname;
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
@@ -49,16 +197,23 @@ import '../header';
     };
 
     const OPTIONAL_PAGES = [
-        {id:'portfolio',    label:'Portfolio',      icon:'image'},
-        {id:'team',         label:'Our Team',       icon:'users'},
-        {id:'testimonials', label:'Testimonials',   icon:'star'},
-        {id:'faq',          label:'FAQ',            icon:'help'},
-        {id:'pricing',      label:'Pricing Page',   icon:'cash'},
-        {id:'gallery',      label:'Gallery',        icon:'camera'},
-        {id:'events',       label:'Events',         icon:'calendar'},
-        {id:'careers',      label:'Careers',        icon:'briefcase'},
-        {id:'privacy',      label:'Privacy Policy', icon:'lock'},
-        {id:'login',        label:'Login / Portal', icon:'key'},
+        // Informational & marketing pages
+        {id:'portfolio',    label:'Portfolio',             icon:'image'},
+        {id:'team',         label:'Our Team',              icon:'users'},
+        {id:'testimonials', label:'Testimonials',          icon:'star'},
+        {id:'casestudies',  label:'Case Studies',          icon:'briefcase'},
+        {id:'faq',          label:'FAQ',                   icon:'help'},
+        {id:'pricing',      label:'Pricing',               icon:'cash'},
+        {id:'gallery',      label:'Gallery',               icon:'camera'},
+        {id:'videos',       label:'Videos',                icon:'video'},
+        {id:'locations',    label:'Locations / Branches',  icon:'pin'},
+        {id:'events',       label:'Events',                icon:'calendar'},
+        {id:'careers',      label:'Careers',               icon:'briefcase'},
+        {id:'donations',    label:'Donations',             icon:'heart'},
+        // Legal & access
+        {id:'terms',        label:'Terms & Conditions',    icon:'doc'},
+        {id:'privacy',      label:'Privacy Policy',        icon:'lock'},
+        {id:'login',        label:'Login / Portal',        icon:'key'},
     ];
 
     function iconSvg(name) {
@@ -110,6 +265,8 @@ import '../header';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        const briefHandoff = readBriefHandoff();
+        if (briefHandoff) applyBriefHandoff(briefHandoff);
         applyPresetSelections();
         renderServiceGrid();
         updateQuoteSidebar();
@@ -580,9 +737,45 @@ import '../header';
     function selectSource(el) { document.querySelectorAll('#source-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); source = el.dataset.val; }
     function selectDomainOption(el) { document.querySelectorAll('#domain-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); domainPreference = el.dataset.val; document.getElementById('err-domain')?.classList.remove('visible'); }
     function selectHostingOption(el) { document.querySelectorAll('#hosting-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); hostingPreference = el.dataset.val; document.getElementById('err-hosting')?.classList.remove('visible'); }
+
+    function handleBriefUpload(input) {
+        const file = input.files?.[0];
+        const errEl = document.getElementById('err-brief-pdf');
+        if (!file) return;
+        if (file.type !== 'application/pdf') {
+            if (errEl) { errEl.textContent = 'Only PDF files are accepted.'; errEl.classList.add('visible'); }
+            input.value = '';
+            return;
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            if (errEl) { errEl.textContent = 'File must be under 10 MB.'; errEl.classList.add('visible'); }
+            input.value = '';
+            return;
+        }
+        if (errEl) errEl.classList.remove('visible');
+        briefPdfFile = file;
+        const nameEl = document.getElementById('brief-pdf-name');
+        if (nameEl) nameEl.textContent = file.name;
+        document.getElementById('brief-upload-placeholder').style.display = 'none';
+        const chosen = document.getElementById('brief-upload-chosen');
+        if (chosen) chosen.style.display = 'flex';
+    }
+
+    function clearBriefUpload(event) {
+        event.stopPropagation();
+        briefPdfFile = null;
+        const input = document.getElementById('brief-pdf-input');
+        if (input) input.value = '';
+        document.getElementById('brief-upload-placeholder').style.display = 'flex';
+        const chosen = document.getElementById('brief-upload-chosen');
+        if (chosen) chosen.style.display = 'none';
+        const errEl = document.getElementById('err-brief-pdf');
+        if (errEl) errEl.classList.remove('visible');
+    }
+
     function toggleTerms() { termsAccepted = !termsAccepted; const chk = document.getElementById('terms-check'); if (chk) { chk.textContent = termsAccepted ? '✓' : ''; chk.classList.toggle('checked', termsAccepted); } if (termsAccepted) document.getElementById('err-terms')?.classList.remove('visible'); }
 
-    function goNext(fromStep) { if (!validateStep(fromStep)) return; if (fromStep === 2) renderAddons(); if (fromStep === 4) buildReview(); goToStep(fromStep + 1); }
+    function goNext(fromStep) { if (!validateStep(fromStep)) return; if (fromStep === 2) renderAddons(); if (fromStep === 3) updateDomainHostingVisibility(); if (fromStep === 4) buildReview(); goToStep(fromStep + 1); }
     function goBack(fromStep) { goToStep(fromStep - 1); }
 
     function goToStep(n) {
@@ -639,11 +832,11 @@ import '../header';
             document.getElementById('err-timeline')?.classList.add('visible');
             ok = false;
         }
-        if (step === 4 && !domainPreference) {
+        if (step === 4 && needsDomainHosting() && !domainPreference) {
             document.getElementById('err-domain')?.classList.add('visible');
             ok = false;
         }
-        if (step === 4 && !hostingPreference) {
+        if (step === 4 && needsDomainHosting() && !hostingPreference) {
             document.getElementById('err-hosting')?.classList.add('visible');
             ok = false;
         }
@@ -797,8 +990,8 @@ import '../header';
                 message: document.getElementById('f-message')?.value?.trim() || '',
             },
             terms_accepted: termsAccepted,
-            source_page: PRESET.source_page || '',
-            source_label: PRESET.source_label || '',
+            source_page: PRESET.source_page || briefHandoffSourcePage || '',
+            source_label: PRESET.source_label || briefHandoffSourceLabel || '',
         };
     }
 
@@ -816,14 +1009,19 @@ import '../header';
         btn.disabled = true;
 
         try {
+            const fd = new FormData();
+            fd.append('company_website', honeypotField?.value || '');
+            fd.append('form_started_at', honeypotTimeField?.value || '');
+            fd.append('payload', JSON.stringify(buildSubmissionPayload()));
+            if (briefPdfFile) fd.append('brief_pdf', briefPdfFile);
+
             const response = await fetch(submitUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     Accept: 'application/json',
                     'X-CSRF-TOKEN': csrfToken,
                 },
-                body: JSON.stringify(buildSubmissionPayload()),
+                body: fd,
             });
 
             const payload = await response.json().catch(() => ({}));
@@ -901,6 +1099,8 @@ import '../header';
         selectSource,
         selectDomainOption,
         selectHostingOption,
+        handleBriefUpload,
+        clearBriefUpload,
         toggleTerms,
         goNext,
         goBack,

@@ -10,12 +10,17 @@ export default         [
               {id:'wd-live-chat', name:'Live Chat Integration', price:25000, desc:'Tawk.to, Tidio, or Crisp live chat configured and styled to your brand'},
               {id:'wd-gdpr', name:'Cookie & Privacy Banner', price:25000, desc:'GDPR-compliant cookie consent banner with policy pages'},
               {id:'wd-404', name:'Custom 404 & Error Pages', price:20000, desc:'Branded error pages that guide visitors back to the right content'},
-              {id:'wd-maintenance', name:'3-Month Care Plan', price:180000, desc:'Weekly updates, daily backups, uptime monitoring & monthly reports'},
+              {id:'wd-maintenance', name:'3-Month Care Plan', price:180000, desc:'Weekly updates, daily backups, uptime monitoring & monthly reports — bundled at launch for a discounted rate'},
               {id:'wd-copywriting', name:'Website Copywriting', price:150000, desc:'Professional copy written for all pages — headlines, body text, CTAs, and SEO meta descriptions'},
               {id:'wd-whatsapp', name:'WhatsApp Float Button & Click-to-Call', price:15000, desc:'Styled floating WhatsApp chat button and click-to-call link, configured for your number and branded to match the site'},
               {id:'wd-gallery', name:'Portfolio / Gallery Section', price:65000, desc:'Filterable image or project gallery with lightbox viewer — ideal for photographers, architects, clinics, and creative businesses'},
               {id:'wd-social-feed', name:'Social Media Feed Integration', price:35000, desc:'Live embedded Instagram or Facebook feed displayed on your site and kept in sync with your latest posts'},
               {id:'wd-newsletter', name:'Newsletter Signup Integration', price:35000, desc:'Mailchimp or Brevo email list signup — embedded forms, pop-ups, or inline blocks designed to match your site and connected to your email platform'},
+              {id:'wd-events', name:'Event Registration System', price:200000, desc:'Full event listing with RSVP / ticketing, seat limits, attendee management, and automated confirmation emails'},
+              {id:'wd-donations', name:'Donation / Fundraising System', price:180000, desc:'Recurring giving, fundraising goal tracker with progress bar, donor recognition wall, and automated receipt emails via Paystack or bank transfer'},
+              {id:'wd-analytics', name:'Google Analytics & Tag Manager Setup', price:30000, desc:'GA4 and GTM installed, configured with goal tracking, conversion events, and a clean data layer — not just a script drop'},
+              {id:'wd-maps', name:'Google Maps / Location Embed', price:25000, desc:'Styled branded map embed with directions link, opening hours, and multiple branch support where needed'},
+              {id:'wd-multilang', name:'Multi-language Support', price:80000, desc:'Full second-language version of your site with a language switcher — ideal for English + Yoruba, Hausa, Igbo, or French'},
             ]
           },
           {
@@ -221,6 +226,15 @@ export default         [
               {id:'ed-coldinfra', name:'Cold Email Infrastructure', price:120000, desc:'Dedicated sending domains, warm-up sequences, and outreach platform setup (Instantly, Smartlead, or Lemlist)'},
               {id:'ed-blacklist', name:'Emergency Blacklist Removal', price:45000, desc:'Urgent blacklist removal with submission to all major providers and verified clearance confirmation'},
               {id:'ed-monitoring', name:'Monthly Deliverability Monitoring', price:25000, desc:'Monthly blacklist checks, DMARC report analysis, DNS change alerts, and deliverability health summary', monthly:true},
+            ]
+          },
+          {
+            id:'performance', name:'Speed & Performance Optimisation', desc:'Core Web Vitals improvements, image optimisation, caching, and measurable load time fixes for any existing or new website — platform agnostic.',
+            icon:'rocket', price:80000, priceLabel:'from ₦80,000', type:'one-time',
+            addons:[
+              {id:'perf-cdn', name:'CDN Setup & Configuration', price:40000, desc:'Cloudflare or equivalent CDN setup with caching rules, SSL, and DDoS protection configured for your domain'},
+              {id:'perf-images', name:'Full Image Audit & Compression', price:35000, desc:'Re-process all existing site images — WebP conversion, lazy loading, correct dimensions, and alt text review'},
+              {id:'perf-monitoring', name:'Monthly Performance Monitoring', price:25000, desc:'Monthly Core Web Vitals report, uptime monitoring, speed regression alerts, and a plain-English summary', monthly:true},
             ]
           }
         ];

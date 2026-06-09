@@ -7,45 +7,76 @@ return [
     | Default Mailer
     |--------------------------------------------------------------------------
     |
-    | This option controls the default mailer that is used to send all email
-    | messages unless another mailer is explicitly specified when sending
-    | the message. All additional mailers can be configured within the
-    | "mailers" array. Examples of each type of mailer are provided.
+    | Controls the default mailer. Use "transactional" for system emails and
+    | "newsletter" for bulk/marketing emails. Both can be driven by either
+    | SMTP or SES — switch by changing *_TRANSPORT in your .env.
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
+    'default' => env('MAIL_MAILER', 'transactional'),
 
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
     |--------------------------------------------------------------------------
     |
-    | Here you may configure all of the mailers used by your application plus
-    | their respective settings. Several examples have been configured for
-    | you and you are free to add your own as your application requires.
+    | Supported transports: "smtp", "ses", "ses-v2", "log", "array"
     |
-    | Laravel supports a variety of mail "transport" drivers that can be used
-    | when delivering an email. You may specify which one you're using for
-    | your mailers below. You may also add additional mailers if needed.
+    | TRANSACTIONAL  — password resets, contact forms, order confirmations
+    | NEWSLETTER     — campaigns, announcements, bulk sends
     |
-    | Supported: "smtp", "sendmail", "mailgun", "ses", "ses-v2",
-    |            "postmark", "resend", "log", "array",
-    |            "failover", "roundrobin"
+    | To use SMTP:  set *_TRANSPORT=smtp and fill the SMTP_* variables.
+    | To use SES:   set *_TRANSPORT=ses and fill AWS_* variables.
     |
     */
 
     'mailers' => [
 
+        // ── TRANSACTIONAL ─────────────────────────────────────────────────
+        'transactional' => [
+            'transport'    => env('MAIL_TRANSACTIONAL_TRANSPORT', 'smtp'),
+
+            // SMTP settings (used when transport = smtp)
+            'scheme'       => env('MAIL_TRANSACTIONAL_SCHEME', 'tls'),
+            'host'         => env('MAIL_TRANSACTIONAL_HOST', '127.0.0.1'),
+            'port'         => env('MAIL_TRANSACTIONAL_PORT', 587),
+            'username'     => env('MAIL_TRANSACTIONAL_USERNAME'),
+            'password'     => env('MAIL_TRANSACTIONAL_PASSWORD'),
+            'timeout'      => null,
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+
+            // SES region override (used when transport = ses / ses-v2)
+            'region'       => env('AWS_SES_REGION', env('AWS_DEFAULT_REGION', 'us-east-1')),
+        ],
+
+        // ── NEWSLETTER ────────────────────────────────────────────────────
+        'newsletter' => [
+            'transport'    => env('MAIL_NEWSLETTER_TRANSPORT', 'smtp'),
+
+            // SMTP settings (used when transport = smtp)
+            'scheme'       => env('MAIL_NEWSLETTER_SCHEME', 'tls'),
+            'host'         => env('MAIL_NEWSLETTER_HOST', '127.0.0.1'),
+            'port'         => env('MAIL_NEWSLETTER_PORT', 587),
+            'username'     => env('MAIL_NEWSLETTER_USERNAME'),
+            'password'     => env('MAIL_NEWSLETTER_PASSWORD'),
+            'timeout'      => null,
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+
+            // SES region override (used when transport = ses / ses-v2)
+            'region'       => env('AWS_SES_REGION', env('AWS_DEFAULT_REGION', 'us-east-1')),
+        ],
+
+        // ── STANDARD MAILERS ──────────────────────────────────────────────
+
         'smtp' => [
-            'transport' => 'smtp',
-            'scheme' => env('MAIL_SCHEME'),
-            'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', '127.0.0.1'),
-            'port' => env('MAIL_PORT', 2525),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'transport'    => 'smtp',
+            'scheme'       => env('MAIL_SCHEME'),
+            'url'          => env('MAIL_URL'),
+            'host'         => env('MAIL_HOST', '127.0.0.1'),
+            'port'         => env('MAIL_PORT', 2525),
+            'username'     => env('MAIL_USERNAME'),
+            'password'     => env('MAIL_PASSWORD'),
+            'timeout'      => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
@@ -55,10 +86,6 @@ return [
 
         'postmark' => [
             'transport' => 'postmark',
-            // 'message_stream_id' => env('POSTMARK_MESSAGE_STREAM_ID'),
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
         ],
 
         'resend' => [
@@ -67,12 +94,12 @@ return [
 
         'sendmail' => [
             'transport' => 'sendmail',
-            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
+            'path'      => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -bs -i'),
         ],
 
         'log' => [
             'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
+            'channel'   => env('MAIL_LOG_CHANNEL'),
         ],
 
         'array' => [
@@ -81,19 +108,7 @@ return [
 
         'failover' => [
             'transport' => 'failover',
-            'mailers' => [
-                'smtp',
-                'log',
-            ],
-            'retry_after' => 60,
-        ],
-
-        'roundrobin' => [
-            'transport' => 'roundrobin',
-            'mailers' => [
-                'ses',
-                'postmark',
-            ],
+            'mailers'   => ['transactional', 'log'],
             'retry_after' => 60,
         ],
 
@@ -103,16 +118,32 @@ return [
     |--------------------------------------------------------------------------
     | Global "From" Address
     |--------------------------------------------------------------------------
-    |
-    | You may wish for all emails sent by your application to be sent from
-    | the same address. Here you may specify a name and address that is
-    | used globally for all emails that are sent by your application.
-    |
     */
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+        'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Per-route "From" Addresses
+    |--------------------------------------------------------------------------
+    |
+    | Use these in Mailables:
+    |   from(config('mail.transactional_from.address'), config('mail.transactional_from.name'))
+    |   from(config('mail.newsletter_from.address'),    config('mail.newsletter_from.name'))
+    |
+    */
+
+    'transactional_from' => [
+        'address' => env('MAIL_TRANSACTIONAL_FROM_ADDRESS', env('MAIL_FROM_ADDRESS', 'hello@example.com')),
+        'name'    => env('MAIL_TRANSACTIONAL_FROM_NAME',    env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel'))),
+    ],
+
+    'newsletter_from' => [
+        'address' => env('MAIL_NEWSLETTER_FROM_ADDRESS', env('MAIL_FROM_ADDRESS', 'hello@example.com')),
+        'name'    => env('MAIL_NEWSLETTER_FROM_NAME',    env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel'))),
     ],
 
 ];

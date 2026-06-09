@@ -8,6 +8,7 @@ if (page) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
     const generateRoute = page.dataset.generateRoute || '';
     const printRoute = page.dataset.printRoute || '';
+    const startRoute = page.dataset.startRoute || '/start';
     const honeypotField = page.dataset.honeypotField || 'company_website';
     const honeypotTimeField = page.dataset.honeypotTimeField || 'form_started_at';
     const honeypotStartedAt = page.dataset.honeypotStartedAt || '';
@@ -347,6 +348,7 @@ if (page) {
         document.getElementById('brief-view').style.display = 'block';
         document.getElementById('nav-new-btn').style.display = 'flex';
         document.getElementById('nav-print-btn').style.display = 'flex';
+        document.getElementById('nav-start-project-btn').style.display = 'flex';
         document.getElementById('brief-view')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -399,6 +401,38 @@ if (page) {
             .catch(() => toast('Could not copy — try printing to PDF instead.'));
     }
 
+    function startProject() {
+        if (!latestBrief || !latestData) {
+            toast('Generate the brief first before starting a project.');
+            return;
+        }
+
+        // Save brief data to localStorage so the print page can generate a PDF
+        window.localStorage.setItem(printStorageKey, JSON.stringify({
+            data: latestData,
+            brief: latestBrief,
+            savedAt: Date.now(),
+        }));
+
+        // Pass pre-fill data to the onboarding form via sessionStorage
+        const briefText = document.getElementById('brief-document')?.innerText?.trim() || '';
+        window.sessionStorage.setItem('i2medierBriefHandoff', JSON.stringify({
+            version: 1,
+            bizName: latestData.bizName || '',
+            websiteType: latestData.websiteType || '',
+            pages: latestData.pages || [],
+            timeline: latestData.timeline || '',
+            budget: latestData.budget || '',
+            domainStatus: latestData.domainStatus || '',
+            hosting: latestData.hosting || '',
+            briefText: briefText.slice(0, 4800),
+            printRoute,
+            savedAt: Date.now(),
+        }));
+
+        window.location.href = startRoute;
+    }
+
     function resetAll() {
         if (!window.confirm('Start a new brief? Your current brief will be lost.')) return;
         window.location.reload();
@@ -425,6 +459,7 @@ if (page) {
         generateBrief,
         printBrief,
         copyBrief,
+        startProject,
         resetAll,
     });
 }

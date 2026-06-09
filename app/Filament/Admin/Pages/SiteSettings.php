@@ -405,13 +405,225 @@ class SiteSettings extends Page implements HasForms
 
                         Tab::make('Email')
                             ->schema([
-                                Section::make('SMTP Settings')
-                                    ->description('Reserved space for outgoing SMTP and transactional email settings. We can wire the real mail configuration into this section next.')
-                                    ->columns(1)
+                                Section::make('Transactional Emails')
+                                    ->description('Used for contact forms, project onboarding, invoices, password resets, and admin notifications. Set transport to SMTP or SES.')
+                                    ->columns(2)
                                     ->schema([
-                                        Placeholder::make('smtp_settings_reserved')
-                                            ->label('Coming Next')
-                                            ->content('This section is intentionally reserved above the deliverability tester so SMTP host, port, encryption, username, password, and sender settings can live here cleanly.'),
+                                        Select::make('mail_transactional_transport')
+                                            ->label('Transport')
+                                            ->options([
+                                                'smtp'   => 'SMTP',
+                                                'ses'    => 'Amazon SES',
+                                                'ses-v2' => 'Amazon SES v2',
+                                                'log'    => 'Log (dev only)',
+                                            ])
+                                            ->default('smtp')
+                                            ->native(false)
+                                            ->required()
+                                            ->helperText('Choose SMTP to fill credentials below, or SES to use the AWS keys in the SES section.')
+                                            ->columnSpan(2),
+
+                                        TextInput::make('mail_transactional_from_address')
+                                            ->label('From Address')
+                                            ->placeholder('hello@i2medier.com')
+                                            ->email()
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_transactional_from_name')
+                                            ->label('From Name')
+                                            ->placeholder('i2Medier')
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        Select::make('mail_transactional_scheme')
+                                            ->label('Encryption')
+                                            ->options(['tls' => 'TLS', 'ssl' => 'SSL'])
+                                            ->default('tls')
+                                            ->native(false)
+                                            ->visible(fn (callable $get) => $get('mail_transactional_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_transactional_port')
+                                            ->label('Port')
+                                            ->numeric()
+                                            ->default(587)
+                                            ->minValue(1)
+                                            ->maxValue(65535)
+                                            ->visible(fn (callable $get) => $get('mail_transactional_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_transactional_host')
+                                            ->label('SMTP Host')
+                                            ->placeholder('smtp.mailgun.org')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_transactional_transport') === 'smtp')
+                                            ->columnSpan(2),
+
+                                        TextInput::make('mail_transactional_username')
+                                            ->label('SMTP Username')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_transactional_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_transactional_password')
+                                            ->label('SMTP Password')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_transactional_transport') === 'smtp')
+                                            ->columnSpan(1),
+                                    ]),
+
+                                Section::make('Newsletter / Marketing Emails')
+                                    ->description('Used for bulk sends, announcements, and campaigns. Can use a separate provider or sending domain from transactional.')
+                                    ->columns(2)
+                                    ->schema([
+                                        Select::make('mail_newsletter_transport')
+                                            ->label('Transport')
+                                            ->options([
+                                                'smtp'   => 'SMTP',
+                                                'ses'    => 'Amazon SES',
+                                                'ses-v2' => 'Amazon SES v2',
+                                                'log'    => 'Log (dev only)',
+                                            ])
+                                            ->default('smtp')
+                                            ->native(false)
+                                            ->required()
+                                            ->helperText('Can share the same SMTP provider as transactional or use a dedicated bulk-sending domain.')
+                                            ->columnSpan(2),
+
+                                        TextInput::make('mail_newsletter_from_address')
+                                            ->label('From Address')
+                                            ->placeholder('news@i2medier.com')
+                                            ->email()
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_newsletter_from_name')
+                                            ->label('From Name')
+                                            ->placeholder('i2Medier Newsletter')
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        Select::make('mail_newsletter_scheme')
+                                            ->label('Encryption')
+                                            ->options(['tls' => 'TLS', 'ssl' => 'SSL'])
+                                            ->default('tls')
+                                            ->native(false)
+                                            ->visible(fn (callable $get) => $get('mail_newsletter_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_newsletter_port')
+                                            ->label('Port')
+                                            ->numeric()
+                                            ->default(587)
+                                            ->minValue(1)
+                                            ->maxValue(65535)
+                                            ->visible(fn (callable $get) => $get('mail_newsletter_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_newsletter_host')
+                                            ->label('SMTP Host')
+                                            ->placeholder('smtp.mailgun.org')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_newsletter_transport') === 'smtp')
+                                            ->columnSpan(2),
+
+                                        TextInput::make('mail_newsletter_username')
+                                            ->label('SMTP Username')
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_newsletter_transport') === 'smtp')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('mail_newsletter_password')
+                                            ->label('SMTP Password')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->visible(fn (callable $get) => $get('mail_newsletter_transport') === 'smtp')
+                                            ->columnSpan(1),
+                                    ]),
+
+                                Section::make('Amazon SES')
+                                    ->description('Required when either mailer above is set to SES or SES v2. These credentials are shared across both routes.')
+                                    ->columns(2)
+                                    ->collapsed()
+                                    ->schema([
+                                        TextInput::make('aws_ses_key')
+                                            ->label('AWS Access Key ID')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->placeholder('AKIA…')
+                                            ->columnSpan(1),
+
+                                        TextInput::make('aws_ses_secret')
+                                            ->label('AWS Secret Access Key')
+                                            ->password()
+                                            ->revealable()
+                                            ->maxLength(255)
+                                            ->columnSpan(1),
+
+                                        Select::make('aws_ses_region')
+                                            ->label('SES Region')
+                                            ->options([
+                                                'us-east-1'      => 'US East (N. Virginia)',
+                                                'us-west-2'      => 'US West (Oregon)',
+                                                'eu-west-1'      => 'EU (Ireland)',
+                                                'eu-central-1'   => 'EU (Frankfurt)',
+                                                'ap-south-1'     => 'Asia Pacific (Mumbai)',
+                                                'ap-southeast-1' => 'Asia Pacific (Singapore)',
+                                                'ap-southeast-2' => 'Asia Pacific (Sydney)',
+                                                'ca-central-1'   => 'Canada (Central)',
+                                                'af-south-1'     => 'Africa (Cape Town)',
+                                                'me-south-1'     => 'Middle East (Bahrain)',
+                                            ])
+                                            ->default('us-east-1')
+                                            ->native(false)
+                                            ->searchable()
+                                            ->columnSpan(2),
+                                    ]),
+
+                                Section::make('Email Routing')
+                                    ->description('Choose which mailer (Transactional or Newsletter) handles each type of outgoing email.')
+                                    ->columns(2)
+                                    ->schema([
+                                        Select::make('mail_route_contact_form')
+                                            ->label('Contact Form')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('transactional')
+                                            ->native(false),
+
+                                        Select::make('mail_route_onboarding')
+                                            ->label('Project Onboarding')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('transactional')
+                                            ->native(false),
+
+                                        Select::make('mail_route_invoice')
+                                            ->label('Invoice Emails')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('transactional')
+                                            ->native(false),
+
+                                        Select::make('mail_route_password_reset')
+                                            ->label('Password Resets')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('transactional')
+                                            ->native(false),
+
+                                        Select::make('mail_route_admin_notification')
+                                            ->label('Admin Notifications')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('transactional')
+                                            ->native(false),
+
+                                        Select::make('mail_route_campaign')
+                                            ->label('Marketing Campaigns')
+                                            ->options(['transactional' => 'Transactional', 'newsletter' => 'Newsletter'])
+                                            ->default('newsletter')
+                                            ->native(false),
                                     ]),
 
                                 Section::make('Email Deliverability Live Tester')

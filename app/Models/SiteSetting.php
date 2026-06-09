@@ -44,6 +44,35 @@ class SiteSetting extends Model
         'deliverability_imap_username',
         'deliverability_imap_password',
         'deliverability_imap_folder',
+        // Transactional mailer
+        'mail_transactional_transport',
+        'mail_transactional_from_address',
+        'mail_transactional_from_name',
+        'mail_transactional_scheme',
+        'mail_transactional_host',
+        'mail_transactional_port',
+        'mail_transactional_username',
+        'mail_transactional_password',
+        // Newsletter mailer
+        'mail_newsletter_transport',
+        'mail_newsletter_from_address',
+        'mail_newsletter_from_name',
+        'mail_newsletter_scheme',
+        'mail_newsletter_host',
+        'mail_newsletter_port',
+        'mail_newsletter_username',
+        'mail_newsletter_password',
+        // AWS SES
+        'aws_ses_key',
+        'aws_ses_secret',
+        'aws_ses_region',
+        // Email routing
+        'mail_route_contact_form',
+        'mail_route_onboarding',
+        'mail_route_invoice',
+        'mail_route_password_reset',
+        'mail_route_admin_notification',
+        'mail_route_campaign',
     ];
 
     protected $casts = [
@@ -53,6 +82,10 @@ class SiteSetting extends Model
         'holiday_override_enabled' => 'boolean',
         'deliverability_auto_delete' => 'boolean',
         'deliverability_postmark_webhook_token' => 'encrypted',
-        'deliverability_imap_password' => 'encrypted',
+        'deliverability_imap_password'          => 'encrypted',
+        'mail_transactional_password'           => 'encrypted',
+        'mail_newsletter_password'              => 'encrypted',
+        'aws_ses_key'                           => 'encrypted',
+        'aws_ses_secret'                        => 'encrypted',
     ];
 }

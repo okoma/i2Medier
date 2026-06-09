@@ -17,6 +17,7 @@ data-print-route="{{ route('tools.website-brief-generator.print') }}"
 data-honeypot-field="{{ \App\Support\Honeypot::fieldName() }}"
 data-honeypot-time-field="{{ \App\Support\Honeypot::timeFieldName() }}"
 data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
+data-start-route="{{ route('site.start') }}"
 @endsection
 
 @section('content')
@@ -66,6 +67,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
     <div class="nav-right">
         <button class="nav-btn" id="nav-new-btn" type="button" onclick="resetAll()" style="display:none">＋ New Brief</button>
         <button class="nav-btn primary" id="nav-print-btn" type="button" onclick="printBrief()" style="display:none">Print / Save PDF</button>
+        <button class="nav-btn gold" id="nav-start-project-btn" type="button" onclick="startProject()" style="display:none">Start this project →</button>
     </div>
     <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
         <span></span>
@@ -507,6 +509,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
             <button class="ba-btn" type="button" onclick="copyBrief()"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"></use></svg></span> Copy Text</button>
             <button class="ba-btn print" type="button" onclick="printBrief()">Print / Save PDF</button>
             <button class="ba-btn new" type="button" onclick="resetAll()">＋ New Brief</button>
+            <button class="ba-btn start" type="button" id="nav-start-btn" onclick="startProject()">Start this project →</button>
         </div>
     </div>
 

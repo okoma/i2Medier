@@ -42,7 +42,9 @@ class ProjectResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            \App\Filament\Admin\Resources\Projects\RelationManagers\ProjectNotesRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

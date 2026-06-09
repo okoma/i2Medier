@@ -295,6 +295,105 @@ class SiteSettings
         return (string) ($this->record()?->deliverability_imap_folder ?? 'INBOX');
     }
 
+    // ── EMAIL SETTINGS ────────────────────────────────────────────────────────
+
+    public function mailTransactionalTransport(): string
+    {
+        return (string) ($this->record()?->mail_transactional_transport ?? 'smtp');
+    }
+
+    public function mailTransactionalFromAddress(): string
+    {
+        return (string) ($this->record()?->mail_transactional_from_address ?? '');
+    }
+
+    public function mailTransactionalFromName(): string
+    {
+        return (string) ($this->record()?->mail_transactional_from_name ?? '');
+    }
+
+    public function mailTransactionalHost(): string
+    {
+        return (string) ($this->record()?->mail_transactional_host ?? '');
+    }
+
+    public function mailTransactionalPort(): int
+    {
+        return (int) ($this->record()?->mail_transactional_port ?? 587);
+    }
+
+    public function mailTransactionalUsername(): string
+    {
+        return (string) ($this->record()?->mail_transactional_username ?? '');
+    }
+
+    public function mailTransactionalPassword(): string
+    {
+        return (string) ($this->record()?->mail_transactional_password ?? '');
+    }
+
+    public function mailNewsletterTransport(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_transport ?? 'smtp');
+    }
+
+    public function mailNewsletterFromAddress(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_from_address ?? '');
+    }
+
+    public function mailNewsletterFromName(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_from_name ?? '');
+    }
+
+    public function mailNewsletterHost(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_host ?? '');
+    }
+
+    public function mailNewsletterPort(): int
+    {
+        return (int) ($this->record()?->mail_newsletter_port ?? 587);
+    }
+
+    public function mailNewsletterUsername(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_username ?? '');
+    }
+
+    public function mailNewsletterPassword(): string
+    {
+        return (string) ($this->record()?->mail_newsletter_password ?? '');
+    }
+
+    public function awsSesRegion(): string
+    {
+        return (string) ($this->record()?->aws_ses_region ?? 'us-east-1');
+    }
+
+    /** Returns the mailer name ('transactional' | 'newsletter') for a given email type. */
+    public function mailerFor(string $type): string
+    {
+        $field = 'mail_route_' . $type;
+
+        return (string) ($this->record()?->{$field} ?? 'transactional');
+    }
+
+    public function emailRoutes(): array
+    {
+        $record = $this->record();
+
+        return [
+            'contact_form'       => (string) ($record?->mail_route_contact_form       ?? 'transactional'),
+            'onboarding'         => (string) ($record?->mail_route_onboarding          ?? 'transactional'),
+            'invoice'            => (string) ($record?->mail_route_invoice             ?? 'transactional'),
+            'password_reset'     => (string) ($record?->mail_route_password_reset      ?? 'transactional'),
+            'admin_notification' => (string) ($record?->mail_route_admin_notification  ?? 'transactional'),
+            'campaign'           => (string) ($record?->mail_route_campaign            ?? 'newsletter'),
+        ];
+    }
+
     public function businessNameAiConfig(): array
     {
         return [
@@ -368,6 +467,35 @@ class SiteSettings
             'deliverability_imap_username' => $record?->deliverability_imap_username ?? '',
             'deliverability_imap_password' => $record?->deliverability_imap_password ?? '',
             'deliverability_imap_folder' => $record?->deliverability_imap_folder ?? 'INBOX',
+            // Transactional mailer
+            'mail_transactional_transport'     => $record?->mail_transactional_transport    ?? 'smtp',
+            'mail_transactional_from_address'  => $record?->mail_transactional_from_address ?? '',
+            'mail_transactional_from_name'     => $record?->mail_transactional_from_name    ?? '',
+            'mail_transactional_scheme'        => $record?->mail_transactional_scheme       ?? 'tls',
+            'mail_transactional_host'          => $record?->mail_transactional_host         ?? '',
+            'mail_transactional_port'          => $record?->mail_transactional_port         ?? 587,
+            'mail_transactional_username'      => $record?->mail_transactional_username     ?? '',
+            'mail_transactional_password'      => $record?->mail_transactional_password     ?? '',
+            // Newsletter mailer
+            'mail_newsletter_transport'        => $record?->mail_newsletter_transport       ?? 'smtp',
+            'mail_newsletter_from_address'     => $record?->mail_newsletter_from_address    ?? '',
+            'mail_newsletter_from_name'        => $record?->mail_newsletter_from_name       ?? '',
+            'mail_newsletter_scheme'           => $record?->mail_newsletter_scheme          ?? 'tls',
+            'mail_newsletter_host'             => $record?->mail_newsletter_host            ?? '',
+            'mail_newsletter_port'             => $record?->mail_newsletter_port            ?? 587,
+            'mail_newsletter_username'         => $record?->mail_newsletter_username        ?? '',
+            'mail_newsletter_password'         => $record?->mail_newsletter_password        ?? '',
+            // AWS SES
+            'aws_ses_key'                      => $record?->aws_ses_key                     ?? '',
+            'aws_ses_secret'                   => $record?->aws_ses_secret                  ?? '',
+            'aws_ses_region'                   => $record?->aws_ses_region                  ?? 'us-east-1',
+            // Email routing
+            'mail_route_contact_form'          => $record?->mail_route_contact_form         ?? 'transactional',
+            'mail_route_onboarding'            => $record?->mail_route_onboarding           ?? 'transactional',
+            'mail_route_invoice'               => $record?->mail_route_invoice              ?? 'transactional',
+            'mail_route_password_reset'        => $record?->mail_route_password_reset       ?? 'transactional',
+            'mail_route_admin_notification'    => $record?->mail_route_admin_notification   ?? 'transactional',
+            'mail_route_campaign'              => $record?->mail_route_campaign             ?? 'newsletter',
         ];
     }
 }

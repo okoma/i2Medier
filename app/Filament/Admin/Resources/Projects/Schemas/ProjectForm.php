@@ -2,8 +2,6 @@
 
 namespace App\Filament\Admin\Resources\Projects\Schemas;
 
-use App\Enums\ProjectStatus;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -15,13 +13,6 @@ class ProjectForm
     {
         return $schema
             ->components([
-                Section::make('Status')
-                    ->columnSpanFull()
-                    ->schema([
-                        Select::make('status')
-                            ->options(ProjectStatus::class)
-                            ->required(),
-                    ]),
                 Section::make('Brief')
                     ->columnSpanFull()
                     ->columns(2)

@@ -23,6 +23,10 @@
         <symbol id="icon-briefcase"  viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path><path d="M3 12h18"></path></symbol>
         <symbol id="icon-lock"       viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></symbol>
         <symbol id="icon-key"        viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"></circle><path d="M12 15h9"></path><path d="M18 12v6"></path></symbol>
+        <symbol id="icon-doc"        viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-5Z"></path><path d="M14 3v5h5M9 13h6M9 17h4"></path></symbol>
+        <symbol id="icon-pin"        viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7Z"></path><circle cx="12" cy="9" r="2.5"></circle></symbol>
+        <symbol id="icon-video"      viewBox="0 0 24 24"><rect x="2" y="7" width="14" height="10" rx="2"></rect><path d="m16 10 6-3v10l-6-3V10Z"></path></symbol>
+        <symbol id="icon-heart"      viewBox="0 0 24 24"><path d="M12 21C12 21 4 13.5 4 8.5a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 8.5C20 13.5 12 21 12 21Z"></path></symbol>
     </svg>
     <nav class="is-dark">
         @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
@@ -73,6 +77,16 @@
 
     <div class="page-wrap">
         <div class="form-panel" id="form-panel">
+            <div class="brief-import-notice" id="brief-import-notice" style="display:none">
+                <div class="bin-body">
+                    <svg class="bin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-5Z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>
+                    <div class="bin-text">
+                        <strong>Brief imported</strong> — your selections and generated text have been pre-filled. Review each step and adjust as needed.
+                        <span class="bin-pdf-hint">To attach the PDF version, <button type="button" class="bin-pdf-link" id="brief-pdf-open-print">download it here</button> then upload it in the Brief step.</span>
+                    </div>
+                    <button type="button" class="bin-close" onclick="this.closest('.brief-import-notice').style.display='none'" aria-label="Dismiss">×</button>
+                </div>
+            </div>
             <div class="step active" id="step-1">
                 <div class="form-panel-header">
                     <div class="fph-step">Step 1 of 5</div>
@@ -223,6 +237,7 @@
                                     <div class="source-btn" data-val="other" onclick="selectSource(this)">Other</div>
                                 </div>
                             </div>
+                            <div id="domain-hosting-section">
                             <div class="field" style="margin-bottom:1.25rem">
                                 <label>Domain Preference</label>
                                 <div class="source-grid" id="domain-grid">
@@ -242,6 +257,24 @@
                                 </div>
                                 <span class="field-error" id="err-hosting">Please select a hosting preference</span>
                                 <span class="field-hint">Managed Hosting means infrastructure provisioned or arranged by i2Medier and actively maintained by our team.</span>
+                            </div>
+                            </div>{{-- #domain-hosting-section --}}
+                            <div class="field" style="margin-bottom:1.25rem">
+                                <label>Project Brief <span style="font-weight:400;opacity:.6;font-size:.8rem">(optional PDF)</span></label>
+                                <div class="brief-upload-area" id="brief-upload-area" onclick="document.getElementById('brief-pdf-input').click()" role="button" tabindex="0" aria-label="Upload a PDF brief">
+                                    <input type="file" id="brief-pdf-input" accept=".pdf" style="display:none" onchange="handleBriefUpload(this)">
+                                    <div id="brief-upload-placeholder" style="display:flex;align-items:center;gap:.75rem">
+                                        <svg class="brief-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-5Z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>
+                                        <span class="brief-upload-text">Click to upload a PDF brief</span>
+                                    </div>
+                                    <div id="brief-upload-chosen" style="display:none;align-items:center;gap:.75rem;width:100%">
+                                        <svg class="brief-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-5Z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></svg>
+                                        <span class="brief-chosen-name" id="brief-pdf-name"></span>
+                                        <button type="button" class="brief-clear-btn" onclick="clearBriefUpload(event)" aria-label="Remove file">×</button>
+                                    </div>
+                                </div>
+                                <span class="field-error" id="err-brief-pdf"></span>
+                                <span class="field-hint">PDF only, up to 10 MB. Don't have one yet? <a href="https://i2medier.demo/tools/website-brief-generator" target="_blank" rel="noopener noreferrer">Generate your brief here →</a></span>
                             </div>
                             <div class="field" style="margin-bottom:0">
                                 <label>Project brief / Message</label>
