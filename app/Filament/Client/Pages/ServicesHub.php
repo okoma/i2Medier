@@ -35,7 +35,7 @@ class ServicesHub extends Page
         $user = auth()->user();
 
         $this->subscriptions = ServiceSubscription::query()
-            ->with(['onboardingService', 'onboardingVariant', 'website'])
+            ->with(['onboardingService', 'onboardingVariant'])
             ->where('client_id', $user?->client_id)
             ->latest()
             ->get();
