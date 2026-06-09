@@ -274,7 +274,7 @@
                                     </div>
                                 </div>
                                 <span class="field-error" id="err-brief-pdf"></span>
-                                <span class="field-hint">PDF only, up to 10 MB. Don't have one yet? <a href="https://i2medier.demo/tools/website-brief-generator" target="_blank" rel="noopener noreferrer">Generate your brief here →</a></span>
+                                <span class="field-hint">PDF only, up to 10 MB. Don't have one yet? <a href="{{ route('tools.website-brief-generator') }}" target="_blank" rel="noopener noreferrer">Generate your brief here →</a></span>
                             </div>
                             <div class="field" style="margin-bottom:0">
                                 <label>Project brief / Message</label>
