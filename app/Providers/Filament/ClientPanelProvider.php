@@ -33,7 +33,7 @@ class ClientPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->collapsibleNavigationGroups()
             ->brandName('i2Medier Client Portal')
-            ->brandLogo(fn () => app(SiteSettings::class)->logoDark())
+            ->brandLogo(fn () => app(SiteSettings::class)->logoLight())
             ->brandLogoHeight('2rem')
             ->favicon(fn () => app(SiteSettings::class)->favicon())
             ->viteTheme('resources/css/filament/client/theme.css')
