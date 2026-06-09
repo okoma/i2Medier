@@ -18,6 +18,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use App\Support\SiteSettings;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
@@ -37,6 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->sidebarCollapsibleOnDesktop()
             ->brandName('i2Medier Admin')
+            ->brandLogo(fn () => app(SiteSettings::class)->logoLight())
+            ->darkModeBrandLogo(fn () => app(SiteSettings::class)->logoDark())
+            ->brandLogoHeight('2rem')
+            ->favicon(fn () => app(SiteSettings::class)->favicon())
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->renderHook(
                 PanelsRenderHook::HEAD_END,

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Support\SiteSettings;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,6 +33,10 @@ class ClientPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->collapsibleNavigationGroups()
             ->brandName('i2Medier Client Portal')
+            ->brandLogo(fn () => app(SiteSettings::class)->logoLight())
+            ->darkModeBrandLogo(fn () => app(SiteSettings::class)->logoDark())
+            ->brandLogoHeight('2rem')
+            ->favicon(fn () => app(SiteSettings::class)->favicon())
             ->viteTheme('resources/css/filament/client/theme.css')
             ->colors([
                 'primary' => Color::Teal,
