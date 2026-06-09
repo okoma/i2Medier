@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Beauty Salons & Wellness Brands | Salon Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Beauty & Wellness Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'beauty-wellness-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Which booking system do you integrate — Fresha, Booksy, or custom?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We work with several options depending on your needs and budget. For Nigerian beauty businesses we most commonly integrate Fresha (free and widely used), Booksy, Calendly (for simpler booking flows), or build a custom lightweight booking system directly into your WordPress site using ACF Pro and a payment gateway. Each has different strengths — we will recommend the right option for your specific service menu, team size, and operational requirements during the consultation.']],
+        ['@type' => 'Question', 'name' => 'Can my website pull images directly from my Instagram?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We can integrate a live Instagram feed into your website gallery or homepage — displaying your most recent posts automatically without any manual work from your team. We typically implement this using the Instagram Graph API so the feed updates in real time and always shows your freshest work. This works particularly well for before-and-after sections that you update regularly on Instagram.']],
+        ['@type' => 'Question', 'name' => 'How do you handle client consent for before-and-after photos?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build consent management into the photo upload workflow itself. Your team can upload photos from the admin dashboard and tag each image with the client\'s consent status, service type, and date — so you always know which images are cleared for public use. We can also generate a simple digital consent form for clients to sign that links to specific photos in your database. This protects you legally and makes gallery management straightforward for your team.']],
+        ['@type' => 'Question', 'name' => 'Can we sell skincare products and retail items through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. E-commerce for beauty products is included in our Enterprise plan and available as an add-on for Growth websites. We build WooCommerce stores with product pages for each item, integrated stock management, Paystack or Flutterwave payment processing for Nigerian clients, and shipping/delivery zone configuration. This is particularly valuable for beauty businesses that stock professional skincare lines, haircare products, or branded merchandise.']],
+        ['@type' => 'Question', 'name' => 'Do you set up Google My Business for beauty salons?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — Google Business Profile (formerly Google My Business) setup and optimisation is included in every website project. This covers verifying your listing, adding all services with descriptions and prices, uploading high-quality photos, setting correct opening hours and location, and configuring the booking link to point to your website booking system. A fully optimised GBP listing significantly improves your chances of appearing in the local map pack when clients search for beauty services near them.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a beauty salon website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard beauty website — homepage, service pages, gallery, booking integration, and SEO setup — takes 3 to 5 weeks from design approval to launch. Larger projects with e-commerce, multiple locations, or a custom booking system may take 5 to 7 weeks. We provide a detailed, milestone-based project timeline at the start of every engagement so you always know what is being built and when you can expect to see it.']],
+        ['@type' => 'Question', 'name' => 'Can my beauty staff update the website without technical knowledge?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely — this is fundamental to how we build every site. We use ACF Pro to create intuitive content management interfaces that look nothing like a code editor. Your team can add new services with pricing, upload before-and-after photos, publish blog posts, update opening hours, and manage gift voucher inventory all from a simple admin interface on their phone or laptop. Every handover includes a CMS training session and a written guide covering every workflow your team will need to manage the site day-to-day.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -612,83 +642,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every beauty <em>business</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo & Small Studios</div>
-        <div class="price-name">Essential</div>
-        <p class="price-tagline">A polished, professional beauty website for a solo technician or small studio needing a strong digital presence fast.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with booking CTA</div>
-        <div class="price-feat">Service menu page</div>
-        <div class="price-feat">Booking enquiry form</div>
-        <div class="price-feat">Gallery (up to 30 images)</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Online booking system</div>
-        <div class="price-feat no">Individual treatment pages</div>
-        <div class="price-feat no">Gift vouchers</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth</div>
-        <p class="price-tagline">A full-featured beauty website built to rank, convert, and fill your appointment book.</p>
-        <div class="price-amount">₦800k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full treatment pages per service</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Integrated online booking system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Before & after gallery</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Gift voucher system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Beauty blog with CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Team profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + beauty schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Multi-Location & MedSpas</div>
-        <div class="price-name">Enterprise</div>
-        <p class="price-tagline">A comprehensive digital platform for MedSpas, multi-location groups, and beauty brands selling products direct.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">E-commerce for beauty products</div>
-        <div class="price-feat">Loyalty programme integration</div>
-        <div class="price-feat">Multi-location booking system</div>
-        <div class="price-feat">Membership & subscription plans</div>
-        <div class="price-feat">Medical-grade treatment pages</div>
-        <div class="price-feat">Staff & practitioner profiles</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -699,7 +654,7 @@
     </div>
     <p>Not all web development options are equal — especially for beauty businesses where brand perception is your primary conversion tool.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for beauty businesses">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for beauty businesses">
     <thead>
       <tr>
         <th>Feature</th>
@@ -758,7 +713,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -936,7 +891,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a beauty website<br>that fills your appointment book?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-beauty-wellness-website-design', 'source_label' => 'Beauty Wellness Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

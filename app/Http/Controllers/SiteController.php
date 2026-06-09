@@ -605,12 +605,15 @@ class SiteController extends Controller
             return false;
         })->values();
 
+        $locked = $request->boolean('locked') && $validServices->count() > 0;
+
         return [
-            'services' => $validServices->all(),
-            'platform' => $validPlatform,
-            'addons' => $validAddons->all(),
-            'source_page' => trim((string) $request->query('source_page', '')),
+            'services'     => $validServices->all(),
+            'platform'     => $validPlatform,
+            'addons'       => $validAddons->all(),
+            'source_page'  => trim((string) $request->query('source_page', '')),
             'source_label' => trim((string) $request->query('source_label', '')),
+            'locked'       => $locked,
         ];
     }
 
@@ -734,6 +737,8 @@ class SiteController extends Controller
                     'service_type' => 'Law Firm Website Design',
                 ],
             ),
+            'startUrl'      => $this->industryStartUrl('law-firm-website-design', 'Law Firm Industry Page'),
+            'presetPackage' => $this->buildPresetPackage('law-firm-website-design'),
         ]);
     }
 
@@ -999,7 +1004,215 @@ class SiteController extends Controller
                     'service_type' => $page['service_type'],
                 ],
             ),
+            'startUrl'      => $this->industryStartUrl($slug, $page['service_type']),
+            'presetPackage' => $this->buildPresetPackage($slug),
         ]);
+    }
+
+    private function buildPresetPackage(string $slug): array
+    {
+        $preset  = $this->industryPresets()[$slug] ?? null;
+        if (! $preset) {
+            return [];
+        }
+
+        $catalog    = $this->onboardingCatalog();
+        $serviceMap = collect($catalog)->keyBy('id');
+
+        $services   = [];
+        $addons     = [];
+        $total      = 0;
+        $hasMonthly = false;
+
+        foreach ($preset['services'] as $serviceId) {
+            $service = $serviceMap->get($serviceId);
+            if (! $service) {
+                continue;
+            }
+
+            $price = (float) $service['price'];
+
+            if (! empty($preset['platform'])) {
+                $platform = collect($service['platforms'] ?? [])->firstWhere('id', $preset['platform']);
+                if ($platform) {
+                    $price = (float) $platform['price'];
+                }
+            }
+
+            $isMonthly = $service['type'] === 'monthly';
+            $services[] = [
+                'name'    => $service['name'],
+                'price'   => $price,
+                'monthly' => $isMonthly,
+            ];
+
+            if ($isMonthly) {
+                $hasMonthly = true;
+            } else {
+                $total += $price;
+            }
+        }
+
+        foreach ($preset['addons'] as $addonId) {
+            foreach ($preset['services'] as $serviceId) {
+                $service = $serviceMap->get($serviceId);
+                if (! $service) {
+                    continue;
+                }
+
+                $addon = collect($service['addons'] ?? [])->firstWhere('id', $addonId);
+
+                if (! $addon && ! empty($preset['platform'])) {
+                    $platform = collect($service['platforms'] ?? [])->firstWhere('id', $preset['platform']);
+                    if ($platform) {
+                        $addon = collect($platform['addons'] ?? [])->firstWhere('id', $addonId);
+                    }
+                }
+
+                if ($addon) {
+                    $isMonthly = $addon['monthly'] ?? false;
+                    $addons[] = [
+                        'name'    => $addon['name'],
+                        'price'   => (float) $addon['price'],
+                        'monthly' => $isMonthly,
+                    ];
+                    if ($isMonthly) {
+                        $hasMonthly = true;
+                    } else {
+                        $total += (float) $addon['price'];
+                    }
+                    break;
+                }
+            }
+        }
+
+        return [
+            'services'    => $services,
+            'addons'      => $addons,
+            'total'       => $total,
+            'has_monthly' => $hasMonthly,
+        ];
+    }
+
+    private function industryStartUrl(string $slug, string $sourceLabel): string
+    {
+        $preset = $this->industryPresets()[$slug] ?? ['services' => ['webdesign'], 'addons' => []];
+
+        $params = [
+            'services'     => implode(',', $preset['services']),
+            'source_page'  => 'industry-' . $slug,
+            'source_label' => $sourceLabel,
+            'locked'       => '1',
+        ];
+
+        if (! empty($preset['platform'])) {
+            $params['platform'] = $preset['platform'];
+        }
+
+        if (! empty($preset['addons'])) {
+            $params['addons'] = implode(',', $preset['addons']);
+        }
+
+        return route('site.start', $params);
+    }
+
+    private function industryPresets(): array
+    {
+        return [
+            'clinic-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-live-chat', 'wd-whatsapp', 'seo-local'],
+            ],
+            'restaurant-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-live-chat', 'wd-whatsapp', 'wd-social-feed', 'seo-local'],
+            ],
+            'beauty-wellness-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-social-feed', 'wd-whatsapp', 'seo-local'],
+            ],
+            'hotel-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-animation', 'wd-whatsapp', 'seo-local'],
+            ],
+            'fitness-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-whatsapp', 'seo-local'],
+            ],
+            'real-estate-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-whatsapp', 'seo-local'],
+            ],
+            'accounting-firm-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-live-chat', 'seo-local'],
+            ],
+            'cleaning-company-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-live-chat', 'wd-whatsapp', 'seo-local'],
+            ],
+            'logistics-company-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-whatsapp', 'seo-local'],
+            ],
+            'construction-company-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'seo-local'],
+            ],
+            'engineering-firm-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'seo-local'],
+            ],
+            'school-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-blog', 'wd-gallery', 'seo-local'],
+            ],
+            'church-website-design' => [
+                'services' => ['webdesign'],
+                'addons'   => ['wd-forms', 'wd-blog', 'wd-social-feed'],
+            ],
+            'consulting-firm-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-blog', 'wd-live-chat', 'seo-content'],
+            ],
+            'marketing-agency-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-blog', 'wd-animation', 'wd-social-feed', 'seo-content'],
+            ],
+            'architecture-firm-website-design' => [
+                'services' => ['webdesign'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-animation'],
+            ],
+            'photography-website-design' => [
+                'services' => ['webdesign'],
+                'addons'   => ['wd-gallery', 'wd-animation', 'wd-forms'],
+            ],
+            'personal-brand-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-blog', 'wd-newsletter', 'seo-content'],
+            ],
+            'event-planner-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-whatsapp', 'seo-local'],
+            ],
+            'travel-agency-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-gallery', 'wd-blog', 'wd-whatsapp'],
+            ],
+            'ecommerce-website-design' => [
+                'services' => ['ecommerce'],
+                'platform' => 'woocommerce',
+                'addons'   => ['ec-woo-abandoned-cart', 'ec-woo-loyalty'],
+            ],
+            'fashion-brand-website-design' => [
+                'services' => ['webdesign'],
+                'addons'   => ['wd-animation', 'wd-gallery', 'wd-social-feed', 'wd-newsletter'],
+            ],
+            'law-firm-website-design' => [
+                'services' => ['webdesign', 'seo'],
+                'addons'   => ['wd-forms', 'wd-live-chat', 'wd-whatsapp', 'seo-local'],
+            ],
+        ];
     }
 
     /**

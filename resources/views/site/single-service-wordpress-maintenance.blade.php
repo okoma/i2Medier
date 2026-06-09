@@ -31,7 +31,7 @@
             'item' => route('site.services.wordpress-maintenance'),
         ],
     ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
 </script>
 <script type="application/ld+json">
 {!! json_encode([
@@ -87,7 +87,7 @@
             ],
         ],
     ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
 </script>
 @endpush
 
@@ -565,7 +565,7 @@
       </div>
       <p>Many providers call plugin auto-updates a maintenance plan. This section shows what real WordPress care looks like when uptime, security, and business continuity actually matter.</p>
     </div>
-    <table class="compare-table" role="table" aria-label="Maintenance provider comparison">
+    <div class="compare-wrap"><table class="compare-table" role="table" aria-label="Maintenance provider comparison">
       <thead>
         <tr>
           <th>Maintenance Feature</th>
@@ -584,7 +584,7 @@
         <tr><td class="feature">Monthly Written Report</td><td><span class="no">None</span></td><td class="highlight"><span class="yes status-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Specific, personalised</span></td><td><span class="partial">Automated generic email</span></td></tr>
         <tr><td class="feature">Core Web Vitals Monitoring</td><td><span class="no">None</span></td><td class="highlight"><span class="yes status-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Monthly tracking + action</span></td><td><span class="no">Not included</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section class="test-section" aria-labelledby="test-heading">

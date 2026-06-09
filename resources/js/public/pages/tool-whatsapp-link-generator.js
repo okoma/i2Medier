@@ -1,3 +1,6 @@
+import { initFaqButtons } from './service-common.js';
+initFaqButtons('.faq-q');
+
 const TEMPLATE_MESSAGES = {
     general: "Hi! I'd like to enquire about your services.",
     quote: "Hello! I'm interested in getting a quote. Can you help me?",

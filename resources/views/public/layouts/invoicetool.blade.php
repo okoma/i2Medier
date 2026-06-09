@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('public.partials.head', ['title' => trim($__env->yieldContent('title')) ?: 'i2Medier', 'seo' => $seo ?? null])
+    @vite('resources/css/public/pages/tools.css')
     @stack('page_css')
 </head>
 <body @yield('body_attrs')>

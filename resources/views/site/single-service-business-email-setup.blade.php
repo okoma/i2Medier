@@ -2,6 +2,58 @@
 
 @section('title', 'Business Email Setup Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Business Email Setup', 'item' => route('site.services.business-email-setup')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'What is the difference between Google Workspace and a free Gmail account?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A free Gmail account gives you a @gmail.com address. Google Workspace gives you a @yourbusiness.com address, more admin control, better team management, and a stronger professional signal to clients.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Will my emails land in spam after the setup?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Not if the setup is done correctly. We configure SPF, DKIM, and DMARC and test delivery before handover so your domain starts from a stronger technical baseline.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you migrate our existing emails to the new platform?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We handle email migration from cPanel hosting, Google Workspace, Outlook/Exchange, Yahoo, and other IMAP-compatible services with minimal disruption.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does business email setup take?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard setup usually takes 4–24 hours, with DNS propagation sometimes extending the visible cutover window to 24–48 hours depending on the registrar.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Which platform should I choose, Google Workspace or Microsoft 365?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Google Workspace is a better fit for browser-based teams using Drive and Docs. Microsoft 365 is usually the better fit for teams already committed to desktop Office apps and Teams.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does business email setup cost in Nigeria?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our setup fee starts from ₦45,000 for a single-platform configuration with up to 5 user accounts. Larger teams and migrations are quoted based on user count and complexity.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/business-email-setup.css')
 @endpush
@@ -211,7 +263,7 @@
       <div><span class="s-label">Platform Comparison</span><h2 class="s-head" id="compare-heading">Google Workspace vs Microsoft 365<br><em>vs Zoho Mail</em></h2></div>
       <p>Not sure which platform is right for your business? Here is a direct comparison of the three platforms we set up most frequently.</p>
     </div>
-    <table class="compare-table" role="table" aria-label="Email platform comparison">
+    <div class="compare-wrap"><table class="compare-table" role="table" aria-label="Email platform comparison">
       <thead><tr><th>Feature</th><th class="highlight">Google Workspace</th><th>Microsoft 365</th><th>Zoho Mail</th></tr></thead>
       <tbody>
         <tr><td class="feature">Email Interface</td><td class="highlight"><span class="yes">Gmail (browser-first)</span></td><td>Outlook (desktop + web)</td><td>Zoho Mail (browser-first)</td></tr>
@@ -223,7 +275,7 @@
         <tr><td class="feature">Mobile App Quality</td><td class="highlight"><span class="yes">Excellent (Gmail app)</span></td><td><span class="yes">Excellent (Outlook app)</span></td><td><span class="partial">Good</span></td></tr>
         <tr><td class="feature">Admin Control</td><td class="highlight"><span class="yes">Comprehensive Google Admin Console</span></td><td><span class="yes">Microsoft Admin Centre + Defender</span></td><td><span class="partial">Basic admin panel</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section class="test-section" aria-labelledby="test-heading">

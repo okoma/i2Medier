@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Hotels | Hotel Booking Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Hotel Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'hotel-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a hotel website cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Hotel websites start from ₦500,000 for a professional 8-page site with gallery, enquiry form, and basic SEO. Full-featured growth websites with individual room pages, direct booking engine integration, offers section, dining, and advanced SEO start from ₦1,000,000. Enterprise platforms with full booking management and loyalty integration are quoted individually. We provide a detailed, itemised quote after a free consultation — no hidden fees and no surprises.']],
+        ['@type' => 'Question', 'name' => 'Can you integrate a direct booking engine into my hotel website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We integrate with leading hotel booking engines including Cloudbeds, Little Hotelier, Beds24, and SiteMinder, embedding the booking widget directly into your website so the guest experience is seamless. For smaller properties without a property management system, we can build a custom booking enquiry and reservation system with availability calendar, room selection, and email confirmation. The booking flow is styled to match your website\'s design throughout.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a hotel website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard hotel website with room pages, gallery, booking integration, and core content takes 3–5 weeks from design approval to launch. Larger hotel platforms with conferencing sections, loyalty programmes, and extensive content may take 5–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when — with no unexpected delays.']],
+        ['@type' => 'Question', 'name' => 'Will my hotel website rank on Google above OTA listings?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ranking above OTA platforms for generic terms like "hotels Lagos" is challenging because OTAs invest heavily in SEO and paid search. However, ranking above OTAs for specific, intent-rich searches — "boutique hotel Lagos Island", "hotel with pool Abuja", "corporate hotel near airport Lagos" — is very achievable with the right technical foundation and content strategy. Every website we build includes complete hotel SEO: LodgingBusiness schema, room page optimisation, local SEO, and Google Search Console setup from launch day.']],
+        ['@type' => 'Question', 'name' => 'Do you build websites for boutique hotels and B&Bs as well as large hotels?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with properties of all sizes — from 8-room guest houses and boutique B&Bs to 200-room business hotels and resort complexes. The scope and budget are calibrated to the property\'s size, room inventory, and revenue goals. A boutique hotel has very different website requirements from a large conference hotel, and we design each accordingly — no one-size-fits-all approach.']],
+        ['@type' => 'Question', 'name' => 'Can you integrate TripAdvisor and Google Reviews on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We integrate your TripAdvisor rating, certificate of excellence, and review count directly into the website — typically in the hero section, on room pages, and in the booking flow. Google Review scores are also displayed where relevant. These trust signals significantly improve direct booking conversion by giving undecided guests the social proof they need to book without seeking validation on an OTA platform first.']],
+        ['@type' => 'Question', 'name' => 'Will I be able to update room rates, add special offers, and manage content myself?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is essential for a hotel operator. We use Advanced Custom Fields Pro to create intuitive editing interfaces for your room descriptions, rates, gallery images, special offers, and event listings — all manageable from WordPress admin without touching any code. You can publish a new seasonal offer, update room pricing display, or add a new package within minutes. Every handover includes a CMS training session and a written admin guide covering every content workflow your reservations and marketing team will need.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -618,82 +648,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>hotel property</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Small Properties &amp; B&amp;Bs</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, professional hotel website for a smaller property needing a strong direct booking presence fast.</p>
-        <div class="price-amount">₦500k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 8 pages</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">Booking enquiry form</div>
-        <div class="price-feat">Photo gallery</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Booking engine API</div>
-        <div class="price-feat no">Room-by-room showcase pages</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-featured hotel website with direct booking engine, room showcase pages, and everything needed to reduce OTA dependency.</p>
-        <div class="price-amount">₦1M <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full room &amp; suite pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Booking engine integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Offers &amp; packages section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Dining &amp; restaurant page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Events &amp; conferencing</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">TripAdvisor integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large Hotels &amp; Groups</div>
-        <div class="price-name">Enterprise</div>
-        <p class="price-tagline">A comprehensive hospitality platform for large hotels, resorts, and multi-property groups with full booking management.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Full booking management system</div>
-        <div class="price-feat">Loyalty programme integration</div>
-        <div class="price-feat">Multi-property support</div>
-        <div class="price-feat">Corporate rate portal</div>
-        <div class="price-feat">Events booking &amp; CRM</div>
-        <div class="price-feat">Custom analytics dashboard</div>
-        <div class="price-feat">Revenue management tools</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -704,7 +660,7 @@
     </div>
     <p>Not all hotel website options are equal — especially when direct bookings and OTA commission savings are the measure of success.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for hotels">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for hotels">
     <thead>
       <tr>
         <th>Feature</th>
@@ -763,7 +719,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -959,7 +915,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to win direct bookings<br>and cut your OTA commission?</h2>
   <p>Get a free, no-obligation hotel website audit and proposal. We'll review your current site, calculate your OTA commission cost, and show you exactly what a new website would change — and what the financial case looks like.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-hotel-website-design', 'source_label' => 'Hotel Industry Page']) }}" class="btn-dark">Get Your Free Hotel Audit →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Hotel Audit →</a>
 </section>
 @endsection
 

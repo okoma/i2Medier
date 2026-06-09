@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Accounting Firms | Professional Accountant Websites | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Accounting Firm Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'accounting-firm-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a website for an accounting firm cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Accounting firm websites start from ₦350,000 for a professional 5–6 page site with contact forms and basic SEO. Full-featured growth websites with individual service pages, team profiles, blog, and advanced SEO start from ₦750,000. Enterprise platforms with client portals and custom integrations are quoted individually. We provide a detailed, itemised quote after a free consultation — no hidden fees.']],
+        ['@type' => 'Question', 'name' => 'What pages should an accounting firm website have?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A high-performing accounting firm website should include: Home, About the Firm, Services (with individual pages for each accounting discipline — audit, tax, advisory, bookkeeping, payroll, etc.), Industries Served, Team and Partners, Blog/Insights, Contact, and optionally a Client Portal login page. Individual service pages are particularly important for SEO — they allow you to rank for specific searches like "tax advisory Lagos" or "audit services for NGOs Nigeria".']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build an accounting firm website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard accounting firm website typically takes 3–5 weeks from design approval to launch. Larger sites with many service pages, a blog section, and client portal integration may take 5–7 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when.']],
+        ['@type' => 'Question', 'name' => 'Will my website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every website we build includes a complete SEO foundation — semantic HTML structure, optimised title tags and meta descriptions, AccountingService and LocalBusiness schema markup, XML sitemap, canonical URLs, and Google Search Console setup. This gives your site the technical foundation to rank. For ongoing SEO campaigns targeting competitive accounting keywords in your city, we offer monthly retainer packages covering content creation, link building, and reporting.']],
+        ['@type' => 'Question', 'name' => 'Do you build websites for sole accountants as well as large firms?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with sole practitioners, two-partner practices, mid-size CPA firms, and large multi-partner accounting groups. The scope and budget are calibrated to match the size of the practice and the range of services you offer. A sole practitioner\'s website has different requirements from a 20-partner firm\'s platform, and we design each accordingly.']],
+        ['@type' => 'Question', 'name' => 'Can clients book appointments or upload documents through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We can integrate appointment scheduling (Calendly or custom booking forms), document upload portals for client onboarding, and secure enquiry forms. For firms that need a full client portal with document management, engagement letter delivery, and client communication logging, we build custom Laravel-based portal systems. These range from ₦800,000 upwards depending on functionality required.']],
+        ['@type' => 'Question', 'name' => 'Will I be able to update the website myself after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core principle of every site we build. We use ACF Pro to create intuitive editing interfaces for your service descriptions, team profiles, testimonials, blog posts, and all other content. You can update any content without touching code. Every handover includes a CMS training session and a written admin guide covering every content management workflow your team will need.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -583,82 +613,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>accounting firm</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo & Small Practices</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible website for a sole practitioner or small firm needing a strong online presence fast.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 6 pages</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">Professional credentials display</div>
-        <div class="price-feat">Enquiry / contact forms</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Team / partner profiles</div>
-        <div class="price-feat no">Blog / insights section</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service accounting firm website built to rank, convert, and grow with your practice.</p>
-        <div class="price-amount">₦750k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Up to 15 pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Custom theme + ACF Pro</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Service pages per discipline</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Team & partner profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog / tax insights CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Consultation booking form</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large & Multi-Partner Firms</div>
-        <div class="price-name">Enterprise Firm</div>
-        <p class="price-tagline">A comprehensive digital platform for large practices with multiple service lines, offices, and a client portal.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Unlimited pages & service lines</div>
-        <div class="price-feat">Custom client portal (Laravel)</div>
-        <div class="price-feat">Document upload & management</div>
-        <div class="price-feat">Multi-office location pages</div>
-        <div class="price-feat">Xero / Sage / QuickBooks API</div>
-        <div class="price-feat">Newsletter & email marketing</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -669,7 +625,7 @@
     </div>
     <p>Not all web development options are equal — especially for professional services firms where credibility is your product.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for accounting firms">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for accounting firms">
     <thead>
       <tr>
         <th>Feature</th>
@@ -728,7 +684,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Usually paid extra</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -916,7 +872,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an accounting firm<br>website that wins clients?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-accounting-firm-website-design', 'source_label' => 'Accounting Firm Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Logistics Companies | Freight & Transport Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Logistics Company Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'logistics-company-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Can you integrate shipment tracking into the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — shipment tracking integration is one of our specialisms for logistics company websites. We integrate with your existing tracking system via API (if you have one), or we build a lightweight tracking database that your operations team can update directly. Clients enter a consignment number on your website and see live status updates — In Transit, Out for Delivery, Delivered — without calling your office. This typically reduces tracking enquiry calls by 50–80% within the first month.']],
+        ['@type' => 'Question', 'name' => 'Can you build a B2B client portal for regular freight clients?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We build secure B2B client portals as part of our Enterprise tier — giving regular shipping clients a login where they can view shipment history, track current consignments, access invoices, and communicate with your operations team. The portal is HTTPS-encrypted, access-controlled per client account, and fully integrated with your main website. This is particularly valuable for corporate clients who ship weekly or monthly and expect account management tools from a professional logistics partner.']],
+        ['@type' => 'Question', 'name' => 'Can you show our fleet and vehicle information on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely — and we recommend it strongly. Fleet pages with vehicle specifications, payload capacities, and professional photography are among the highest-converting content elements on logistics company websites. Corporate buyers evaluating freight partners want to know you have the physical capacity to handle their volume before they call. A well-designed fleet page with real photographs removes that doubt and significantly increases shortlisting rates. We build fleet pages as part of every logistics website we deliver.']],
+        ['@type' => 'Question', 'name' => 'How do you display ISO certification and other accreditations?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'ISO certifications, NAFDAC compliance, insurance certificates, and other regulatory accreditations are integrated as primary trust anchors — not footnotes. We display certification badges in the hero section, in the navigation bar for cold chain and pharmaceutical logistics pages, and in a dedicated trust bar that appears on all key service pages. Certificate numbers, validity dates, and issuing bodies can also be displayed. For B2B buyers evaluating logistics partners for sensitive cargo, visible certification is a shortlisting requirement.']],
+        ['@type' => 'Question', 'name' => 'Can the website cover multiple depots and cities?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — multi-depot and multi-city logistics operations are a core use case we design for. Each depot location gets its own location page with address, operating hours, contact details, and depot-specific services. Coverage maps show your operational geography clearly. Route pages are structured per city pair — Lagos to Abuja, Port Harcourt to Kano, and so on. This architecture is both operationally useful for clients and highly valuable for SEO, as each location page and route page targets city-specific search terms.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a logistics company website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard logistics company website — homepage, 6–10 service pages, online quote form, coverage map, and full SEO — takes 3–5 weeks from design approval to launch. Larger builds with route pages, tracking integration, case studies, and a blog section take 5–7 weeks. Enterprise platforms with client portals and shipment management systems are typically 8–12 weeks depending on integration complexity. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when.']],
+        ['@type' => 'Question', 'name' => 'Will our operations team be able to update the website themselves?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core requirement for every logistics website we build. Your operations team can update service descriptions, coverage areas, fleet information, depot locations, case studies, and blog articles without touching code. We use ACF Pro to create intuitive editing interfaces specifically designed for non-technical users. Every handover includes a full CMS training session and a written admin guide covering every content management workflow your team will need — updating tracking statuses, adding new routes, publishing freight market insights, and managing client case studies.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -602,82 +632,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>logistics company</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Small &amp; Growing Operators</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible website for a logistics company that needs a strong online presence and quote generation fast.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with instant quote CTA</div>
-        <div class="price-feat">6 service pages</div>
-        <div class="price-feat">Online freight quote form</div>
-        <div class="price-feat">Coverage map integration</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Shipment tracking widget</div>
-        <div class="price-feat no">Client portal / B2B login</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service logistics website built to rank, convert, and win B2B freight contracts at scale.</p>
-        <div class="price-amount">₦800k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full service pages (all logistics types)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Coverage &amp; route pages (SEO per city pair)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Live shipment tracking integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Client logos &amp; case studies</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Logistics blog &amp; insights CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + LogisticsService schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Fleet &amp; depot information pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large &amp; Multi-Depot Operators</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A comprehensive digital platform for large logistics companies with B2B portals, shipment management, and fleet tracking.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Full client portal / B2B dashboard</div>
-        <div class="price-feat">Shipment management system</div>
-        <div class="price-feat">Driver &amp; fleet tracking integration</div>
-        <div class="price-feat">Multi-depot location pages</div>
-        <div class="price-feat">Invoice &amp; document management</div>
-        <div class="price-feat">API integration with your TMS/WMS</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -688,7 +644,7 @@
     </div>
     <p>Not all web development options are equal — especially for logistics companies where operational credibility and B2B trust are your competitive advantage.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for logistics companies">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for logistics companies">
     <thead>
       <tr>
         <th>Feature</th>
@@ -747,7 +703,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -938,7 +894,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a logistics website<br>that wins freight contracts?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your freight keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-logistics-company-website-design', 'source_label' => 'Logistics Company Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

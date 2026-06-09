@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Engineering Firms | Engineer Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Engineering Firm Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'engineering-firm-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a website for an engineering firm cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Engineering firm websites start from ₦350,000 for a professional site with credentials display, three project case studies, enquiry forms, and a full SEO foundation. Full-featured growth websites with discipline pages, complete project portfolios, team profiles, a technical blog, and advanced SEO start from ₦750,000. Enterprise platforms with tender management systems and multi-office content are quoted individually. We provide a detailed, itemised quote after a free consultation — no hidden fees and no commitment required.']],
+        ['@type' => 'Question', 'name' => 'Can you display our COREN registration and NSE membership on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is something we consider a non-negotiable part of every engineering firm website we build. Your COREN registration number, NSE membership, FIDIC affiliation, and any ISO certifications are displayed prominently as trust anchors on your homepage, About page, and relevant discipline pages. We also implement professional accreditation schema markup in your site\'s JSON-LD so Google can understand and display your credentials in search results. Institutional clients and government agencies specifically check for COREN registration as part of their due diligence — it needs to be immediately visible, not buried in fine print.']],
+        ['@type' => 'Question', 'name' => 'Do you build separate pages for each engineering discipline?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is one of the most important things we do differently from generic web designers. Each engineering discipline your firm practises gets its own dedicated page: Civil Engineering, Structural Engineering, Mechanical & HVAC, Electrical Engineering, Environmental Engineering, Geotechnical, Process Engineering, and so on. Each page is written with technical depth, describes your methodology, references relevant standards, and links to relevant project case studies. Individual discipline pages are also far more effective for SEO — they allow you to rank separately for "civil engineering Lagos" and "structural engineering Nigeria".']],
+        ['@type' => 'Question', 'name' => 'How do you handle project case studies — especially for confidential projects?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We work with you to determine the appropriate level of detail for each project. Some projects can be presented with full client name, location, and technical specification. Others can be anonymised — described by project type, location (general), and technical scope without identifying the client. A project case study does not need to name the client to be effective: "a 28-storey high-rise structural design in Victoria Island" communicates scale and experience just as powerfully as naming the development.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build an engineering firm website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard engineering firm website — including discipline pages, a project portfolio, team profiles, COREN credentials display, and full SEO setup — typically takes 3–5 weeks from design approval to launch. Larger sites with a complete portfolio of 10+ case studies, a multi-discipline service architecture, careers section, and technical blog may take 5–7 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know exactly what is happening and when.']],
+        ['@type' => 'Question', 'name' => 'Will my firm\'s website rank on Google for engineering searches in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every website we build includes a complete SEO foundation — semantic HTML structure, optimised title tags and meta descriptions, EngineeringService and LocalBusiness schema markup, COREN and NSE credential schema, XML sitemap, canonical URLs, and Google Search Console setup from launch day. For competitive engineering firm searches in Lagos, Abuja, and Port Harcourt, an ongoing monthly SEO retainer will significantly accelerate your rankings over the first 12 months. Most engineering firms we work with see meaningful page-one positions within 90–120 days for discipline-specific local search terms.']],
+        ['@type' => 'Question', 'name' => 'Can our engineers update the website themselves after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — complete editorial independence is a core principle of every site we build. We use ACF Pro to create intuitive editing interfaces for your project case studies, discipline pages, team profiles, COREN credentials, and technical insights posts. You can add a new project case study, update a team member\'s profile, or publish a technical article without touching a line of code. Every handover includes a 45-minute CMS training session and a written admin guide covering every content management workflow your team will need.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -590,82 +620,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>engineering firm</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical engineering firm project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Small & Specialist Firms</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, technically credible website for a specialist engineering practice needing a strong professional presence fast.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 8 pages</div>
-        <div class="price-feat">COREN & NSE credentials display</div>
-        <div class="price-feat">Project portfolio (3 case studies)</div>
-        <div class="price-feat">Enquiry & RFQ forms</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Team / engineer profiles</div>
-        <div class="price-feat no">Technical blog section</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service engineering firm website built to rank, convert, and grow with your practice.</p>
-        <div class="price-amount">₦750k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Unlimited pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">All discipline service pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full project portfolio</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Engineer & team profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Technical blog CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Tenders & pre-qual page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large & Multi-Discipline Firms</div>
-        <div class="price-name">Enterprise Firm</div>
-        <p class="price-tagline">A comprehensive digital platform for large engineering practices with multiple disciplines, offices, and tender management needs.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Multi-office location pages</div>
-        <div class="price-feat">Tender management system</div>
-        <div class="price-feat">Document download centre</div>
-        <div class="price-feat">Advanced project portfolio CMS</div>
-        <div class="price-feat">Staff directory (50+ engineers)</div>
-        <div class="price-feat">Newsletter & email marketing</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -676,7 +632,7 @@
     </div>
     <p>Not all web development options are equal — especially for engineering firms where technical credibility and professional standing are your most valuable commercial assets.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for engineering firms">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for engineering firms">
     <thead>
       <tr>
         <th>Feature</th>
@@ -735,7 +691,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -927,7 +883,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an engineering firm<br>website that wins project enquiries?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your keyword opportunities, and show you exactly what we'd build — and why it will work for your engineering practice.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-engineering-firm-website-design', 'source_label' => 'Engineering Firm Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

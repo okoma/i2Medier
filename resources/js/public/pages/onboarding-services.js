@@ -11,6 +11,11 @@ export default         [
               {id:'wd-gdpr', name:'Cookie & Privacy Banner', price:25000, desc:'GDPR-compliant cookie consent banner with policy pages'},
               {id:'wd-404', name:'Custom 404 & Error Pages', price:20000, desc:'Branded error pages that guide visitors back to the right content'},
               {id:'wd-maintenance', name:'3-Month Care Plan', price:180000, desc:'Weekly updates, daily backups, uptime monitoring & monthly reports'},
+              {id:'wd-copywriting', name:'Website Copywriting', price:150000, desc:'Professional copy written for all pages — headlines, body text, CTAs, and SEO meta descriptions'},
+              {id:'wd-whatsapp', name:'WhatsApp Float Button & Click-to-Call', price:15000, desc:'Styled floating WhatsApp chat button and click-to-call link, configured for your number and branded to match the site'},
+              {id:'wd-gallery', name:'Portfolio / Gallery Section', price:65000, desc:'Filterable image or project gallery with lightbox viewer — ideal for photographers, architects, clinics, and creative businesses'},
+              {id:'wd-social-feed', name:'Social Media Feed Integration', price:35000, desc:'Live embedded Instagram or Facebook feed displayed on your site and kept in sync with your latest posts'},
+              {id:'wd-newsletter', name:'Newsletter Signup Integration', price:35000, desc:'Mailchimp or Brevo email list signup — embedded forms, pop-ups, or inline blocks designed to match your site and connected to your email platform'},
             ]
           },
           {
@@ -25,6 +30,10 @@ export default         [
               {id:'ma-backend', name:'Backend API Development', price:400000, desc:'Laravel/Node.js REST API built and deployed to power your app'},
               {id:'ma-admin', name:'Admin Dashboard', price:250000, desc:'Web-based admin panel for managing users, content & app data'},
               {id:'ma-analytics', name:'Advanced Product Analytics Stack', price:220000, desc:'Expanded event tracking, funnel analysis, attribution setup, and advanced product reporting'},
+              {id:'ma-social-login', name:'Social Login (Google, Apple, Facebook)', price:120000, desc:'One-tap sign-in with Google, Apple, and Facebook — OAuth2 configured and styled to your app'},
+              {id:'ma-geolocation', name:'Geolocation & Maps Integration', price:180000, desc:'Live location tracking, Google Maps or Mapbox integration, and location-based features for delivery, service, or field apps'},
+              {id:'ma-biometric', name:'Biometric Authentication', price:80000, desc:'Face ID and fingerprint login via device biometrics — secure, fast, and expected in modern mobile apps'},
+              {id:'ma-chat', name:'In-App Messaging / Chat', price:220000, desc:'Real-time in-app chat between users, or between users and support — built with Firebase or a dedicated messaging SDK'},
             ]
           },
           {
@@ -37,6 +46,8 @@ export default         [
               {id:'seo-local', name:'Local SEO Setup', price:100000, desc:'Google Business Profile optimisation, local citations & local schema'},
               {id:'seo-backlinks', name:'Link Building (monthly)', price:300000, desc:'High-authority backlink acquisition and digital PR outreach', monthly:true},
               {id:'seo-ads', name:'Google Ads Management', price:350000, desc:'Search and display campaign setup, management & monthly reporting', monthly:true},
+              {id:'seo-social-ads', name:'Social Media Ads Management (Meta/Instagram)', price:300000, desc:'Facebook and Instagram campaign setup, audience targeting, creative management, and monthly performance reporting', monthly:true},
+              {id:'seo-analytics', name:'Analytics & Tracking Setup', price:60000, desc:'GA4 and Google Search Console installation, goal configuration, event tracking, and dashboard setup so every visit and conversion is measured from day one'},
             ]
           },
           {
@@ -49,6 +60,9 @@ export default         [
               {id:'ux-motion', name:'Motion & Animation Guide', price:100000, desc:'Micro-interaction specs and animation timing documentation for devs'},
               {id:'ux-tokens', name:'Design Token Export (JSON)', price:85000, desc:'Figma Variables exported as structured JSON for your dev pipeline'},
               {id:'ux-brand', name:'Brand Identity Package', price:180000, desc:'Logo, colour palette, typography scale, and full brand guidelines'},
+              {id:'ux-prototype', name:'Interactive Clickable Prototype', price:120000, desc:'Fully linked Figma prototype with realistic transitions — ready for stakeholder sign-off, investor demos, and user testing sessions'},
+              {id:'ux-illustrations', name:'Custom Illustrations & Icon Set', price:180000, desc:'Branded spot illustrations or a custom icon set designed to match your visual identity across all screens'},
+              {id:'ux-accessibility', name:'Accessibility Audit & Remediation', price:120000, desc:'WCAG 2.1 AA audit of your Figma designs with a full issues report and corrected component variants ready for handoff'},
             ]
           },
           {
@@ -62,6 +76,9 @@ export default         [
               {id:'wp-seo', name:'Advanced SEO Growth Setup', price:150000, desc:'Expanded schema strategy, technical refinement, search presentation control, and growth-focused SEO implementation beyond the standard baseline'},
               {id:'wp-admin', name:'Advanced Editorial Workspace', price:220000, desc:'Expanded admin UX with richer editorial workflows, role-specific content management, and deeper operational controls'},
               {id:'wp-membership', name:'Membership / Login System', price:300000, desc:'Member registration, gated content, user profiles & subscription tiers'},
+              {id:'wp-security', name:'Security Hardening & Firewall', price:120000, desc:'Wordfence or equivalent WAF setup, login attack protection, file integrity monitoring, and security hardening across the full WordPress installation'},
+              {id:'wp-training', name:'Admin Training & Documentation', price:75000, desc:'Recorded video walkthroughs and a written reference guide covering everything your team needs to manage and update the site confidently'},
+              {id:'wp-staging', name:'Staging Environment Setup', price:60000, desc:'A dedicated staging site mirroring your live environment — for safe testing of updates, new features, and plugin changes before they go live'},
             ]
           },
           {
@@ -79,6 +96,8 @@ export default         [
                   {id:'ec-woo-booking', name:'Bookings / Appointments', price:300000, desc:'Integrated appointment, reservation, or bookable-product workflows inside your store'},
                   {id:'ec-woo-marketplace', name:'Multi-vendor Marketplace', price:800000, desc:'Vendor onboarding, commissions, payouts, dashboards, and marketplace operations'},
                   {id:'ec-woo-erp', name:'Inventory / ERP Sync', price:650000, desc:'Structured inventory and order sync with ERP, POS, or warehouse systems'},
+                  {id:'ec-woo-abandoned-cart', name:'Abandoned Cart Recovery', price:180000, desc:'Automated email sequences that recover lost orders — triggered when customers add to cart and leave without purchasing'},
+                  {id:'ec-woo-loyalty', name:'Loyalty & Rewards Program', price:250000, desc:'Points system, membership tiers, and automated coupon rewards to drive repeat purchases and long-term customer retention'},
                 ],
               },
               {
@@ -92,6 +111,8 @@ export default         [
                   {id:'ec-sh-apps', name:'Advanced App Stack Setup', price:300000, desc:'App strategy, integration, testing, and workflow setup across the full store experience'},
                   {id:'ec-sh-migration', name:'Catalog Migration', price:350000, desc:'Structured migration of products, collections, customers, content, and historical store data'},
                   {id:'ec-sh-b2b', name:'B2B / Wholesale Setup', price:700000, desc:'Wholesale pricing, trade customer flows, account-level ordering, and B2B storefront logic'},
+                  {id:'ec-sh-email-flows', name:'Email Marketing Flows (Klaviyo/Omnisend)', price:220000, desc:'Welcome series, abandoned cart, post-purchase, and win-back flows configured and live in your email platform'},
+                  {id:'ec-sh-markets', name:'International Markets & Multi-currency', price:280000, desc:'Shopify Markets setup with regional pricing, currency conversion, local payment methods, and storefront localisation'},
                 ],
               },
               {
@@ -105,6 +126,7 @@ export default         [
                   {id:'ec-lv-erp', name:'ERP / Inventory Integration', price:900000, desc:'Deep integration with inventory, warehouse, fulfillment, procurement, or ERP systems'},
                   {id:'ec-lv-subscriptions', name:'Subscriptions & Billing Engine', price:800000, desc:'Recurring billing logic, retries, dunning, account management, and subscription lifecycle tooling'},
                   {id:'ec-lv-b2b', name:'B2B Pricing & Account Workflows', price:750000, desc:'Account-based pricing, quote requests, approvals, credit logic, and trade ordering workflows'},
+                  {id:'ec-lv-mobile', name:'Mobile App / PWA Companion', price:700000, desc:'React Native or Flutter mobile app, or a full progressive web app, built to run alongside your custom Laravel store'},
                 ],
               },
             ],
@@ -119,6 +141,8 @@ export default         [
               {id:'saas-roles', name:'Enterprise Roles & Permissions', price:400000, desc:'Granular access policies, advanced team permissions, approval flows, and enterprise account controls'},
               {id:'saas-admin', name:'Customer Support / Operations Console', price:450000, desc:'Expanded internal console for support operations, account intervention, moderation, reporting, and customer success workflows'},
               {id:'saas-analytics', name:'Advanced Product Analytics & Event Tracking', price:300000, desc:'Structured product event tracking, funnel measurement, user behavior analysis, and SaaS KPI instrumentation'},
+              {id:'saas-api-public', name:'Public API & Developer Platform', price:500000, desc:'Documented public API with OAuth2 app registration, API key management, rate limiting, and a developer portal so third parties can integrate with your SaaS'},
+              {id:'saas-mobile', name:'Mobile App Companion', price:900000, desc:'React Native or Flutter mobile app fully integrated with your SaaS platform — user accounts, subscriptions, and core workflows on iOS and Android'},
             ]
           },
           {
@@ -132,6 +156,8 @@ export default         [
               {id:'lv-realtime', name:'Real-time Features (WebSockets)', price:220000, desc:'Live notifications and data updates via Laravel Reverb'},
               {id:'lv-mobile', name:'Mobile App API Layer', price:400000, desc:'Mobile-optimised API endpoints for React Native or Flutter'},
               {id:'lv-multitenant', name:'Multi-tenant Architecture', price:700000, desc:'Per-tenant data isolation and subdomain routing for SaaS platforms'},
+              {id:'lv-search', name:'Full-text Search Integration', price:220000, desc:'Algolia, Elasticsearch, or Laravel Scout setup for fast, relevant search across your application data'},
+              {id:'lv-storage', name:'File Storage & Media Management', price:180000, desc:'S3 or Cloudflare R2 integration with structured file upload, image processing, and CDN delivery for all user and application media'},
             ]
           },
           {
@@ -143,6 +169,8 @@ export default         [
               {id:'em-desktop', name:'Full Team Device Rollout', price:60000, desc:'Broader team-wide client setup across desktop and device environments with handover support'},
               {id:'em-signature', name:'HTML Email Signature Design', price:50000, desc:'Professionally designed HTML email signature for all users'},
               {id:'em-template', name:'Email Newsletter Template', price:85000, desc:'Branded HTML email template compatible with Mailchimp / Brevo'},
+              {id:'em-security', name:'Email Security Setup (SPF/DKIM/DMARC)', price:35000, desc:'Authentication records configured correctly to protect your sender reputation, prevent spoofing, and ensure inbox delivery'},
+              {id:'em-groups', name:'Shared Inboxes & Alias Setup', price:25000, desc:'Team group mailboxes (sales@, support@, info@) and email aliases set up across all users in your organisation'},
             ]
           },
           {
@@ -156,6 +184,8 @@ export default         [
               {id:'cl-iac', name:'Infrastructure as Code (Terraform)', price:300000, desc:'Entire infrastructure codified in Terraform for reproducible deploys'},
               {id:'cl-audit', name:'Cloud Cost Optimisation Audit', price:180000, desc:'Full audit of your current cloud spend with actionable savings recommendations'},
               {id:'cl-manage', name:'Monthly Cloud Management', price:500000, desc:'Ongoing cloud monitoring, patching, scaling & cost management', monthly:true},
+              {id:'cl-security', name:'Cloud Security Hardening', price:280000, desc:'IAM least-privilege policies, secrets management, WAF rules, VPC security groups, and a compliance security baseline for your cloud environment'},
+              {id:'cl-monitoring', name:'Observability & Alerting Stack', price:300000, desc:'Centralised logging, metrics dashboards, and alert rules configured via CloudWatch, Grafana, or Datadog — full visibility into every layer of your infrastructure'},
             ]
           },
           {
@@ -167,6 +197,7 @@ export default         [
               {id:'wm-server', name:'VPS Server Management', price:90000, desc:'Full server-level VPS/cPanel maintenance included in plan', monthly:true},
               {id:'wm-audit', name:'Quarterly Security Audit', price:180000, desc:'In-depth security audit every 3 months with full written report'},
               {id:'wm-cwv', name:'Core Web Vitals Monitoring', price:40000, desc:'Monthly Lighthouse & CWV tracking with performance recommendations', monthly:true},
+              {id:'wm-content', name:'Monthly Content Updates', price:40000, desc:'Up to 5 content edits per month — text changes, image swaps, page updates, or minor additions handled on request', monthly:true},
             ]
           },
           {
@@ -178,6 +209,18 @@ export default         [
               {id:'wpm-report', name:'Enhanced Monthly Report', price:30000, desc:'Expanded report with SEO snapshot, uptime graphs & plugin changelog', monthly:true},
               {id:'wpm-licenses', name:'Plugin License Management', price:50000, desc:'We purchase, renew & manage all premium plugin licences on your behalf', monthly:true},
               {id:'wpm-malware', name:'Priority Malware Removal', price:350000, desc:'Emergency malware removal and post-hack hardening on demand'},
+              {id:'wpm-content', name:'Monthly Content Updates', price:35000, desc:'Up to 5 content edits per month — text changes, image swaps, page updates, or minor additions on request', monthly:true},
+              {id:'wpm-db-optimize', name:'Database Optimization', price:30000, desc:'Monthly WordPress database cleanup — table overhead removal, autoload optimization, and slow query review to keep your site running efficiently', monthly:true},
+            ]
+          },
+          {
+            id:'emaildeliverability', name:'Email Deliverability', desc:'Fix emails going to spam, repair sender reputation, remove blacklistings, and set up cold email infrastructure — SPF, DKIM, DMARC done right.',
+            icon:'check-circle', price:35000, priceLabel:'from ₦35,000', type:'one-time',
+            addons:[
+              {id:'ed-fix', name:'Full Deliverability Fix', price:95000, desc:'Complete fix — authentication records, blacklist removal, DNS cleanup, and inbox placement verification across Gmail, Outlook, and Yahoo'},
+              {id:'ed-coldinfra', name:'Cold Email Infrastructure', price:120000, desc:'Dedicated sending domains, warm-up sequences, and outreach platform setup (Instantly, Smartlead, or Lemlist)'},
+              {id:'ed-blacklist', name:'Emergency Blacklist Removal', price:45000, desc:'Urgent blacklist removal with submission to all major providers and verified clearance confirmation'},
+              {id:'ed-monitoring', name:'Monthly Deliverability Monitoring', price:25000, desc:'Monthly blacklist checks, DMARC report analysis, DNS change alerts, and deliverability health summary', monthly:true},
             ]
           }
         ];

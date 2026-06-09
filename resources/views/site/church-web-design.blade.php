@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Churches | Ministry Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Church Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'church-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Is online giving through Paystack secure for our congregation?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Paystack is fully regulated by the Central Bank of Nigeria (CBN) and uses the same bank-level SSL encryption as Nigerian commercial banks. Your congregation\'s card and banking details are never stored on your church\'s server — they are processed entirely through Paystack\'s PCI-DSS-compliant infrastructure. Transactions are protected by Paystack\'s fraud detection systems. The church receives funds in its verified Paystack account, and all transactions are downloadable as reports for your treasurer.']],
+        ['@type' => 'Question', 'name' => 'How do we upload new sermons after the website goes live?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Uploading a new sermon is as simple as publishing a blog post. Your church admin team logs into the WordPress dashboard, goes to the Sermons section, clicks "Add New", fills in the sermon title, speaker, date, series, scripture reference, uploads the audio or video file (or pastes a YouTube link), and hits publish. The new sermon immediately appears on your website\'s sermon archive, searchable and filterable. We build the sermon upload workflow specifically for non-technical church admin staff, and every handover includes a training session covering the exact process for your team.']],
+        ['@type' => 'Question', 'name' => 'Can you integrate live streaming with our website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We can embed live stream players directly into your church website — supporting YouTube Live, Facebook Live, and dedicated streaming platforms such as Restream, StreamYard, or BoxCast. A dedicated "Watch Live" page can display your streaming embed automatically during scheduled service times, and show a replay or an upcoming service countdown at all other times. Live streaming integration is included in our Enterprise Ministry tier and can be added to Growth packages.']],
+        ['@type' => 'Question', 'name' => 'How do we set up Google My Business for our church?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Google Business Profile (formerly Google My Business) is one of the most important digital assets for any church that wants to appear in local search results and on Google Maps. We claim or create your church\'s Google Business Profile as part of the website launch process, verifying it with Google, populating it with your service times, denomination, description, photos, and website link, and connecting it to your website\'s PlaceOfWorship schema markup. Once verified, your church can appear in the Google Maps local pack.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a church website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard church website with sermon archive, online giving, and events calendar typically takes 3–5 weeks from design approval to launch. Larger sites for multi-campus ministries, or platforms with live streaming integration and member portals, may take 5–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so your leadership team always knows exactly what is happening and when — with clear approval points at design sign-off and staging review before any content goes live.']],
+        ['@type' => 'Question', 'name' => 'Can non-technical church admin staff manage the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core requirement we design for in every church website we build. We use ACF Pro (Advanced Custom Fields) to create intuitive, form-based editing interfaces for sermons, events, ministries pages, and all other content types. Your admin team does not need to understand HTML, CSS, or any code. They log in to a simple WordPress dashboard, fill in the relevant fields, and publish. Every handover includes a hands-on CMS training session for up to four staff members, covering every workflow the team will regularly use — plus a written admin guide they can reference anytime.']],
+        ['@type' => 'Question', 'name' => 'Can our website serve both English-speaking and Yoruba/Igbo/Hausa-speaking members?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. For churches with significant multilingual congregations, we can build multilingual support into your website — allowing certain pages or sections to be presented in Yoruba, Igbo, Hausa, or other languages alongside English. Full multilingual implementation uses WordPress\'s WPML or Polylang plugin to create translated versions of key pages. For simpler needs — such as a bilingual service times section or a bilingual first-visit guide — we can handle this within the standard design without a dedicated translation plugin.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -586,82 +616,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>church &amp; ministry</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required from your leadership team.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Small Congregations &amp; New Plants</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, welcoming website for a growing congregation or newly planted church needing a strong online presence fast.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with service times</div>
-        <div class="price-feat">Up to 8 pages</div>
-        <div class="price-feat">Basic sermon page (latest messages)</div>
-        <div class="price-feat">Contact &amp; location with map</div>
-        <div class="price-feat">Leadership profiles page</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Full sermon archive with search</div>
-        <div class="price-feat no">Online giving portal (Paystack)</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-featured church website built to reach new members, retain your congregation, and collect giving digitally.</p>
-        <div class="price-amount">₦750k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full sermon archive with audio/video</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Online giving portal (Paystack)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Events calendar with registration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Ministries &amp; departments pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Media gallery</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Newsletter signup integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + PlaceOfWorship schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training for admin team</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large Ministries &amp; Multi-Campus</div>
-        <div class="price-name">Enterprise Ministry</div>
-        <p class="price-tagline">A comprehensive digital platform for large churches, multi-campus ministries, or organisations with complex giving and operations needs.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Live streaming integration</div>
-        <div class="price-feat">Mobile app connection (React Native)</div>
-        <div class="price-feat">Multi-campus management</div>
-        <div class="price-feat">Donor management system</div>
-        <div class="price-feat">Advanced giving analytics</div>
-        <div class="price-feat">Member portal (login &amp; profile)</div>
-        <div class="price-feat">Cell/home group management</div>
-        <div class="price-feat">90-day post-launch support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -672,7 +628,7 @@
     </div>
     <p>Not all web development options are equal — especially for churches and ministries where the website is often the first point of contact for someone seeking a spiritual home.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for churches and ministries">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for churches and ministries">
     <thead>
       <tr>
         <th>Feature</th>
@@ -731,7 +687,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -910,7 +866,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a church website<br>that grows your congregation?</h2>
   <p>Get a free, no-obligation consultation and website proposal for your church or ministry. We will review your current digital presence, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-church-website-design', 'source_label' => 'Church Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

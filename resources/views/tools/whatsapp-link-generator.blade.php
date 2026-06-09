@@ -1,6 +1,6 @@
 @extends('public.layouts.nametool')
 
-@section('title', 'WhatsApp Link Generator — i2Medier')
+@section('title', 'WhatsApp Link Generator — Free wa.me Links | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/whatsapp-link-generator.css')
@@ -300,6 +300,382 @@ id="whatsapp-link-generator-page"
         </div>
     </div>
 </div>
+
+<section class="seo-content" aria-label="About this WhatsApp link generator">
+  <div class="seo-content-inner">
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">ABOUT THIS TOOL</span>
+      <h2>About this free WhatsApp link generator</h2>
+      <p>This free WhatsApp link generator lets you create a wa.me click-to-chat link in seconds — no coding, no sign-up, no cost. Enter your WhatsApp number, add an optional pre-filled message, and this WhatsApp link generator produces a shareable URL, a downloadable QR code, and embeddable website button code all at once.</p>
+      <p>A WhatsApp link (also called a wa.me link or WhatsApp chat link) allows anyone to start a conversation with your WhatsApp number by clicking a URL — without saving your contact first. This WhatsApp link generator also supports UTM tracking so you can measure clicks from different placements in Google Analytics.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+          <div class="cfc-title">WhatsApp Click-to-Chat Link</div>
+          <div class="cfc-desc">Generate a wa.me link that opens a WhatsApp conversation directly. Works on any device — tap the link, WhatsApp opens, the chat begins.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <div class="cfc-title">WhatsApp QR Code Generator</div>
+          <div class="cfc-desc">Create a WhatsApp QR code for business cards, flyers, packaging, and posters. Download in four sizes including print-quality 500px PNG.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="cfc-title">WhatsApp Chat Button</div>
+          <div class="cfc-desc">Get embed HTML for a floating WhatsApp chat button or an inline button — add it to any website without a plugin or developer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">HOW TO USE</span>
+      <h2>How to generate a WhatsApp link in four steps</h2>
+      <p>Using this WhatsApp link generator takes under a minute. Everything runs in your browser — no account needed, nothing is stored on a server.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div class="why-body">
+            <div class="why-body-title">Enter your WhatsApp number</div>
+            <div class="why-body-desc">Select your country code and type your WhatsApp phone number. The generator formats it to the international E.164 standard required by the wa.me URL format.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div class="why-body">
+            <div class="why-body-title">Add a pre-filled WhatsApp message</div>
+            <div class="why-body-desc">Choose from seven message templates or write your own. The pre-filled text appears in the WhatsApp chat box when someone clicks your link — one tap and it's ready to send.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div class="why-body">
+            <div class="why-body-title">Configure your WhatsApp link options</div>
+            <div class="why-body-desc">Switch between wa.me and api.whatsapp.com link formats, and toggle UTM tracking to add source, medium, and campaign parameters to your WhatsApp link URL.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div class="why-body">
+            <div class="why-body-title">Copy the link, QR code, or embed code</div>
+            <div class="why-body-desc">Copy your generated WhatsApp link, download the WhatsApp QR code at your chosen size, or grab the HTML embed code for a floating or inline WhatsApp button on your website.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHAT YOU CAN GENERATE</span>
+      <h2>What this WhatsApp link generator creates for you</h2>
+      <p>This WhatsApp link generator is more than a basic wa.me URL builder. It creates every format you need — shareable links, scannable QR codes, website chat buttons, and trackable WhatsApp URLs with UTM parameters.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="cfc-title">Pre-filled WhatsApp Message</div>
+          <div class="cfc-desc">Encode up to 4,096 characters into your WhatsApp link. Choose from seven templates — general enquiry, quote, booking, support, website referral, order, or blank.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="cfc-title">International Number Format</div>
+          <div class="cfc-desc">19 country codes pre-loaded. Your WhatsApp link is built with the correct international dialling format — no manual E.164 formatting required.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+          <div class="cfc-title">Saved WhatsApp Links</div>
+          <div class="cfc-desc">Save multiple WhatsApp links locally — different numbers, departments, or agents. Label each one and reload any saved WhatsApp link instantly.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="cfc-title">UTM-Tagged WhatsApp Link</div>
+          <div class="cfc-desc">Generate a trackable WhatsApp link with UTM source, medium, and campaign. Monitor WhatsApp link clicks in Google Analytics by placement or campaign.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg></div>
+          <div class="cfc-title">wa.me or api.whatsapp.com</div>
+          <div class="cfc-desc">Toggle between the wa.me link format (opens WhatsApp app) and api.whatsapp.com format (opens in browser). Both generated from the same WhatsApp link generator form.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+          <div class="cfc-title">WhatsApp QR Code Sizes</div>
+          <div class="cfc-desc">Generate your WhatsApp QR code at four sizes: Small (150px), Medium (200px), Large (300px), and Print (500px). Download as PNG for any use case.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHY IT MATTERS</span>
+      <h2>Why your business needs a WhatsApp link — not just a phone number</h2>
+      <p>Displaying a WhatsApp number and expecting customers to save it and message you manually loses leads. A WhatsApp link generator removes every step between seeing your contact and starting a conversation.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div class="why-body">
+            <div class="why-body-title">A WhatsApp link removes the contact-saving step</div>
+            <div class="why-body-desc">Your WhatsApp chat link opens a conversation instantly — no saving, no dialling, no copying. Anyone who taps it is one step away from messaging you.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div class="why-body">
+            <div class="why-body-title">A pre-filled WhatsApp message converts better</div>
+            <div class="why-body-desc">A WhatsApp link with a message template tells you what the lead wants before they send anything. Less friction for them, more context for you, better first response.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div class="why-body">
+            <div class="why-body-title">One WhatsApp link works across every channel</div>
+            <div class="why-body-desc">The same wa.me link belongs in your Instagram bio, email footer, Google Business Profile, business card, and website. Generate once, deploy everywhere.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div class="why-body">
+            <div class="why-body-title">UTM tracking reveals which WhatsApp links convert</div>
+            <div class="why-body-desc">Generate a separate UTM-tagged WhatsApp link for each channel. See in Google Analytics exactly which placements and campaigns actually drive WhatsApp conversations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMMON MISTAKES</span>
+      <h2>Why your WhatsApp link is not working — and how to fix it</h2>
+      <p>Most broken WhatsApp links come down to one of these issues. Use this WhatsApp link generator to avoid them — all formatting is handled automatically.</p>
+      <div class="issues-feature-grid">
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">Missing country code in the WhatsApp link</div>
+            <div class="ifi-desc">A wa.me link requires the full international number (e.g. +234 for Nigeria, +44 for UK). A local number without the country code produces a broken WhatsApp link.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">Spaces or dashes in the wa.me URL</div>
+            <div class="ifi-desc">WhatsApp link URLs require digits only. Spaces, dashes, or brackets in the number break the wa.me link silently — it opens WhatsApp but to the wrong or no number.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">No message in the WhatsApp chat link</div>
+            <div class="ifi-desc">A WhatsApp click-to-chat link without a pre-filled message opens a blank chat. Adding a short opening message significantly increases the conversion from click to conversation.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Linking to a personal WhatsApp number</div>
+            <div class="ifi-desc">Using a personal number in your WhatsApp business link mixes customer enquiries with personal messages. Use a dedicated WhatsApp Business number for any public-facing link.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">No UTM parameters on the WhatsApp link</div>
+            <div class="ifi-desc">A WhatsApp link without UTM tracking provides no data on where clicks come from. Generate separate UTM-tagged WhatsApp links for each placement to measure performance.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">WhatsApp QR code too small to scan</div>
+            <div class="ifi-desc">A WhatsApp QR code printed below 2cm × 2cm won't scan on most phones. Use the Print (500px) size from this WhatsApp QR code generator for any physical material.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHO USES THIS TOOL</span>
+      <h2>Who uses a WhatsApp link generator</h2>
+      <p>Anyone who wants customers to reach them on WhatsApp without friction uses a WhatsApp link generator. Here are the most common use cases.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+          <div class="who-title">E-commerce Sellers</div>
+          <div class="who-desc">Add a WhatsApp link for business to every product page, order confirmation, and packaging — customers tap to ask about orders, returns, or delivery status.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
+          <div class="who-title">Service Businesses</div>
+          <div class="who-desc">Consultants, agencies, and clinics use a WhatsApp link on their website and proposals so leads can message directly without saving a number or filling out a form.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+          <div class="who-title">Social Media Managers</div>
+          <div class="who-desc">Place a WhatsApp link in the Instagram bio, Facebook page button, or TikTok profile link so followers can start a WhatsApp chat without leaving the app.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+          <div class="who-title">Print & Events Teams</div>
+          <div class="who-desc">Generate a WhatsApp QR code for business cards, flyers, event stands, and packaging. Anyone who scans it opens a WhatsApp chat — no URL to type.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="who-title">Freelancers</div>
+          <div class="who-desc">Share a wa.me link in portfolios, proposals, and email signatures instead of a phone number — clients tap to WhatsApp without saving the contact first.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 19-7z"/></svg></div>
+          <div class="who-title">Marketing Teams</div>
+          <div class="who-desc">Create a unique UTM-tagged WhatsApp link for each campaign — website, email, Instagram, and print — to track which channel drives WhatsApp conversations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">AFTER YOU GENERATE</span>
+      <h2>Where to use your generated WhatsApp link</h2>
+      <p>Once you generate your WhatsApp link, use it across every customer touchpoint. A WhatsApp chat link placed in the right locations can replace contact forms, phone numbers, and live chat widgets.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Add a WhatsApp button to your website</div>
+            <div class="step-desc">Use the Embed tab to copy a floating WhatsApp chat button or an inline button. Paste into your site's HTML — no plugin needed, works on any CMS or page builder.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">Set it as your Instagram and social bio link</div>
+            <div class="step-desc">Replace your bio link with your WhatsApp link URL on Instagram, Facebook, LinkedIn, and TikTok. Followers tap once and open a WhatsApp chat — no app switching, no friction.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">Print the WhatsApp QR code on marketing materials</div>
+            <div class="step-desc">Download your WhatsApp QR code at Print (500px) quality and place it on business cards, flyers, menus, packaging, and event signage for instant offline-to-chat engagement.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">Add your WhatsApp link to your email signature</div>
+            <div class="step-desc">Include a WhatsApp chat link in your email signature so every email you send gives the recipient a direct tap-to-chat option without them saving your number.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">05</div>
+          <div>
+            <div class="step-title">Track WhatsApp link clicks with UTM parameters</div>
+            <div class="step-desc">Generate a separate UTM-tagged WhatsApp link for each placement. Use Google Analytics to compare which channels — website, email, print, or social — drive the most WhatsApp conversations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMPARE</span>
+      <h2>Free WhatsApp link generator vs a professionally managed WhatsApp setup</h2>
+      <p>This free WhatsApp link generator covers the essentials — create a WhatsApp link, generate a WhatsApp QR code, and embed a chat button. A professionally managed setup adds automation, broadcasting, and analytics on top.</p>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>This Tool</th>
+            <th>WhatsApp Business App</th>
+            <th class="highlight">Managed Setup (i2Medier)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Click-to-chat link</td><td class="yes">✓</td><td class="partial">Manual</td><td class="yes">✓</td></tr>
+          <tr><td>Pre-filled message templates</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>QR code for print</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>UTM tracking support</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Website embed code</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Verified business profile</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Automated greetings & quick replies</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Broadcast campaigns</td><td class="no">—</td><td class="partial">Limited</td><td class="yes">✓</td></tr>
+          <tr><td>Analytics & reporting</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Dedicated number management</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="service-cta">
+  <span class="service-cta-eyebrow">&#9733; READY TO GO FURTHER?</span>
+  <h2>Get a <em>professionally managed</em><br>WhatsApp presence</h2>
+  <p>A link gets you started. A full WhatsApp Business setup — verified profile, automated replies, broadcast campaigns, and analytics — keeps you competitive.</p>
+  <div class="service-pills">
+    <span class="service-pill">WhatsApp Marketing</span>
+    <span class="service-pill">Chatbot Setup</span>
+    <span class="service-pill">Campaign Management</span>
+    <span class="service-pill">Analytics Reporting</span>
+  </div>
+  <div class="cta-buttons">
+    <a href="{{ route('site.start') }}" class="cta-btn-primary">Start a Project →</a>
+    <a href="{{ route('tools.website-brief-generator') }}" class="cta-btn-secondary">Try Another Tool</a>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="seo-section-eyebrow">FAQ</span>
+      <h2>Frequently asked questions</h2>
+      <p>Everything you need to know about WhatsApp links, QR codes, and embedding chat buttons on your website.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f1">
+          <span class="faq-q-text">What is a WhatsApp click-to-chat link?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f1">A wa.me link is a URL that opens a WhatsApp conversation with a specific number when clicked. The person clicking does not need to save your contact first. Add a pre-filled message and the opening line of every chat is already written — all they do is hit send.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f2">
+          <span class="faq-q-text">Do I need WhatsApp Business for this to work?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f2">No. The link works with both the standard WhatsApp app and WhatsApp Business. Any number active on WhatsApp can receive messages through a click-to-chat link, regardless of which app version you use.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f3">
+          <span class="faq-q-text">Can I track clicks on my WhatsApp link?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f3">Yes. Enable UTM tracking in the Link Options panel and add your source, medium, and campaign values. The parameters are appended to the URL so you can monitor clicks in Google Analytics or any UTM-aware analytics tool.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f4">
+          <span class="faq-q-text">Does the WhatsApp link expire?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f4">No. WhatsApp click-to-chat links do not expire. The link stays active as long as the phone number is registered on WhatsApp. You only need a new link if your number changes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f5">
+          <span class="faq-q-text">How do I add the WhatsApp button to my website?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f5">Switch to the Embed tab in the output panel. Choose Floating (a fixed bottom-right button), Button (an inline link), or Banner. Copy the HTML and paste it into your site's code, CMS, or page builder — no plugin required.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f6">
+          <span class="faq-q-text">Can I save multiple links for different numbers or campaigns?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f6">Yes. Use the Save button in the output panel to store the current link in your browser's local storage. You can save multiple links — for different numbers, departments, or UTM campaigns — and reload any of them instantly.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wlg-f7">
+          <span class="faq-q-text">What QR code size should I use for print?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wlg-f7">Use the Print (500px) option for any physical material. Printed QR codes should be at least 2cm × 2cm to scan reliably on most smartphone cameras. For digital use — websites, emails, or social posts — Medium (200px) is sufficient.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div id="toast"></div>
 @endsection

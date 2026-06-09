@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Gyms & Fitness Studios | Fitness Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Fitness Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'fitness-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'What payment options can the membership sign-up support?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We integrate Paystack as the payment gateway for Nigerian fitness websites, which supports card payments (Visa, Mastercard, Verve), bank transfers, USSD, and Pay with Bank. This covers the full range of payment preferences across the Nigerian market. Members can choose their plan, pay securely in under two minutes, and receive an automatic confirmation email with their membership details. Recurring billing for monthly memberships can also be configured through Paystack\'s subscription API.']],
+        ['@type' => 'Question', 'name' => 'Can the class booking system handle capacity limits and waitlists?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — capacity management is built into the booking system as standard. Each class has a configurable maximum capacity. When a class is full, the system automatically moves to a waitlist and notifies waitlisted members if a spot becomes available. Automated reminder emails are sent 24 hours and 1 hour before each class. You can also set cancellation windows — for example, requiring 2 hours notice to cancel — and configure penalty policies for late cancellations.']],
+        ['@type' => 'Question', 'name' => 'Can the website manage multiple gym locations?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Multi-location gym management is available on our Enterprise tier. Each location has its own schedule, trainer team, membership availability, and location-specific SEO page. A centralised admin panel manages all locations from a single dashboard. Members can filter the class schedule by location, and membership plans can be configured to cover a single location or all locations. This is particularly useful for gym chains expanding across Lagos or operating across multiple Nigerian cities.']],
+        ['@type' => 'Question', 'name' => 'How do you handle consent for the transformation gallery?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The transformation gallery is built with a consent management system from the outset. Before any member\'s before-and-after photos or video testimonials are published, a digital consent form is sent to and signed by that member — specifying exactly what content will be used, where it will appear, and confirming their permission. All signed consent records are stored in your admin panel. Members can request removal of their content at any time, and the system makes this straightforward to process without any technical intervention.']],
+        ['@type' => 'Question', 'name' => 'Do you set up Google My Business for the gym?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — Google Business Profile (formerly Google My Business) optimisation is included with every fitness website we build. This covers profile completion (category, hours, services, photos), schema markup integration between your website and your Google listing, and initial setup of review generation. A well-optimised Google Business Profile is essential for appearing in the local map pack when someone searches "gym near me" or "gym [your area]" — which is often where your most high-intent local traffic comes from.']],
+        ['@type' => 'Question', 'name' => 'How long does a fitness website take to build?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard fitness website with membership sign-up, class booking, trainer profiles, and a transformation gallery typically takes 3–5 weeks from design approval to launch. Larger builds with multiple locations, a loyalty system, or e-commerce functionality may take 6–8 weeks. We provide a detailed, milestone-based timeline at the start of every project — with a staging environment accessible throughout the build so you can review progress at every stage before launch day.']],
+        ['@type' => 'Question', 'name' => 'Can my gym staff update the class schedule without technical help?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core design principle of every fitness website we build. The class schedule, trainer profiles, membership pricing, gallery, and blog are all editable through a simple admin interface that requires no technical knowledge. Your reception team or studio manager can add new classes, update trainer availability, change membership prices, and publish new content entirely on their own. Every handover includes a CMS training session and a written admin guide covering every workflow your team will regularly need.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -594,82 +624,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>fitness business</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo Trainers &amp; Small Studios</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, high-energy website for a personal trainer or boutique studio that needs a strong online presence fast.</p>
-        <div class="price-amount">₦380k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with membership CTA</div>
-        <div class="price-feat">Membership &amp; pricing pages</div>
-        <div class="price-feat">Class schedule (static)</div>
-        <div class="price-feat">Enquiry &amp; contact forms</div>
-        <div class="price-feat">Photo gallery</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Online Paystack sign-up</div>
-        <div class="price-feat no">Live booking system</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service fitness website built to convert visitors, grow membership, and dominate local search results.</p>
-        <div class="price-amount">₦780k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Online membership sign-up (Paystack)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Live class booking system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Trainer profile pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Transformation gallery</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog &amp; fitness content CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Google Analytics 4 &amp; GSC</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Multi-Location Gyms &amp; Chains</div>
-        <div class="price-name">Enterprise Gym</div>
-        <p class="price-tagline">A comprehensive fitness platform for gym groups with multiple locations, loyalty systems, and e-commerce.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Multi-location management system</div>
-        <div class="price-feat">Member loyalty &amp; points system</div>
-        <div class="price-feat">Online PT session booking</div>
-        <div class="price-feat">E-commerce (supplements, gear)</div>
-        <div class="price-feat">Member portal &amp; attendance tracking</div>
-        <div class="price-feat">Corporate membership management</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -680,7 +636,7 @@
     </div>
     <p>Not all web development options are equal — especially for fitness businesses where a slow or generic website directly costs you membership sign-ups every single day.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for fitness businesses">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for fitness businesses">
     <thead>
       <tr>
         <th>Feature</th>
@@ -739,7 +695,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -913,7 +869,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a fitness website<br>that fills your gym with members?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current site, map your keyword opportunities, and show you exactly what we would build — and why it will grow your member base.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-fitness-website-design', 'source_label' => 'Fitness Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

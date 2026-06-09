@@ -2,6 +2,34 @@
 
 @section('title', 'Law Firm Website Design - i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Law Firm Website Design', 'item' => route('site.lawyer')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How long does it take to build my website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The Starter package is delivered in 7 days, the Professional in 14 days. Enterprise timelines depend on scope, typically 3 to 6 weeks. We\'ve never missed a deadline.']],
+        ['@type' => 'Question', 'name' => 'Do I need to provide content and photos?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We guide you through exactly what\'s needed. We provide copywriting support and can source professional stock photography if you don\'t have brand photos yet.']],
+        ['@type' => 'Question', 'name' => 'Will I be able to update the site myself?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We build on WordPress or a headless CMS so you can update blog posts, team profiles, and service pages without any technical knowledge.']],
+        ['@type' => 'Question', 'name' => 'Do you offer hosting and maintenance?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We offer monthly maintenance retainers that include hosting, security updates, backups, and content updates so your site stays fast, secure, and current.']],
+        ['@type' => 'Question', 'name' => 'Can this template be adapted for other industries?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'This page is specifically for law firms, but i2Medier builds dedicated landing pages for medical practices, financial advisors, real estate agencies, and more, each uniquely crafted.']],
+        ['@type' => 'Question', 'name' => 'What if I don\'t like the initial design?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every package includes revision rounds. We work with you until you love it. Our discovery process ensures we understand your vision before a single pixel is placed.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/lawyer.css')
 @endpush
@@ -232,66 +260,8 @@
   </div>
 </section>
 
-<section id="pricing">
-  <div class="section-tag">Investment</div>
-  <h2 class="section-title">Simple, Transparent<br><em>Pricing</em></h2>
-  <p class="section-sub">No surprises, no hidden fees. Choose the package that fits your firm's size and ambition.</p>
+@include('site.partials.industry-package')
 
-  <div class="pricing-grid">
-    <div class="pricing-card fade-up">
-      <div class="pricing-tier">Starter</div>
-      <div class="pricing-price"><span>₦</span>350,000</div>
-      <div class="pricing-period">One-time payment · Delivered in 7 days</div>
-      <div class="pricing-divider"></div>
-      <div class="pricing-features">
-        <div class="pricing-feature active">5-page custom website</div>
-        <div class="pricing-feature active">Mobile-responsive design</div>
-        <div class="pricing-feature active">Contact &amp; consultation form</div>
-        <div class="pricing-feature active">Basic SEO setup</div>
-        <div class="pricing-feature active">1 revision round</div>
-        <div class="pricing-feature inactive">Blog / content system</div>
-        <div class="pricing-feature inactive">Live chat integration</div>
-        <div class="pricing-feature inactive">Attorney profile pages</div>
-      </div>
-      <a href="{{ route('site.start') }}" class="btn-primary" style="display:block;text-align:center;width:100%">Get Started</a>
-    </div>
-    <div class="pricing-card featured fade-up">
-      <div class="featured-tag">Most Popular</div>
-      <div class="pricing-tier">Professional</div>
-      <div class="pricing-price"><span>₦</span>750,000</div>
-      <div class="pricing-period">One-time payment · Delivered in 14 days</div>
-      <div class="pricing-divider"></div>
-      <div class="pricing-features">
-        <div class="pricing-feature active">Up to 12 custom pages</div>
-        <div class="pricing-feature active">Mobile-first development</div>
-        <div class="pricing-feature active">Lead capture &amp; intake forms</div>
-        <div class="pricing-feature active">Full local SEO optimization</div>
-        <div class="pricing-feature active">3 revision rounds</div>
-        <div class="pricing-feature active">Blog / content system</div>
-        <div class="pricing-feature active">Live chat integration</div>
-        <div class="pricing-feature active">Attorney profile pages</div>
-      </div>
-      <a href="#contact" class="btn-primary" style="display:block;text-align:center;width:100%">Start This Package</a>
-    </div>
-    <div class="pricing-card fade-up">
-      <div class="pricing-tier">Enterprise</div>
-      <div class="pricing-price">Custom</div>
-      <div class="pricing-period">Multi-attorney firms · Custom timeline</div>
-      <div class="pricing-divider"></div>
-      <div class="pricing-features">
-        <div class="pricing-feature active">Unlimited pages</div>
-        <div class="pricing-feature active">Custom web application features</div>
-        <div class="pricing-feature active">Client portal integration</div>
-        <div class="pricing-feature active">Advanced SEO &amp; content strategy</div>
-        <div class="pricing-feature active">Unlimited revisions</div>
-        <div class="pricing-feature active">CRM &amp; billing integration</div>
-        <div class="pricing-feature active">Ongoing maintenance retainer</div>
-        <div class="pricing-feature active">Priority support</div>
-      </div>
-      <a href="#contact" class="btn-primary" style="display:block;text-align:center;width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold)">Talk to Us</a>
-    </div>
-  </div>
-</section>
 
 <section class="testi-section" id="work">
   <div class="section-tag">Client Results</div>
@@ -372,7 +342,7 @@
     <h2 class="cta-big">Your Next Client Is<br>Searching Right <em>Now.</em></h2>
     <p class="section-sub" style="margin:0 auto;text-align:center">Don't let them find a competitor's website first. Let's build yours today, strategic, fast, and built to win.</p>
     <div class="cta-actions">
-      <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-lawyer', 'source_label' => 'Lawyer Industry Page']) }}" class="btn-primary">Start My Project →</a>
+      <a href="{{ $startUrl }}" class="btn-primary">Start My Project →</a>
       <a href="https://i2medier.com/contact" class="btn-ghost">Schedule a Call <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div class="cta-note">Free consultation · No commitment · Response within 24 hours</div>

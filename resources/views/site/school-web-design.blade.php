@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Schools | School Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'School Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'school-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Can parents submit admissions applications directly through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We build online admissions enquiry forms as standard, and for schools wanting a full application portal, we can build a custom system where parents complete the full application online, upload required documents, and receive automated acknowledgement emails. All submissions are forwarded to your admissions team instantly. More advanced portals with status tracking are available in our Enterprise package.']],
+        ['@type' => 'Question', 'name' => 'Can we update the gallery and news section ourselves after the website launches?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core principle of every school website we build. We use ACF Pro to create simple, intuitive editing interfaces so your admin, school secretary, or communications officer can upload new photos, publish news articles, add events to the calendar, and update any content without touching code. Every handover includes a CMS training session and a written admin guide specific to your school\'s website workflows.']],
+        ['@type' => 'Question', 'name' => 'How do you display WAEC and JAMB results on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build a dedicated Results and Achievements section where your WAEC pass rates, NECO performance, JAMB statistics, and subject-specific results are presented in a visually clear, credible format — with summary statistics, year-on-year comparisons where available, and subject breakdown. This section is structured with schema markup so Google can read and surface your results data in rich search results. You can update these annually through the CMS without developer help.']],
+        ['@type' => 'Question', 'name' => 'Can the website include a school events calendar and term dates?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We build a fully integrated school calendar where you can add term dates, open days, PTFA meetings, examination periods, sports fixtures, and school events. Each event can include details, location, and a download link. The calendar is publicly visible and also helps with SEO — events are marked up with Event schema so Google can surface them in search results, especially useful for open day visibility in your target area.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a school website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard school website with 10–15 pages, gallery, news section, and admissions form typically takes 3–5 weeks from design approval to launch. Larger projects with full programme pages, a custom application portal, or virtual tour integration may take 6–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when. Many schools time their launch to coincide with a new admissions season or the start of a new term.']],
+        ['@type' => 'Question', 'name' => 'Will our school website rank on Google without additional monthly payments?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every website we build includes a full on-site SEO foundation — semantic HTML, optimised title tags and meta descriptions per page, EducationalOrganization and LocalBusiness schema markup, XML sitemap, canonical URLs, and Google Search Console submission. This foundation gives your school the technical basis to rank. For schools in competitive markets — major cities like Lagos and Abuja — we recommend our ongoing SEO retainer, which adds off-page SEO, monthly content, citation building, and ranking reports to drive long-term organic growth.']],
+        ['@type' => 'Question', 'name' => 'Can the website serve parents who speak languages other than English?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. For international schools or institutions serving communities with Yoruba, Igbo, Hausa, French, or other language preferences, we can build a multilingual website using the WPML or TranslatePress plugins. Each language version is independently SEO-optimised, with separate URL structures, hreflang tags, and localised content. This is particularly valuable for international schools serving expatriate communities or French-speaking families in Nigeria. We discuss multilingual requirements during the initial discovery session.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -585,82 +615,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>school</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical school website scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Nursery, Primary &amp; Small Schools</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible school website that communicates your values and captures parent enquiries from day one.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with enrolment CTA</div>
-        <div class="price-feat">Up to 8 pages</div>
-        <div class="price-feat">Online admissions enquiry form</div>
-        <div class="price-feat">Photo gallery section</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Academic programme pages</div>
-        <div class="price-feat no">News &amp; events calendar</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-featured school website built to rank on Google, drive admissions enquiries, and grow with your institution.</p>
-        <div class="price-amount">₦800k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full academic programme pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Events calendar &amp; news section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Staff &amp; leadership profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Results &amp; achievements showcase</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Photo gallery (organised categories)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Online application form</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Universities, Multi-Campus &amp; International Schools</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A comprehensive digital platform for large institutions with multiple campuses, e-learning, and advanced portals.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Multi-campus site architecture</div>
-        <div class="price-feat">E-learning portal integration</div>
-        <div class="price-feat">Online application portal (custom)</div>
-        <div class="price-feat">Alumni portal &amp; directory</div>
-        <div class="price-feat">Parent communication system</div>
-        <div class="price-feat">Virtual campus tour</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -671,7 +627,7 @@
     </div>
     <p>Not all web development options are equal — especially for schools where trust and first impressions directly affect enrolment decisions.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for schools">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for schools">
     <thead>
       <tr>
         <th>Feature</th>
@@ -730,7 +686,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -923,7 +879,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a school website<br>that drives admissions?</h2>
   <p>Get a free, no-obligation consultation and school website proposal. We will review your current site, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-school-website-design', 'source_label' => 'School Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

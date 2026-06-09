@@ -2,6 +2,68 @@
 
 @section('title', 'Laravel Web Application Development Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Laravel Development', 'item' => route('site.services.laravel-development')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'When should I use Laravel instead of WordPress?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Use Laravel when your project requires custom business logic, complex user roles, real-time features, multi-tenant architecture, or any functionality that a CMS cannot handle out of the box. WordPress is ideal for content-driven sites. Laravel is the right choice when you are building a web application — something with state, workflows, transactions, and rules specific to your business. If you\'re unsure, book a free consultation and we\'ll give you our honest recommendation.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does a Laravel application take to build?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Simple applications with standard CRUD functionality typically take 6–8 weeks from design sign-off to production deployment. Mid-complexity platforms — multi-role portals, SaaS with subscription billing, marketplace apps — range from 8–14 weeks. Enterprise systems with complex business logic, multiple integrations, and large data models can take 16+ weeks. We provide a detailed, milestone-by-milestone timeline during the discovery phase.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you use Laravel Livewire and Filament?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, on virtually every project. Livewire 3 is our default for reactive, real-time UI within Laravel — it gives a smooth, SPA-like experience without the complexity and maintenance overhead of Vue.js or React. Filament 3 is our admin panel framework of choice — it produces a powerful, customisable dashboard with resources, widgets, and actions in a fraction of the time of building a custom admin from scratch. Both integrate seamlessly with the rest of the Laravel ecosystem.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you integrate payment gateways into a Laravel app?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely — and it is one of our most requested features. We have integrated Paystack, Stripe, Flutterwave, and PayPal into multiple production Laravel applications. Our implementations handle webhook listeners with signature verification, idempotent payment processing, subscription billing with renewal logic, invoice generation, multi-currency support, and full payment audit trails. We test against sandbox environments before any live processing occurs.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Will you build a REST API for my application?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — every application we build includes a REST API as standard. We use Laravel Sanctum for token-based API authentication and structure all endpoints with versioning, consistent JSON responses, appropriate HTTP status codes, and rate limiting. We also write Postman collection documentation delivered on handover. If you need OAuth2 for third-party integrations, we implement Laravel Passport instead of Sanctum.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does a Laravel application cost?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Laravel projects are priced based on scope, complexity, and timeline. Simple applications start from ₦800,000. Mid-complexity platforms — multi-role portals with payment integration and Livewire interfaces — typically range from ₦1.5M to ₦4M. Enterprise and SaaS applications are quoted individually. We provide a written, itemised proposal after a free discovery session — you know exactly what you are paying for before any commitment is made.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you write tests for Laravel applications?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — automated testing is a standard deliverable, not an optional add-on. We write test suites using Pest (our preference) or PHPUnit, targeting a minimum of 80% coverage on all business-critical modules — authentication flows, payment processing, role-based access, API responses, and form validation. Tests are committed to the same repository as the application code and run on every push via GitHub Actions before any production deployment.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can my team maintain the application after handover?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We write code to be readable and maintainable by any competent PHP developer, not just by us. On handover you receive the full source code on a private GitHub repository, a technical documentation pack covering architecture decisions, environment setup, and deployment procedures, and a developer handover session if required. The codebase follows Laravel conventions strictly — any Laravel developer can pick it up and continue working on it without a steep learning curve.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/laravel-development.css')
 @endpush

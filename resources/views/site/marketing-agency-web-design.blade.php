@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Marketing Agencies | Agency Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Marketing Agency Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'marketing-agency-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a website for a marketing agency cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Marketing agency websites start from ₦350,000 for a clean, professional site with service pages, a few case studies, and an enquiry form. A full growth website with individual service channel pages, a comprehensive case study and portfolio section, team profiles, insights blog, and advanced SEO starts from ₦750,000. Enterprise platforms for larger agencies are quoted individually. Every quote is detailed and itemised before any commitment is required.']],
+        ['@type' => 'Question', 'name' => 'What pages should a marketing agency website have?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A high-performing marketing agency website should include: Home, About and Team, individual service pages (one per channel, covering SEO, Paid Ads, Social Media, Content, Email, and more), Case Studies (individual pages with specific results), Portfolio, Industries Served, Insights Blog, Process/How We Work, and Contact/Strategy Call. Individual service channel pages are especially important for SEO because they allow you to rank for specific searches like "SEO agency Lagos" or "social media agency Nigeria" and give prospects the detailed information they need to choose your agency for that specific service.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a marketing agency website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard marketing agency website takes 3 to 5 weeks from design approval to launch. Larger platforms with many service pages, extensive case study and portfolio sections, and an active blog may take 5 to 8 weeks. We provide a detailed milestone-based timeline at the start of every project so that you always know exactly what is in progress and when the next stage will be delivered.']],
+        ['@type' => 'Question', 'name' => 'Will my marketing agency website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every website we build includes a complete SEO technical foundation covering optimised title tags and meta descriptions, ProfessionalService schema markup, XML sitemap, canonical URLs, and Google Search Console submission from day one. For competitive marketing agency keywords such as "digital marketing agency Lagos" and "SEO agency Nigeria", this technical foundation combined with well-structured service pages and regular content publication gives you the best possible organic ranking trajectory. Monthly SEO retainers are also available for ongoing campaign work.']],
+        ['@type' => 'Question', 'name' => 'Can I update case studies and portfolio items myself?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Updating case studies, adding portfolio items, publishing insights articles, and editing team profiles are all core content workflows that every handover includes. We use ACF Pro to create intuitive, field-based editing interfaces for all content types, so no coding is required. Adding a new case study is as simple as filling in a form covering client name, industry, challenge, strategy, results, and metrics. You also receive CMS training, a written admin guide, and a 30-day post-launch support window to cover any questions that arise.']],
+        ['@type' => 'Question', 'name' => 'Do you build websites for specialist or niche marketing agencies?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with full-service agencies, performance marketing specialists, creative studios, SEO-focused agencies, social media agencies, content marketing firms, and B2B marketing consultancies. The page architecture, service descriptions, and keyword strategy are tailored to your specific positioning and the channels you specialise in. A specialist agency and a full-service agency need very different website approaches, and we design each engagement from the specific positioning outward.']],
+        ['@type' => 'Question', 'name' => 'Can potential clients book a strategy call directly through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We integrate strategy call booking (Calendly or similar), a multi-step project brief form that pre-qualifies prospects before the first conversation, and direct contact options. Every form submission is routed to your inbox and optionally to your CRM, with automatic confirmation messages sent to the prospect. The goal is to make the path from "interested visitor" to "booked strategy call" as frictionless and fast as possible, with no manual follow-up required on your end.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -591,82 +621,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>marketing agency</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope for marketing agencies, and your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Boutique & Solo Agencies</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible website for a boutique or solo marketing agency that needs a strong professional presence quickly.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 6 pages</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">Service pages (up to 3 channels)</div>
-        <div class="price-feat">Case studies (up to 3)</div>
-        <div class="price-feat">Strategy call form</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Portfolio section</div>
-        <div class="price-feat no">Insights blog CMS</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full agency website built to rank, showcase results, and convert every visiting prospect into a new business conversation.</p>
-        <div class="price-amount">₦750k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Up to 15 pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Custom theme + ACF Pro</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">All service channel pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Portfolio + case studies (up to 6)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Team profiles section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Insights blog CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Multi-Service & Growing Agencies</div>
-        <div class="price-name">Enterprise Agency</div>
-        <p class="price-tagline">A comprehensive digital platform for larger agencies with multiple service lines, dedicated specialists, and an active content programme.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Unlimited pages & services</div>
-        <div class="price-feat">Unlimited case studies & portfolio</div>
-        <div class="price-feat">Industry vertical pages</div>
-        <div class="price-feat">Awards & press sections</div>
-        <div class="price-feat">Client results dashboard</div>
-        <div class="price-feat">Newsletter & email capture</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -678,7 +634,7 @@
     <p>Not all web development options deliver the same results, and this matters most for marketing agencies where your website is the most visible demonstration of your digital capabilities.</p>
   </div>
   <div class="compare-table-wrap">
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for marketing agencies">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for marketing agencies">
     <thead>
       <tr>
         <th>Feature</th>
@@ -737,7 +693,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Usually paid extra</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
   </div>
 </section>
 
@@ -924,7 +880,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a marketing agency<br>website that wins clients?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will review your current site, map your keyword opportunities, and show you exactly what we would build and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-marketing-agency-website-design', 'source_label' => 'Marketing Agency Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

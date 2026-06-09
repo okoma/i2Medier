@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Ecommerce Brands | Online Store Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'E-Commerce Brand Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'ecommerce-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Do you integrate Paystack and Stripe into ecommerce websites?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — both Paystack and Stripe are included as standard in our Growth Store and Enterprise packages, and Paystack is included in the Essential Store. Paystack covers Nigerian buyers paying by card, bank transfer, or USSD. Stripe handles international buyers and UK customers. We test every payment pathway on real Nigerian bank cards before launch. We also support Flutterwave if your business already uses it.']],
+        ['@type' => 'Question', 'name' => 'Can you migrate my products from an existing store?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We migrate product data — titles, descriptions, prices, images, categories, SKUs, and inventory levels — from your existing Shopify, WooCommerce, Jumia vendor dashboard, or spreadsheet into the new store. For catalogues of 50+ products, migration is handled as a structured data process to ensure accuracy. We also use the migration as an opportunity to audit and improve product titles and descriptions for SEO.']],
+        ['@type' => 'Question', 'name' => 'Can customers track their orders after purchase?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — every store we build includes an order tracking page where customers enter their order number and email to see their current delivery status. For stores using logistics partners like GIG Logistics, Sendbox, or DHL, we integrate the tracking API so statuses update automatically. We also configure post-purchase confirmation emails with tracking links so customers always know where their order is.']],
+        ['@type' => 'Question', 'name' => 'How do you handle inventory management?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'WooCommerce includes built-in inventory management — you set stock levels per product and variation (size, colour, etc.), and the store automatically marks items as out of stock when inventory reaches zero. You receive low-stock email alerts. For brands with more complex inventory needs — multiple warehouse locations, purchase orders, or ERP synchronisation — we build custom inventory modules or integrate with existing systems like Odoo or QuickBooks Commerce.']],
+        ['@type' => 'Question', 'name' => 'Is the store optimised for mobile shopping?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — mobile is the primary design target for every ecommerce store we build. Over 80% of Nigerian ecommerce traffic comes from mobile devices, so every interaction — product image swipe, filter selection, size choice, add to cart, checkout form — is designed first for a phone screen. We also optimise image formats and sizes for fast loading on Nigerian mobile networks (MTN, Airtel, Glo) and test on real Android and iOS devices before launch.']],
+        ['@type' => 'Question', 'name' => 'Can the website recover abandoned carts automatically?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — our Growth Store and Enterprise packages include an abandoned cart recovery system. When a customer adds products to their cart and leaves without purchasing (and has previously entered their email address), they receive an automatic recovery email sequence: a first reminder at 1 hour, a follow-up at 24 hours with a personalised incentive (optional), and a final reminder at 72 hours. Clients using our abandoned cart recovery typically see 15–25% of abandoned carts recovered as completed purchases.']],
+        ['@type' => 'Question', 'name' => 'Can my products appear in Google Shopping results?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — as part of our SEO setup, we configure a Google Merchant Center product feed that submits your catalogue to Google Shopping. This allows your products to appear in the Google Shopping tab with images, prices, and your store name. We also implement Product schema markup on every product page so Google can display rich product results — including price, availability, and review stars — directly in standard search results. Both channels can significantly increase organic traffic without additional ad spend.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -622,81 +652,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>ecommerce brand</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">New & Growing Brands</div>
-        <div class="price-name">Essential Store</div>
-        <p class="price-tagline">A clean, fast, and credible online store for a brand launching or upgrading its ecommerce presence.</p>
-        <div class="price-amount">₦500k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 50 products</div>
-        <div class="price-feat">Homepage, category & product pages</div>
-        <div class="price-feat">Paystack integration</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">Basic SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Order confirmation emails</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Abandoned cart recovery</div>
-        <div class="price-feat no">Blog / buying guides</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Store</div>
-        <p class="price-tagline">A full-featured ecommerce store built to rank on Google, convert visitors, and scale with your brand.</p>
-        <div class="price-amount">₦1M <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Unlimited products</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Advanced filtering & search</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Abandoned cart recovery</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Customer reviews system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog & buying guides CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Loyalty points programme</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">GA4 ecommerce tracking</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Established & Enterprise Brands</div>
-        <div class="price-name">Enterprise Store</div>
-        <p class="price-tagline">A comprehensive commerce platform for brands with complex inventory, multiple vendors, or subscription products.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Custom inventory management</div>
-        <div class="price-feat">Multi-vendor marketplace</div>
-        <div class="price-feat">ERP & warehouse integration</div>
-        <div class="price-feat">Subscription products</div>
-        <div class="price-feat">Advanced analytics dashboard</div>
-        <div class="price-feat">Custom fulfilment logic</div>
-        <div class="price-feat">Full SEO retainer available</div>
-        <div class="price-feat">90-day support & SLA</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -707,7 +664,7 @@
     </div>
     <p>Not all ecommerce development options deliver the same results — especially for product brands where conversion rate is the difference between profit and loss.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for ecommerce brands">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for ecommerce brands">
     <thead>
       <tr>
         <th>Feature</th>
@@ -766,7 +723,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -955,7 +912,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an ecommerce store<br>that actually converts?</h2>
   <p>Get a free, no-obligation store audit and website proposal. We will review your current ecommerce setup, calculate what your conversion rate is costing you monthly, and show you exactly what we would build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-ecommerce-website-design', 'source_label' => 'Ecommerce Brand Industry Page']) }}" class="btn-dark">Get Your Free Audit →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Audit →</a>
 </section>
 @endsection
 

@@ -2,6 +2,58 @@
 
 @section('title', 'Email Deliverability Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Email Deliverability', 'item' => route('site.services.email-deliverability')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'How do I know if I have a deliverability problem?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The clearest signs are: lower-than-usual open rates, clients saying they didn\'t receive emails you sent, bounce rates above 2–3%, or a sudden drop in email engagement. If any of these apply, an audit will confirm whether deliverability is the cause.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What is the difference between SPF, DKIM, and DMARC?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'SPF tells receiving servers which IPs are allowed to send email for your domain. DKIM adds a cryptographic signature to every message so the receiver can verify it was not tampered with. DMARC ties the two together and tells receiving servers what to do with messages that fail either check. All three are needed for strong inbox placement.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you get my domain removed from a blacklist?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We submit removal requests to each blacklist provider your domain or IP is listed on. Most providers remove clean listings within 24–72 hours of a valid request. We verify clearance after each removal before closing the work.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Why should cold email not be sent from my main domain?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Cold email generates higher complaint and bounce rates than warm email to your own list. If that activity is associated with your primary domain, the damage carries over to all the legitimate email you send from that domain — proposals, invoices, client communication. Dedicated sending domains isolate the risk.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does it take to fix email deliverability?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'DNS record fixes take effect within 1–24 hours (depending on TTL settings). Blacklist removals typically complete within 24–72 hours. Domain warm-up for cold email infrastructure takes 3–6 weeks. A full fix for a typical business domain is usually complete within 48–72 hours of us starting work.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do I need access to my domain\'s DNS settings?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. DNS record changes require access to your domain registrar or DNS provider (Namecheap, GoDaddy, Cloudflare, etc.). You can either share access with us or we can provide you with the exact records to add yourself. We support both approaches.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/email-deliverability.css')
 @endpush

@@ -1,3 +1,6 @@
+import { initFaqButtons } from './service-common.js';
+initFaqButtons('.faq-q');
+
 const page = document.getElementById('email-deliverability-checker-page');
 
 if (page) {
@@ -14,12 +17,13 @@ if (page) {
         'Checking SPF record syntax and includes…',
         'Verifying DKIM key alignment…',
         'Analysing DMARC policy and reporting…',
-        'Cross-referencing major spam blacklists…',
-        'Scanning for content spam triggers…',
+        'Cross-referencing Spamhaus ZEN and SpamCop…',
+        'Looking up PTR reverse DNS records…',
+        'Scanning subject line for spam triggers…',
         'Evaluating domain reputation signals…',
         'Scoring your deliverability profile…',
     ];
-    const stepIds = ['step-dns', 'step-spf', 'step-dkim', 'step-dmarc', 'step-blacklist', 'step-content', 'step-reputation'];
+    const stepIds = ['step-dns', 'step-spf', 'step-dkim', 'step-dmarc', 'step-blacklist', 'step-ptr', 'step-content', 'step-reputation'];
     let history = JSON.parse(localStorage.getItem(historyStorageKey) || '[]');
     let currentResult = null;
     let msgInterval = null;
@@ -343,7 +347,7 @@ if (page) {
                 ${(result.checks || []).map((check, index) => {
                     const badgeClass = check.status === 'pass' ? 'badge-pass' : check.status === 'warn' ? 'badge-warn' : check.status === 'fail' ? 'badge-fail' : 'badge-info';
                     const cardClass = check.status === 'pass' ? 'status-pass' : check.status === 'warn' ? 'status-warn' : check.status === 'fail' ? 'status-fail' : 'status-info';
-                    const iconMap = { DNS: 'icon-globe', SPF: 'icon-shield', DKIM: 'icon-key', DMARC: 'icon-lock', Blacklist: 'icon-ban', Content: 'icon-file', Reputation: 'icon-star', Security: 'icon-lock' };
+                    const iconMap = { DNS: 'icon-globe', SPF: 'icon-shield', DKIM: 'icon-key', DMARC: 'icon-lock', Blacklist: 'icon-ban', PTR: 'icon-globe', Content: 'icon-file', Reputation: 'icon-star', Security: 'icon-lock' };
                     const barClass = check.status === 'pass' ? 'fill-ok' : check.status === 'warn' ? 'fill-warn' : 'fill-err';
                     const barWidth = Math.max(0, Math.min(100, 50 + Number(check.score_impact || 0) * 2));
                     return `

@@ -2,6 +2,58 @@
 
 @section('title', 'E-Commerce Website Development Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'E-Commerce Website Development', 'item' => route('site.services.ecommerce-website')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Which platform should I choose — WooCommerce, Shopify, or custom?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It depends on your business model. WooCommerce is the right choice when content and SEO drive your traffic, when you want full server control, or when you need complex product types. Shopify is better when you want a reliable hosted platform with minimal technical maintenance and you are focused on selling standard products internationally. Custom Laravel is right when your model has unique requirements — marketplaces, B2B accounts, subscriptions — that standard platforms cannot handle cleanly. We make this recommendation during discovery after understanding your specific situation.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you integrate Paystack for Nigerian stores?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — Paystack is our primary payment gateway for naira-denominated stores and we integrate it across WooCommerce, Shopify, and custom Laravel builds. We also integrate Stripe for international payments and Flutterwave when needed. All integrations include proper webhook handling, order status synchronisation, and testing against the payment sandbox before going live. We do not consider a payment integration complete until we have processed a full end-to-end test transaction.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does it take to build an online store?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard WooCommerce or Shopify store typically takes 4–6 weeks from design sign-off to launch. Stores with larger catalogues, custom checkout flows, or complex configurations take 6–8 weeks. Custom Laravel e-commerce platforms with unique business logic — marketplaces, B2B systems, subscription commerce — take 10–16 weeks depending on scope. We provide a detailed, milestone-by-milestone timeline during discovery. You will know exactly when each phase starts and ends before any work begins.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you migrate products from an existing store?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — product data migration is included where needed. We handle CSV imports, image transfers, variant mapping, category restructuring, and order history migration where the target platform supports it. For large catalogues we build custom migration scripts to ensure data integrity and catch errors before they reach the live store. We also handle redirects from the old store to the new URLs to preserve any search equity your products have built up.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Will the store be manageable by my team after handover?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — that is a core design goal for every store we build. We do not build stores that require a developer to add a product, change a price, or run a sale. On handover you receive a custom store management guide covering the tasks your team will perform most frequently, a walkthrough session, and a 30 to 60-day support window to handle any questions that come up during day-to-day use.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does an e-commerce website cost?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Standard WooCommerce and Shopify stores start from ₦600,000. Full-featured stores with custom checkout, multi-gateway payments, and complete operational setup range from ₦1.2M to ₦3M. Custom Laravel stores — marketplaces, B2B platforms, and subscription commerce — start from ₦1.5M and are quoted based on scope. All projects receive a written, itemised proposal after a free discovery call. You know exactly what you are paying for before any commitment is made.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/ecommerce-website.css')
 @endpush

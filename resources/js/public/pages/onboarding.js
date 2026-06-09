@@ -1,4 +1,6 @@
 import FALLBACK_SERVICES from './onboarding-services';
+import '../footer';
+import '../header';
 
 
     const SERVICES = resolveServices();
@@ -15,6 +17,7 @@ import FALLBACK_SERVICES from './onboarding-services';
     let source = '';
     let domainPreference = '';
     let hostingPreference = '';
+    let selectedPages = new Set();
 
     const fallbackUrl = document.body.dataset.onboardingFallbackUrl || '/';
     const submitUrl = document.body.dataset.onboardingSubmitUrl || window.location.pathname;
@@ -45,6 +48,19 @@ import FALLBACK_SERVICES from './onboarding-services';
         repeat: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path></svg>`
     };
 
+    const OPTIONAL_PAGES = [
+        {id:'portfolio',    label:'Portfolio',      icon:'image'},
+        {id:'team',         label:'Our Team',       icon:'users'},
+        {id:'testimonials', label:'Testimonials',   icon:'star'},
+        {id:'faq',          label:'FAQ',            icon:'help'},
+        {id:'pricing',      label:'Pricing Page',   icon:'cash'},
+        {id:'gallery',      label:'Gallery',        icon:'camera'},
+        {id:'events',       label:'Events',         icon:'calendar'},
+        {id:'careers',      label:'Careers',        icon:'briefcase'},
+        {id:'privacy',      label:'Privacy Policy', icon:'lock'},
+        {id:'login',        label:'Login / Portal', icon:'key'},
+    ];
+
     function iconSvg(name) {
         return ICONS[name] || ICONS.spark;
     }
@@ -73,7 +89,7 @@ import FALLBACK_SERVICES from './onboarding-services';
         const raw = document.body?.dataset?.onboardingPreset;
 
         if (!raw) {
-            return { services: [], platform: '', addons: [], source_page: '', source_label: '' };
+            return { services: [], platform: '', addons: [], source_page: '', source_label: '', locked: false };
         }
 
         try {
@@ -85,10 +101,11 @@ import FALLBACK_SERVICES from './onboarding-services';
                 addons: Array.isArray(parsed?.addons) ? parsed.addons : [],
                 source_page: typeof parsed?.source_page === 'string' ? parsed.source_page : '',
                 source_label: typeof parsed?.source_label === 'string' ? parsed.source_label : '',
+            locked:       parsed?.locked === true,
             };
         } catch (error) {
             console.warn('Failed to parse onboarding preset payload.', error);
-            return { services: [], platform: '', addons: [], source_page: '', source_label: '' };
+            return { services: [], platform: '', addons: [], source_page: '', source_label: '', locked: false };
         }
     }
 
@@ -158,38 +175,65 @@ import FALLBACK_SERVICES from './onboarding-services';
             return;
         }
 
-        const hint = document.getElementById('svc-hint');
+        const notice = document.getElementById('svc-preset-notice');
 
-        if (!hint) {
+        if (!notice) {
             return;
         }
 
         const selectedNames = PRESET.services
             .map(serviceId => getServiceDisplayName(serviceId))
-            .filter(Boolean)
-            .join(', ');
+            .filter(Boolean);
 
-        const source = PRESET.source_label ? ` from ${PRESET.source_label}` : '';
-        hint.textContent = `Preselected${source}: ${selectedNames}. You can change this before continuing.`;
-        hint.classList.add('visible');
+        const namesHtml = selectedNames.map(n => `<strong>${esc(n)}</strong>`).join(', ');
+
+        if (PRESET.locked) {
+            const sourceHtml = PRESET.source_label ? ` from our <strong>${esc(PRESET.source_label)}</strong> page` : '';
+            notice.innerHTML = `You're getting ${namesHtml}${sourceHtml}. `
+                + `Customise your add-ons below — the service itself is fixed for this package.`;
+            notice.classList.add('visible', 'locked');
+        } else {
+            const sourceHtml = PRESET.source_label ? ` based on your interest in our <strong>${esc(PRESET.source_label)}</strong>` : '';
+            notice.innerHTML = `We've pre-selected ${namesHtml}${sourceHtml}. `
+                + `These are highlighted below — tick or untick any service to adjust your quote before continuing.`;
+            notice.classList.add('visible');
+        }
     }
 
     function renderServiceGrid() {
         const grid = document.getElementById('service-grid');
         if (!grid) return;
-        grid.innerHTML = SERVICES.map(s => `
-            <div class="svc-card" id="svc-${s.id}" onclick="toggleService('${s.id}')">
-              <div class="svc-card-check" id="chk-${s.id}"></div>
+        grid.innerHTML = SERVICES.map(s => {
+            const isSelected = selectedServices.has(s.id);
+            const isLocked   = PRESET.locked && isSelected;
+            const isDisabled = PRESET.locked && !isSelected;
+            const safeId = esc(s.id);
+            let cls = 'svc-card';
+            if (isSelected) cls += ' selected';
+            if (isLocked)   cls += ' locked';
+            if (isDisabled) cls += ' disabled';
+            return `
+            <div class="${cls}" id="svc-${safeId}" data-id="${safeId}"${isDisabled ? ' aria-disabled="true"' : ''}>
+              <div class="svc-card-check" id="chk-${safeId}">${isLocked ? iconSvg('lock') : isSelected ? '✓' : ''}</div>
               <div class="svc-card-ico">${iconSvg(s.icon)}</div>
-              <div class="svc-card-name">${s.name}</div>
-              <p class="svc-card-desc">${s.desc}</p>
-              <div class="svc-card-price">${s.priceLabel}</div>
+              <div class="svc-card-name">${esc(s.name)}</div>
+              <p class="svc-card-desc">${esc(s.desc)}</p>
+              <div class="svc-card-price">${esc(s.priceLabel)}</div>
               <div class="svc-card-type"><span class="type-icon" aria-hidden="true">${iconSvg(s.type === 'monthly' ? 'repeat' : 'spark')}</span>${s.type === 'monthly' ? 'Monthly' : 'One-time'}</div>
             </div>
-        `).join('');
+            `;
+        }).join('');
+        grid.querySelectorAll('.svc-card').forEach(el =>
+            el.addEventListener('click', () => toggleService(el.dataset.id))
+        );
     }
 
     function toggleService(id) {
+        if (PRESET.locked) {
+            // locked mode: the pre-selected service cannot be changed
+            return;
+        }
+
         const card = document.getElementById('svc-' + id);
         const chk = document.getElementById('chk-' + id);
 
@@ -200,6 +244,7 @@ import FALLBACK_SERVICES from './onboarding-services';
             delete selectedAddons[id];
             delete addonQuantities[id];
             delete selectedPlatforms[id];
+            if (id === 'webdesign') selectedPages.clear();
         } else {
             selectedServices.add(id);
             card?.classList.add('selected');
@@ -242,7 +287,12 @@ import FALLBACK_SERVICES from './onboarding-services';
                 ${selectedPlatforms[sid] ? '' : `<div class="platform-hint visible">Please choose a direction for your ${svc.name}.</div>`}
               </div>
             ` : '';
-            const addons = getServiceAddons(sid).filter(addon => !(sid === 'wordpress' && addon.id === 'wp-ecommerce' && selectedServices.has('ecommerce')));
+            const addons = getServiceAddons(sid).filter(addon =>
+                !(sid === 'wordpress' && addon.id === 'wp-ecommerce' && selectedServices.has('ecommerce')) &&
+                !(sid === 'webdesign' && addon.id === 'wd-extra-pages')
+            );
+
+            const pagePickerMarkup = sid === 'webdesign' ? renderWebsitePagePicker() : '';
 
             return `
               <div class="addons-section">
@@ -254,6 +304,7 @@ import FALLBACK_SERVICES from './onboarding-services';
                   </div>
                 </div>
                 ${platformMarkup}
+                ${pagePickerMarkup}
                 <div class="addon-grid">
                   ${addons.map(a => `
                     <div class="addon-card ${isAddonSelected(sid, a.id) ? 'selected' : ''}" id="addon-${a.id}" onclick="toggleAddon('${sid}','${a.id}')">
@@ -279,6 +330,8 @@ import FALLBACK_SERVICES from './onboarding-services';
               </div>
             `;
         }).join('');
+
+        attachPagePickerListeners();
     }
 
     function toggleAddon(serviceId, addonId) {
@@ -404,6 +457,64 @@ import FALLBACK_SERVICES from './onboarding-services';
         updateQuoteSidebar();
     }
 
+    function renderWebsitePagePicker() {
+        const STANDARD_PAGES = [
+            {icon:'home',  label:'Home'},
+            {icon:'user',  label:'About Us'},
+            {icon:'cog',   label:'Services'},
+            {icon:'mail',  label:'Contact'},
+        ];
+        const count = selectedPages.size;
+        const tallyText = count === 0
+            ? 'No additional pages selected — only the standard 4 pages are included'
+            : `${count} additional page${count > 1 ? 's' : ''} selected · +${fmt(count * 20000)}`;
+
+        const pageChip = (icon, label, checked, pageId) => `
+            <div class="page-check${checked ? ' checked' : ''}${pageId ? '' : ' is-standard'}"${pageId ? ` data-page-id="${pageId}"` : ''}>
+              <div class="page-check-box">${checked ? '✓' : ''}</div>
+              <span class="page-check-label">
+                <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#icon-${icon}"></use></svg></span>
+                ${label}
+              </span>
+            </div>`;
+
+        return `
+            <div class="page-picker-heading">Which pages do you need?</div>
+            <p class="page-picker-sub">Home, About Us, Services and Contact are always included. Tick any additional pages — each adds ₦20,000 to your quote.</p>
+            <div class="pages-grid">
+                ${STANDARD_PAGES.map(p => pageChip(p.icon, p.label, true, null)).join('')}
+                ${OPTIONAL_PAGES.map(p => pageChip(p.icon, p.label, selectedPages.has(p.id), p.id)).join('')}
+            </div>
+            <div class="page-picker-tally${count > 0 ? ' has-count' : ''}">${tallyText}</div>
+        `;
+    }
+
+    function attachPagePickerListeners() {
+        document.querySelectorAll('.page-check[data-page-id]').forEach(chip => {
+            chip.addEventListener('click', () => togglePage(chip.dataset.pageId));
+        });
+    }
+
+    function togglePage(pageId) {
+        if (selectedPages.has(pageId)) {
+            selectedPages.delete(pageId);
+        } else {
+            selectedPages.add(pageId);
+        }
+        const count = selectedPages.size;
+        if (!selectedAddons['webdesign']) selectedAddons['webdesign'] = new Set();
+        if (!addonQuantities['webdesign']) addonQuantities['webdesign'] = {};
+        if (count > 0) {
+            selectedAddons['webdesign'].add('wd-extra-pages');
+            addonQuantities['webdesign']['wd-extra-pages'] = count;
+        } else {
+            selectedAddons['webdesign'].delete('wd-extra-pages');
+            delete addonQuantities['webdesign']['wd-extra-pages'];
+        }
+        renderAddons();
+        updateQuoteSidebar();
+    }
+
     function updateQuoteSidebar() {
         const svcsEl = document.getElementById('qs-services-list');
         const addonsEl = document.getElementById('qs-addons-list');
@@ -445,7 +556,12 @@ import FALLBACK_SERVICES from './onboarding-services';
                     const addonTotal = getAddonTotal(addon, sid);
                     if (addon.monthly) monthlyTotal += addonTotal;
                     else onetimeTotal += addonTotal;
-                    addonsHtml += `<div class="qs-addon-item"><span class="qs-addon-name">+ ${addon.name}${addon.quantity ? ` x ${getAddonQuantity(sid, aid)}` : ''}</span><span class="qs-addon-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                    if (sid === 'webdesign' && aid === 'wd-extra-pages' && selectedPages.size > 0) {
+                        const pageNames = [...selectedPages].map(pid => OPTIONAL_PAGES.find(p => p.id === pid)?.label ?? pid).join(', ');
+                        addonsHtml += `<div class="qs-addon-item"><span class="qs-addon-name">+ Additional Pages<span class="qs-page-names">${pageNames}</span></span><span class="qs-addon-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                    } else {
+                        addonsHtml += `<div class="qs-addon-item"><span class="qs-addon-name">+ ${addon.name}${addon.quantity ? ` x ${getAddonQuantity(sid, aid)}` : ''}</span><span class="qs-addon-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                    }
                 });
             });
             if (addonsEl) addonsEl.innerHTML = hasAddons ? addonsHtml : '';
@@ -462,8 +578,8 @@ import FALLBACK_SERVICES from './onboarding-services';
     function fmt(n) { return '₦' + n.toLocaleString('en-NG'); }
     function selectTimeline(el) { document.querySelectorAll('.timeline-card').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); timeline = el.dataset.val; document.getElementById('err-timeline')?.classList.remove('visible'); }
     function selectSource(el) { document.querySelectorAll('#source-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); source = el.dataset.val; }
-    function selectDomainOption(el) { document.querySelectorAll('#domain-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); domainPreference = el.dataset.val; }
-    function selectHostingOption(el) { document.querySelectorAll('#hosting-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); hostingPreference = el.dataset.val; }
+    function selectDomainOption(el) { document.querySelectorAll('#domain-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); domainPreference = el.dataset.val; document.getElementById('err-domain')?.classList.remove('visible'); }
+    function selectHostingOption(el) { document.querySelectorAll('#hosting-grid .source-btn').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); hostingPreference = el.dataset.val; document.getElementById('err-hosting')?.classList.remove('visible'); }
     function toggleTerms() { termsAccepted = !termsAccepted; const chk = document.getElementById('terms-check'); if (chk) { chk.textContent = termsAccepted ? '✓' : ''; chk.classList.toggle('checked', termsAccepted); } if (termsAccepted) document.getElementById('err-terms')?.classList.remove('visible'); }
 
     function goNext(fromStep) { if (!validateStep(fromStep)) return; if (fromStep === 2) renderAddons(); if (fromStep === 4) buildReview(); goToStep(fromStep + 1); }
@@ -521,6 +637,14 @@ import FALLBACK_SERVICES from './onboarding-services';
         }
         if (step === 4 && !timeline) {
             document.getElementById('err-timeline')?.classList.add('visible');
+            ok = false;
+        }
+        if (step === 4 && !domainPreference) {
+            document.getElementById('err-domain')?.classList.add('visible');
+            ok = false;
+        }
+        if (step === 4 && !hostingPreference) {
+            document.getElementById('err-hosting')?.classList.add('visible');
             ok = false;
         }
         if (step === 3 && selectedServices.has('ecommerce') && !getSelectedPlatform('ecommerce')) ok = false;
@@ -582,6 +706,11 @@ import FALLBACK_SERVICES from './onboarding-services';
             if (service.type === 'monthly') monthlyTotal += basePrice;
             else onetimeTotal += basePrice;
             servicesHtml += `<div class="rs-item"><div class="rsi-left"><span class="rsi-ico">${iconSvg(service.icon)}</span><span class="rsi-name">${displayName}</span></div><span class="rsi-price">${priceLabel}</span></div>`;
+            if (sid === 'webdesign') {
+                const extraPageNames = [...selectedPages].map(pid => OPTIONAL_PAGES.find(p => p.id === pid)?.label ?? pid);
+                const allPageNames = ['Home', 'About Us', 'Services', 'Contact', ...extraPageNames];
+                servicesHtml += `<div class="rs-pages-row">Pages: ${allPageNames.join(' · ')}</div>`;
+            }
         });
         servicesHtml += '</div>';
 
@@ -597,7 +726,12 @@ import FALLBACK_SERVICES from './onboarding-services';
                 const addonTotal = getAddonTotal(addon, sid);
                 if (addon.monthly) monthlyTotal += addonTotal;
                 else onetimeTotal += addonTotal;
-                addonsHtml += `<div class="ra-item"><span class="ra-name">+ ${addon.name}${addon.quantity ? ` x ${getAddonQuantity(sid, aid)}` : ''}</span><span class="ra-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                if (sid === 'webdesign' && aid === 'wd-extra-pages' && selectedPages.size > 0) {
+                    const pageNames = [...selectedPages].map(pid => OPTIONAL_PAGES.find(p => p.id === pid)?.label ?? pid).join(', ');
+                    addonsHtml += `<div class="ra-item"><span class="ra-name">+ Additional Pages<span class="ra-page-names">${pageNames}</span></span><span class="ra-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                } else {
+                    addonsHtml += `<div class="ra-item"><span class="ra-name">+ ${addon.name}${addon.quantity ? ` x ${getAddonQuantity(sid, aid)}` : ''}</span><span class="ra-price">+${fmt(addonTotal)}${addon.monthly ? '/mo' : ''}</span></div>`;
+                }
             });
         });
         addonsHtml += '</div>';
@@ -646,6 +780,9 @@ import FALLBACK_SERVICES from './onboarding-services';
             services: [...selectedServices].map(serviceId => ({
                 id: serviceId,
                 platform: getSelectedPlatform(serviceId) || null,
+                pages: serviceId === 'webdesign' && selectedPages.size > 0
+                    ? ['Home', 'About Us', 'Services', 'Contact', ...[...selectedPages].map(pid => OPTIONAL_PAGES.find(p => p.id === pid)?.label ?? pid)]
+                    : undefined,
                 addons: [...(selectedAddons[serviceId] || [])].map(addonId => ({
                     id: addonId,
                     quantity: getAddon(serviceId, addonId)?.quantity ? getAddonQuantity(serviceId, addonId) : 1,
@@ -753,6 +890,7 @@ import FALLBACK_SERVICES from './onboarding-services';
 
     Object.assign(window, {
         toggleService,
+        togglePage,
         goToStep,
         renderAddons,
         toggleAddon,

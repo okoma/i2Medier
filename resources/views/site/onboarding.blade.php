@@ -7,11 +7,36 @@
 @endpush
 
 @section('content')
-    <nav>
+    <svg width="0" height="0" style="position:absolute;visibility:hidden" aria-hidden="true" focusable="false">
+        <symbol id="icon-home"       viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5"></path><path d="M6.5 9.5V20h11V9.5"></path></symbol>
+        <symbol id="icon-user"       viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></symbol>
+        <symbol id="icon-cog"        viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"></circle><path d="M19.4 15a1 1 0 0 0 .2 1.1l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V20a2 2 0 0 1-4 0v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H4a2 2 0 0 1 0-4h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1 1 0 0 0 1.1.2h.1a1 1 0 0 0 .6-.9V4a2 2 0 0 1 4 0v.2a1 1 0 0 0 .6.9 1 1 0 0 0 1.1-.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1 1 0 0 0-.2 1.1v.1a1 1 0 0 0 .9.6H20a2 2 0 0 1 0 4h-.2a1 1 0 0 0-.9.6z"></path></symbol>
+        <symbol id="icon-mail"       viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></symbol>
+        <symbol id="icon-pen"        viewBox="0 0 24 24"><path d="m4 20 4.5-1 9-9-3.5-3.5-9 9z"></path><path d="m13.5 6.5 3.5 3.5"></path></symbol>
+        <symbol id="icon-image"      viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.5"></circle><path d="m21 16-5.5-5.5L7 19"></path></symbol>
+        <symbol id="icon-users"      viewBox="0 0 24 24"><path d="M16 20a4 4 0 0 0-8 0"></path><circle cx="12" cy="9" r="3"></circle><path d="M22 20a4 4 0 0 0-3-3.87"></path><path d="M2 20a4 4 0 0 1 3-3.87"></path></symbol>
+        <symbol id="icon-star"       viewBox="0 0 24 24"><path d="m12 4 2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"></path></symbol>
+        <symbol id="icon-help"       viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-.9.7-1.7 1.3-1.7 2.7"></path><path d="M12 17h.01"></path></symbol>
+        <symbol id="icon-cash"       viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M7 9h.01M17 15h.01"></path></symbol>
+        <symbol id="icon-camera"     viewBox="0 0 24 24"><path d="M5 8h3l1.5-2h5L16 8h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"></path><circle cx="12" cy="13" r="3.5"></circle></symbol>
+        <symbol id="icon-calendar"   viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></symbol>
+        <symbol id="icon-briefcase"  viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path><path d="M3 12h18"></path></symbol>
+        <symbol id="icon-lock"       viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></symbol>
+        <symbol id="icon-key"        viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"></circle><path d="M12 15h9"></path><path d="M18 12v6"></path></symbol>
+    </svg>
+    <nav class="is-dark">
         @include('public.partials.logo', ['mode' => 'light', 'class' => 'logo'])
-        <span class="nav-step-label" id="nav-step-label">Step 1 of 5</span>
-        <a href="{{ route('site.home') }}" class="nav-back" onclick="return goBackToPrevious(event)">← Back to site</a>
+        @include('public.partials.menu')
+        <div class="nav-right">
+            <a href="{{ route('site.home') }}" class="nav-back" onclick="return goBackToPrevious(event)">← Back to site</a>
+        </div>
+        <button class="public-nav-toggle" type="button" aria-expanded="false" aria-controls="public-side-nav" aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
+    @include('public.partials.mobile-menu')
 
     <div class="progress-track" aria-hidden="true">
         <div class="progress-fill" id="progress-fill" style="width:20%"></div>
@@ -114,6 +139,7 @@
                             <p class="fph-desc">Select one or more services. You can choose multiple — we will build a single, coordinated proposal covering everything. Prices shown are starting points; your final quote will be specific to your scope.</p>
                         </div>
                         <div class="form-panel-body">
+                            <div class="svc-preset-notice" id="svc-preset-notice"></div>
                             <div class="service-grid" id="service-grid"></div>
                             <div class="svc-hint" id="svc-hint">Please select at least one service to continue.</div>
                             <div class="step-nav">
@@ -204,6 +230,7 @@
                                     <div class="source-btn" data-val="manage-domain" onclick="selectDomainOption(this)">I want i2Medier to procure and manage it</div>
                                     <div class="source-btn" data-val="unsure-domain" onclick="selectDomainOption(this)">I’m not sure yet</div>
                                 </div>
+                                <span class="field-error" id="err-domain">Please select a domain preference</span>
                                 <span class="field-hint">We can work with your existing domain or handle procurement and renewal management on your behalf.</span>
                             </div>
                             <div class="field" style="margin-bottom:1.25rem">
@@ -213,6 +240,7 @@
                                     <div class="source-btn" data-val="managed-hosting" onclick="selectHostingOption(this)">I want i2Medier Managed Hosting</div>
                                     <div class="source-btn" data-val="unsure-hosting" onclick="selectHostingOption(this)">I’m not sure yet</div>
                                 </div>
+                                <span class="field-error" id="err-hosting">Please select a hosting preference</span>
                                 <span class="field-hint">Managed Hosting means infrastructure provisioned or arranged by i2Medier and actively maintained by our team.</span>
                             </div>
                             <div class="field" style="margin-bottom:0">

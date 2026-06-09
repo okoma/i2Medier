@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Event Planners | Event Planning Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Event Planner Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'event-planner-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How does the gallery system work — can I add new events myself?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — the gallery system is built on ACF Pro, which gives you a fully managed gallery where you can add new events, upload photos, write captions, assign event types, and publish new event showcase pages entirely from the WordPress admin — no coding required. Adding a new event to your portfolio takes around ten minutes. We provide a full written guide and a training session on handover so you are confident managing it from day one.']],
+        ['@type' => 'Question', 'name' => 'Can we embed highlight videos and reels from events into the portfolio pages?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every event showcase page supports embedded video from YouTube, Vimeo, or direct file upload. If you have highlight reels, teaser videos, or full event films, we build video embedding directly into the event page layout. Video content significantly increases time-on-page and conversion — visitors who watch an event video are substantially more likely to submit an enquiry than those who only view photos.']],
+        ['@type' => 'Question', 'name' => 'How do I update my package prices when they change?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Package prices and inclusions are fully editable from the WordPress CMS. You can update prices, add or remove inclusions, rename packages, or restructure your pricing tiers entirely without touching any code. This is important for event planners who adjust pricing seasonally or annually — changes are reflected on the website immediately and without any agency involvement or additional cost.']],
+        ['@type' => 'Question', 'name' => 'Do you set up Google My Business for event planners?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Google Business Profile optimisation is included in every project — category selection (Event Planner, Wedding Planner), service descriptions, photo uploads, opening hours, service areas, and initial review request setup. A well-optimised Google Business Profile dramatically improves visibility in local map pack searches — the results that appear with a map when someone searches "wedding planner near me" or "event planner Lagos". We also submit your site to Google Search Console and verify your sitemap on launch day.']],
+        ['@type' => 'Question', 'name' => 'Should wedding planner SEO and corporate event SEO be handled separately?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is one of the most important structural decisions we make in the architecture stage. Wedding clients and corporate event buyers use completely different search terms, have different decision-making processes, and respond to different content. We create separate service pages with separate keyword targets for each event category — so your wedding page targets bridal search terms and your corporate events page targets B2B conference and summit terms. This separation is not just better for SEO — it is better for conversion because each visitor lands on a page that speaks directly to their specific need.']],
+        ['@type' => 'Question', 'name' => 'Can the enquiry form automatically send a response to clients who submit?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We configure automated email responses for every form submission — a professionally written acknowledgement that tells the client their enquiry has been received, what information you will need from them, and when they can expect to hear from you. You can customise this response message from the CMS. Automating the initial response significantly increases conversion — clients who receive an immediate, professional reply are far more likely to proceed to a consultation than those who wait hours or days for a first contact.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build an event planner website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard event planner website — homepage, service pages, gallery system with initial events loaded, package pages, blog, and SEO setup — takes 3–5 weeks from design approval to launch. Larger projects with extensive portfolio migration, client portal functionality, or multi-market content architecture may take 6–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know exactly what is happening, what is needed from you, and when the site will be live.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -586,82 +616,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>event planning business</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo & Boutique Planners</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A beautiful, credible website for a solo event planner or small studio needing a professional portfolio presence fast.</p>
-        <div class="price-amount">₦450k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with portfolio hero</div>
-        <div class="price-feat">4 service pages</div>
-        <div class="price-feat">Gallery (up to 20 events)</div>
-        <div class="price-feat">Enquiry & contact forms</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Package & pricing pages</div>
-        <div class="price-feat no">Blog / content section</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-featured event planner website built to rank on Google, showcase your portfolio, and win premium bookings consistently.</p>
-        <div class="price-amount">₦900k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full service pages (all event types)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Filterable gallery system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Package & pricing pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog with planning guides</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Client testimonials section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Vendor network page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Newsletter signup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + EventPlanner schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Agencies & Multi-Planner Teams</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A comprehensive event management platform for larger agencies with multiple planners, CRM integration, and client portal requirements.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Full booking & contract management</div>
-        <div class="price-feat">Client portal (event tracking)</div>
-        <div class="price-feat">Vendor management system</div>
-        <div class="price-feat">Multi-planner team access</div>
-        <div class="price-feat">CRM integration</div>
-        <div class="price-feat">Analytics dashboard</div>
-        <div class="price-feat">Unlimited gallery events</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -672,7 +628,7 @@
     </div>
     <p>Not all web development options are equal — especially for event planners where first impressions and visual presentation are your product.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for event planners">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for event planners">
     <thead>
       <tr>
         <th>Feature</th>
@@ -731,7 +687,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -914,7 +870,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an event planner<br>website that wins premium bookings?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will review your current online presence, map your SEO keyword opportunities, and show you exactly what we would build — and why it will fill your event calendar.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-event-planner-website-design', 'source_label' => 'Event Planner Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

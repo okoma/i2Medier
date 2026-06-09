@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Architecture Firms | Architect Portfolio Websites Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Architecture Firm Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'architecture-firm-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How do you handle portfolio filtering — can clients filter by typology and location?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — filterable portfolio is a standard feature of our architecture firm websites from the Studio Growth tier upwards. Projects can be filtered by typology (residential, commercial, interior, cultural, masterplanning, landscape), scale, and location. Filters are smooth and instantaneous — no page reload required. Each project retains its own individual URL for SEO purposes, so Google can index individual projects even as visitors filter the gallery view.']],
+        ['@type' => 'Question', 'name' => 'How do we upload and manage new project photography ourselves after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build your portfolio management system on WordPress with ACF Pro, which creates a completely intuitive editing interface for your studio team. Adding a new project means filling in a form: project name, typology, location, client brief, design narrative, materials, and uploading images. WordPress automatically runs images through our optimisation pipeline — resizing, converting to WebP, and generating responsive srcsets — so your team uploads full-resolution files and the website handles everything else. No technical knowledge is required. Every handover includes a CMS training session and a written admin guide specific to your portfolio system.']],
+        ['@type' => 'Question', 'name' => 'How do you display NIA membership, ARCON registration, and awards on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'NIA membership, ARCON registration numbers, fellowship designations (NIA, FNIA), and awards are integrated into the design as primary trust elements — not footnotes. On the homepage, your most important credentials appear in the hero section and in the trust signal area. Individual principal architect profiles display specific designations and registration numbers. A dedicated awards and accreditation page displays your full NIA award history, competition wins, and institutional recognitions. We also implement ArchitectureService schema markup so Google reads and understands your credentials and can display them in relevant search results.']],
+        ['@type' => 'Question', 'name' => 'How do project case study pages differ from a regular portfolio gallery?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A portfolio gallery page shows a project name and photographs. A project case study page tells the full story: the client\'s brief and project objectives, the site context and design constraints navigated, the conceptual approach and how it evolved, key technical and budgetary decisions with rationale, material specifications, photography throughout the process if available, the completed project with final photography, and ideally a client testimonial. Case study pages are typically 600–1,200 words with 8–20 images. From an SEO perspective, each case study is a fully indexed, individually optimised page that can rank for specific project type and location searches.']],
+        ['@type' => 'Question', 'name' => 'How do clients brief us through the website — what information does the form capture?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our multi-step project brief submission forms are designed to capture the right information from the first contact: project type (residential, commercial, interior, masterplanning, etc.), location (city and site details), approximate budget range, desired completion timeline, site area and scale, and a description of the project objectives. The form is structured to be thorough enough to pre-qualify the enquiry while not so long that it deters genuine clients. Every submission is delivered to your studio email immediately and optionally to a CRM or project management system.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build an architecture firm website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard architecture studio website — portfolio system, case study pages, team profiles, services, and SEO foundation — typically takes 3–5 weeks from design approval to launch. Larger sites with extensive case study libraries, an awards database, and a client portal may take 6–8 weeks. The most important factor in timeline is the availability of your project content — high-resolution photography, project descriptions, and team information. We provide a detailed, milestone-based project timeline at the start of every engagement so you always know what is happening and when.']],
+        ['@type' => 'Question', 'name' => 'How do you ensure the website loads fast with high-resolution architectural photography?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Image performance on architecture websites is one of our specialist areas. We implement a complete image optimisation pipeline: all images are automatically converted to WebP format on upload (typically 60–80% smaller than JPG with equivalent quality), responsive srcsets are generated for every image so the correct size is served to each device, lazy loading ensures only images in the viewport are downloaded on page load, and images are served from a global CDN with servers close to your users in Lagos, Abuja, London, and elsewhere. The result is architecture websites that score 90+ on Google PageSpeed Mobile while displaying full-resolution project photography.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -588,85 +618,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>architecture studio</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required. Architecture websites are image-heavy by nature, and our pricing reflects the additional image optimisation work required to achieve exceptional visual quality alongside fast performance.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Emerging Studios &amp; Solo Architects</div>
-        <div class="price-name">Essential Portfolio</div>
-        <p class="price-tagline">A clean, visually impressive portfolio website for an emerging studio or sole architect wanting a strong online showcase.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Portfolio up to 12 projects</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">NIA/ARCON credentials display</div>
-        <div class="price-feat">Awards display section</div>
-        <div class="price-feat">Project enquiry form</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Image optimisation pipeline</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Filterable portfolio</div>
-        <div class="price-feat no">Project case study pages</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Studio Growth Site</div>
-        <p class="price-tagline">A full-featured architecture studio website built to showcase your work, rank on Google, and win premium project briefs.</p>
-        <div class="price-amount">₦900k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Unlimited projects</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Filterable portfolio by typology</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Project case study pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Team &amp; principal profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Design philosophy page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">NIA/ARCON awards system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Studio blog / news CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Established &amp; Multi-Principal Studios</div>
-        <div class="price-name">Enterprise Studio</div>
-        <p class="price-tagline">A comprehensive digital platform for large studios with multiple typologies, international projects, and a press or client portal requirement.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Advanced portfolio with animated transitions</div>
-        <div class="price-feat">Awards database &amp; filterable archive</div>
-        <div class="price-feat">Client project portal (Laravel)</div>
-        <div class="price-feat">Press &amp; media room</div>
-        <div class="price-feat">Multi-principal team system</div>
-        <div class="price-feat">Competition &amp; publication archive</div>
-        <div class="price-feat">Newsletter &amp; email marketing</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -677,7 +630,7 @@
     </div>
     <p>Not all web development options are equal — especially for architecture firms where the quality of your website communicates the quality of your design thinking.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for architecture firms">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for architecture firms">
     <thead>
       <tr>
         <th>Feature</th>
@@ -736,7 +689,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -930,7 +883,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build an architecture studio<br>website that wins premium projects?</h2>
   <p>Get a free, no-obligation consultation and portfolio website proposal. We will review your current site, audit your portfolio presentation, map your keyword opportunities, and show you exactly what we would build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-architecture-firm-website-design', 'source_label' => 'Architecture Firm Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

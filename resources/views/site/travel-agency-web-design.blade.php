@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Travel Agencies | Travel Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Travel Agency Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'travel-agency-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Can I manage and add tour packages myself after the website launches?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core principle of every site we build. We use ACF Pro to create an intuitive package management system in WordPress admin. You can add new destinations, edit existing package details, update prices, change itineraries, and publish seasonal promotions without touching a line of code. Every handover includes a CMS training session and a written admin guide specifically covering travel package management workflows.']],
+        ['@type' => 'Question', 'name' => 'Can clients pay deposits or make bookings online through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We can integrate Paystack or Flutterwave for online deposit collection — enabling clients to secure their booking immediately with a partial payment while your team finalises the full package details. For agencies that prefer an enquiry-first model, we build structured booking enquiry forms that capture all the necessary trip details and send them directly to your email, WhatsApp, and CRM. Online payment integration is available on the Growth and Enterprise packages.']],
+        ['@type' => 'Question', 'name' => 'Can you display IATA membership and other travel industry credentials on the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely — and we consider this a priority, not an afterthought. Your IATA accreditation, NANTA membership, years of operation, airline partnerships, and any travel insurance affiliations are designed into the website as prominent trust anchors. They appear on your homepage, in your site header or footer, and on individual package pages — because first-time clients booking international travel need to see these credentials immediately to feel confident proceeding.']],
+        ['@type' => 'Question', 'name' => 'How do you keep visa service pages up to date as requirements change?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Each visa service page is built in WordPress with a simple editing interface — your team can update visa requirements, processing times, fee information, and documentation checklists immediately when they change, without needing to contact us. For agencies on a monthly retainer, we monitor and update visa pages as part of the ongoing service. We also include a content review reminder in your admin guide, recommending a monthly check of each active visa page against the relevant embassy guidelines.']],
+        ['@type' => 'Question', 'name' => 'Do you write destination blog content for travel agencies?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. On our monthly retainer packages, we include destination blog articles written for Nigerian travellers — covering topics like "best time to visit Dubai from Nigeria", "UK visa requirements for Nigerian passport holders 2026", "Istanbul travel guide from Lagos", and similar high-search-volume content that attracts serious travellers to your website through organic Google search. These articles build topical authority over time and create additional entry points for prospective clients to discover your agency.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a travel agency website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard travel agency website with destination pages, visa services, and a booking enquiry system typically takes 3–5 weeks from design approval to launch. Larger projects with booking engines, Paystack payment integration, and extensive destination libraries may take 6–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when. We have never missed a launch date on a project where the client delivered content on schedule.']],
+        ['@type' => 'Question', 'name' => 'Can the website show prices in multiple currencies — naira and pounds?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — multi-currency pricing display is available on our Enterprise packages. This is particularly valuable for agencies serving both the Nigerian domestic market and the Nigerian diaspora in the UK, US, or Canada, where clients may wish to compare prices in their local currency. The currency display can be set automatically by visitor location or offered as a manual toggle, depending on your preference. For the Essential and Growth packages, we display prices in naira as standard, with the option to add a currency note for overseas visitors.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -602,82 +632,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>travel agency</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">New & Growing Agencies</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, professional travel agency website to establish your online presence and start capturing enquiries.</p>
-        <div class="price-amount">₦450k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with featured packages</div>
-        <div class="price-feat">8 destination & package pages</div>
-        <div class="price-feat">Booking enquiry form</div>
-        <div class="price-feat">Blog / travel guides section</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Visa services pages</div>
-        <div class="price-feat no">Online booking system</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service travel agency website built to rank, attract serious travellers, and grow your bookings month on month.</p>
-        <div class="price-amount">₦900k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full destination & package pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Visa services pages (per country)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Online booking & enquiry system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Package management CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Customer reviews section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Newsletter integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + TravelAgency schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large & Multi-Branch Agencies</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A comprehensive travel booking platform with availability systems, payment processing, and agent management.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Online booking engine with availability</div>
-        <div class="price-feat">Paystack / Flutterwave payment integration</div>
-        <div class="price-feat">Multi-currency pricing display</div>
-        <div class="price-feat">Agent portal & commission tracking</div>
-        <div class="price-feat">Affiliate programme</div>
-        <div class="price-feat">Multi-branch location pages</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -688,7 +644,7 @@
     </div>
     <p>Not all web development options are equal — especially for travel agencies where beautiful design and searchable package pages are essential to converting visitors into bookings.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for travel agencies">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for travel agencies">
     <thead>
       <tr>
         <th>Feature</th>
@@ -747,7 +703,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -924,7 +880,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a travel agency<br>website that fills your booking calendar?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your keyword opportunities, and show you exactly what we'd build — and why it will bring serious travellers to your agency.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-travel-agency-website-design', 'source_label' => 'Travel Agency Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

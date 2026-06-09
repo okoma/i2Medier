@@ -2,6 +2,63 @@
 
 @section('title', 'Cloud Architecture & Infrastructure Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Cloud Architecture', 'item' => route('site.services.cloud-architecture')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Which cloud provider do you recommend, AWS or DigitalOcean?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It depends on your application\'s scale and complexity. DigitalOcean is our default recommendation for most web applications, APIs, and Laravel platforms. It offers managed databases, object storage, load balancers, and an excellent developer experience at a fraction of AWS pricing, with much less operational overhead. AWS is the right choice for applications that need advanced services such as Lambda, ECS, RDS Aurora, CloudFront at scale, or enterprise-level compliance. We work with both and recommend what fits your requirements and budget, not what sounds more impressive.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What is a CI/CD pipeline and do I need one?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'CI/CD stands for Continuous Integration and Continuous Deployment. The pipeline runs your test suite every time code is pushed and deploys to your server only when checks pass. Without one, deployments rely on manual SSH access, manual commands, and manual verification, which often leads to avoidable outages. With one, code moves from a merged pull request to a validated production deployment in minutes. We recommend a CI/CD pipeline for any application serving real users.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What does zero-downtime deployment mean?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Zero-downtime deployment means your application keeps serving requests while a new version is deployed. Traditional deployments briefly take the application offline while code is pulled, migrations run, and services restart. Zero-downtime deployment uses an atomic release process where the new version is prepared first and then made live in a near-instant switch. Users see no interruption. We implement this as a standard part of managed deployments.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How do you handle server security?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every server we configure includes: SSH key-only authentication (password login completely disabled), UFW firewall with minimal open ports (only 22, 80, 443), fail2ban blocking repeated failed SSH attempts, automatic unattended security package upgrades, SSL/TLS certificates via Let\'s Encrypt with automatic renewal, Cloudflare WAF and DDoS protection at the edge, and application-level security headers configured in Nginx. We run a security scan after setup and provide a Security Configuration Summary document on handover.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you migrate my existing infrastructure to the cloud?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Cloud migrations are a common engagement. We audit your current infrastructure, identify risks and dependencies, design the target cloud architecture, and execute the migration with minimal downtime. Typically we deploy the new environment in parallel, migrate data, run parallel validation, then cut over DNS with a short TTL to minimise the actual switchover window. We maintain the legacy environment in parallel for a defined rollback window (usually 72 hours) before decommissioning it.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What uptime guarantee do you provide?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We architect for 99.9% uptime as a baseline, which equals less than 9 hours of downtime per year. For mission-critical applications, multi-region deployments with automated failover can reach 99.99%, or less than 1 hour per year. Actual uptime depends on the architecture tier and the underlying cloud provider SLA. All production environments include 24/7 uptime monitoring, so you know quickly when something is wrong and what is being done about it.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you offer ongoing managed infrastructure support?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We offer monthly managed infrastructure support that covers security patching, server health monitoring, performance monitoring, backup verification, dependency updates, and priority incident response with a defined SLA. Monthly retainers start from ₦100,000 per month, depending on environment complexity. Enterprise clients can also request a dedicated on-call engineer. You can start with a one-time setup and manage the infrastructure yourself if that fits your team better.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/cloud-architecture.css')
 @endpush

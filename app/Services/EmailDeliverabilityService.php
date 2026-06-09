@@ -7,13 +7,14 @@ use RuntimeException;
 class EmailDeliverabilityService
 {
     private const CHECK_WEIGHTS = [
-        'dns' => 12,
-        'spf' => 16,
-        'dkim' => 16,
-        'dmarc' => 16,
-        'blacklist' => 16,
-        'content' => 10,
-        'reputation' => 14,
+        'dns'       => 10,
+        'spf'       => 16,
+        'dkim'      => 16,
+        'dmarc'     => 16,
+        'blacklist' => 14,
+        'ptr'       => 6,
+        'content'   => 10,
+        'reputation'=> 12,
     ];
 
     private const DKIM_SELECTORS = [
@@ -79,6 +80,7 @@ class EmailDeliverabilityService
         $dkimCheck = $this->buildDkimCheck($domain, $context['mailDomain'], $context['esp']);
         $dmarcCheck = $this->buildDmarcCheck($domain, $context['orgDomain']);
         $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps'], $context['providerContext']);
+        $ptrCheck = $this->buildPtrCheck($context['resolvedIps'], $context['providerContext']);
         $contentCheck = $this->buildContentCheck($subject, (string) ($input['checkType'] ?? 'full'));
         $reputationCheck = $this->buildReputationCheck(
             $domain,
@@ -98,6 +100,7 @@ class EmailDeliverabilityService
             $dkimCheck,
             $dmarcCheck,
             $blacklistCheck,
+            $ptrCheck,
             $contentCheck,
             $reputationCheck,
         ], $aiConfig, $aiService, $context['providerContext']);
@@ -124,6 +127,7 @@ class EmailDeliverabilityService
         $dkimCheck = $this->buildLiveDkimCheck($context['domain'], $context['mailDomain'], $context['esp'], $auth, (string) ($message['headers'] ?? ''));
         $dmarcCheck = $this->buildLiveDmarcCheck($context['domain'], $context['orgDomain'], $auth);
         $blacklistCheck = $this->buildBlacklistCheck($context['resolvedIps'], $context['providerContext']);
+        $ptrCheck = $this->buildPtrCheck($context['resolvedIps'], $context['providerContext']);
         $contentCheck = $this->buildContentCheck($subject, (string) ($input['checkType'] ?? 'full'));
         $reputationCheck = $this->buildReputationCheck(
             $context['domain'],
@@ -143,6 +147,7 @@ class EmailDeliverabilityService
             $dkimCheck,
             $dmarcCheck,
             $blacklistCheck,
+            $ptrCheck,
             $contentCheck,
             $reputationCheck,
         ], $aiConfig, $aiService, $context['providerContext']);
@@ -749,6 +754,110 @@ class EmailDeliverabilityService
         );
     }
 
+    private function buildPtrCheck(array $ips, array $providerContext): array
+    {
+        if ($ips === []) {
+            return $this->check(
+                'ptr',
+                'PTR',
+                ($providerContext['provider_managed'] ?? false)
+                    ? 'PTR not directly verifiable for provider-managed path'
+                    : 'No sending IPs resolved for PTR check',
+                'info',
+                ($providerContext['provider_managed'] ?? false)
+                    ? 'Your mail is routed through a managed provider — PTR records are maintained by that provider on their shared infrastructure.'
+                    : 'No public IPv4 sending addresses were resolved, so reverse DNS could not be checked.',
+                ($providerContext['provider_managed'] ?? false)
+                    ? 'Providers like Google Workspace, Microsoft 365, and Zoho manage PTR records automatically. Use the Live Inbox Test for the most accurate end-to-end validation.'
+                    : 'If you use dedicated sending IPs, confirm PTR records are configured with your hosting or mail provider.'
+            );
+        }
+
+        $results = [];
+
+        foreach ($ips as $ip) {
+            if (! filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                continue;
+            }
+
+            $reversed = implode('.', array_reverse(explode('.', $ip))) . '.in-addr.arpa';
+            $ptrRecords = $this->dnsRecords($reversed, DNS_PTR);
+            $hostname = null;
+
+            foreach ($ptrRecords as $record) {
+                if (isset($record['target']) && is_string($record['target']) && $record['target'] !== '') {
+                    $hostname = rtrim($record['target'], '.');
+                    break;
+                }
+            }
+
+            if ($hostname === null) {
+                $results[] = ['ip' => $ip, 'status' => 'missing', 'hostname' => null];
+                continue;
+            }
+
+            $forwardIps = collect($this->dnsRecords($hostname, DNS_A))->pluck('ip')->all();
+
+            if (in_array($ip, $forwardIps, true)) {
+                $results[] = ['ip' => $ip, 'status' => 'valid', 'hostname' => $hostname];
+            } else {
+                $results[] = ['ip' => $ip, 'status' => 'mismatch', 'hostname' => $hostname];
+            }
+        }
+
+        if ($results === []) {
+            return $this->check(
+                'ptr',
+                'PTR',
+                'No IPv4 sending addresses found for PTR check',
+                'info',
+                'Only IPv6 addresses or no addresses resolved — PTR check was skipped.',
+                'IPv6 reverse DNS is handled separately and is less commonly required by inbox providers.'
+            );
+        }
+
+        $valid    = array_filter($results, fn ($r) => $r['status'] === 'valid');
+        $missing  = array_filter($results, fn ($r) => $r['status'] === 'missing');
+        $mismatch = array_filter($results, fn ($r) => $r['status'] === 'mismatch');
+
+        if (count($missing) === count($results)) {
+            return $this->check(
+                'ptr',
+                'PTR',
+                'No PTR records found for sending IPs',
+                'warn',
+                'None of the resolved sending IPs have a reverse DNS entry. Some strict inbox providers require a valid PTR to accept mail.',
+                'Contact your hosting or mail service provider to add PTR records for: ' . implode(', ', array_column($results, 'ip'))
+            );
+        }
+
+        if ($valid === [] && $mismatch !== []) {
+            return $this->check(
+                'ptr',
+                'PTR',
+                'PTR records exist but do not forward-confirm',
+                'warn',
+                'PTR hostnames were found but they do not resolve back to the original IP (FCrDNS mismatch). Some providers treat this as a trust failure.',
+                'Update your PTR records to use hostnames that forward-resolve back to the same IP to satisfy forward-confirmed reverse DNS.'
+            );
+        }
+
+        $validCount = count($valid);
+        $totalCount = count($results);
+        $sample     = collect($valid)->first()['hostname'] ?? '';
+
+        return $this->check(
+            'ptr',
+            'PTR',
+            $validCount === $totalCount ? 'PTR records look healthy' : 'PTR records are partially valid',
+            'pass',
+            $validCount === $totalCount
+                ? 'All resolved sending IPs have valid forward-confirmed PTR records.'
+                : sprintf('%d of %d sending IPs have valid forward-confirmed PTR records.', $validCount, $totalCount),
+            $sample ? 'Example: ' . $sample : 'Forward-confirmed reverse DNS is in place.'
+        );
+    }
+
     private function buildContentCheck(string $subject, string $checkType): array
     {
         if ($subject === '') {
@@ -1038,6 +1147,7 @@ class EmailDeliverabilityService
                 'dkim' => $this->recommendation('high', 'Enable and verify DKIM signing', 'DKIM proves your platform is cryptographically authorised to send on behalf of the domain.', 'Publish the vendor-issued DKIM selector records and confirm messages are being signed after propagation.'),
                 'dmarc' => $this->recommendation('high', 'Strengthen DMARC enforcement', 'DMARC aligns SPF and DKIM results and gives providers a clear anti-spoofing policy.', 'Start with reporting, then move from p=none to quarantine or reject once aligned traffic is clean.'),
                 'blacklist' => $this->recommendation('high', 'Investigate blacklist exposure', 'A listed sending IP can hurt inbox placement immediately, even with good content.', 'Identify the affected IP, pause risky campaigns, and follow the blocklist provider removal process after remediation.'),
+                'ptr' => $this->recommendation('med', 'Add or fix PTR records for sending IPs', 'A valid forward-confirmed PTR record is a basic trust signal that some strict inbox providers require.', 'Ask your hosting or mail provider to add a PTR record for each sending IP that resolves back to the same hostname (FCrDNS).'),
                 'content' => $this->recommendation($hasSubject ? 'med' : 'low', 'Refine campaign copy signals', 'Subject-line phrasing affects both filtering and open-rate performance.', $hasSubject ? 'Reduce urgency words, heavy punctuation, and all-caps phrasing before the next send.' : 'Test real campaign copy later so content risk can be scored more precisely.'),
                 'reputation' => $this->recommendation('med', 'Tighten sender reputation inputs', 'Authentication, blacklist hygiene, and sending consistency all compound into reputation.', 'Warm up carefully, keep list hygiene clean, and avoid scaling volume until the authentication gaps above are fixed.'),
                 default => null,

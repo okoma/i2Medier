@@ -2,6 +2,58 @@
 
 @section('title', 'SaaS Application Development Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'SaaS Application Development', 'item' => route('site.services.saas-application')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'What makes SaaS development different from a standard web application?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A SaaS product has recurring business complexity that a standard application does not: subscription billing with trials and renewals, multi-tenant account isolation, feature gating per plan, onboarding flows designed for activation, and the admin tools your team needs to support customers at scale. These are not add-ons — they are core to the product. Building them properly from the start is what separates a product that scales from one that needs a full rewrite at 500 customers.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do I need multi-tenancy for my SaaS?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'It depends on your product model. If your customers are organisations with multiple users sharing data within a workspace — yes, you need multi-tenancy. If your product is individual-user focused with no team collaboration, a simpler account model may be sufficient. We diagnose this during discovery and recommend the right architecture for your specific product, rather than applying a default multi-tenant template to everything.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Which payment gateways do you integrate?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We integrate Paystack for Nigerian naira subscriptions and Stripe for international billing. Both are implemented with full subscription support — recurring charges, plan upgrades, downgrades, trial periods, failed payment recovery (dunning), and invoice generation. We also integrate Flutterwave when the payment mix requires it. All integrations are tested thoroughly in sandbox before any production billing is enabled.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does it take to build a SaaS product?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'MVP SaaS products with core billing and onboarding typically take 8–10 weeks from design sign-off. Full-featured platforms with multi-tenancy, team accounts, feature gating, and a complete admin panel range from 12–16 weeks. Enterprise-grade SaaS with complex integrations and high-traffic requirements can take 20+ weeks. We provide a detailed, milestone-by-milestone timeline during discovery — you know exactly what is happening and when before any commitment is made.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you build on top of an existing codebase?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — but we will first conduct a codebase audit to understand the current quality, architecture decisions, and technical debt. For some projects, building on the existing code is the right call. For others, the debt is significant enough that starting fresh is faster and cheaper in the medium term. We will give you an honest assessment with a clear recommendation and cost comparison before any work begins.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does SaaS development cost?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'SaaS MVP products start from ₦1.2 million. Full-featured platforms with multi-tenancy, subscription billing, and a complete admin panel typically range from ₦2M to ₦5M. Enterprise SaaS is quoted based on scope. All projects receive a written, itemised proposal after a free discovery session — you know exactly what you are paying for before any commitment is made. There are no hidden costs and no scope changes that are not agreed in writing first.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/saas-application.css')
 @endpush

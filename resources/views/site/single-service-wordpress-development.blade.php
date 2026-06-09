@@ -2,6 +2,53 @@
 
 @section('title', 'WordPress Web Design & Development Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'WordPress Development', 'item' => route('site.services.wordpress-development')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Do you use Elementor or other page builders?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No, never. Every website we build runs on a custom PHP theme. That approach gives you faster load times, cleaner markup, and stronger Core Web Vitals performance.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does a WordPress website take to build?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard WordPress website with 5–10 pages typically takes 3–5 weeks from design approval to launch. Larger sites with WooCommerce or membership systems range from 5–8 weeks.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Will I be able to manage the website myself after launch?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We use ACF to create tailored editing interfaces, and every project includes a CMS training session and written admin guide.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you migrate my existing website to WordPress?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We handle content migration, 301 redirects, QA, and go-live planning so your live site stays up throughout the process.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does a WordPress website cost?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our custom WordPress websites start from ₦350,000 for a simple brochure site. More complex projects are scoped and quoted individually after a free consultation.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/wordpress-development.css')
 @endpush
@@ -216,7 +263,7 @@
       <div><span class="s-label">How We Compare</span><h2 class="s-head">i2Medier vs<br><em>other WordPress options</em></h2></div>
       <p>Not all WordPress development is the same. The difference between a freelancer installing a premium theme and a team building a custom solution is the difference between a digital brochure and a business asset.</p>
     </div>
-    <table class="compare-table reveal">
+    <div class="compare-wrap"><table class="compare-table reveal">
       <thead><tr><th>Feature</th><th>Premium Theme</th><th class="highlight">i2Medier Custom Build</th><th>Page Builder Agency</th></tr></thead>
       <tbody>
         <tr><td class="feature">Custom design (your brand only)</td><td><span class="compare-status partial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path></svg>Partial</span> - customised template</td><td class="highlight"><span class="compare-status yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Full</span> - built only for you</td><td><span class="compare-status partial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path></svg>Partial</span> - template with builder</td></tr>
@@ -228,7 +275,7 @@
         <tr><td class="feature">CMS training & documentation</td><td><span class="compare-status no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Rarely</span> included</td><td class="highlight"><span class="compare-status yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Always</span> included</td><td><span class="compare-status partial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path></svg>Sometimes</span> included</td></tr>
         <tr><td class="feature">Post-launch support window</td><td><span class="compare-status no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>Rarely</span></td><td class="highlight"><span class="compare-status yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>30-90 days</span> standard</td><td><span class="compare-status partial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path></svg>Varies</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section class="test-section">

@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Fashion Brands | Fashion Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Fashion Brand Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'fashion-brand-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Can you build a lookbook section that I can update myself when I launch a new collection?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is one of the core features of every fashion website we build. We build the lookbook section using a custom CMS (WordPress with ACF Pro or Shopify\'s native content system) that allows you to create a new lookbook chapter for each season, upload editorial images, add collection narrative text, and link to product pages — all without touching code. The editorial layout and brand aesthetic are locked in by design; you simply add the content for each new season. Training on how to do this is included in every handover session.']],
+        ['@type' => 'Question', 'name' => 'Should I use Shopify or WooCommerce for my fashion brand store?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Both platforms are excellent for fashion e-commerce and we build on both. Shopify is generally better if your primary market is international (UK, US, EU) and you need multi-currency selling, rapid inventory management, and integrated logistics. WooCommerce (on WordPress) is generally better if you want full control over the design, need deep integration with editorial content and a lookbook CMS, and your primary market is Nigeria (Paystack integration is seamless on both). We will recommend the right platform for your specific brand after the discovery session.']],
+        ['@type' => 'Question', 'name' => 'Do I need professional photography before we can build the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ideally yes — fashion websites live and die on the quality of their photography, and we design with real brand imagery from the start wherever possible. However, if your next shoot is planned but not yet completed, we can design and build the website structure first with placeholder imagery and then populate it with the real photography on completion of the shoot. We can also advise on the photography brief — the shot types, aspect ratios, and lighting styles that will work best within the editorial design we are creating for the brand.']],
+        ['@type' => 'Question', 'name' => 'How do you handle size guides and fitting information for a fashion store?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build size guide functionality as a standard feature of every fashion e-commerce project. This includes a dedicated size guide page with measurement tables (in centimetres and inches), per-garment fit notes, model measurement references where relevant, and a pop-up size guide accessible from any product page. We also build the CMS so that fit notes (true to size, runs small, etc.) and fabric composition details can be added per-product and updated at any time. Reducing purchase hesitation around fit is one of the highest-impact conversion improvements available to a fashion e-commerce brand.']],
+        ['@type' => 'Question', 'name' => 'Can you build a press room with downloadable media kits and lookbooks?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. The press room is a standard inclusion in our Growth and Enterprise packages. It includes a CMS-managed space for uploading downloadable media kits (PDF), hi-resolution image packs, brand biography text, press contact details, and a log of editorial credits (magazine features, celebrity placements, etc.). Press journalists can self-serve all the information they need, which significantly increases the likelihood of a feature being published. We build the press room so you can add new features, update the media kit for each new season, and manage credits without any developer involvement.']],
+        ['@type' => 'Question', 'name' => 'Can you add a wholesale portal for buyers and stockist applications?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — wholesale portals are available as part of our Enterprise package or as an add-on to the Growth package. A basic wholesale portal includes a stockist application form, a password-protected wholesale catalogue with trade pricing, and a wholesale order form with minimum order quantity enforcement. A full wholesale portal can include buyer account management, order tracking, seasonal line sheets, and integration with your inventory management system. We scope the wholesale functionality in detail during discovery and quote accordingly.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a fashion brand website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard fashion brand website with lookbook, store, press room, and blog typically takes 3–5 weeks from design approval to launch. Larger projects with wholesale portals, multi-region store configuration, or complex editorial CMS requirements may take 5–8 weeks. The timeline is always confirmed in writing at the start of the project with a milestone schedule — so you know exactly when each deliverable is due and when the site will be live. The photography turnaround is usually the main variable; if your editorial imagery is ready at the start of the project, we can move at maximum pace.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -605,82 +635,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>fashion brand</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Emerging &amp; Independent Labels</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A brand-led website for an emerging fashion label that needs editorial presence, a shop, and a lookbook online fast.</p>
-        <div class="price-amount">₦500k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with editorial hero</div>
-        <div class="price-feat">3 collections with product pages</div>
-        <div class="price-feat">Shop (up to 30 products, Paystack)</div>
-        <div class="price-feat">Lookbook section (1 season)</div>
-        <div class="price-feat">About &amp; brand story page</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Press room &amp; media kit</div>
-        <div class="price-feat no">Stockist directory</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A complete fashion brand platform with full collections, lookbook CMS, press room, stockist directory, and blog — built to grow with the brand.</p>
-        <div class="price-amount">₦1M <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full collections (unlimited products)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Lookbook CMS (add new seasons)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Press room &amp; media kit downloads</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Stockist directory</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog (style guides, behind-the-scenes)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Newsletter integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + product schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Established &amp; Luxury Brands</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A full brand digital platform for established labels with wholesale portals, multi-region stores, and advanced brand experiences.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Full brand digital platform</div>
-        <div class="price-feat">Wholesale portal for buyers</div>
-        <div class="price-feat">Print-on-demand integration</div>
-        <div class="price-feat">AR try-on integration</div>
-        <div class="price-feat">Multi-region / multi-currency store</div>
-        <div class="price-feat">Advanced editorial CMS</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -691,7 +647,7 @@
     </div>
     <p>Not all web design options deliver the editorial quality and brand fidelity that fashion labels require. Here is how we compare on the features that matter most for fashion brands.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for fashion brands">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for fashion brands">
     <thead>
       <tr>
         <th>Feature</th>
@@ -750,7 +706,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Usually paid extra</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -934,7 +890,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a fashion brand<br>website as bold as your work?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, map your collection and SEO opportunities, and show you exactly what we would build — and why it would work for your brand.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-fashion-brand-website-design', 'source_label' => 'Fashion Brand Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

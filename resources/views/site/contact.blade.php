@@ -3,6 +3,50 @@
 @section('title', 'Contact Us — i2Medier Digital Agency')
 
 @push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@graph' => [
+        [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => 'Contact', 'item' => route('site.contact')],
+            ],
+        ],
+        [
+            '@type' => 'FAQPage',
+            'mainEntity' => [
+                [
+                    '@type' => 'Question',
+                    'name' => 'How quickly will you respond to my enquiry?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We respond to every enquiry within 24 hours on business days — typically within 4 hours. If you need a faster response, WhatsApp is the quickest way to reach us. For urgent technical issues on an active maintenance plan, response times are governed by your plan SLA.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Do you work with clients outside Nigeria?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with clients across Nigeria, the UK, the US, Canada, and other countries. Most of our engagements are fully remote — we use Figma, Notion, Google Meet, and WhatsApp to collaborate effectively regardless of timezone. We invoice in NGN, GBP, and USD.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'What happens after I send a message?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'You\'ll receive a confirmation email with a reference number. A member of our team will then review your enquiry and send a personalised response — this is not a template. For project enquiries, we\'ll either ask a few clarifying questions or invite you to a free 30-minute discovery call, depending on what\'s most useful.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Can I visit your office in Port Harcourt?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, by appointment. We\'re located at 18 Emmanuel Close, NTA Mgbuoba, Port Harcourt. If you\'d like to meet in person, send us a message or WhatsApp to schedule a visit during office hours (Monday–Friday 9am–6pm, Saturday 10am–2pm WAT).'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Do you offer a free consultation?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every new project begins with a free 30-minute discovery call where we discuss your goals, scope, and budget. There\'s no obligation to proceed — the call is simply to determine whether we\'re a good fit for each other and to give you honest advice about your project.'],
+                ],
+            ],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
 <meta name="description" content="Get in touch with i2Medier. We're a digital agency in Port Harcourt, Nigeria. Reach us by email, phone, WhatsApp, or visit our office. We reply within 24 hours."/>
 <link rel="canonical" href="{{ url('/contact') }}"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>

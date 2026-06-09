@@ -1,6 +1,6 @@
 @extends('public.layouts.nametool')
 
-@section('title', 'Website Brief Generator — i2Medier')
+@section('title', 'Website Brief Generator — Free AI Project Brief | i2Medier')
 
 @push('page_meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -512,6 +512,449 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
 
     <div class="brief-document" id="brief-document"></div>
 </div>
+
+<div class="seo-content">
+  <div class="seo-content-inner">
+
+    <!-- 1. What Is a Website Brief Generator? -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">ABOUT THIS TOOL</span>
+      <h2>About this free website brief generator</h2>
+      <p>This free website brief generator walks you through a structured set of questions about your business, goals, design preferences, pages, features, and budget — then turns your answers into a complete, professional website brief document ready to hand to a developer or agency.</p>
+      <p>Without a brief, web projects stall in misalignment. Developers build what they assume you want. Agencies quote for scope that was never properly defined. Revisions pile up. Budgets blow. This website brief generator eliminates all of that by creating a single, shared document that everyone is working from before the first line of code is written.</p>
+      <p>Think of it as the professional equivalent of an architect's drawing package — before a single brick is laid, everyone on the project knows exactly what is being built, why, and to what standard.</p>
+    </div>
+
+    <!-- 2. How Our Website Brief Generator Works -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">HOW IT WORKS</span>
+      <h2>How Our Website Brief Generator Works</h2>
+      <p>The tool guides you through six focused sections, then uses AI — powered by ChatGPT, Claude, Mistral, and Gemini — to structure your answers into a comprehensive, formatted brief document in seconds.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
+          <div class="cfc-title">Business Foundation</div>
+          <div class="cfc-desc">Step 1 captures your business name, industry, description, target audience, market, and competitors — the context every developer needs before touching a single page.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <div class="cfc-title">Goals & Success Metrics</div>
+          <div class="cfc-desc">Step 2 defines your website type, primary objective, and how you will measure success — turning vague wishes into clear, buildable targets with defined outcomes.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="cfc-title">Pages & Content Scope</div>
+          <div class="cfc-desc">Step 3 maps every page your site needs, your content readiness, and any specialist sections — giving the developer a complete sitemap before quoting begins.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="cfc-title">Design Direction</div>
+          <div class="cfc-desc">Step 4 captures your visual style preference, brand colours, reference sites you love and hate, and any design constraints — so the designer starts with clarity, not guesswork.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div class="cfc-title">Features & Functionality</div>
+          <div class="cfc-desc">Step 5 maps every feature needed — contact forms, e-commerce, user logins, CRM integrations, WhatsApp buttons, and more — so nothing critical is discovered mid-build.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="cfc-title">Tech, Budget & Timeline</div>
+          <div class="cfc-desc">Step 6 locks in platform preference, hosting, SEO requirements, budget range, and project timeline — giving the agency exactly what they need to quote accurately and on time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. What Makes a Great Website Brief? -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHAT MAKES A GOOD BRIEF</span>
+      <h2>What Makes a Great Website Brief?</h2>
+      <p>A great brief is not just thorough — it is structured, specific, and written in a way that leaves no room for dangerous assumptions. These six qualities separate a brief that gets built correctly from one that creates months of confusion.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <div class="cfc-title">Clear Primary Goal</div>
+          <div class="cfc-desc">Every decision in a web project — layout, content, features, navigation — should flow from one defined primary goal. A brief without a measurable objective has no anchor.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="cfc-title">Defined Audience</div>
+          <div class="cfc-desc">A brief that says "everyone" has defined no one. The audience section must describe exactly who the site is for — demographics, location, behaviour, and what they need from the visit.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
+          <div class="cfc-title">Full Page Map</div>
+          <div class="cfc-desc">Every page that needs to be designed and built should be listed upfront. Pages discovered mid-project expand scope, delay timelines, and create budget friction that damages trust.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div class="cfc-title">Feature Completeness</div>
+          <div class="cfc-desc">Every feature — contact form, payment gateway, booking system, user login — must be named in the brief. Undisclosed features mid-build are the single biggest cause of cost overruns.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="cfc-title">Realistic Budget Range</div>
+          <div class="cfc-desc">A brief with no budget gives agencies no anchor for their proposals. A clear range prevents wildly mismatched quotes and allows the team to recommend what is achievable within your means.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="cfc-title">Honest Timeline</div>
+          <div class="cfc-desc">A project deadline communicated upfront allows the agency to plan resource allocation, flag conflicts, and be honest about what is achievable — rather than overpromising to win the work.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Why Your Website Brief Matters -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHY IT MATTERS</span>
+      <h2>Why Your Website Brief Matters More Than You Think</h2>
+      <p>Most web projects that go over budget, miss deadlines, or end in frustration share one common root cause: they started without a proper brief. Here is what a brief actually prevents.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div>
+            <div class="why-body-title">It prevents scope creep before it starts</div>
+            <div class="why-body-desc">Scope creep — the gradual expansion of what was agreed — is the primary killer of web project budgets. A written brief creates a clear boundary between what was scoped and what is a new request, protecting both the client and the agency from costly disputes.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div>
+            <div class="why-body-title">It gets you accurate quotes from day one</div>
+            <div class="why-body-desc">Vague briefs produce vague quotes with hidden assumptions baked in. When the assumptions are wrong, budgets fail. A detailed brief gives every agency and freelancer the same foundation to quote from — making proposals genuinely comparable and financially accurate.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div>
+            <div class="why-body-title">It forces you to clarify your own thinking</div>
+            <div class="why-body-desc">Many clients discover mid-project that they were not as clear on their requirements as they thought. The brief process surfaces those uncertainties before any money is spent — when they are cheap to resolve rather than expensive to unwind from a half-built product.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div>
+            <div class="why-body-title">It speeds up the entire project</div>
+            <div class="why-body-desc">A developer with a complete brief can start building immediately. A developer without one spends weeks in back-and-forth before writing a single line of code. The brief is not a delay — it is the fastest path from idea to launched website.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">5</div>
+          <div>
+            <div class="why-body-title">It protects you legally and commercially</div>
+            <div class="why-body-desc">When a dispute arises over what was agreed — and in web projects they do — a signed brief is your strongest protection. It documents what was requested, what was scoped, and what falls outside the engagement. Without it, every disagreement is a he-said-she-said situation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Common Website Brief Mistakes -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMMON MISTAKES</span>
+      <h2>Common Website Brief Mistakes That Derail Projects</h2>
+      <p>These are the most frequent brief errors that turn manageable web projects into expensive, stressful disasters.</p>
+      <div class="issues-feature-grid">
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">No defined primary goal</div>
+            <div class="ifi-desc">Starting a web project with "we just need a website" gives no direction to any decision. Without a defined primary goal, every design and content choice is arbitrary.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">Leaving features out of scope</div>
+            <div class="ifi-desc">Mentioning that you "might need a booking system" after the project has started is not briefing — it is scope creep. Every feature must be named upfront to receive a fair quote.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">No budget disclosed</div>
+            <div class="ifi-desc">Refusing to share a budget range leads to wildly mismatched proposals. Agencies assume up or down and quote accordingly — usually wrong in a direction that wastes everyone's time.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Vague design direction</div>
+            <div class="ifi-desc">"Something modern and professional" describes half the internet. Design references, colour preferences, and examples of sites you love and hate save weeks of misaligned concepts.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Not addressing content readiness</div>
+            <div class="ifi-desc">The most common project blocker is content that was assumed to exist but doesn't. A brief must state whether copy, images, and media are ready, in progress, or need to be commissioned.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Multiple decision-makers not named</div>
+            <div class="ifi-desc">If approval requires sign-off from a CEO, marketing manager, and IT director — but only one person is on the brief — the project will stall at review stages no one anticipated.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">Unrealistic timeline expectations</div>
+            <div class="ifi-desc">A 30-page website with custom integrations cannot be built in two weeks. An honest timeline allows the agency to plan properly and deliver without cutting corners on quality.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">Platform preference left blank</div>
+            <div class="ifi-desc">Not specifying a platform preference is fine — but not mentioning existing systems the new site must integrate with leads to costly architectural rework mid-build.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Who Should Use This Tool? -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHO IT'S FOR</span>
+      <h2>Who Should Use This Website Brief Generator?</h2>
+      <p>Anyone commissioning a website build, redesign, or major update will benefit from having a professional brief — regardless of technical knowledge or project size.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
+          <div class="who-title">Business Owners</div>
+          <div class="who-desc">Planning a new website or a full redesign and wanting to communicate their vision clearly before approaching any developer or agency for a quote.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+          <div class="who-title">Startup Founders</div>
+          <div class="who-desc">Who need to articulate their product vision to a web agency in writing — without spending days in back-and-forth emails trying to explain what they want.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 19-7z"/></svg></div>
+          <div class="who-title">Marketing Managers</div>
+          <div class="who-desc">Briefing internal dev teams or external agencies on a new campaign website, a platform migration, or a major content restructure that needs a clean scope document.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="who-title">Freelancers & Consultants</div>
+          <div class="who-desc">Creating a scoped brief for a client before quoting — so expectations are aligned upfront, revisions are minimised, and the engagement is protected by a written document.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.5 4.5c-2.9 0-4.2-.7-4.9-1.7a5.7 5.7 0 0 1-.8-3.8c2.8-.2 4.2.6 4.2.6V6"/></svg></div>
+          <div class="who-title">Non-Technical Founders</div>
+          <div class="who-desc">Who have a crystal clear vision for their site but struggle to translate it into language a developer can build from — without needing to understand technical jargon.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="who-title">NGOs & Institutions</div>
+          <div class="who-desc">Who need a properly documented brief to satisfy procurement processes, get board approval for a web project, or issue a formal Request for Proposal (RFP).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. What to Do After Generating Your Brief -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">NEXT STEPS</span>
+      <h2>What to Do After Generating Your Website Brief</h2>
+      <p>Your generated brief is a strong starting point. Here is the exact workflow to take it from a document to a signed, scoped, ready-to-build project.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Review and personalise the brief</div>
+            <div class="step-desc">Read through the generated document and add any context the AI could not know — internal politics, hard deadlines, regulatory constraints, or existing vendor relationships that affect the project.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Get internal sign-off</div>
+            <div class="step-desc">Share the brief with every stakeholder who has approval authority over the final website. Disagreements resolved at the brief stage cost nothing. Disagreements discovered mid-build cost everything.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Send to at least three agencies or developers</div>
+            <div class="step-desc">A good brief makes proposals genuinely comparable. Send it to multiple vendors so you can evaluate their approach, communication style, and pricing against the same document rather than against different interpretations of what you want.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Run a discovery call with your shortlisted agency</div>
+            <div class="step-desc">A discovery call with the brief in hand is far more productive than one without it. The agency can ask clarifying questions rather than introductory ones — cutting weeks of pre-proposal back-and-forth.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">Review proposals against the brief</div>
+            <div class="step-desc">Any proposal that does not address every section of your brief has gaps. Flag them explicitly before signing anything. Assumptions in a proposal become disputes in a project.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div>
+            <div class="step-title">Attach the brief to your contract</div>
+            <div class="step-desc">Once you have selected your agency or developer, make the brief a formal attachment to the contract. This transforms it from an informal document into a binding scope reference that protects both parties throughout the engagement.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Free Generator vs Agency Discovery -->
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMPARE</span>
+      <h2>Free Brief Generator vs a Paid Agency Discovery Session</h2>
+      <p>Both have their place. Understanding what each delivers helps you decide when a free tool is enough — and when investing in a professional discovery session earns its cost back many times over.</p>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>What's Covered</th>
+            <th class="highlight">This Free Tool</th>
+            <th>Agency Discovery Session</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Structured brief document</td>
+            <td class="yes">✓ AI-generated</td>
+            <td class="yes">✓ Workshop-produced</td>
+          </tr>
+          <tr>
+            <td>Business & goal capture</td>
+            <td class="yes">✓ Full 6-step form</td>
+            <td class="yes">✓ Deep stakeholder interviews</td>
+          </tr>
+          <tr>
+            <td>Page & feature mapping</td>
+            <td class="yes">✓ Comprehensive checklist</td>
+            <td class="yes">✓ Expert-guided sitemap</td>
+          </tr>
+          <tr>
+            <td>Competitor & market analysis</td>
+            <td class="no">✗ Not included</td>
+            <td class="yes">✓ Full competitive landscape</td>
+          </tr>
+          <tr>
+            <td>UX strategy & wireframes</td>
+            <td class="no">✗ Not included</td>
+            <td class="yes">✓ Included in full discovery</td>
+          </tr>
+          <tr>
+            <td>Technical architecture planning</td>
+            <td class="no">✗ Not included</td>
+            <td class="yes">✓ System design included</td>
+          </tr>
+          <tr>
+            <td>Formal project proposal</td>
+            <td class="partial">Brief only — you get quotes</td>
+            <td class="yes">✓ Full scoped proposal</td>
+          </tr>
+          <tr>
+            <td>Time to complete</td>
+            <td class="yes">✓ 10–15 minutes</td>
+            <td>1–5 days</td>
+          </tr>
+          <tr>
+            <td>Cost</td>
+            <td class="yes">✓ Free</td>
+            <td>Paid — varies by agency</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1.25rem">Use this free tool to create a solid brief before approaching any agency. It will make every discovery conversation more productive. For complex projects — custom platforms, large-scale migrations, enterprise integrations — a paid discovery engagement will surface critical decisions that save far more than they cost.</p>
+    </div>
+
+  </div><!-- /seo-content-inner -->
+</div><!-- /seo-content -->
+
+<section class="service-cta">
+  <div class="service-cta-eyebrow">✦ &nbsp; i2Medier Web Design & Development</div>
+  <h2>Brief ready?<br>Let's <em>build the website.</em></h2>
+  <p>i2Medier takes your brief and turns it into a live website — designed, built, and launched with zero guesswork. From a simple business site to a custom web application, we scope it right from day one.</p>
+  <div class="service-pills">
+    <span class="service-pill">Website Design</span>
+    <span class="service-pill">Custom Web Development</span>
+    <span class="service-pill">E-Commerce</span>
+    <span class="service-pill">Web Applications</span>
+    <span class="service-pill">Website Redesign</span>
+    <span class="service-pill">Ongoing Maintenance</span>
+  </div>
+  <div class="cta-buttons">
+    <a href="{{ route('site.start') }}" class="cta-btn-primary">Start Your Web Project →</a>
+    <a href="{{ route('site.services') }}" class="cta-btn-secondary">View All Services</a>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="seo-section-eyebrow">Got Questions?</span>
+      <h2>Frequently Asked Questions About the Website Brief Generator</h2>
+      <p>Everything you need to know about creating, using, and sharing your AI-generated website brief.</p>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f1">
+          <span class="faq-q-text">What is a website brief?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f1">A website brief is a structured document that defines your goals, target audience, required pages, design direction, features, budget, and timeline. It gives developers and agencies everything they need to quote accurately and build correctly — before a single decision is made.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f2">
+          <span class="faq-q-text">How long does it take to complete the form?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f2">Most users complete all six steps in 10 to 15 minutes. The guided format breaks the process into short, focused sections so you never face a blank page. The more detail you provide, the more precise and useful your generated brief will be.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f3">
+          <span class="faq-q-text">Can I edit the AI-generated brief?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f3">Yes. The AI produces a structured draft from your inputs. Use the Copy Text button to copy the full brief into any word processor or document tool — Google Docs, Word, Notion — and edit it freely before sharing with an agency or developer.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f4">
+          <span class="faq-q-text">Do I need technical knowledge to complete the form?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f4">No technical knowledge is required. Every question uses plain language and includes helpful examples. The AI handles all formatting and structure. It is designed specifically for business owners, founders, and non-technical stakeholders.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f5">
+          <span class="faq-q-text">Is my brief saved to a server?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f5">No. Your brief is generated within your browser session and is not stored on our servers. Download or print it before closing the tab — once the session ends, the data is gone.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f6">
+          <span class="faq-q-text">Can I use this brief to get quotes from multiple agencies?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f6">Yes — and that is exactly what it is designed for. A consistent brief means every agency quotes against the same scope, making proposals genuinely comparable. Without a brief, each agency interprets your project differently and you cannot make a fair comparison between their proposals.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="wbg-f7">
+          <span class="faq-q-text">What if I am not sure about some answers?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="wbg-f7">Answer with your best current thinking. The brief is a starting point for a conversation, not a legally binding specification. Most agencies expect to refine details during discovery — but having your initial thinking documented saves hours of exploratory back-and-forth before work begins.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <div id="toast" style="position:fixed;bottom:1.5rem;right:1.5rem;background:var(--black);color:var(--white);padding:.75rem 1.25rem;border-radius:6px;font-size:.82rem;font-weight:500;border-left:3px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.2);transform:translateY(20px);opacity:0;transition:all .3s;z-index:1000;pointer-events:none;max-width:280px"></div>
 @endsection

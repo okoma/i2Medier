@@ -19,6 +19,9 @@
 @if ($siteSettings->favicon())
 <link rel="icon" href="{{ $siteSettings->favicon() }}">
 <link rel="shortcut icon" href="{{ $siteSettings->favicon() }}">
+@else
+<link rel="icon" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
 @endif
 @if ($siteSettings->appleTouchIcon())
 <link rel="apple-touch-icon" href="{{ $siteSettings->appleTouchIcon() }}">
@@ -99,7 +102,7 @@
         ]);
     }
 @endphp
-<script type="application/ld+json">{!! json_encode($pageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+<script type="application/ld+json">{!! json_encode($pageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
 @endisset
 <script type="application/ld+json">{!! json_encode([
     '@context' => 'https://schema.org',
@@ -114,7 +117,7 @@
         'https://www.instagram.com/i2medier',
         'https://www.youtube.com/@i2TechStudio',
     ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
 @stack('meta')
 @vite('resources/css/public.css')
 @stack('page_css')

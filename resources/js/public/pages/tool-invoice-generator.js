@@ -1,10 +1,19 @@
+import { initFaqButtons } from './service-common.js';
+initFaqButtons('.faq-q');
+
 let discType = 'flat';
 let invoiceStatus = 'draft';
 let itemIdCounter = 0;
 const items = [];
 const statuses = ['draft', 'sent', 'paid'];
 const statusLabels = { draft: 'Draft', sent: 'Sent', paid: 'Paid' };
-const SYMBOLS = { NGN: '₦', USD: '$', GBP: '£', EUR: '€' };
+const SYMBOLS = {
+    NGN: '₦', USD: '$', GBP: '£', EUR: '€', CAD: 'CA$', AUD: 'A$',
+    CHF: 'Fr', JPY: '¥', INR: '₹', SGD: 'S$', AED: 'AED', SAR: 'SR',
+    GHS: '₵', KES: 'KSh', ZAR: 'R', UGX: 'USh', TZS: 'TSh', ZMW: 'ZK',
+    ETB: 'Br', XOF: 'CFA', XAF: 'FCFA', EGP: 'E£', MAD: 'MAD',
+    BRL: 'R$', MXN: 'MX$', ZWG: 'ZiG',
+};
 const printRoute = document.getElementById('invoice-generator-page')?.dataset.printRoute || '';
 const printStorageKey = 'i2medierInvoicePrintPayload';
 const DEFAULT_THEME = {
@@ -153,6 +162,8 @@ function fmt(value) {
 function render() {
     const value = (id) => (document.getElementById(id)?.value || '').trim();
     const currency = getCurrency();
+    const flatSymbolEl = document.getElementById('disc-flat-symbol');
+    if (flatSymbolEl) flatSymbolEl.textContent = SYMBOLS[currency] || currency;
     const fromName = value('from-name') || 'i2Medier Konceptz';
 
     document.getElementById('inv-from-brand').textContent = fromName;

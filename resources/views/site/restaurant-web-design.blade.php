@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Restaurants | Restaurant Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Restaurant Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'restaurant-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a restaurant website cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Restaurant websites start from ₦400,000 for a professional site with a digital menu, reservation enquiry form, gallery, and SEO foundation. Full-featured websites with a live reservation widget, Paystack commission-free ordering, private dining pages, and advanced SEO start from ₦850,000. Multi-location restaurant group platforms are quoted individually based on scope. We provide a detailed, itemised quote after a free consultation — no hidden fees.']],
+        ['@type' => 'Question', 'name' => 'Can my website take orders without paying commission to Jumia Food or Bolt Food?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is one of the most powerful features we build for restaurant clients. Your website can include a full online ordering system powered by Paystack, where customers browse your menu, select items, choose delivery or collection, and pay directly to your bank account. You pay Paystack\'s standard transaction fee (1.5% + ₦100, capped at ₦2,000) — not 25–30% commission. Most restaurants recoup the full website cost from commission savings within 60–90 days.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a restaurant website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard restaurant website with digital menu, reservation system, gallery, and ordering takes 3–5 weeks from design approval to launch. Larger sites for multi-location restaurant groups with custom loyalty programmes or delivery management systems may take 6–8 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when.']],
+        ['@type' => 'Question', 'name' => 'Can I update the menu prices and add new dishes myself?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core principle of every website we build for restaurants. We use a WordPress admin panel with ACF Pro to create intuitive editing interfaces for your menu items, prices, dietary labels, availability, special offers, and opening hours. Your staff can update any content without touching code. Every handover includes a CMS training session and a written admin guide covering every workflow your team needs.']],
+        ['@type' => 'Question', 'name' => 'Will my restaurant appear on Google Maps and local search?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every restaurant website we build includes full Restaurant and LocalBusiness schema markup — telling Google your cuisine type, price range, opening hours, location coordinates, menu URL, and reservation link. We also optimise your Google Business Profile for local map pack rankings (the three restaurants shown above organic search results). For restaurants in competitive locations like Victoria Island or Ikeja GRA, we also offer ongoing local citation building as part of our monthly retainer.']],
+        ['@type' => 'Question', 'name' => 'Do you work with cafes, bars, and food trucks — not just restaurants?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We build websites for the full range of food and hospitality businesses — fine dining restaurants, casual dining, fast food outlets, cafes and coffee shops, cocktail bars, suya spots, bakeries and patisseries, cloud kitchens, food trucks, and private dining venues. The scope and budget are calibrated to match the nature and size of your food business. A coffee shop has very different website requirements from a 120-seat fine dining restaurant, and we design each accordingly.']],
+        ['@type' => 'Question', 'name' => 'Can you build a website for a restaurant with locations in both Nigeria and the UK?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a speciality of ours. We work with Nigerian-origin restaurants operating in London, Manchester, Birmingham, and other UK cities alongside their Nigerian locations. We build dual-audience content strategies that serve both the Nigerian diaspora in the UK (searching in GBP, with UK-specific dietary expectations) and the Nigerian market at home — with separate location pages, menus, and ordering systems for each market from a single, unified website.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -610,82 +640,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>restaurant</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical restaurant project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Cafes &amp; Small Restaurants</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, appetite-inspiring website for a cafe or small restaurant that needs a strong online presence and reservation capability fast.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with food photography</div>
-        <div class="price-feat">Digital menu (single category)</div>
-        <div class="price-feat">Reservation enquiry form</div>
-        <div class="price-feat">Gallery section</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Business setup</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Online ordering system</div>
-        <div class="price-feat no">Private dining / events page</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Restaurant</div>
-        <p class="price-tagline">A full-featured restaurant website with commission-free ordering, live reservations, and a private dining section — the complete revenue system.</p>
-        <div class="price-amount">₦850k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full digital menu system (all categories)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Online reservation widget (live calendar)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Paystack ordering — zero commission</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Private dining &amp; events page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full photography gallery</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Loyalty signup integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + Restaurant schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Restaurant Groups &amp; Chains</div>
-        <div class="price-name">Enterprise</div>
-        <p class="price-tagline">A comprehensive digital platform for multi-location restaurant groups with loyalty programmes, delivery management, and full brand system.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Multi-location management</div>
-        <div class="price-feat">Custom loyalty programme app</div>
-        <div class="price-feat">Delivery management system</div>
-        <div class="price-feat">Franchise location pages</div>
-        <div class="price-feat">Staff &amp; chef profile pages</div>
-        <div class="price-feat">Newsletter &amp; email marketing</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -696,7 +652,7 @@
     </div>
     <p>Not all web development options are equal — especially for restaurants where every missed reservation and every commission-platform order represents real, measurable revenue lost.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for restaurants">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for restaurants">
     <thead>
       <tr>
         <th>Feature</th>
@@ -755,7 +711,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -930,7 +886,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a restaurant website<br>that fills tables and cuts commissions?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll audit your current online presence, calculate your monthly commission exposure, and show you exactly what we'd build — and what it would recover.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-restaurant-website-design', 'source_label' => 'Restaurant Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

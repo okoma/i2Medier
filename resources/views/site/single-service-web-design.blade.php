@@ -2,6 +2,58 @@
 
 @section('title', 'Web Design & Development Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design & Development', 'item' => route('site.services.web-design')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'How long does it take to build a website with i2Medier?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Project timelines vary by scope. A standard WordPress website typically takes 3–5 weeks. Custom Laravel applications range from 6–12 weeks depending on the complexity of features and integrations required.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you work with clients outside Nigeria?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with clients across Nigeria, the United Kingdom, the United States, Canada, and beyond. Our remote workflow is fully optimised for international projects.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What platforms do you build on?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We primarily build on WordPress and Laravel. For simpler landing pages and microsites we also work in plain HTML/CSS/JavaScript, and for larger product companies we can deliver in Next.js or React.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you redesign or improve my existing website?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We can migrate your existing content, improve performance, modernise the design, and rebuild on a more scalable platform — all without disrupting your live site.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you offer ongoing maintenance after launch?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We offer monthly maintenance plans covering software updates, security monitoring, daily backups, uptime monitoring, and priority technical support.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does a website cost?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Pricing depends on project type, number of pages, custom features, integrations, and timeline. Simple brochure websites start from ₦350,000, while application projects are scoped and quoted individually.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/web-design.css')
 @endpush

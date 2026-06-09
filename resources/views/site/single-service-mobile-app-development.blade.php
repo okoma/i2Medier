@@ -2,6 +2,68 @@
 
 @section('title', 'Mobile App Development Services | iOS & Android | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Mobile App Development', 'item' => route('site.services.mobile-app-development')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Do you build for iOS, Android, or both?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build for both. Our primary approach is React Native, which produces a single codebase that runs natively on both iOS and Android, reducing cost and timeline without compromising native quality. For projects requiring deep platform integration, we also build fully native iOS or native Android applications.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What is the difference between React Native and Flutter?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'React Native renders to native platform UI components using JavaScript. Flutter uses Dart and renders its own UI layer. We work in React Native because it integrates naturally with our Laravel API backends, has a broader ecosystem, and aligns well with platform guidelines.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How long does it take to build a mobile app?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A focused MVP typically takes 8 to 12 weeks from design sign-off to App Store submission. Mid-complexity apps range from 12 to 18 weeks. Enterprise applications with complex integrations or real-time features can take 20+ weeks.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you build the backend API as well?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We build the Laravel API backend as part of every app project, handling endpoints, authentication, data models, push infrastructure, payment processing, and business logic. If you already have a working API, we can integrate against it provided it is well documented.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does a mobile app cost in Nigeria?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Mobile app development starts from ₦1.2M for a focused MVP. Mid-complexity apps with payment integration, user accounts, push notifications, and offline capability typically range from ₦2.5M to ₦6M. Enterprise apps are quoted individually after discovery.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you handle App Store and Google Play submission?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. It is included in every project. We handle app signing certificates, metadata, screenshots, privacy declarations, age ratings, data safety forms, and reviewer feedback for both Apple and Google.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you add push notifications to my app?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Push notifications are a standard feature in most apps we build. We implement them using Firebase Cloud Messaging for Android and APNs for iOS, managed via a unified service in the Laravel backend with segmented and scheduled support.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you update the app after launch without going through the App Store?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, for JavaScript changes. We configure Expo OTA updates in every React Native project so bug fixes and content changes can be pushed instantly without waiting for store review cycles. Native code changes still require a store release.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/mobile-app-development.css')
 @endpush

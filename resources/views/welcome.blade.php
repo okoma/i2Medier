@@ -198,7 +198,58 @@
             ],
         ],
     ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+@endpush
+
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@graph' => [
+        [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+            ],
+        ],
+        [
+            '@type' => 'FAQPage',
+            'mainEntity' => [
+                [
+                    '@type' => 'Question',
+                    'name' => 'How much does a website cost in Nigeria?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our websites start from ₦150,000 for a basic business site. The final cost depends on complexity, design requirements, and features. We send a free, itemised proposal within 24 hours — no vague estimates, no hidden fees.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'How long does a website take to build?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Most business websites take 2–4 weeks from design sign-off to launch. Complex e-commerce or Laravel applications take 6–12 weeks depending on scope. We give you a clear timeline and stick to it.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Do you offer website maintenance plans?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Our monthly care plans start from ₦35,000 and cover WordPress or Laravel updates, daily backups, 24/7 uptime monitoring, security scans, and a monthly written report. No annual lock-in required.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Can you help with business email setup?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We configure custom domain email on Google Workspace, Microsoft 365, or Zoho — including SPF, DKIM, and DMARC records so your emails land in inboxes, not spam folders, every time.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'Do you work with clients outside Nigeria?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with clients in the UK, Canada, the US, and across Africa. All projects are managed remotely with clear communication, shared project management tools, and regular video check-ins.'],
+                ],
+                [
+                    '@type' => 'Question',
+                    'name' => 'What makes i2Medier different from other agencies?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We cover the full digital lifecycle — strategy, design, development, email, and maintenance — without subcontracting. One team, one point of contact, consistent quality from brief to launch and beyond.'],
+                ],
+            ],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
 @endpush
 
 @push('page_css')

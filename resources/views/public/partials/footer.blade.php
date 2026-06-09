@@ -32,7 +32,7 @@
     <div class="fm-noise" aria-hidden="true"></div>
     <div class="footer-grid">
         <div class="fg-brand">
-            <a href="{{ route('site.home') }}" class="fg-logo">i2Medi<span>er</span></a>
+            @include('public.partials.logo', ['mode' => 'light', 'class' => 'fg-logo', 'alt' => 'i2Medier'])
             <span class="fg-tagline">Digital Agency · Est. 2018</span>
             <p class="fg-about">A premium digital agency from Port Harcourt, Nigeria — designing, building, and maintaining world-class digital products for businesses across Africa, the UK, and worldwide.</p>
 

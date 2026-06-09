@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Real Estate Agencies & Property Developers | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Real Estate Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'real-estate-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a real estate website cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Real estate websites start from ₦450,000 for a professional agency site with up to 25 listings, search filters, and lead capture. Growth portals with unlimited listings, map search, virtual tours, and property alert email systems start from ₦900,000. Enterprise platforms for large developers and multi-office firms are quoted individually. We provide a detailed, itemised quote after a free 30-minute consultation — no hidden charges.']],
+        ['@type' => 'Question', 'name' => 'Can visitors search and filter properties on my website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — dynamic property search is core to every real estate website we build. Visitors can filter by property type, location, price range, number of bedrooms and bathrooms, and status (for sale, to let, sold, let agreed). Results update in real time without page reloads. We also build map-based search using Google Maps, allowing buyers to browse properties geographically by dropping a pin or drawing a search area.']],
+        ['@type' => 'Question', 'name' => 'Will my real estate website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every property website we build includes a complete SEO foundation — RealEstateListing and LocalBusiness schema markup, individual optimised pages for each listing, location-specific category pages targeting "properties for sale [area]" and "houses to let [city]" keywords, and Google Search Console setup. For competitive markets like Lagos and Abuja, we also offer monthly SEO retainers covering ongoing content creation and link building to achieve and maintain page-one rankings.']],
+        ['@type' => 'Question', 'name' => 'Can I manage my own listings after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every real estate website we build gives your team complete control over listings from a simple WordPress admin panel. Adding a new property takes under 5 minutes — upload photos, enter the details, set the price and status. No developer access required at any point. We also support bulk CSV import for agencies migrating large listing catalogues from another system. A CMS training session and written admin guide are included on every project.']],
+        ['@type' => 'Question', 'name' => 'Do you integrate virtual tours and video walkthroughs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We integrate Matterport 3D virtual tours, YouTube and Vimeo video walkthroughs, and 360° image galleries directly into individual property listing pages. Virtual tours are particularly valuable for diaspora buyers viewing properties remotely and for off-plan developments where the physical property is not yet built. Properties with virtual tours consistently generate significantly higher enquiry rates than photo-only listings.']],
+        ['@type' => 'Question', 'name' => 'Can the website send automatic alerts to buyers and tenants?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Our property alert system allows visitors to register their search criteria — property type, location, price range, number of bedrooms — and receive automatic email notifications when matching new listings are added. When you publish a new listing that matches a registered buyer\'s criteria, the email goes out automatically within minutes. This builds a warm, permission-based buyer database that grows over time and reduces time-to-enquiry on new listings.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a real estate website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard real estate website with listings, search, lead capture, and agent profiles typically takes 4–6 weeks from design approval to launch. Larger platforms with buyer portals, developer showcases, and CRM integrations range from 8–12 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know where things stand and when to expect each deliverable.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -606,84 +636,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Property website packages<br>for every <em>agency size</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free consultation. The ranges below are based on typical scope — your detailed, itemised quote will be provided before any commitment is made.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo Agents & Small Agencies</div>
-        <div class="price-name">Starter Portal</div>
-        <p class="price-tagline">A professional property website with listings, search, and lead capture to establish your digital presence.</p>
-        <div class="price-amount">₦450k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 25 active listings</div>
-        <div class="price-feat">Property search + 5 filters</div>
-        <div class="price-feat">Photo gallery per listing</div>
-        <div class="price-feat">Enquiry & viewing request forms</div>
-        <div class="price-feat">WhatsApp chat integration</div>
-        <div class="price-feat">Full SEO foundation + schema</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Property alert email system</div>
-        <div class="price-feat no">Map-based search</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Portal</div>
-        <p class="price-tagline">A full-featured property portal with unlimited listings, map search, virtual tours, and property alerts.</p>
-        <div class="price-amount">₦900k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Unlimited listings</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Advanced search + all filters</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Map-based property search</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Property alert email system</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Virtual tour integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Agent profiles + linked listings</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Market insights blog</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + location pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Developers & Large Firms</div>
-        <div class="price-name">Enterprise Portal</div>
-        <p class="price-tagline">A full custom real estate platform for large agencies, developers, and diaspora investment portals.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Multi-agent / multi-office</div>
-        <div class="price-feat">Developer project showcase</div>
-        <div class="price-feat">Off-plan payment calculators</div>
-        <div class="price-feat">Buyer/Tenant account portal</div>
-        <div class="price-feat">Document upload & signing</div>
-        <div class="price-feat">Diaspora investment flows</div>
-        <div class="price-feat">Mortgage referral integration</div>
-        <div class="price-feat">CRM/PMS API integration</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Monthly SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="test-section" aria-labelledby="test-heading">
@@ -726,7 +680,7 @@
     </div>
     <p>Real estate websites have specific requirements that generic website builders and non-specialist developers routinely get wrong.</p>
   </div>
-  <table class="compare-table reveal">
+  <div class="compare-wrap"><table class="compare-table reveal">
     <thead>
       <tr>
         <th>Feature</th>
@@ -779,7 +733,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ SECONDARY CTA ═══ -->
@@ -924,7 +878,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a property website<br>that generates leads?</h2>
   <p>Get a free, no-obligation website review and proposal tailored to your agency's properties, locations, and target buyers.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-real-estate-website-design', 'source_label' => 'Real Estate Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

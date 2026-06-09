@@ -1846,10 +1846,7 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .maintenance-page .compare-table th:nth-child(2),
-    .maintenance-page .compare-table td:nth-child(2) {
-        display: none;
-    }
+    
 
     .maintenance-page .tech-row {
         grid-template-columns: 1fr;
@@ -1862,3 +1859,6 @@
         grid-template-columns: 1fr;
     }
 }
+/* compare-table horizontal scroll */
+.maintenance-page .compare-wrap{-webkit-overflow-scrolling:touch;width:100%;overflow-x:auto}
+.maintenance-page .compare-wrap .compare-table{border-radius:10px;min-width:620px;margin-top:0}

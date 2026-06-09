@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Cleaning Companies | Cleaning Service Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Cleaning Company Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'cleaning-company-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How do I capture leads from my cleaning website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The most effective lead capture mechanism for cleaning companies is a multi-step quote form — not a simple contact form. By breaking the enquiry into sequential steps (service type → property size → location → preferred date → contact details), you reduce friction for the visitor while capturing all the information you need to respond with a specific, relevant quote. We place this form prominently on the homepage and every service page, with email notifications sending you a complete lead record immediately. We can also integrate with CRM systems like HubSpot or your preferred lead management tool.']],
+        ['@type' => 'Question', 'name' => 'Can clients book directly online?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — depending on your package. The Essential and Growth websites use a quote-request-then-confirm model: the client submits their details, you review and confirm with a specific price, and then they book. This is appropriate for most cleaning businesses where pricing varies by property size and job type. The Enterprise package includes a full online booking system where clients can select a service, choose a date from your real-time availability calendar, pay a deposit via Paystack, and receive an automatic confirmation — without you needing to manually process the booking.']],
+        ['@type' => 'Question', 'name' => 'How do you set up Google map pack rankings?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Map pack rankings (the three businesses that appear in local Google search results with a map) depend on three main factors: the completeness and accuracy of your Google Business Profile, the relevance and authority of your website, and your review count and rating. We optimise all three — setting up or completing your GBP with the correct categories, service areas, photos, and Q&A; implementing LocalBusiness and CleaningService schema markup on your website; and providing you with a review request strategy to consistently build your Google review count.']],
+        ['@type' => 'Question', 'name' => 'Do I need separate pages for each service?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is one of the highest-impact decisions you can make for your cleaning website\'s SEO performance. A single "Services" page listing residential cleaning, office cleaning, deep cleaning, and post-construction cleaning cannot rank effectively for all of those terms. A dedicated "Office Cleaning Lagos" page, optimised specifically for commercial cleaning keywords, can rank for "office cleaning Lagos", "commercial cleaning service Lagos", "contract office cleaning Abuja", and dozens of long-tail variations. Each service page you add is an additional, independent ranking opportunity.']],
+        ['@type' => 'Question', 'name' => 'Can you integrate Paystack for deposit payments?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Paystack integration for deposit collection is available on the Growth and Enterprise packages. Clients can pay a booking deposit online — typically 20–30% of the quoted job value — which confirms their appointment and reduces no-shows significantly. The deposit amount can be fixed (e.g. ₦5,000 per booking) or calculated as a percentage of the quote value. Payment confirmations trigger automatic email receipts to both you and the client, and all payments are logged in your WordPress admin alongside the booking details.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a cleaning company website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard cleaning company website takes 3–5 weeks from design approval to launch. Sites with a large number of service area pages, a full blog section, and Paystack integration may take 5–7 weeks. We provide a detailed, milestone-based timeline at the start of every project — week one is discovery and design, weeks two to four are build, week four is SEO and content, week five is QA and launch. You always know exactly where your project is and what is happening next.']],
+        ['@type' => 'Question', 'name' => 'How do I update content myself after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every cleaning company website we build uses WordPress with ACF Pro to create intuitive editing interfaces for your service pages, gallery, testimonials, pricing, team information, and blog. You can update prices, add before/after photos, publish new blog posts, and edit any content on the site without touching code or contacting us. Every handover includes a 45-minute CMS training session and a written admin guide covering every content management workflow your team will need — so you are genuinely independent after launch.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -594,82 +624,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>cleaning business</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical cleaning company project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo & Small Teams</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, professional website for a small cleaning team needing a credible online presence and basic lead capture fast.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with instant quote CTA</div>
-        <div class="price-feat">5 core service pages</div>
-        <div class="price-feat">Multi-step quote form</div>
-        <div class="price-feat">Before & after gallery</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Service area pages</div>
-        <div class="price-feat no">Google Business Profile optimisation</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service cleaning company website built to dominate local search, generate quote requests, and grow with your business.</p>
-        <div class="price-amount">₦700k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full service pages (all cleaning types)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Service area pages (per neighbourhood)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Google Business Profile optimisation</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Before & after gallery (advanced)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Google review integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Blog / cleaning tips CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">LocalBusiness + CleaningService schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Multi-Branch & Franchises</div>
-        <div class="price-name">Enterprise</div>
-        <p class="price-tagline">A comprehensive digital platform for large cleaning companies with booking systems, staff management, and multi-city franchise pages.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Booking & scheduling system</div>
-        <div class="price-feat">Staff management portal</div>
-        <div class="price-feat">Multi-city franchise pages</div>
-        <div class="price-feat">Recurring contract management</div>
-        <div class="price-feat">Paystack deposit payments</div>
-        <div class="price-feat">Client login & booking history</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -680,7 +636,7 @@
     </div>
     <p>Not all web development options are equal — especially for cleaning companies where your website needs to generate bookings, not just look professional.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for cleaning companies">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for cleaning companies">
     <thead>
       <tr>
         <th>Feature</th>
@@ -739,7 +695,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -919,7 +875,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a cleaning company<br>website that wins more contracts?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll audit your current online presence, map your local keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-cleaning-company-website-design', 'source_label' => 'Cleaning Company Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

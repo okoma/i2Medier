@@ -1,3 +1,6 @@
+import { initFaqButtons } from './service-common.js';
+initFaqButtons('.faq-q');
+
 const page = document.getElementById('website-cost-calculator-page');
 
 if (page) {

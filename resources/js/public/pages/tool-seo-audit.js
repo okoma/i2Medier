@@ -1,3 +1,6 @@
+import { initFaqButtons } from './service-common.js';
+initFaqButtons('.faq-q');
+
 const page = document.getElementById('seo-audit-page');
 
 if (page) {

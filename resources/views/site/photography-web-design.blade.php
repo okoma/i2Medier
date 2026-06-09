@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Photographers | Photography Portfolio Website Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Photography Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'photography-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How do I upload my images to the website after it is built?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'All photography websites we build use WordPress with a custom gallery management system powered by ACF Pro. You upload images directly from your WordPress admin — no coding required. You can add new images to existing gallery categories, create new project galleries, reorder images by drag-and-drop, and add SEO alt text to each image from the same interface. We include a full CMS training session at handover covering every workflow you will need.']],
+        ['@type' => 'Question', 'name' => 'Can you protect my gallery images from being downloaded or used without permission?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We implement right-click protection on all gallery images to prevent casual saving. For photographers who require stronger protection, we can implement automatic watermarking on public portfolio images, with clean unwatermarked versions available only through a password-protected client delivery portal. Note that no technical protection is 100% foolproof — anyone with determination can screenshot images — but right-click protection and visible watermarking are effective deterrents for the vast majority of use cases.']],
+        ['@type' => 'Question', 'name' => 'Can you integrate a watermarking system into my photography website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We can integrate automatic watermarking that overlays your logo or name on every public portfolio image at a specified opacity and position. This is done server-side so the original clean files are stored safely and can be displayed unwatermarked to clients through a secure delivery portal. The watermark style — position, opacity, text, or logo — is fully configurable and can be updated at any point without re-uploading your images.']],
+        ['@type' => 'Question', 'name' => 'Can you build a print shop into my photography website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. A print shop integration is available on our Enterprise Studio tier. We can integrate WooCommerce-powered print ordering — allowing clients to select images from their delivered gallery, choose print sizes and formats, and pay online — with order notifications sent directly to you or your lab. For photographers who use professional print labs in Nigeria or internationally, we can build custom integrations with your preferred fulfilment partner.']],
+        ['@type' => 'Question', 'name' => 'Can you build a client gallery delivery portal so I can share images privately with clients?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Our Enterprise Studio package includes a custom-built client gallery delivery portal — allowing clients to log in with a unique link or password, view their delivered images in a branded gallery, mark favourites, download approved images, and optionally place print orders. This replaces third-party services like Pixieset or Shootproof with a fully branded experience hosted on your own domain. Client portals are priced separately from the main portfolio website; contact us for a scoped quote.']],
+        ['@type' => 'Question', 'name' => 'Will my portfolio images appear in Google Image Search?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — and this is a significant, underutilised traffic source for photographers. Every image on your website receives an SEO-optimised alt text describing the content and location of the photograph ("wedding reception couple Lagos Island"), an SEO-friendly file name, and Photograph JSON-LD schema markup linking the image to your photographer profile. This signals to Google exactly what each image depicts, enabling your portfolio images to appear in Google Image Search results for relevant queries — driving an additional stream of organic discovery traffic to your website.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a photography website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard photography portfolio website takes 3–5 weeks from design approval to launch. The timeline depends on the number of gallery categories, whether individual project pages are included, and the extent of the SEO setup required. Enterprise studio platforms with client delivery portals and print shop integrations typically take 6–10 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when. The most common cause of delay is waiting for client content — specifically, curated images by category.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -599,82 +629,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every type of <em>photographer</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo Photographers</div>
-        <div class="price-name">Essential Portfolio</div>
-        <p class="price-tagline">A clean, stunning portfolio for a solo photographer needing a professional online presence to win more bookings.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with portfolio gallery (up to 5 categories)</div>
-        <div class="price-feat">Service &amp; specialism pages</div>
-        <div class="price-feat">Enquiry form with session details</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Image optimisation (WebP, CDN)</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Individual project galleries</div>
-        <div class="price-feat no">Pricing &amp; package pages</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Portfolio</div>
-        <p class="price-tagline">A full-featured photography website built to rank on Google, convert visitors, and grow your booking calendar.</p>
-        <div class="price-amount">₦800k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full filterable portfolio (unlimited categories)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Individual project galleries per shoot</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Pricing &amp; package pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Booking system + Calendly integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">About &amp; published credits page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Photography blog (SEO engine)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full Image SEO + Photograph schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Studios &amp; Multi-Photographer Teams</div>
-        <div class="price-name">Enterprise Studio</div>
-        <p class="price-tagline">A comprehensive digital platform for photography studios with multiple photographers, specialisms, and a full client delivery workflow.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Client gallery delivery portal</div>
-        <div class="price-feat">Online proofing &amp; image selection</div>
-        <div class="price-feat">Print shop integration</div>
-        <div class="price-feat">Multi-photographer studio management</div>
-        <div class="price-feat">Contract &amp; invoice system</div>
-        <div class="price-feat">Watermarking &amp; gallery protection</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support &amp; SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -685,7 +641,7 @@
     </div>
     <p>Not all web development options are equal — especially for photographers where your portfolio presentation is your product.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for photographers">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for photographers">
     <thead>
       <tr>
         <th>Feature</th>
@@ -744,7 +700,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -931,7 +887,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a photography website<br>that wins more bookings?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current portfolio presence, map your keyword opportunities, and show you exactly what we'd build — and why.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-photography-website-design', 'source_label' => 'Photography Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

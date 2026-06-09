@@ -1,4 +1,6 @@
+import { initFaqButtons } from './service-common.js';
 import { renderWebsiteBriefDocument } from './website-brief-render';
+initFaqButtons('.faq-q');
 
 const page = document.getElementById('website-brief-generator-page');
 

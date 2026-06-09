@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Clinics, Hospitals & Healthcare Providers | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Clinic Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'clinic-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a clinic website cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Clinic websites start from ₦400,000 for a solo practitioner or small practice — up to 8 pages, doctor profiles, appointment booking form, and full SEO. Growth websites with real-time booking, unlimited doctor profiles, speciality service pages, and a health blog start from ₦800,000. Hospital platforms with patient portals and PMS integration are priced on scope after a detailed discovery session. We provide a written, itemised quote after a free consultation — no hidden fees.']],
+        ['@type' => 'Question', 'name' => 'Can patients book appointments online through the website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — online appointment booking is core to every growth-tier clinic website we build. Patients select a doctor, choose their appointment type, view real-time availability, pick a date and time, and receive an automatic confirmation email. Your clinical team receives an immediate notification. The system integrates with Calendly or Google Calendar, or we can connect to your existing practice management software where an API is available. Automated appointment reminders 24 hours before are also configured.']],
+        ['@type' => 'Question', 'name' => 'Will my clinic website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every medical website we build includes a complete healthcare SEO foundation — MedicalClinic and LocalBusiness schema markup, individual Physician schema for each doctor, optimised service pages targeting specific keyword + location combinations, Google Business Profile optimisation, and Google Search Console setup. For competitive healthcare markets, we also offer monthly SEO retainers covering content creation, patient education articles, and citation building that sustain and improve rankings over time.']],
+        ['@type' => 'Question', 'name' => 'How do you handle patient data and privacy?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Patient privacy is a fundamental design principle on every healthcare website we build. All patient-facing forms are SSL-encrypted, collect only necessary information, and are accompanied by appropriate data handling notices. We configure GDPR-compliant (and NDPR-aligned for Nigerian practices) cookie notices and privacy policies. Appointment data is not stored on the website beyond what is necessary to complete the booking — sensitive health information is handled by your practice management software, not your website.']],
+        ['@type' => 'Question', 'name' => 'Do you build websites for specialist practices?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — we have built websites for general practice clinics, dental surgeries, physiotherapy practices, paediatric clinics, cardiology centres, eye clinics, diagnostic centres, mental health practices, and caregiver agencies. Each speciality has different patient trust signals, content requirements, keyword opportunities, and conversion patterns. We design and write content specifically for your medical speciality — not a generic healthcare template adapted for your practice.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a clinic website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard clinic website with service pages, doctor profiles, appointment booking, and SEO setup typically takes 3–5 weeks from design approval to launch. Larger multi-speciality hospital websites with patient portals may take 6–10 weeks. We provide a detailed, milestone-by-milestone timeline before work begins — so your clinical team always knows what is happening and when to expect each deliverable.']],
+        ['@type' => 'Question', 'name' => 'Can my staff update the website after launch without technical knowledge?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every clinic website we build is designed for self-management by non-technical clinical staff. ACF Pro creates intuitive editing interfaces for doctor profiles, service descriptions, opening hours, news and health blog posts, and testimonials — all updatable without any code knowledge. A CMS training session and written admin guide are included in every project handover. Adding a new doctor profile takes under 5 minutes. Publishing a health blog article takes under 10 minutes.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -651,83 +681,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Clinic website packages<br>for every <em>practice size</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free consultation. These ranges reflect typical scope — your detailed, itemised quote will be provided before any commitment is made.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Solo Practitioners & Small Clinics</div>
-        <div class="price-name">Essential Clinic Site</div>
-        <p class="price-tagline">A professional, trust-first clinic website with service pages, doctor profiles, and appointment booking.</p>
-        <div class="price-amount">₦400k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 8 pages</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">Up to 3 doctor profiles</div>
-        <div class="price-feat">Appointment booking form</div>
-        <div class="price-feat">Full SEO + MedicalClinic schema</div>
-        <div class="price-feat">Emergency contact display</div>
-        <div class="price-feat">WCAG 2.1 AA accessibility</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Real-time booking system</div>
-        <div class="price-feat no">Patient health blog</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Clinic Website</div>
-        <p class="price-tagline">A full-featured clinic website with real-time booking, full doctor profiles, speciality pages, and healthcare SEO.</p>
-        <div class="price-amount">₦800k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Up to 20 pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Real-time appointment booking</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Unlimited doctor profiles</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Individual service/speciality pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Patient health blog CMS</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + Physician schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Google Business Profile setup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Hospitals & Multi-Site Groups</div>
-        <div class="price-name">Hospital Platform</div>
-        <p class="price-tagline">A comprehensive healthcare platform for hospitals, multi-speciality groups, and chains with patient portals.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Unlimited pages & specialities</div>
-        <div class="price-feat">Patient portal & login</div>
-        <div class="price-feat">Test result access portal</div>
-        <div class="price-feat">Multi-branch location pages</div>
-        <div class="price-feat">Insurance & HMO integration info</div>
-        <div class="price-feat">Telemedicine consultation booking</div>
-        <div class="price-feat">PMS API integration</div>
-        <div class="price-feat">GDPR / NDPR compliance audit</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Monthly SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="test-section" aria-labelledby="test-heading">
@@ -770,7 +725,7 @@
     </div>
     <p>Generic website builders and non-specialist developers lack the healthcare-specific design patterns, SEO standards, and patient trust architecture that medical websites demand.</p>
   </div>
-  <table class="compare-table reveal">
+  <div class="compare-wrap"><table class="compare-table reveal">
     <thead>
       <tr>
         <th>Feature</th>
@@ -823,7 +778,7 @@
         <td><span class="maybe"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4 3.5 19h17L12 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9v4m0 3h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ SECONDARY CTA ═══ -->
@@ -966,7 +921,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a clinic website<br>that fills your appointment book?</h2>
   <p>Get a free, no-obligation website review and proposal tailored to your practice's specialities, patient audience, and local market.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-clinic-website-design', 'source_label' => 'Clinic Industry Page']) }}" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Clinic Website Proposal →</a>
 </section>
 @endsection
 

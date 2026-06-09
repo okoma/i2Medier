@@ -2,6 +2,58 @@
 
 @section('title', 'UI/UX Design Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'UI/UX Design', 'item' => route('site.services.ui-ux-design')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'What tools do you use for UI/UX design?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We design exclusively in Figma and also use FigJam for workshops plus Maze or Useberry for remote usability testing when required.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What is the difference between UI design and UX design?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'UX design covers the overall feel and usability of the product. UI design covers the visual layer: typography, colour, spacing, icons, components, and hierarchy. We practise both together.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you do UX research as part of the design process?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every engagement begins with discovery, including stakeholder interviews, competitor analysis, personas, and user journey mapping. Larger products also include usability testing.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Will the designs be ready for handoff to developers?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. Every final Figma file is organised for handoff, with named components, token-based spacing and type, defined states, export-ready assets, annotations, and a walkthrough session if needed.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can you design both the mobile and desktop versions?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. All design engagements include responsive design across desktop, tablet, and mobile breakpoints as standard.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How much does UI/UX design cost in Nigeria?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our UI/UX design engagements start from ₦280,000 for a focused single-product design. Larger systems, SaaS platforms, and mobile apps are quoted based on scope and complexity.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/ui-ux-design.css')
 @endpush
@@ -206,7 +258,7 @@
       <div><span class="s-label">Why i2Medier</span><h2 class="s-head" id="compare-heading">How we compare to<br><em>other design options</em></h2></div>
       <p>Many teams turn to freelancers for affordability or large agencies for scale and end up frustrated by both. We offer a focused studio model that delivers agency-level rigour at a rational cost.</p>
     </div>
-    <table class="compare-table" aria-label="Design provider comparison">
+    <div class="compare-wrap"><table class="compare-table" aria-label="Design provider comparison">
       <thead><tr><th>Design Consideration</th><th>Freelancer</th><th class="highlight">i2Medier</th><th>Large Agency</th></tr></thead>
       <tbody>
         <tr><td class="feature">UX Research Included</td><td><span class="partial">Sometimes (extra cost)</span></td><td class="highlight"><span class="yes">✓ Included in every engagement</span></td><td><span class="partial">Usually a separate phase</span></td></tr>
@@ -218,7 +270,7 @@
         <tr><td class="feature">Client Figma Access</td><td><span class="partial">Sometimes shared at end</span></td><td class="highlight"><span class="yes">✓ View access from day one</span></td><td><span class="partial">Often proprietary tools</span></td></tr>
         <tr><td class="feature">Design QA During Build</td><td><span class="no">Not included</span></td><td class="highlight"><span class="yes">✓ 4 weeks included</span></td><td><span class="partial">Billed separately</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
   </section>
 
   <section class="test-section" aria-labelledby="test-heading">

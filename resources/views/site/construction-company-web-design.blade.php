@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Construction Companies | Contractor Websites Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Construction Company Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'construction-company-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How much does a website for a construction company cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Construction company websites start from ₦350,000 for a professional 5–6 page site with a photo gallery, project credentials, and basic SEO. Full-featured growth websites with individual service pages, a complete project portfolio, tender information section, and advanced SEO start from ₦750,000. Enterprise platforms with prequalification portals and multi-location pages are quoted individually. We provide a detailed, itemised quote after a free consultation — no hidden fees.']],
+        ['@type' => 'Question', 'name' => 'What pages should a construction company website have?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A high-performing construction company website should include: Home, About the Firm, Project Portfolio (filterable by type and location), individual Service pages (Civil Works, Building Construction, Roads, Project Management, Fit-Out, etc.), Tender & Credentials (prequalification information), Client Testimonials & Case Studies, Blog/Insights, and Contact with a Request for Quote form. Individual project pages are particularly important for SEO — they allow you to rank for specific searches like "commercial building contractor Lagos" or "road construction Abuja".']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a construction company website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard construction company website typically takes 3–5 weeks from design approval to launch. Larger sites with extensive project portfolios, many service pages, and a prequalification portal may take 5–7 weeks. We provide a detailed, milestone-based timeline at the start of every project so you always know what is happening and when — and we never miss a deadline without prior communication.']],
+        ['@type' => 'Question', 'name' => 'Will my construction company website rank on Google?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every website we build includes a complete SEO foundation — semantic HTML structure, optimised title tags and meta descriptions, ConstructionService and LocalBusiness schema markup, XML sitemap, canonical URLs, and Google Search Console setup. Project pages, service pages, and location pages are individually keyword-optimised. For ongoing SEO campaigns targeting competitive construction keywords in your city, we offer monthly retainer packages covering content creation, link building, and reporting.']],
+        ['@type' => 'Question', 'name' => 'Can I add new projects to the portfolio myself after launch?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — this is a core principle of every site we build. We use ACF Pro to create intuitive portfolio management interfaces so you can add completed projects, upload photos, set project details, and categorise by type without touching any code. Your team can add a new project in under five minutes. Every handover includes a CMS training session and a written admin guide covering every content management workflow your team will need.']],
+        ['@type' => 'Question', 'name' => 'How do you handle project photography if we don\'t have professional photos?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We can work with existing photography, however good or basic — we optimise, resize, compress, and caption everything for both web performance and SEO. For firms with no photography at all, we can advise on a cost-effective photography approach, recommend standards for on-site photography using a modern smartphone, or we can work with architectural renders and site drawings for projects currently under construction. The portfolio does not need professional photography to be effective — but it does need real images of real work, not stock photos.']],
+        ['@type' => 'Question', 'name' => 'Do you build websites for construction companies targeting government contracts?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, and we understand the specific requirements of government-facing construction websites. We build dedicated prequalification sections containing CAC registration details, COREN and NIA certifications, ISO status, Health & Safety documentation, past government project references, and key personnel profiles — all structured to meet the information expectations of government procurement teams. We also advise on Google Business Profile optimisation and directory listings that improve your visibility in government procurement searches.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -584,82 +614,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every size of <em>construction firm</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Small Contractors & Sole Traders</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible website for a growing contractor needing a professional online presence to support tenders and referrals.</p>
-        <div class="price-amount">₦350k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Up to 6 pages</div>
-        <div class="price-feat">Custom WordPress theme</div>
-        <div class="price-feat">Project photo gallery (up to 10 projects)</div>
-        <div class="price-feat">Credentials display (CAC, certifications)</div>
-        <div class="price-feat">RFQ / project enquiry form</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">Mobile-responsive design</div>
-        <div class="price-feat no">Individual service pages</div>
-        <div class="price-feat no">Tender information section</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full-service construction company website built to rank for contractor searches, showcase projects, and win high-value tenders.</p>
-        <div class="price-amount">₦750k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Up to 15 pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Custom theme + ACF Pro</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full project portfolio (unlimited)</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Individual service pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Tender & credentials section</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Client testimonials & case studies</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + schema markup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">CMS training session</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Large Firms & Multi-Location</div>
-        <div class="price-name">Enterprise Build</div>
-        <p class="price-tagline">A comprehensive digital platform for large construction groups, multi-location firms, and property developers with complex content needs.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Unlimited pages & service areas</div>
-        <div class="price-feat">Advanced project portfolio (filterable)</div>
-        <div class="price-feat">Prequalification document portal</div>
-        <div class="price-feat">Multi-office location pages</div>
-        <div class="price-feat">Sub-brand or division microsites</div>
-        <div class="price-feat">Newsletter & media relations</div>
-        <div class="price-feat">Full analytics dashboard</div>
-        <div class="price-feat">90-day support & SLA</div>
-        <div class="price-feat">Ongoing SEO retainer available</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -670,7 +626,7 @@
     </div>
     <p>Not all web development options are equal — especially for construction companies where your website is often the first credibility filter in a competitive tender process.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for construction companies">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for construction companies">
     <thead>
       <tr>
         <th>Feature</th>
@@ -729,7 +685,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Usually paid extra</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -921,7 +877,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a construction company<br>website that wins contracts?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We'll review your current site, map your keyword opportunities, and show you exactly what we'd build — and what projects it would win you.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-construction-company-website-design', 'source_label' => 'Construction Company Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

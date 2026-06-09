@@ -2,6 +2,58 @@
 
 @section('title', 'White Label Digital Services | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'White Label Services', 'item' => route('site.services.white-label')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        [
+            '@type' => 'Question',
+            'name' => 'Will my clients find out you were involved?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. We operate with complete invisibility. No i2Medier branding appears on any file, document, code repository, or communication. Our name does not appear in metadata, comments, Git history, or Figma file properties. Your client sees only your agency\'s name.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Do you sign NDAs?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — unconditionally. We sign a non-disclosure agreement before any project information is shared. This covers client identities, project briefs, pricing, and all commercial details. We can work from your NDA template or provide our own.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What information do you need to start a project?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A clear brief, the expected deliverable format, your timeline, and any brand or style references relevant to the project. We ask clarifying questions upfront to remove ambiguity before work begins — which saves revisions later.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'Can I use you for ongoing work across multiple clients?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Our retainer and dedicated team models are specifically designed for agencies with recurring multi-client needs. A monthly retainer locks in your hours, gives you priority scheduling, and means we\'re always available when your pipeline needs us.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'What happens if the deliverable doesn\'t meet our standards?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Every engagement includes a revision round. If the first draft doesn\'t meet the brief, we revise it — that is part of the agreement. We do not deliver and disappear. We stay on the work until it is genuinely presentable to your client.'],
+        ],
+        [
+            '@type' => 'Question',
+            'name' => 'How do we communicate during a project?',
+            'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'However works best for your agency — email, WhatsApp, Slack, Notion, or your existing project management tool. We adapt to your workflow. You will have a single point of contact from our side for all active work.'],
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('page_css')
     @vite('resources/css/public/pages/white-label.css')
 @endpush

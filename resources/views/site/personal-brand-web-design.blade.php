@@ -2,6 +2,36 @@
 
 @section('title', 'Web Design for Personal Brands | Personal Brand Website Design Nigeria | i2Medier')
 
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Personal Brand Web Design', 'item' => route('site.services.web-design.industry', ['industry' => 'personal-brand-website-design'])],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'Can you integrate Calendly directly into my coaching and speaking pages?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes — Calendly integration is built directly into your coaching and speaking pages as part of the build, not just a simple embed. For coaching pages, we design a multi-step flow where a visitor reads your methodology, reviews packages, and is then directed to a Calendly booking form for their specific session type. For speaking enquiries, we typically use a custom enquiry form rather than Calendly, so you can capture event details, budget, and audience information before responding. Paystack payment links can also be integrated for session deposits or course purchases.']],
+        ['@type' => 'Question', 'name' => 'Should my courses live on my personal brand website or on a platform like Teachable or Selar?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The ideal answer for most Nigerian personal brands is both — with your personal brand website as the primary sales and marketing channel. Your course landing page lives on your domain, captures leads and builds your email list, and handles the sale. Delivery can happen through Teachable, Selar, or a custom portal depending on your preference and budget. This approach means you own the customer relationship from the first touchpoint, you benefit from SEO on your course landing page, and you reduce dependency on third-party platform algorithms for discoverability.']],
+        ['@type' => 'Question', 'name' => 'How does the website help me build my email list?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We build dedicated lead magnet landing pages for your free resources — eBooks, checklists, frameworks, mini-courses, or webinar registrations. These pages are SEO-optimised to rank for relevant search terms, and they integrate directly with Mailchimp, ConvertKit, Flodesk, or your preferred email marketing platform. We also add newsletter signup prompts to your blog articles and coaching pages. The goal is to convert website visitors into email subscribers who you can nurture over time — independent of social media algorithms.']],
+        ['@type' => 'Question', 'name' => 'How do I keep my media room updated as new press features arrive?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Your media room is built with ACF Pro in WordPress, which means you can add new press mentions, podcast appearances, and media features directly from your WordPress admin without any coding knowledge. We build a simple "Add Media Feature" interface where you input the publication name, feature type (article, podcast, TV, radio, award), date, summary, and external link. New additions appear automatically in the correct category on your media room page. We include a full training session covering this workflow in every project handover.']],
+        ['@type' => 'Question', 'name' => 'Can my website embed podcast episodes from my show or guest appearances?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Your media room can include embedded podcast players for both episodes of your own podcast and guest appearances on other shows. We support Spotify, Apple Podcasts, and Anchor embeds, as well as custom audio player embeds. For personal brands with their own podcast, we can build a full podcast archive section separate from the media room — with individual episode pages that rank for the topic covered in each episode, creating additional SEO entry points for your personal brand website.']],
+        ['@type' => 'Question', 'name' => 'Will I appear on Google with a Knowledge Panel if I have a personal brand website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A Google Knowledge Panel is triggered by a combination of factors including Person schema markup (which we implement on your website), consistent NAP data across the web, Wikipedia presence, and the overall authority of your online footprint. We implement all the technical foundations — Person schema, sameAs links to verified social profiles, and structured data connecting your website to your other authoritative web presences. For most established Nigerian experts with existing media features and social profiles, a knowledge panel typically begins appearing within 3–6 months of launching a properly optimised website.']],
+        ['@type' => 'Question', 'name' => 'How long does it take to build a personal brand website?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A standard personal brand website — homepage, about, speaking page, coaching page, media room, basic blog, and contact — typically takes 3–5 weeks from design approval to launch. Larger platforms with course delivery integration, community membership, podcast archive, and multiple coaching tier pages may take 5–8 weeks. We provide a detailed, milestone-based timeline at the start of every project. The most common cause of delays is slow content delivery from the client — so we provide a structured content collection guide to help you prepare everything efficiently before the build phase begins.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 @push('scripts')
     @vite('resources/js/public/pages/industry-web-design.js')
 @endpush
@@ -590,83 +620,8 @@
 </section>
 
 <!-- ═══ PRICING ═══ -->
-<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
-  <div class="two-col-intro">
-    <div>
-      <span class="s-label">Pricing</span>
-      <h2 class="s-head" id="pricing-heading">Transparent pricing for<br>every stage of your <em>personal brand</em></h2>
-    </div>
-    <p>Every project is quoted individually after a free 30-minute consultation. These ranges are based on typical project scope — your exact quote will be detailed and itemised before any commitment is required.</p>
-  </div>
-  <div class="pricing-grid">
+@include('site.partials.industry-package')
 
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Emerging Experts & Coaches</div>
-        <div class="price-name">Essential Site</div>
-        <p class="price-tagline">A clean, credible personal brand website for an expert ready to establish a proper online presence and start attracting the right opportunities.</p>
-        <div class="price-amount">₦450k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Homepage with authority design</div>
-        <div class="price-feat">About & credentials page</div>
-        <div class="price-feat">Speaking or coaching page</div>
-        <div class="price-feat">Contact & discovery call form</div>
-        <div class="price-feat">Basic blog setup</div>
-        <div class="price-feat">Full SEO foundation</div>
-        <div class="price-feat">Google Analytics 4</div>
-        <div class="price-feat">30-day post-launch support</div>
-        <div class="price-feat no">Media room</div>
-        <div class="price-feat no">Course landing pages</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn outline">Get a Quote →</a></div>
-    </div>
-
-    <div class="price-card featured reveal">
-      <div class="price-head">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Growth Website</div>
-        <p class="price-tagline">A full authority site for the expert ready to monetise multiple offers — speaking, coaching, courses, and thought leadership — from a single platform.</p>
-        <div class="price-amount">₦900k <sub>starting from</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full authority homepage</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Speaking page with booking form</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Coaching & consulting pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Media room & press page</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Course & product landing pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Email list & lead magnet pages</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Calendly / Paystack integration</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Newsletter setup</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">Full SEO + Person schema</div>
-        <div class="price-feat" style="color:rgba(255,255,255,.7)">60-day post-launch support</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn gold">Start This Project →</a></div>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-head">
-        <div class="price-badge">Established Thought Leaders</div>
-        <div class="price-name">Enterprise Platform</div>
-        <p class="price-tagline">A comprehensive personal brand platform for the established expert with multiple revenue streams, a community, a podcast, and a digital product empire to build.</p>
-        <div class="price-amount">Custom <sub>quoted on scope</sub></div>
-      </div>
-      <div class="price-body">
-        <div class="price-feat">Full personal brand platform</div>
-        <div class="price-feat">Course delivery integration</div>
-        <div class="price-feat">Community membership area</div>
-        <div class="price-feat">Podcast integration & archive</div>
-        <div class="price-feat">Book sales & signed copies</div>
-        <div class="price-feat">Digital product store</div>
-        <div class="price-feat">Advanced email automation</div>
-        <div class="price-feat">Affiliate & referral system</div>
-        <div class="price-feat">90-day support & SLA</div>
-      </div>
-      <div class="price-foot"><a href="#contact" class="price-btn solid">Request a Proposal →</a></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ═══ COMPARISON TABLE ═══ -->
 <section class="compare-section" aria-labelledby="compare-heading">
@@ -677,7 +632,7 @@
     </div>
     <p>Not all web development options are equal — especially for personal brands where your website is your most valuable business asset and first impression.</p>
   </div>
-  <table class="compare-table reveal" role="table" aria-label="Web design comparison for personal brands">
+  <div class="compare-wrap"><table class="compare-table reveal" role="table" aria-label="Web design comparison for personal brands">
     <thead>
       <tr>
         <th>Feature</th>
@@ -736,7 +691,7 @@
         <td><span class="compare-status maybe"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg> Often withheld</span></td>
       </tr>
     </tbody>
-  </table>
+  </table></div>
 </section>
 
 <!-- ═══ TESTIMONIALS ═══ -->
@@ -917,7 +872,7 @@
 <section class="cta-band" id="contact" aria-labelledby="cta-h">
   <h2 id="cta-h">Ready to build a personal brand website<br>that positions you as the authority?</h2>
   <p>Get a free, no-obligation consultation and website proposal. We will audit your current digital presence, identify your biggest positioning and SEO gaps, and show you exactly what we would build — and why it will attract the right speaking enquiries, coaching clients, and media opportunities.</p>
-  <a href="{{ route('site.start', ['services' => 'webdesign', 'source_page' => 'industry-personal-brand-website-design', 'source_label' => 'Personal Brand Industry Page']) }}" class="btn-dark">Get Your Free Proposal →</a>
+  <a href="{{ $startUrl }}" class="btn-dark">Get Your Free Proposal →</a>
 </section>
 @endsection
 

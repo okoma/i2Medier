@@ -1,6 +1,6 @@
 @extends('public.layouts.nametool')
 
-@section('title', 'Website Cost Calculator — i2Medier')
+@section('title', 'Free Website Cost Calculator — Real-Time Pricing | i2Medier')
 
 @section('body_attrs')
 id="website-cost-calculator-page"
@@ -473,6 +473,454 @@ data-print-route="{{ route('tools.cost-calculator.print') }}"
     </div>
     <button class="mtb-btn" type="button" onclick="getQuote()">Get Quote <span class="ui-icon"><svg><use href="#icon-arrow-right"></use></svg></span></button>
 </div>
+
+<section class="seo-content" aria-label="About the Website Cost Calculator">
+  <div class="seo-content-inner">
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">ABOUT THIS TOOL</span>
+      <h2>About this free website cost calculator</h2>
+      <p>This free website cost calculator gives you an instant, itemised estimate based on your actual project requirements — no forms, no waiting, no vague "contact us for pricing." Configure your project live and watch the total adjust in real time as you select features, design level, and timeline.</p>
+      <p>Every price in this website cost calculator reflects i2Medier's current standard rates for the Nigerian market, so the figure you see is the same figure our team would give you in a discovery call. It is not a random range — it is a serious starting point for a real web design budget conversation.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div class="cfc-title">Real-Time Pricing</div>
+          <div class="cfc-desc">Every selection updates your estimate instantly — no page reload or form submission needed.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v1.5"/><path d="M12 6V4.5"/></svg></div>
+          <div class="cfc-title">Itemised Breakdown</div>
+          <div class="cfc-desc">See exactly which features and services contribute to the total, line by line.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="cfc-title">Market Comparison</div>
+          <div class="cfc-desc">See how your estimate compares to freelancers and large agencies for the same scope.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="cfc-title">Printable Summary</div>
+          <div class="cfc-desc">Save or print your estimate as a PDF to share with stakeholders or finance teams.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+          <div class="cfc-title">Quote Pathway</div>
+          <div class="cfc-desc">Click "Get Quote" at any point to move from estimate to a formal, detailed proposal.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+          <div class="cfc-title">Rush Premium Calculator</div>
+          <div class="cfc-desc">See how timeline choices — express, rush, or flexible — affect the total in real time.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">HOW IT WORKS</span>
+      <h2>How this website cost calculator works — in six steps</h2>
+      <p>This website cost calculator works by assigning real development costs to each option you select. As you configure your project, every choice adds or adjusts the running total so you always know exactly where your web design budget stands.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div class="why-body">
+            <div class="why-body-title">Choose your website type</div>
+            <div class="why-body-desc">Select from brochure site, corporate website, e-commerce store, web application, landing page, or portfolio. This sets your base price.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div class="why-body">
+            <div class="why-body-title">Set the number of pages</div>
+            <div class="why-body-desc">Use the slider to indicate how many pages your website needs. More pages require more content structure, layout, and development work.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div class="why-body">
+            <div class="why-body-title">Select your design level</div>
+            <div class="why-body-desc">Choose between a premium theme with brand customisation, a semi-custom design on key sections, or a fully original Figma design for every screen.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div class="why-body">
+            <div class="why-body-title">Toggle the features you need</div>
+            <div class="why-body-desc">Pick from contact forms, booking systems, payment gateways, user logins, blog, e-commerce, CRM integrations, and more — each adds its specific cost.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">5</div>
+          <div class="why-body">
+            <div class="why-body-title">Add content, SEO, and hosting</div>
+            <div class="why-body-desc">Select whether you need copywriting, SEO setup, or ongoing maintenance to see the complete picture of what your website investment looks like.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">6</div>
+          <div class="why-body">
+            <div class="why-body-title">Review and get a formal quote</div>
+            <div class="why-body-desc">When you are satisfied with your configuration, click "Get Quote" to receive a detailed, itemised proposal from the i2Medier team.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHAT AFFECTS THE COST</span>
+      <h2>What this website cost calculator measures — the variables that drive price</h2>
+      <p>Website development costs are not arbitrary. Every line in this website cost calculator reflects a real decision that affects how much time and expertise your project requires. Understanding what drives the price helps you make smarter scope decisions.</p>
+      <p>The biggest single factor is usually the website type — a landing page and a full web application can be ten times apart in price. After that, design level, features, and whether you need content written are the most significant variables in any website cost estimate.</p>
+      <div class="checks-feature-grid">
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="cfc-title">Website Type</div>
+          <div class="cfc-desc">The type determines base complexity. A web app requires far more architecture than a brochure site.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="cfc-title">Design Level</div>
+          <div class="cfc-desc">Custom Figma designs for every screen cost more than adapting a premium theme with brand colours.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <div class="cfc-title">Features & Integrations</div>
+          <div class="cfc-desc">Each feature — booking systems, payment gateways, user portals — adds development and testing time.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="cfc-title">Copywriting</div>
+          <div class="cfc-desc">Professionally written website copy for 10+ pages is a significant effort and priced accordingly.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div class="cfc-title">SEO Setup</div>
+          <div class="cfc-desc">Comprehensive on-page SEO — schema markup, keyword mapping, technical audit — takes specialist time.</div>
+        </div>
+        <div class="check-feature-card">
+          <div class="cfc-icon"><svg viewBox="0 0 24 24"><line x1="10" y1="2" x2="14" y2="2"/><line x1="12" y1="14" x2="12" y2="8"/><path d="M4.9 4.9A9.96 9.96 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10 10 10 0 0 0-2.9-7.1"/></svg></div>
+          <div class="cfc-title">Timeline</div>
+          <div class="cfc-desc">Rush timelines require extra team resources and overtime, which is reflected in the rush premium.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHY IT MATTERS</span>
+      <h2>Why you need a website cost calculator before you start building</h2>
+      <p>Most project failures in Nigerian web development are not technical — they are budget failures. A client starts with a vague figure in mind, gets into the build, and discovers the real scope costs three times what they expected. Using a website cost calculator before committing to a developer prevents this entirely.</p>
+      <p>This website cost calculator gives you an honest, itemised picture before you commit to anything. You can scope down to fit your budget, or confirm that your budget is right for what you need — either way, you go into the project with clarity instead of hope.</p>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-num">1</div>
+          <div class="why-body">
+            <div class="why-body-title">Avoid scope creep surprises</div>
+            <div class="why-body-desc">Knowing what each feature costs upfront lets you make intentional decisions about what to include, rather than discovering overruns mid-project.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">2</div>
+          <div class="why-body">
+            <div class="why-body-title">Build a credible budget proposal</div>
+            <div class="why-body-desc">Marketing managers and founders often need to justify website spend to boards or finance teams. A printed, itemised estimate gives that conversation a solid foundation.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">3</div>
+          <div class="why-body">
+            <div class="why-body-title">Compare providers fairly</div>
+            <div class="why-body-desc">When you know the realistic cost of your scope, you can assess quotes from other providers with context — rather than choosing the cheapest without understanding the trade-offs.</div>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">4</div>
+          <div class="why-body">
+            <div class="why-body-title">Prioritise features strategically</div>
+            <div class="why-body-desc">Seeing the cost of each feature individually helps you decide what is essential for launch and what can be added in a later phase when more budget is available.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMMON MISTAKES</span>
+      <h2>Website budgeting mistakes this cost calculator helps you avoid</h2>
+      <p>Even experienced business owners make these mistakes when budgeting for a website. Using a website cost calculator upfront exposes these traps early — before they cost thousands of naira and months of frustration.</p>
+      <div class="issues-feature-grid">
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">Budgeting for design only</div>
+            <div class="ifi-desc">Many clients budget for visual design and forget development, content, SEO, and hosting — which can easily double the total.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Choosing the cheapest quote</div>
+            <div class="ifi-desc">The cheapest quote almost always means missing features, poor code quality, or no post-launch support — creating expensive problems later.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">Underestimating content work</div>
+            <div class="ifi-desc">Assuming you can write all the website copy yourself — and then struggling to produce it — is one of the most common causes of project delays.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Forgetting recurring costs</div>
+            <div class="ifi-desc">Hosting, domain renewal, SSL certificates, maintenance plans, and SEO management are annual or monthly costs that must be factored into the total.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">Requesting a rush with no budget for it</div>
+            <div class="ifi-desc">Wanting a 2-week turnaround without budgeting for the rush premium leads to conflict with the agency and degraded output quality.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot info"></div>
+          <div>
+            <div class="ifi-title">Scoping too large for the budget</div>
+            <div class="ifi-desc">Asking for an e-commerce site with user accounts and a REST API on a brochure-site budget forces the developer to cut corners you may not see until it is too late.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot"></div>
+          <div>
+            <div class="ifi-title">No maintenance plan budgeted</div>
+            <div class="ifi-desc">A website without ongoing maintenance becomes a security liability within months — plugin updates, backups, and security patches are not optional on a live site.</div>
+          </div>
+        </div>
+        <div class="issue-feature-item">
+          <div class="ifi-dot warn"></div>
+          <div>
+            <div class="ifi-title">Expecting the estimate to be the invoice</div>
+            <div class="ifi-desc">An estimate is a planning tool. The formal quote after a discovery call may differ once the exact brief, integrations, and content scope are clearly defined.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">WHO IT'S FOR</span>
+      <h2>Who uses this website cost calculator</h2>
+      <p>This website cost calculator is designed for decision-makers — people who need a realistic number before they can move forward. Whether you are planning an initial build or scoping an upgrade to an existing site, the website cost calculator gives you the clarity to act.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
+          <div class="who-title">Business Owners</div>
+          <div class="who-desc">Planning a new website and needing a reliable ballpark before approaching any agency or developer.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+          <div class="who-title">Startups</div>
+          <div class="who-desc">Comparing what different website types cost before deciding on MVP scope and how to allocate limited runway.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 19-7z"/></svg></div>
+          <div class="who-title">Marketing Managers</div>
+          <div class="who-desc">Building a budget proposal for a rebrand or new campaign site and needing credible figures to present to leadership.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>
+          <div class="who-title">Entrepreneurs</div>
+          <div class="who-desc">Checking what is realistically achievable within their current budget before committing to a development partner.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <div class="who-title">Freelance Developers</div>
+          <div class="who-desc">Benchmarking their own project pricing against professional agency rates in the Nigerian market.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="who-title">International Clients</div>
+          <div class="who-desc">Understanding Nigerian web development costs and what different project types realistically cost before a consultation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">NEXT STEPS</span>
+      <h2>What to do after using this website cost calculator</h2>
+      <p>A website cost estimate is the start of the conversation, not the end of it. Here is how to turn your website cost calculator output into a real project with confidence.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Save or print your estimate</div>
+            <div class="step-desc">Use the "Print / Save PDF" button to capture your current configuration as a PDF. Share it with your team or finance contact to align on budget before the formal quote stage.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Review which features are essential vs. nice-to-have</div>
+            <div class="step-desc">If the estimate is above your budget, go back and toggle off features that are not critical for launch. A phased approach — core site first, added features later — often makes more financial sense.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Complete the Website Brief Generator</div>
+            <div class="step-desc">Before requesting a formal quote, use our Website Brief Generator to document your goals, audience, content, and design preferences. A clear brief leads to a more accurate proposal.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Request a formal quote</div>
+            <div class="step-desc">Click "Get a Formal Quote" to begin the onboarding process. You will receive a detailed, itemised proposal within two business days — no commitment required.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Book a free discovery call</div>
+            <div class="step-desc">Our team will walk through your requirements, clarify the scope, and answer any questions about timeline, process, or the technologies we recommend for your project.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Start your project</div>
+            <div class="step-desc">Once the proposal is agreed, we kick off with a signed contract and a structured milestone plan — so you always know what is happening and when your website will be ready.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seo-section">
+      <span class="seo-section-eyebrow">COMPARE</span>
+      <h2>What this website cost calculator gives you vs. a formal web design quote</h2>
+      <p>This website cost calculator is a powerful planning tool, but a formal proposal from i2Medier includes significantly more detail. Understanding the difference between a website cost estimate and a formal quote helps you use each at the right stage of your project.</p>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>What you get</th>
+            <th>Calculator Estimate</th>
+            <th class="highlight">Formal Quote</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pricing detail</td>
+            <td>Real-time range</td>
+            <td class="yes">Itemised, fixed price</td>
+          </tr>
+          <tr>
+            <td>Based on your brief</td>
+            <td class="no">Self-configured</td>
+            <td class="yes">Discovery call + brief</td>
+          </tr>
+          <tr>
+            <td>Timeline included</td>
+            <td class="no">No</td>
+            <td class="yes">Week-by-week milestones</td>
+          </tr>
+          <tr>
+            <td>Technology recommendation</td>
+            <td class="partial">General options</td>
+            <td class="yes">Stack chosen for your needs</td>
+          </tr>
+          <tr>
+            <td>Scope of work document</td>
+            <td class="no">No</td>
+            <td class="yes">Full written scope</td>
+          </tr>
+          <tr>
+            <td>Ready to sign</td>
+            <td class="no">No</td>
+            <td class="yes">Contract-ready proposal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<section class="service-cta">
+  <div class="service-cta-eyebrow">&#10003; Free Consultation — No Commitment</div>
+  <h2>Turn your estimate into a <em>real project</em></h2>
+  <p>Your calculator estimate is a starting point. Book a free discovery call and our team will give you a detailed, itemised proposal — no vague ranges, no surprise costs.</p>
+  <div class="service-pills">
+    <span class="service-pill">Fixed-Price Proposals</span>
+    <span class="service-pill">Milestone-Based Delivery</span>
+    <span class="service-pill">30-Day Post-Launch Support</span>
+    <span class="service-pill">Nigerian Market Rates</span>
+    <span class="service-pill">No Commitment Required</span>
+  </div>
+  <div class="cta-buttons">
+    <a href="{{ route('site.start') }}" class="cta-btn-primary">Get Your Formal Quote →</a>
+    <a href="{{ route('tools.website-brief-generator') }}" class="cta-btn-secondary">Complete a Website Brief First</a>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="seo-section-eyebrow">FAQ</span>
+      <h2>Frequently asked questions</h2>
+      <p>Everything you need to know about the Website Cost Calculator and how pricing works at i2Medier.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f1">
+          <span class="faq-q-text">How accurate is the website cost estimate?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f1">The estimate is based on real project pricing at i2Medier and reflects actual development time and complexity for the Nigerian market. Final costs depend on your specific brief and may vary slightly after a full consultation, but the calculator gives a reliable ballpark figure for planning and budget approval purposes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f2">
+          <span class="faq-q-text">Does the estimate include VAT or other taxes?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f2">Prices shown are indicative and do not include VAT unless stated otherwise. Your detailed formal proposal will clearly itemise all applicable charges, taxes, and payment terms before you are asked to commit to anything.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f3">
+          <span class="faq-q-text">Can I get a formal quote after using the calculator?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f3">Yes. Click "Get a Formal Quote" at the top or bottom of the calculator to begin the project onboarding process. You will receive a detailed, itemised proposal based on your specific requirements within two business days — no commitment is required at that stage.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f4">
+          <span class="faq-q-text">What currencies does the calculator support?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f4">Estimates are displayed in Nigerian Naira (₦) by default, as the calculator is built around i2Medier's Nigerian market rates. International clients are quoted in GBP, USD, or their preferred currency during the formal proposal and consultation stage.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f5">
+          <span class="faq-q-text">Why does the price change as I select options?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f5">Each option in the calculator reflects specific development time and resource costs. Features like booking systems, payment gateways, and custom portals each require engineering work beyond the base build. The calculator updates in real time so you can see exactly how each decision affects your total and adjust your scope to match your budget.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f6">
+          <span class="faq-q-text">What is the rush premium and when does it apply?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f6">A rush premium is applied when you select an accelerated timeline — express (2–4 weeks) adds 25%, and rush (1–2 weeks) adds 50% to the one-time cost. This covers the additional team resources, overtime, and reduced availability for other projects that a tight deadline requires.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="cc-f7">
+          <span class="faq-q-text">Do I need a maintenance plan, and what does it include?</span>
+          <span class="faq-arrow">›</span>
+        </button>
+        <div class="faq-a" id="cc-f7">A maintenance plan is not mandatory, but it is strongly recommended for any live website. Without one, your site is vulnerable to security issues, plugin conflicts, and downtime. i2Medier's care plans include plugin updates, daily backups, security monitoring, uptime checks, and a monthly performance report. You can choose the level that fits your needs and budget.</div>
+      </div>
+    </div>
+  </div>
+</section>
 @endsection
 
 @push('scripts')
