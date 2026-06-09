@@ -529,6 +529,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free email deliverability checker vs. a managed email deliverability service</h2>
       <p>The free email deliverability checker identifies problems and provides instructions to fix them yourself. For businesses that need the configuration handled end-to-end, i2Medier's managed email setup service covers everything from DNS configuration to ESP integration and ongoing monitoring.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -570,6 +571,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
 
   </div>

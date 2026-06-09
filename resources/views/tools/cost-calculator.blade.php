@@ -798,6 +798,7 @@ data-print-route="{{ route('tools.cost-calculator.print') }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>What this website cost calculator gives you vs. a formal web design quote</h2>
       <p>This website cost calculator is a powerful planning tool, but a formal proposal from i2Medier includes significantly more detail. Understanding the difference between a website cost estimate and a formal quote helps you use each at the right stage of your project.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -839,6 +840,7 @@ data-print-route="{{ route('tools.cost-calculator.print') }}"
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
 
   </div>

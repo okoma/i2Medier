@@ -452,6 +452,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free Domain Generator vs Hiring a Domain & Brand Consultant</h2>
       <p>Both have their place. Understanding what each delivers helps you decide when a free tool is enough — and when professional strategy pays for itself.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -508,6 +509,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
           </tr>
         </tbody>
       </table>
+      </div>
       <p style="margin-top:1.25rem">Use this free tool to generate ideas, score options, and shortlist available domains quickly. When you need trademark clearance, competitive analysis, premium domain acquisition, or full brand-to-domain strategy — that is when professional guidance earns its cost back many times over.</p>
     </div>
 

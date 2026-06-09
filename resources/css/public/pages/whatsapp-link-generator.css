@@ -173,6 +173,7 @@ nav{background:var(--black);height:62px;display:flex;align-items:center;justify-
   .form-panel{padding-right:0;margin-bottom:1.25rem}
   .output-panel{position:static;margin-top:.25rem}
   nav .nav-tag{display:none}
+  #wa-open-nav-btn{display:none}
 }
 @media(max-width:540px){
   .hero{padding:40px 1rem 48px}

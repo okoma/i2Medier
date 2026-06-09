@@ -573,6 +573,7 @@ id="whatsapp-link-generator-page"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free WhatsApp link generator vs a professionally managed WhatsApp setup</h2>
       <p>This free WhatsApp link generator covers the essentials — create a WhatsApp link, generate a WhatsApp QR code, and embed a chat button. A professionally managed setup adds automation, broadcasting, and analytics on top.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -595,6 +596,7 @@ id="whatsapp-link-generator-page"
           <tr><td>Dedicated number management</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
 
   </div>

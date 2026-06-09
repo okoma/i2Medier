@@ -422,6 +422,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free business name generator vs hiring a brand strategist</h2>
       <p>Both have their place. Understanding what a free business name generator delivers versus professional naming strategy helps you decide when this tool is enough — and when investing in a brand strategist pays for itself.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -478,6 +479,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
           </tr>
         </tbody>
       </table>
+      </div>
       <p style="margin-top:1.25rem">Use this free business name generator to explore naming directions, shortlist your best business name ideas, and validate availability. When you need trademark clearance, competitive positioning, brand story, and a full visual identity — that is when a professional naming strategist pays for itself.</p>
     </div>
 

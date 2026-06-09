@@ -473,6 +473,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
         <span class="seo-eyebrow">COMPARE</span>
         <h2>Invoice vs receipt — what's the difference?</h2>
         <p>These two documents are often confused, but they serve very different purposes in a business transaction.</p>
+        <div class="tools-compare-wrapper">
         <table class="seo-compare">
           <thead><tr><th>Feature</th><th class="hi">Invoice</th><th>Receipt</th></tr></thead>
           <tbody>
@@ -484,6 +485,7 @@ data-print-route="{{ route('tools.invoice-generator.print') }}"
             <tr><td>Used for</td><td>Chasing payment, accounting, tax records</td><td>Client records, expense claims, refunds</td></tr>
           </tbody>
         </table>
+        </div>
         <p style="margin-top:1rem">Once your client pays, update the status to "Paid" using the status button in the nav bar — then re-export a paid copy for both your records and theirs.</p>
       </div>
 

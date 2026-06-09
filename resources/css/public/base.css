@@ -1647,3 +1647,7 @@
             flex-direction: column;
         }
     }
+
+.tools-compare-wrapper {
+    overflow-x: auto;
+}

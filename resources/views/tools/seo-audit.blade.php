@@ -592,6 +592,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free SEO Audit vs Professional SEO Audit</h2>
       <p>Both have their place. Understanding what each delivers helps you decide when a free tool is enough — and when you need expert eyes on your site.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -648,6 +649,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
           </tr>
         </tbody>
       </table>
+      </div>
       <p style="margin-top:1.25rem">Use this free tool to get a clear picture of your current SEO health and fix the obvious issues yourself. When you're ready to go deeper — backlinks, competitor gaps, keyword strategy, and a full site crawl — that's when a professional audit pays for itself.</p>
     </div>
 

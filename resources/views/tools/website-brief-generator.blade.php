@@ -807,6 +807,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
       <span class="seo-section-eyebrow">COMPARE</span>
       <h2>Free Brief Generator vs a Paid Agency Discovery Session</h2>
       <p>Both have their place. Understanding what each delivers helps you decide when a free tool is enough — and when investing in a professional discovery session earns its cost back many times over.</p>
+      <div class="tools-compare-wrapper">
       <table class="compare-table">
         <thead>
           <tr>
@@ -863,6 +864,7 @@ data-honeypot-started-at="{{ \App\Support\Honeypot::startedAt() }}"
           </tr>
         </tbody>
       </table>
+      </div>
       <p style="margin-top:1.25rem">Use this free tool to create a solid brief before approaching any agency. It will make every discovery conversation more productive. For complex projects — custom platforms, large-scale migrations, enterprise integrations — a paid discovery engagement will surface critical decisions that save far more than they cost.</p>
     </div>
 
