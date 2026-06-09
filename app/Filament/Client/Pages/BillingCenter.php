@@ -13,9 +13,7 @@ class BillingCenter extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Client Portal';
-
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 8;
 
     protected static ?string $title = 'Billing';
 

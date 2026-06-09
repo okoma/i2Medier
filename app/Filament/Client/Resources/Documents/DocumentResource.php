@@ -22,9 +22,7 @@ class DocumentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFolder;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Client Portal';
-
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 9;
 
     protected static ?string $navigationLabel = 'My Documents';
 

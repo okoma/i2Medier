@@ -22,9 +22,7 @@ class ProfileSettings extends Page implements HasForms
 
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Client Portal';
-
-    protected static ?int $navigationSort = 9;
+    protected static ?int $navigationSort = 11;
 
     protected static ?string $title = 'Profile & Settings';
 

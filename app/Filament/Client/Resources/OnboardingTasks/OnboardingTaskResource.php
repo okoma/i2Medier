@@ -20,10 +20,6 @@ class OnboardingTaskResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Client Portal';
-
-    protected static ?int $navigationSort = 2;
-
     protected static ?string $navigationLabel = 'Onboarding';
 
     public static function shouldRegisterNavigation(): bool
