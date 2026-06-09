@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Engineering Firms | Engineer Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Engineering Firms | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

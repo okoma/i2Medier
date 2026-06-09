@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Consulting Firms | Management Consultant Websites | i2Medier')
+@section('title', 'Web Design for Consulting Firms | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

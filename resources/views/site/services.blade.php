@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Services — i2Medier')
+@section('title', 'Digital Services — Web, Apps & More | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/services.css')

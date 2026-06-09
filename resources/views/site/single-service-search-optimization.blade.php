@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Search Optimization Services | SEO | i2Medier')
+@section('title', 'Search Optimisation (SEO) Services | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/search-optimization.css')

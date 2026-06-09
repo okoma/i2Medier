@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Logistics Companies | Freight & Transport Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Logistics Companies | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

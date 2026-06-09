@@ -424,7 +424,7 @@ section{padding:88px 5%}
 }
 
 /* ── Package Section ──────────────────────────────── */
-.pkg-section{background:var(--off)}
+.pkg-section{background:#ffffff}
 .pkg-wrap{display:grid;grid-template-columns:1fr 340px;gap:2rem;align-items:start;margin-top:2.5rem}
 .pkg-lines{background:var(--white);border:1px solid var(--g100);border-radius:12px;overflow:hidden}
 .pkg-line{display:flex;align-items:center;gap:.75rem;padding:.9rem 1.25rem;border-bottom:1px solid var(--g100)}
@@ -434,7 +434,7 @@ section{padding:88px 5%}
 .pkg-line-name{flex:1;font-size:.875rem;color:var(--black);font-weight:500}
 .pkg-line-price{font-size:.8rem;font-weight:700;color:var(--gold-dk);font-family:var(--mono);white-space:nowrap}
 .pkg-line-price small{font-size:.65rem;font-weight:500;color:var(--g400)}
-.pkg-total-block{background:var(--med);border-radius:12px;padding:2rem;color:var(--white);position:sticky;top:6rem}
+.pkg-total-block{background:var(--re);color:var(--white);border-radius:12px;padding:2rem;position:sticky;top:6rem}
 .pkg-total-label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.5rem}
 .pkg-total-amount{font-size:2.25rem;font-weight:800;color:var(--gold);font-family:var(--serif);line-height:1;margin-bottom:.35rem}
 .pkg-total-note{font-size:.7rem;color:rgba(255,255,255,.35);margin-bottom:1.25rem}

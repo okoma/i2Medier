@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Schools | School Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Schools & Colleges | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

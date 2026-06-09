@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Churches | Ministry Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Churches & Ministries | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

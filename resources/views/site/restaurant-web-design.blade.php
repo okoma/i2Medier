@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Restaurants | Restaurant Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Restaurants & Food Brands | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

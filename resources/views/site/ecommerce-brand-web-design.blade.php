@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Ecommerce Brands | Online Store Design Nigeria | i2Medier')
+@section('title', 'Web Design for Ecommerce Brands | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

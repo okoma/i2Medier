@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Photographers | Photography Portfolio Website Nigeria | i2Medier')
+@section('title', 'Web Design for Photographers | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

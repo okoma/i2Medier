@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Clinics, Hospitals & Healthcare Providers | i2Medier')
+@section('title', 'Web Design for Clinics & Healthcare Providers | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

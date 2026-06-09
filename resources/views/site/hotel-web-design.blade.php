@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Hotels | Hotel Booking Website Design Nigeria | i2Medier')
+@section('title', 'Web Design for Hotels & Resorts | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">
