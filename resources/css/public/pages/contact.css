@@ -276,19 +276,6 @@ nav a.active{color:var(--gold)}
 .cta-btn{background:var(--black);color:var(--white);padding:.9rem 2.25rem;border-radius:4px;font-weight:700;font-size:.9rem;text-decoration:none;display:inline-block;transition:opacity .2s;letter-spacing:.02em}
 .cta-btn:hover{opacity:.8}
 
-/* ══ FOOTER ══ */
-footer{background:var(--black);color:rgba(255,255,255,.45);padding:56px 5% 28px}
-.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand .logo{color:var(--white);font-size:1.3rem}
-.footer-brand p{font-size:.85rem;margin-top:.8rem;line-height:1.8;max-width:260px;color:rgba(255,255,255,.35)}
-.footer-col h5{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--white);margin-bottom:1.1rem}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
-.footer-col ul a{font-size:.875rem;text-decoration:none;color:rgba(255,255,255,.35);transition:color .2s}
-.footer-col ul a:hover{color:var(--gold)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;font-size:.78rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
-.footer-socials{display:flex;gap:.75rem}
-.footer-socials a{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.35);text-decoration:none;font-size:.78rem;transition:all .2s}
-.footer-socials a:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ══ TOAST ══ */
 #toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--black);color:var(--white);padding:.75rem 1.25rem;border-radius:6px;font-size:.82rem;font-weight:500;border-left:3px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.25);transform:translateY(20px);opacity:0;transition:all .3s var(--ease);z-index:1000;pointer-events:none;max-width:280px}
@@ -299,7 +286,6 @@ footer{background:var(--black);color:rgba(255,255,255,.45);padding:56px 5% 28px}
   .contact-grid{grid-template-columns:1fr;gap:2.5rem}
   .social-grid{grid-template-columns:repeat(2,1fr)}
   .social-header{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
 }
 @media(max-width:720px){
   .dept-grid{grid-template-columns:repeat(2,1fr)}
@@ -312,5 +298,4 @@ footer{background:var(--black);color:rgba(255,255,255,.45);padding:56px 5% 28px}
 @media(max-width:480px){
   .dept-grid{grid-template-columns:1fr 1fr}
   .services-grid{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr}
 }
