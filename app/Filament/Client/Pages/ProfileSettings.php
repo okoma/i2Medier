@@ -7,7 +7,6 @@ use App\Filament\Client\Widgets\ProfileSettings\ActiveSessionsWidget;
 use App\Filament\Client\Widgets\ProfileSettings\EmailVerificationWidget;
 use App\Filament\Client\Widgets\ProfileSettings\ProfileCompletionWidget;
 use App\Filament\Client\Widgets\ProfileSettings\TeamMembersWidget;
-use App\Filament\Client\Widgets\ProfileSettings\TwoFactorWidget;
 use App\Models\AffiliateProfile;
 use App\Models\Client;
 use App\Models\User;
@@ -23,6 +22,7 @@ use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\View as ViewComponent;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
@@ -198,6 +198,8 @@ class ProfileSettings extends Page implements HasForms
                                     ->password()
                                     ->revealable()
                                     ->dehydrated(false),
+                                ViewComponent::make('filament.client.components.two-factor-section')
+                                    ->columnSpanFull(),
                             ]),
                         Tab::make('Payout')
                             ->icon('heroicon-o-banknotes')
@@ -290,7 +292,6 @@ class ProfileSettings extends Page implements HasForms
             ProfileCompletionWidget::class,
             AccountInfoWidget::class,
             EmailVerificationWidget::class,
-            TwoFactorWidget::class,
             ActiveSessionsWidget::class,
             TeamMembersWidget::class,
         ];
