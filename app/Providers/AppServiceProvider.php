@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Support\SiteSettings;
-use Illuminate\Support\ServiceProvider;
+use Filament\Facades\Filament;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('public.partials.footer', function ($view): void {
             $view->with(app(SiteSettings::class)->footerViewData());
+        });
+
+        VerifyEmail::createUrlUsing(function (object $notifiable): string {
+            return Filament::getPanel('client')->getVerifyEmailUrl($notifiable);
         });
     }
 }

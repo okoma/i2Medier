@@ -44,6 +44,7 @@ class ClientPanelProvider extends PanelProvider
                 'danger'  => Color::hex('#ff3b30'),
                 'info'    => Color::hex('#3c7cff'),
             ])
+            ->emailVerification(isRequired: false)
             ->discoverResources(in: app_path('Filament/Client/Resources'), for: 'App\Filament\Client\Resources')
             ->discoverPages(in: app_path('Filament/Client/Pages'), for: 'App\Filament\Client\Pages')
             ->pages([
