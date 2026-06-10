@@ -22,9 +22,9 @@ class InvoicesStatsWidget extends StatsOverviewWidget
         $totalCount = Invoice::where('client_id', $clientId)->count();
         $paidCount = Invoice::where('client_id', $clientId)->where('status', 'paid')->count();
         $overdueCount = Invoice::where('client_id', $clientId)->overdue()->count();
-        $pendingCount = Invoice::where('client_id', $clientId)->outstanding()->count() - $overdueCount;
+        $pendingCount = Invoice::where('client_id', $clientId)->unpaid()->count() - $overdueCount;
 
-        $outstandingBalance = (float) Invoice::where('client_id', $clientId)->outstanding()->sum('total');
+        $outstandingBalance = (float) Invoice::where('client_id', $clientId)->unpaid()->sum('total');
 
         $latestPayment = InvoicePayment::whereHas('invoice', fn ($q) => $q->where('client_id', $clientId))
             ->where('status', 'paid')
