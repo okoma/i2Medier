@@ -9,6 +9,7 @@ use App\Models\AffiliateProfile;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -25,6 +26,8 @@ class AffiliateCenter extends Page implements HasForms
     protected static ?int $navigationSort = 10;
 
     protected static ?string $title = 'Affiliates';
+
+    protected string $view = 'filament.client.pages.affiliate-center';
 
     public ?array $data = [];
 
@@ -106,7 +109,12 @@ class AffiliateCenter extends Page implements HasForms
 
     protected function getHeaderActions(): array
     {
-        return [];
+        return [
+            Action::make('save')
+                ->label('Save Changes')
+                ->action('save')
+                ->icon('heroicon-o-check'),
+        ];
     }
 
     public static function canAccess(): bool

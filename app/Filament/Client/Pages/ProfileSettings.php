@@ -32,6 +32,8 @@ class ProfileSettings extends Page implements HasForms
 
     protected static ?string $title = 'Profile & Settings';
 
+    protected string $view = 'filament.client.pages.profile-settings';
+
     public ?array $data = [];
 
     public function mount(): void
