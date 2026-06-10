@@ -10,7 +10,7 @@ class ListDocuments extends ListRecords
 {
     protected static string $resource = DocumentResource::class;
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [DocumentsStatsWidget::class];
     }

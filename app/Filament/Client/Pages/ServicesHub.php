@@ -15,12 +15,12 @@ class ServicesHub extends Page
 
     protected static ?string $title = 'Services';
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [ServicesStatsWidget::class];
     }
 
-    protected function getFooterWidgets(): array
+    public function getFooterWidgets(): array
     {
         return [ServicesTableWidget::class];
     }

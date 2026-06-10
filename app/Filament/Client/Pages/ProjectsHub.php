@@ -15,12 +15,12 @@ class ProjectsHub extends Page
 
     protected static ?string $title = 'Projects';
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [ProjectsStatsWidget::class];
     }
 
-    protected function getFooterWidgets(): array
+    public function getFooterWidgets(): array
     {
         return [ProjectsTableWidget::class];
     }

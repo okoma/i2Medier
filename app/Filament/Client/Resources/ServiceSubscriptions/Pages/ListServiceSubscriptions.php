@@ -10,7 +10,7 @@ class ListServiceSubscriptions extends ListRecords
 {
     protected static string $resource = ServiceSubscriptionResource::class;
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [ServiceSubscriptionsStatsWidget::class];
     }

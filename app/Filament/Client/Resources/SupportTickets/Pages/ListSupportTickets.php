@@ -10,7 +10,7 @@ class ListSupportTickets extends ListRecords
 {
     protected static string $resource = SupportTicketResource::class;
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [TicketsStatsWidget::class];
     }

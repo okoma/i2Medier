@@ -17,17 +17,17 @@ class BillingCenter extends Page
 
     protected static ?string $title = 'Billing';
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [BillingStatsWidget::class];
     }
 
-    protected function getFooterWidgets(): array
+    public function getFooterWidgets(): array
     {
         return [];
     }
 
-    protected function getWidgets(): array
+    public function getWidgets(): array
     {
         return [
             BillingStatsWidget::class,

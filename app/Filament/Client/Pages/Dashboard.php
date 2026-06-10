@@ -11,7 +11,7 @@ use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
 {
-    protected function getWidgets(): array
+    public function getWidgets(): array
     {
         return [
             DashboardStats::class,
@@ -22,12 +22,12 @@ class Dashboard extends BaseDashboard
         ];
     }
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [];
     }
 
-    protected function getFooterWidgets(): array
+    public function getFooterWidgets(): array
     {
         return [];
     }

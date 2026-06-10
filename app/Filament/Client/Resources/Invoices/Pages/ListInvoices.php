@@ -10,7 +10,7 @@ class ListInvoices extends ListRecords
 {
     protected static string $resource = InvoiceResource::class;
 
-    protected function getHeaderWidgets(): array
+    public function getHeaderWidgets(): array
     {
         return [InvoicesStatsWidget::class];
     }
