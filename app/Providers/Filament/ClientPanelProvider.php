@@ -39,6 +39,10 @@ class ClientPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/client/theme.css')
             ->colors([
                 'primary' => Color::Teal,
+                'success' => Color::hex('#1a6b3a'),
+                'warning' => Color::hex('#da8400'),
+                'danger'  => Color::hex('#ff3b30'),
+                'info'    => Color::hex('#3c7cff'),
             ])
             ->discoverResources(in: app_path('Filament/Client/Resources'), for: 'App\Filament\Client\Resources')
             ->discoverPages(in: app_path('Filament/Client/Pages'), for: 'App\Filament\Client\Pages')
