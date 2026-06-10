@@ -8,8 +8,10 @@ use App\Filament\Client\Widgets\ProfileSettings\EmailVerificationWidget;
 use App\Filament\Client\Widgets\ProfileSettings\ProfileCompletionWidget;
 use App\Filament\Client\Widgets\ProfileSettings\TeamMembersWidget;
 use App\Filament\Client\Widgets\ProfileSettings\TwoFactorWidget;
+use App\Models\AffiliateProfile;
 use App\Models\Client;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -45,7 +47,28 @@ class ProfileSettings extends Page implements HasForms
         $client      = $user->client;
         $preferences = $user->notification_preferences ?? [];
 
-        $this->form->fill([
+        $payout = [];
+        if ($user->isClientOwner()) {
+            $profile = AffiliateProfile::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'client_id'       => $user->client_id,
+                    'referral_code'   => Str::upper(Str::random(8)),
+                    'status'          => 'active',
+                    'commission_rate' => 20,
+                    'payout_email'    => $user->email,
+                ],
+            );
+
+            $payout = [
+                'payout_email'          => $profile->payout_email,
+                'payout_bank_name'      => $profile->payout_bank_name,
+                'payout_account_name'   => $profile->payout_account_name,
+                'payout_account_number' => $profile->payout_account_number,
+            ];
+        }
+
+        $this->form->fill(array_merge([
             'avatar'                  => $user->avatar,
             'name'                    => $user->name,
             'email'                   => $user->email,
@@ -65,7 +88,7 @@ class ProfileSettings extends Page implements HasForms
             'notify_whatsapp'         => (bool) ($preferences['whatsapp'] ?? false),
             'notify_dashboard'        => (bool) ($preferences['dashboard'] ?? true),
             'login_alerts'            => (bool) ($preferences['login_alerts'] ?? true),
-        ]);
+        ], $payout));
     }
 
     public function form(Schema $schema): Schema
@@ -176,6 +199,25 @@ class ProfileSettings extends Page implements HasForms
                                     ->revealable()
                                     ->dehydrated(false),
                             ]),
+                        Tab::make('Payout')
+                            ->icon('heroicon-o-banknotes')
+                            ->visible(fn (): bool => auth()->user()?->isClientOwner() ?? false)
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('payout_email')
+                                    ->label('Payout email')
+                                    ->email()
+                                    ->maxLength(255),
+                                TextInput::make('payout_bank_name')
+                                    ->label('Bank name')
+                                    ->maxLength(255),
+                                TextInput::make('payout_account_name')
+                                    ->label('Account name')
+                                    ->maxLength(255),
+                                TextInput::make('payout_account_number')
+                                    ->label('Account number')
+                                    ->maxLength(255),
+                            ]),
                     ]),
             ]);
     }
@@ -219,6 +261,15 @@ class ProfileSettings extends Page implements HasForms
                 'country'       => $data['country'] ?? null,
                 'state'         => $data['state'] ?? null,
                 'city'          => $data['city'] ?? null,
+            ]);
+        }
+
+        if ($user->isClientOwner()) {
+            AffiliateProfile::where('user_id', $user->id)->update([
+                'payout_email'          => $data['payout_email'] ?? null,
+                'payout_bank_name'      => $data['payout_bank_name'] ?? null,
+                'payout_account_name'   => $data['payout_account_name'] ?? null,
+                'payout_account_number' => $data['payout_account_number'] ?? null,
             ]);
         }
 
