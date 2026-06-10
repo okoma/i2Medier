@@ -31,7 +31,7 @@ class InvoicesTable
                     ->placeholder('—')
                     ->description(fn (Invoice $record): ?string =>
                         ($record->status !== 'paid' && $record->due_at?->isPast())
-                            ? 'Overdue by ' . $record->due_at->diffForHumans(absolute: true)
+                            ? 'Overdue by ' . $record->due_at->diffForHumans(null, true)
                             : null
                     ),
                 TextColumn::make('total')

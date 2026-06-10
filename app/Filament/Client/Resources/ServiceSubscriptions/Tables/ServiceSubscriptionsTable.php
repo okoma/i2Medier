@@ -44,7 +44,7 @@ class ServiceSubscriptionsTable
                     ->placeholder('Never')
                     ->description(fn (ServiceSubscription $record): ?string =>
                         ($record->status === 'active' && $record->expires_at?->isBetween(now(), now()->addDays(30)))
-                            ? 'In ' . $record->expires_at->diffForHumans(absolute: true)
+                            ? 'In ' . $record->expires_at->diffForHumans(null, true)
                             : null
                     ),
                 TextColumn::make('price')
