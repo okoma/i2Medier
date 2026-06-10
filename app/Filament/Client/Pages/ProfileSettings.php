@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -221,6 +222,11 @@ class ProfileSettings extends Page implements HasForms
 
     protected function getHeaderActions(): array
     {
-        return [];
+        return [
+            Action::make('save')
+                ->label('Save Changes')
+                ->action('save')
+                ->icon('heroicon-o-check'),
+        ];
     }
 }
