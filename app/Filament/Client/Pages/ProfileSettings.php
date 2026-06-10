@@ -3,7 +3,11 @@
 namespace App\Filament\Client\Pages;
 
 use App\Filament\Client\Widgets\ProfileSettings\AccountInfoWidget;
+use App\Filament\Client\Widgets\ProfileSettings\ActiveSessionsWidget;
+use App\Filament\Client\Widgets\ProfileSettings\EmailVerificationWidget;
 use App\Filament\Client\Widgets\ProfileSettings\ProfileCompletionWidget;
+use App\Filament\Client\Widgets\ProfileSettings\TeamMembersWidget;
+use App\Filament\Client\Widgets\ProfileSettings\TwoFactorWidget;
 use App\Models\Client;
 use App\Models\User;
 use Filament\Forms\Components\FileUpload;
@@ -217,6 +221,10 @@ class ProfileSettings extends Page implements HasForms
         return [
             ProfileCompletionWidget::class,
             AccountInfoWidget::class,
+            EmailVerificationWidget::class,
+            TwoFactorWidget::class,
+            ActiveSessionsWidget::class,
+            TeamMembersWidget::class,
         ];
     }
 
