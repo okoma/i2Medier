@@ -170,9 +170,18 @@ class ProfileSettings extends Page implements HasForms
                                             ->maxLength(255),
                                     ]),
                                 ViewComponent::make('filament.client.components.profile-completion-section')
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->viewData(fn () => [
+                                        'completionPercentage' => $this->completionPercentage,
+                                        'completionItems'      => $this->completionItems,
+                                    ]),
                                 ViewComponent::make('filament.client.components.email-verification-section')
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->viewData(fn () => [
+                                        'userEmail'       => $this->userEmail,
+                                        'isEmailVerified' => $this->isEmailVerified,
+                                        'emailVerifiedAt' => $this->emailVerifiedAt,
+                                    ]),
                             ]),
                         Tab::make('Company')
                             ->icon('heroicon-o-building-office')
