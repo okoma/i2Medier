@@ -47,8 +47,10 @@ class TeamMembersWidget extends Widget
 
     public function invite(): void
     {
-        /** @var User $user */
+        /** @var User $owner */
         $owner = auth()->user();
+
+        abort_unless($owner->isClientOwner(), 403);
 
         $this->validate([
             'inviteName'  => 'required|string|max:255',
@@ -85,9 +87,15 @@ class TeamMembersWidget extends Widget
         /** @var User $owner */
         $owner = auth()->user();
 
-        User::where('id', $memberId)
+        abort_unless($owner->isClientOwner(), 403);
+
+        $target = User::where('id', $memberId)
             ->where('client_id', $owner->client_id)
-            ->update(['client_id' => null, 'is_active' => false]);
+            ->firstOrFail();
+
+        abort_if($target->isClientOwner(), 403);
+
+        $target->update(['client_id' => null, 'is_active' => false]);
 
         $this->loadMembers();
 
