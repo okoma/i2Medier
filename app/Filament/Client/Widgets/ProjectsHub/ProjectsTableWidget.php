@@ -3,12 +3,12 @@
 namespace App\Filament\Client\Widgets\ProjectsHub;
 
 use App\Models\Project;
-use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsTableWidget extends TableWidget
 {
@@ -61,11 +61,7 @@ class ProjectsTableWidget extends TableWidget
                         'declined'      => 'Declined',
                     ]),
             ])
-            ->recordActions([
-                Action::make('view')
-                    ->label('View Details')
-                    ->url(fn (Project $record): string => filament()->getUrl() . '/projects/' . $record->id),
-            ])
+            ->recordActions([])
             ->defaultSort('created_at', 'desc');
     }
 
@@ -73,6 +69,6 @@ class ProjectsTableWidget extends TableWidget
     {
         return Project::query()
             ->with(['serviceSubscriptions.onboardingService'])
-            ->where('client_id', auth()->user()?->client_id);
+            ->where('client_id', Auth::user()?->client_id);
     }
 }

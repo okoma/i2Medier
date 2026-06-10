@@ -64,6 +64,16 @@ class Client extends Model
         return $this->hasMany(SupportTicket::class);
     }
 
+    public function domains(): HasMany
+    {
+        return $this->hasMany(Domain::class);
+    }
+
+    public function hostingAccounts(): HasMany
+    {
+        return $this->hasMany(HostingAccount::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');

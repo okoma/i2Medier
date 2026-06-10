@@ -12,7 +12,7 @@ class AffiliateCenter extends Page
 {
     protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 12;
 
     protected static ?string $title = 'Affiliates';
 

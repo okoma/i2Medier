@@ -13,6 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class OnboardingTaskResource extends Resource
 {
@@ -22,9 +23,16 @@ class OnboardingTaskResource extends Resource
 
     protected static ?string $navigationLabel = 'Onboarding';
 
+    protected static ?int $navigationSort = 2;
+
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        $user = Auth::user();
+
+        return OnboardingTask::query()
+            ->whereHas('project', fn ($q) => $q->where('client_id', $user?->client_id))
+            ->where('status', '!=', 'completed')
+            ->exists();
     }
 
     public static function infolist(Schema $schema): Schema
@@ -67,13 +75,16 @@ class OnboardingTaskResource extends Resource
 
     public static function canAccess(): bool
     {
-        return false;
+        $user = Auth::user();
+
+        return OnboardingTask::query()
+            ->whereHas('project', fn ($q) => $q->where('client_id', $user?->client_id))
+            ->exists();
     }
 
     public static function getEloquentQuery(): Builder
     {
-        /** @var \App\Models\User|null $user */
-        $user = auth()->user();
+        $user = Auth::user();
 
         $query = parent::getEloquentQuery()
             ->with(['project.client', 'assignee'])
