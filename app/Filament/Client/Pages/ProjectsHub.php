@@ -2,10 +2,10 @@
 
 namespace App\Filament\Client\Pages;
 
-use App\Models\Project;
+use App\Filament\Client\Widgets\ProjectsHub\ProjectsStatsWidget;
+use App\Filament\Client\Widgets\ProjectsHub\ProjectsTableWidget;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
-use Illuminate\Support\Collection;
 
 class ProjectsHub extends Page
 {
@@ -15,29 +15,13 @@ class ProjectsHub extends Page
 
     protected static ?string $title = 'Projects';
 
-    protected string $view = 'filament.client.pages.projects-hub';
-
-    public Collection $projects;
-
-    public int $activeProjects = 0;
-
-    public int $atRiskProjects = 0;
-
-    public int $pendingSetupProjects = 0;
-
-    public function mount(): void
+    protected function getHeaderWidgets(): array
     {
-        /** @var \App\Models\User|null $user */
-        $user = auth()->user();
-
-        $this->projects = Project::query()
-            ->with(['serviceSubscriptions.onboardingService', 'serviceSubscriptions.onboardingVariant', 'onboardingTasks'])
-            ->where('client_id', $user?->client_id)
-            ->latest()
-            ->get();
-        $this->activeProjects = $this->projects->where('status', 'converted')->count();
-        $this->atRiskProjects = $this->projects->where('status', 'negotiating')->count();
-        $this->pendingSetupProjects = $this->projects->where('status', 'enquiry')->count();
+        return [ProjectsStatsWidget::class];
     }
 
+    protected function getFooterWidgets(): array
+    {
+        return [ProjectsTableWidget::class];
+    }
 }
