@@ -2,7 +2,6 @@
 
 namespace App\Filament\Client\Pages;
 
-use App\Filament\Client\Widgets\ProfileSettings\AccountInfoWidget;
 use App\Filament\Client\Widgets\ProfileSettings\ActiveSessionsWidget;
 use App\Filament\Client\Widgets\ProfileSettings\TeamMembersWidget;
 use App\Models\AffiliateProfile;
@@ -39,11 +38,9 @@ class ProfileSettings extends Page implements HasForms
 
     public ?array $data = [];
 
-    public int   $completionPercentage = 0;
-    public array $completionItems      = [];
-    public string $userEmail           = '';
-    public bool   $isEmailVerified     = false;
-    public string $emailVerifiedAt     = '';
+    public string $userEmail       = '';
+    public bool   $isEmailVerified = false;
+    public string $emailVerifiedAt = '';
 
     public function mount(): void
     {
@@ -51,20 +48,6 @@ class ProfileSettings extends Page implements HasForms
         $user        = Auth::user();
         $client      = $user->client;
         $preferences = $user->notification_preferences ?? [];
-
-        // Profile completion
-        $this->completionItems = [
-            ['label' => 'Name',          'done' => filled($user->name)],
-            ['label' => 'Email',         'done' => filled($user->email)],
-            ['label' => 'Phone',         'done' => filled($user->phone)],
-            ['label' => 'Profile Photo', 'done' => filled($user->avatar)],
-            ['label' => 'Company Name',  'done' => filled($client?->company_name)],
-            ['label' => 'Company Email', 'done' => filled($client?->email)],
-            ['label' => 'Address',       'done' => filled($client?->address)],
-            ['label' => 'Country',       'done' => filled($client?->country)],
-        ];
-        $done = collect($this->completionItems)->where('done', true)->count();
-        $this->completionPercentage = (int) round(($done / count($this->completionItems)) * 100);
 
         // Email verification
         $this->userEmail       = $user->email;
@@ -168,12 +151,6 @@ class ProfileSettings extends Page implements HasForms
                                         TextInput::make('whatsapp_number')
                                             ->tel()
                                             ->maxLength(255),
-                                    ]),
-                                ViewComponent::make('filament.client.components.profile-completion-section')
-                                    ->columnSpanFull()
-                                    ->viewData(fn () => [
-                                        'completionPercentage' => $this->completionPercentage,
-                                        'completionItems'      => $this->completionItems,
                                     ]),
                                 ViewComponent::make('filament.client.components.email-verification-section')
                                     ->columnSpanFull()
@@ -333,16 +310,16 @@ class ProfileSettings extends Page implements HasForms
 
         if ($user->isClientOwner() && $user->client) {
             $user->client->update([
-                'logo'             => $data['logo'] ?? null,
-                'company_name'     => $data['company_name'],
-                'contact_name'     => $data['contact_name'] ?? null,
-                'email'            => $data['client_email'],
-                'phone'            => $data['client_phone'] ?? null,
-                'whatsapp_number'  => $data['client_whatsapp_number'] ?? null,
-                'address'          => $data['address'] ?? null,
-                'country'          => $data['country'] ?? null,
-                'state'            => $data['state'] ?? null,
-                'city'             => $data['city'] ?? null,
+                'logo'            => $data['logo'] ?? null,
+                'company_name'    => $data['company_name'],
+                'contact_name'    => $data['contact_name'] ?? null,
+                'email'           => $data['client_email'],
+                'phone'           => $data['client_phone'] ?? null,
+                'whatsapp_number' => $data['client_whatsapp_number'] ?? null,
+                'address'         => $data['address'] ?? null,
+                'country'         => $data['country'] ?? null,
+                'state'           => $data['state'] ?? null,
+                'city'            => $data['city'] ?? null,
             ]);
         }
 
@@ -369,7 +346,6 @@ class ProfileSettings extends Page implements HasForms
     public function getFooterWidgets(): array
     {
         return [
-            AccountInfoWidget::class,
             ActiveSessionsWidget::class,
             TeamMembersWidget::class,
         ];
