@@ -103,122 +103,147 @@ class ProfileSettings extends Page implements HasForms
                     ->tabs([
                         Tab::make('Personal Information')
                             ->icon('heroicon-o-user')
-                            ->columns(2)
                             ->schema([
-                                FileUpload::make('avatar')
-                                    ->image()
-                                    ->disk('public')
-                                    ->directory('avatars')
-                                    ->columnSpanFull(),
-                                TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('email')
-                                    ->email()
-                                    ->required()
-                                    ->unique(table: User::class, column: 'email', ignorable: fn (): ?User => auth()->user()),
-                                TextInput::make('phone')
-                                    ->tel()
-                                    ->maxLength(255),
-                                TextInput::make('whatsapp_number')
-                                    ->tel()
-                                    ->maxLength(255),
+                                Section::make('Profile Details')
+                                    ->description('Update your name, contact details, and profile photo.')
+                                    ->columns(2)
+                                    ->schema([
+                                        FileUpload::make('avatar')
+                                            ->image()
+                                            ->disk('public')
+                                            ->directory('avatars')
+                                            ->columnSpanFull(),
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('email')
+                                            ->email()
+                                            ->required()
+                                            ->unique(table: User::class, column: 'email', ignorable: fn (): ?User => auth()->user()),
+                                        TextInput::make('phone')
+                                            ->tel()
+                                            ->maxLength(255),
+                                        TextInput::make('whatsapp_number')
+                                            ->tel()
+                                            ->maxLength(255),
+                                    ]),
                             ]),
                         Tab::make('Company')
                             ->icon('heroicon-o-building-office')
-                            ->columns(2)
                             ->schema([
-                                FileUpload::make('logo')
-                                    ->image()
-                                    ->disk('public')
-                                    ->directory('client-logos')
-                                    ->columnSpanFull()
-                                    ->disabled($isOwner),
-                                TextInput::make('company_name')
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('contact_name')
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('client_email')
-                                    ->label('Company email')
-                                    ->email()
-                                    ->required()
-                                    ->unique(table: Client::class, column: 'email', ignorable: fn (): ?Client => auth()->user()?->client)
-                                    ->disabled($isOwner),
-                                TextInput::make('client_phone')
-                                    ->label('Company phone')
-                                    ->tel()
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('client_whatsapp_number')
-                                    ->label('Company WhatsApp')
-                                    ->tel()
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('country')
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('state')
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('city')
-                                    ->maxLength(255)
-                                    ->disabled($isOwner),
-                                TextInput::make('address')
-                                    ->maxLength(255)
-                                    ->columnSpanFull()
-                                    ->disabled($isOwner),
+                                Section::make('Company Details')
+                                    ->description('Manage your company profile and contact information. Only the account owner can update these settings.')
+                                    ->columns(2)
+                                    ->schema([
+                                        FileUpload::make('logo')
+                                            ->image()
+                                            ->disk('public')
+                                            ->directory('client-logos')
+                                            ->columnSpanFull()
+                                            ->disabled($isOwner),
+                                        TextInput::make('company_name')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('contact_name')
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('client_email')
+                                            ->label('Company email')
+                                            ->email()
+                                            ->required()
+                                            ->unique(table: Client::class, column: 'email', ignorable: fn (): ?Client => auth()->user()?->client)
+                                            ->disabled($isOwner),
+                                        TextInput::make('client_phone')
+                                            ->label('Company phone')
+                                            ->tel()
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('client_whatsapp_number')
+                                            ->label('Company WhatsApp')
+                                            ->tel()
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('country')
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('state')
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('city')
+                                            ->maxLength(255)
+                                            ->disabled($isOwner),
+                                        TextInput::make('address')
+                                            ->maxLength(255)
+                                            ->columnSpanFull()
+                                            ->disabled($isOwner),
+                                    ]),
                             ]),
                         Tab::make('Notifications')
                             ->icon('heroicon-o-bell')
-                            ->columns(2)
                             ->schema([
-                                Toggle::make('notify_email')
-                                    ->label('Email notifications'),
-                                Toggle::make('notify_whatsapp')
-                                    ->label('WhatsApp notifications'),
-                                Toggle::make('notify_dashboard')
-                                    ->label('Dashboard alerts'),
-                                Toggle::make('login_alerts')
-                                    ->label('Login alerts'),
+                                Section::make('Notification Preferences')
+                                    ->description('Choose how and when you want to receive updates and alerts from the portal.')
+                                    ->columns(2)
+                                    ->schema([
+                                        Toggle::make('notify_email')
+                                            ->label('Email notifications')
+                                            ->helperText('Receive important updates and invoices by email.'),
+                                        Toggle::make('notify_whatsapp')
+                                            ->label('WhatsApp notifications')
+                                            ->helperText('Get instant alerts sent to your WhatsApp number.'),
+                                        Toggle::make('notify_dashboard')
+                                            ->label('Dashboard alerts')
+                                            ->helperText('Show notification banners inside the portal.'),
+                                        Toggle::make('login_alerts')
+                                            ->label('Login alerts')
+                                            ->helperText('Notify you whenever a new login is detected on your account.'),
+                                    ]),
                             ]),
                         Tab::make('Security')
                             ->icon('heroicon-o-lock-closed')
-                            ->columns(2)
                             ->schema([
-                                TextInput::make('password')
-                                    ->password()
-                                    ->revealable()
-                                    ->confirmed()
-                                    ->minLength(8)
-                                    ->dehydrated(fn ($state): bool => filled($state)),
-                                TextInput::make('password_confirmation')
-                                    ->password()
-                                    ->revealable()
-                                    ->dehydrated(false),
+                                Section::make('Change Password')
+                                    ->description('Set a new password for your account. Leave both fields blank to keep your current password.')
+                                    ->columns(2)
+                                    ->schema([
+                                        TextInput::make('password')
+                                            ->password()
+                                            ->revealable()
+                                            ->confirmed()
+                                            ->minLength(8)
+                                            ->dehydrated(fn ($state): bool => filled($state)),
+                                        TextInput::make('password_confirmation')
+                                            ->password()
+                                            ->revealable()
+                                            ->dehydrated(false),
+                                    ]),
                                 ViewComponent::make('filament.client.components.two-factor-section')
                                     ->columnSpanFull(),
                             ]),
                         Tab::make('Payout')
                             ->icon('heroicon-o-banknotes')
                             ->visible(fn (): bool => auth()->user()?->isClientOwner() ?? false)
-                            ->columns(2)
                             ->schema([
-                                TextInput::make('payout_email')
-                                    ->label('Payout email')
-                                    ->email()
-                                    ->maxLength(255),
-                                TextInput::make('payout_bank_name')
-                                    ->label('Bank name')
-                                    ->maxLength(255),
-                                TextInput::make('payout_account_name')
-                                    ->label('Account name')
-                                    ->maxLength(255),
-                                TextInput::make('payout_account_number')
-                                    ->label('Account number')
-                                    ->maxLength(255),
+                                Section::make('Payout Information')
+                                    ->description('Enter your bank details to receive affiliate commission payouts. All information is kept confidential.')
+                                    ->columns(2)
+                                    ->schema([
+                                        TextInput::make('payout_email')
+                                            ->label('Payout email')
+                                            ->email()
+                                            ->maxLength(255)
+                                            ->helperText('Payouts and receipts will be sent to this email address.'),
+                                        TextInput::make('payout_bank_name')
+                                            ->label('Bank name')
+                                            ->maxLength(255),
+                                        TextInput::make('payout_account_name')
+                                            ->label('Account name')
+                                            ->maxLength(255),
+                                        TextInput::make('payout_account_number')
+                                            ->label('Account number')
+                                            ->maxLength(255),
+                                    ]),
                             ]),
                     ]),
             ]);
