@@ -4,19 +4,16 @@ namespace App\Filament\Client\Pages;
 
 use App\Filament\Client\Widgets\ProfileSettings\AccountInfoWidget;
 use App\Filament\Client\Widgets\ProfileSettings\ActiveSessionsWidget;
-use App\Filament\Client\Widgets\ProfileSettings\EmailVerificationWidget;
-use App\Filament\Client\Widgets\ProfileSettings\ProfileCompletionWidget;
 use App\Filament\Client\Widgets\ProfileSettings\TeamMembersWidget;
 use App\Models\AffiliateProfile;
 use App\Models\Client;
 use App\Models\User;
-use Illuminate\Support\Str;
+use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -25,6 +22,8 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\View as ViewComponent;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProfileSettings extends Page implements HasForms
 {
@@ -40,13 +39,39 @@ class ProfileSettings extends Page implements HasForms
 
     public ?array $data = [];
 
+    public int   $completionPercentage = 0;
+    public array $completionItems      = [];
+    public string $userEmail           = '';
+    public bool   $isEmailVerified     = false;
+    public string $emailVerifiedAt     = '';
+
     public function mount(): void
     {
         /** @var User $user */
-        $user        = auth()->user();
+        $user        = Auth::user();
         $client      = $user->client;
         $preferences = $user->notification_preferences ?? [];
 
+        // Profile completion
+        $this->completionItems = [
+            ['label' => 'Name',          'done' => filled($user->name)],
+            ['label' => 'Email',         'done' => filled($user->email)],
+            ['label' => 'Phone',         'done' => filled($user->phone)],
+            ['label' => 'Profile Photo', 'done' => filled($user->avatar)],
+            ['label' => 'Company Name',  'done' => filled($client?->company_name)],
+            ['label' => 'Company Email', 'done' => filled($client?->email)],
+            ['label' => 'Address',       'done' => filled($client?->address)],
+            ['label' => 'Country',       'done' => filled($client?->country)],
+        ];
+        $done = collect($this->completionItems)->where('done', true)->count();
+        $this->completionPercentage = (int) round(($done / count($this->completionItems)) * 100);
+
+        // Email verification
+        $this->userEmail       = $user->email;
+        $this->isEmailVerified = $user->hasVerifiedEmail();
+        $this->emailVerifiedAt = $user->email_verified_at?->format('M d, Y') ?? '';
+
+        // Payout (owners only)
         $payout = [];
         if ($user->isClientOwner()) {
             $profile = AffiliateProfile::firstOrCreate(
@@ -69,31 +94,48 @@ class ProfileSettings extends Page implements HasForms
         }
 
         $this->form->fill(array_merge([
-            'avatar'                  => $user->avatar,
-            'name'                    => $user->name,
-            'email'                   => $user->email,
-            'phone'                   => $user->phone,
-            'whatsapp_number'         => $user->whatsapp_number,
-            'company_name'            => $client?->company_name,
-            'contact_name'            => $client?->contact_name,
-            'client_email'            => $client?->email,
-            'client_phone'            => $client?->phone,
-            'client_whatsapp_number'  => $client?->whatsapp_number,
-            'address'                 => $client?->address,
-            'country'                 => $client?->country,
-            'state'                   => $client?->state,
-            'city'                    => $client?->city,
-            'logo'                    => $client?->logo,
-            'notify_email'            => (bool) ($preferences['email'] ?? true),
-            'notify_whatsapp'         => (bool) ($preferences['whatsapp'] ?? false),
-            'notify_dashboard'        => (bool) ($preferences['dashboard'] ?? true),
-            'login_alerts'            => (bool) ($preferences['login_alerts'] ?? true),
+            'avatar'                 => $user->avatar,
+            'name'                   => $user->name,
+            'email'                  => $user->email,
+            'phone'                  => $user->phone,
+            'whatsapp_number'        => $user->whatsapp_number,
+            'company_name'           => $client?->company_name,
+            'contact_name'           => $client?->contact_name,
+            'client_email'           => $client?->email,
+            'client_phone'           => $client?->phone,
+            'client_whatsapp_number' => $client?->whatsapp_number,
+            'address'                => $client?->address,
+            'country'                => $client?->country,
+            'state'                  => $client?->state,
+            'city'                   => $client?->city,
+            'logo'                   => $client?->logo,
+            'notify_email'           => (bool) ($preferences['email'] ?? true),
+            'notify_whatsapp'        => (bool) ($preferences['whatsapp'] ?? false),
+            'notify_dashboard'       => (bool) ($preferences['dashboard'] ?? true),
+            'login_alerts'           => (bool) ($preferences['login_alerts'] ?? true),
         ], $payout));
+    }
+
+    public function resend(): void
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if ($user->hasVerifiedEmail()) {
+            Notification::make()->title('Email already verified')->info()->send();
+            return;
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        Notification::make()->title('Verification email sent')->success()->send();
     }
 
     public function form(Schema $schema): Schema
     {
-        $isOwner = fn (): bool => ! (auth()->user()?->isClientOwner() ?? false);
+        /** @var User $user */
+        $user    = Auth::user();
+        $isOwner = fn (): bool => ! $user->isClientOwner();
 
         return $schema
             ->statePath('data')
@@ -119,7 +161,7 @@ class ProfileSettings extends Page implements HasForms
                                         TextInput::make('email')
                                             ->email()
                                             ->required()
-                                            ->unique(table: User::class, column: 'email', ignorable: fn (): ?User => auth()->user()),
+                                            ->unique(table: User::class, column: 'email', ignorable: fn (): ?User => Auth::user()),
                                         TextInput::make('phone')
                                             ->tel()
                                             ->maxLength(255),
@@ -127,6 +169,10 @@ class ProfileSettings extends Page implements HasForms
                                             ->tel()
                                             ->maxLength(255),
                                     ]),
+                                ViewComponent::make('filament.client.components.profile-completion-section')
+                                    ->columnSpanFull(),
+                                ViewComponent::make('filament.client.components.email-verification-section')
+                                    ->columnSpanFull(),
                             ]),
                         Tab::make('Company')
                             ->icon('heroicon-o-building-office')
@@ -152,7 +198,7 @@ class ProfileSettings extends Page implements HasForms
                                             ->label('Company email')
                                             ->email()
                                             ->required()
-                                            ->unique(table: Client::class, column: 'email', ignorable: fn (): ?Client => auth()->user()?->client)
+                                            ->unique(table: Client::class, column: 'email', ignorable: fn (): ?Client => Auth::user()?->client)
                                             ->disabled($isOwner),
                                         TextInput::make('client_phone')
                                             ->label('Company phone')
@@ -223,7 +269,7 @@ class ProfileSettings extends Page implements HasForms
                             ]),
                         Tab::make('Payout')
                             ->icon('heroicon-o-banknotes')
-                            ->visible(fn (): bool => auth()->user()?->isClientOwner() ?? false)
+                            ->visible(fn (): bool => Auth::user()?->isClientOwner() ?? false)
                             ->schema([
                                 Section::make('Payout Information')
                                     ->description('Enter your bank details to receive affiliate commission payouts. All information is kept confidential.')
@@ -254,7 +300,7 @@ class ProfileSettings extends Page implements HasForms
         $data = $this->form->getState();
 
         /** @var User $user */
-        $user = auth()->user();
+        $user = Auth::user();
 
         $userData = [
             'avatar'                   => $data['avatar'] ?? null,
@@ -278,16 +324,16 @@ class ProfileSettings extends Page implements HasForms
 
         if ($user->isClientOwner() && $user->client) {
             $user->client->update([
-                'logo'          => $data['logo'] ?? null,
-                'company_name'  => $data['company_name'],
-                'contact_name'  => $data['contact_name'] ?? null,
-                'email'         => $data['client_email'],
-                'phone'         => $data['client_phone'] ?? null,
-                'whatsapp_number' => $data['client_whatsapp_number'] ?? null,
-                'address'       => $data['address'] ?? null,
-                'country'       => $data['country'] ?? null,
-                'state'         => $data['state'] ?? null,
-                'city'          => $data['city'] ?? null,
+                'logo'             => $data['logo'] ?? null,
+                'company_name'     => $data['company_name'],
+                'contact_name'     => $data['contact_name'] ?? null,
+                'email'            => $data['client_email'],
+                'phone'            => $data['client_phone'] ?? null,
+                'whatsapp_number'  => $data['client_whatsapp_number'] ?? null,
+                'address'          => $data['address'] ?? null,
+                'country'          => $data['country'] ?? null,
+                'state'            => $data['state'] ?? null,
+                'city'             => $data['city'] ?? null,
             ]);
         }
 
@@ -314,9 +360,7 @@ class ProfileSettings extends Page implements HasForms
     public function getFooterWidgets(): array
     {
         return [
-            ProfileCompletionWidget::class,
             AccountInfoWidget::class,
-            EmailVerificationWidget::class,
             ActiveSessionsWidget::class,
             TeamMembersWidget::class,
         ];
