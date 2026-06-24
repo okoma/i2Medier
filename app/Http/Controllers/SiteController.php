@@ -40,7 +40,7 @@ class SiteController extends Controller
                 ->limit(3)
                 ->get(),
             'seo' => $this->seo(
-                'i2Medier - Digital Agency in Nigeria',
+                'Digital Agency in Nigeria | i2Medier',
                 'i2Medier is a premium digital agency in Nigeria delivering web design, WordPress development, UI/UX design, Laravel applications, business email setup, and website maintenance for businesses across Nigeria, the UK, and worldwide.',
                 [
                     'path' => '/',
@@ -70,7 +70,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-web-design', [
             'seo' => $this->seo(
-                'Web Design & Development Services | i2Medier',
+                'Web Design Company in Nigeria | i2Medier',
                 'Custom web design and development by i2Medier. We build fast, high-converting business websites, landing pages, and bespoke digital experiences for ambitious brands worldwide.',
                 [
                     'path' => '/services/web-design',
@@ -86,7 +86,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-wordpress-development', [
             'seo' => $this->seo(
-                'WordPress Development Services | i2Medier',
+                'WordPress Development Company in Nigeria | i2Medier',
                 'Custom WordPress website design and development by i2Medier. We build fast, secure, SEO-optimised WordPress websites and WooCommerce stores for businesses worldwide.',
                 [
                     'path' => '/services/wordpress-development',
@@ -102,7 +102,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-laravel-development', [
             'seo' => $this->seo(
-                'Laravel Development Services | i2Medier',
+                'Laravel Development Company in Nigeria | i2Medier',
                 'Expert Laravel web application development by i2Medier. We build custom SaaS platforms, business portals, REST APIs, and complex web applications for clients worldwide.',
                 [
                     'path' => '/services/laravel-development',
@@ -118,7 +118,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-mobile-app-development', [
             'seo' => $this->seo(
-                'Mobile App Development — iOS & Android | i2Medier',
+                'Mobile App Development Company in Nigeria | i2Medier',
                 'Professional mobile app development by i2Medier. We build native iOS, Android, and cross-platform apps for startups and businesses of all sizes worldwide.',
                 [
                     'path' => '/services/mobile-app-development',
@@ -134,7 +134,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-search-optimization', [
             'seo' => $this->seo(
-                'Search Optimisation (SEO) Services | i2Medier',
+                'SEO Services Company in Nigeria | i2Medier',
                 'Professional SEO services by i2Medier. We help businesses rank higher on Google through technical SEO, on-page optimisation, content strategy, local SEO, and measurable reporting.',
                 [
                     'path' => '/services/search-optimization',
@@ -150,7 +150,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-ui-ux-design', [
             'seo' => $this->seo(
-                'UI/UX Design Services | i2Medier',
+                'UI/UX Design Company in Nigeria | i2Medier',
                 'Professional UI/UX design services by i2Medier. We create user-centred Figma designs, interactive prototypes, and scalable design systems for web and mobile products.',
                 [
                     'path' => '/services/ui-ux-design',
@@ -166,7 +166,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-business-email-setup', [
             'seo' => $this->seo(
-                'Business Email Setup Services | i2Medier',
+                'Business Email Setup Company in Nigeria | i2Medier',
                 'Professional business email setup by i2Medier. We configure custom domain email on Google Workspace, Microsoft 365, Zoho Mail, and cPanel for businesses worldwide.',
                 [
                     'path' => '/services/business-email-setup',
@@ -182,7 +182,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-white-label', [
             'seo' => $this->seo(
-                'White Label Digital Services | i2Medier',
+                'White Label Web Design Company in Nigeria | i2Medier',
                 'White label web design, development, SEO, and digital services for agencies. We deliver under your brand, sign NDAs, and remain completely invisible to your clients.',
                 [
                     'path' => '/services/white-label',
@@ -198,7 +198,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-email-deliverability', [
             'seo' => $this->seo(
-                'Email Deliverability Services | i2Medier',
+                'Email Deliverability Services in Nigeria | i2Medier',
                 'Email deliverability services by i2Medier. We fix SPF, DKIM and DMARC, remove domain blacklistings, set up cold email infrastructure, and repair sender reputation so your emails land in inboxes, not spam.',
                 [
                     'path' => '/services/email-deliverability',
@@ -214,7 +214,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-website-maintenance', [
             'seo' => $this->seo(
-                'Website Maintenance Services | i2Medier',
+                'Website Maintenance Company in Nigeria | i2Medier',
                 'Professional website maintenance services by i2Medier for WordPress, Laravel, custom PHP, React, Next.js, e-commerce stores, and business websites. We handle updates, backups, uptime monitoring, security scans, and emergency support.',
                 [
                     'path' => '/services/website-maintenance',
@@ -230,7 +230,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-wordpress-maintenance', [
             'seo' => $this->seo(
-                'WordPress Maintenance Services | i2Medier',
+                'WordPress Maintenance Company in Nigeria | i2Medier',
                 'Professional WordPress maintenance services by i2Medier. We keep WordPress websites and WooCommerce stores secure, updated, backed up, monitored, and performing properly with monthly reports and emergency support.',
                 [
                     'path' => '/services/wordpress-maintenance',
@@ -246,7 +246,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-cloud-architecture', [
             'seo' => $this->seo(
-                'Cloud Architecture Services | i2Medier',
+                'Cloud Architecture Services in Nigeria | i2Medier',
                 'Expert cloud architecture and infrastructure services by i2Medier. We design, deploy, and manage scalable cloud infrastructure on AWS, DigitalOcean, and Cloudflare for businesses worldwide.',
                 [
                     'path' => '/services/cloud-architecture',
@@ -262,7 +262,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-saas-application', [
             'seo' => $this->seo(
-                'SaaS Application Development | i2Medier',
+                'SaaS Application Development Company in Nigeria | i2Medier',
                 'Expert SaaS application development by i2Medier. We build subscription-ready software products with strong foundations for onboarding, user accounts, admin workflows, and recurring growth.',
                 [
                     'path' => '/services/saas-application',
@@ -278,7 +278,7 @@ class SiteController extends Controller
     {
         return view('site.single-service-ecommerce-website', [
             'seo' => $this->seo(
-                'E-Commerce Website Development | i2Medier',
+                'Ecommerce Website Development Company in Nigeria | i2Medier',
                 'Premium e-commerce website development by i2Medier. We build online stores with WooCommerce, Shopify, and custom Laravel — platform fit, smooth checkout, and the operational systems needed for serious selling.',
                 [
                     'path' => '/services/ecommerce-website',
@@ -963,7 +963,7 @@ class SiteController extends Controller
     {
         return view('site.lawyer', [
             'seo' => $this->seo(
-                'Law Firm Website Design - i2Medier',
+                'Law Firm Website Design Company in Nigeria | i2Medier',
                 'Premium law firm website design by i2Medier. We build high-converting legal websites that help attorneys and law firms generate enquiries, establish authority, and win more clients.',
                 [
                     'path' => '/services/web-design/law-firm-website-design',
@@ -1068,154 +1068,154 @@ class SiteController extends Controller
         return [
             'accounting-firm-website-design' => [
                 'view' => 'site.accounting-firm-web-design',
-                'title' => 'Accounting Firm Website Design | i2Medier',
+                'title' => 'Accounting Firm Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for accounting firms, tax consultants, and chartered accountants. We build credible, SEO-focused websites that rank for service searches and convert enquiries into clients.',
                 'keywords' => 'accounting firm website design Nigeria, accountant website design, CPA website Nigeria, tax consultant website, chartered accountant web design, accounting firm SEO',
                 'service_type' => 'Accounting Firm Website Design',
             ],
             'clinic-website-design' => [
                 'view' => 'site.clinic-web-design',
-                'title' => 'Clinic & Healthcare Website Design Nigeria | i2Medier',
+                'title' => 'Clinic & Healthcare Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for clinics, hospitals, and healthcare practices. We build fast, trustworthy websites that help patients find you, book appointments, and take action online.',
                 'keywords' => 'clinic website design Nigeria, hospital website design, medical website design Nigeria, doctor website design, healthcare website agency, clinic SEO Nigeria',
                 'service_type' => 'Clinic Website Design',
             ],
             'real-estate-website-design' => [
                 'view' => 'site.real-estate-web-design',
-                'title' => 'Real Estate Website Design Nigeria | i2Medier',
+                'title' => 'Real Estate Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for real estate agencies and property developers. We build property websites that showcase listings clearly, attract qualified leads, and support long-term SEO growth.',
                 'keywords' => 'real estate website design Nigeria, property developer website, realtor website Nigeria, estate agency web design, property listing website Nigeria',
                 'service_type' => 'Real Estate Website Design',
             ],
             'marketing-agency-website-design' => [
                 'view' => 'site.marketing-agency-web-design',
-                'title' => 'Marketing Agency Website Design | i2Medier',
+                'title' => 'Marketing Agency Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for marketing agencies and digital studios. We build fast, results-led agency websites that rank on Google, showcase case studies, and convert prospects into clients.',
                 'keywords' => 'marketing agency website design Nigeria, digital marketing agency website, creative agency web design, social media agency website Nigeria, agency website design',
                 'service_type' => 'Marketing Agency Website Design',
             ],
             'consulting-firm-website-design' => [
                 'view' => 'site.consulting-firm-web-design',
-                'title' => 'Consulting Firm Website Design | i2Medier',
+                'title' => 'Consulting Firm Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for consulting firms and advisory brands. We help consultants present authority, clarify services, and generate higher-quality client enquiries online.',
                 'keywords' => 'consulting firm website design Nigeria, consultant website design, advisory firm website, management consultant web design, consulting firm SEO',
                 'service_type' => 'Consulting Firm Website Design',
             ],
             'construction-company-website-design' => [
                 'view' => 'site.construction-company-web-design',
-                'title' => 'Construction Company Website Design Nigeria | i2Medier',
+                'title' => 'Construction Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for construction companies, contractors, and builders. We create project-driven sites that build trust, demonstrate capability, and convert serious enquiries into clients.',
                 'keywords' => 'construction company website design Nigeria, contractor website design, builder website Nigeria, construction firm web design, contractor SEO Nigeria',
                 'service_type' => 'Construction Company Website Design',
             ],
             'engineering-firm-website-design' => [
                 'view' => 'site.engineering-firm-web-design',
-                'title' => 'Engineering Firm Website Design Nigeria | i2Medier',
+                'title' => 'Engineering Firm Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for engineering firms across civil, mechanical, electrical, and multidisciplinary disciplines. We build credible websites that strengthen positioning and improve lead flow.',
                 'keywords' => 'engineering firm website design Nigeria, engineer website design, civil engineering website Nigeria, engineering company web design, engineering SEO Nigeria',
                 'service_type' => 'Engineering Firm Website Design',
             ],
             'architecture-firm-website-design' => [
                 'view' => 'site.architecture-firm-web-design',
-                'title' => 'Architecture Firm Website Design | i2Medier',
+                'title' => 'Architecture Firm Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for architecture firms and studios. We craft refined portfolio websites that showcase projects beautifully, support your reputation, and attract premium clients.',
                 'keywords' => 'architecture firm website design Nigeria, architect website design, architecture portfolio website, architect web designer Nigeria, architecture studio website',
                 'service_type' => 'Architecture Firm Website Design',
             ],
             'school-website-design' => [
                 'view' => 'site.school-web-design',
-                'title' => 'School & College Website Design Nigeria | i2Medier',
+                'title' => 'School & College Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for schools, academies, and colleges. We build structured, parent-friendly websites that improve admissions visibility, communicate values, and build institutional trust.',
                 'keywords' => 'school website design Nigeria, education website design, private school website, college website design Nigeria, school admissions website',
                 'service_type' => 'School Website Design',
             ],
             'church-website-design' => [
                 'view' => 'site.church-web-design',
-                'title' => 'Church & Ministry Website Design Nigeria | i2Medier',
+                'title' => 'Church & Ministry Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for churches and ministries. We build welcoming websites that help visitors discover your services, events, giving pages, and community all in one place.',
                 'keywords' => 'church website design Nigeria, ministry website design, church web design, worship centre website Nigeria, church SEO Nigeria',
                 'service_type' => 'Church Website Design',
             ],
             'hotel-website-design' => [
                 'view' => 'site.hotel-web-design',
-                'title' => 'Hotel & Resort Website Design | i2Medier',
+                'title' => 'Hotel & Resort Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for hotels, resorts, and hospitality brands. We build booking-ready websites that showcase rooms and amenities while driving more direct reservation enquiries.',
                 'keywords' => 'hotel website design Nigeria, hospitality website design, resort website Nigeria, hotel booking website, hotel SEO Nigeria',
                 'service_type' => 'Hotel Website Design',
             ],
             'restaurant-website-design' => [
                 'view' => 'site.restaurant-web-design',
-                'title' => 'Restaurant Website Design Nigeria | i2Medier',
+                'title' => 'Restaurant Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for restaurants, lounges, and food businesses. We build fast, appetising websites with menus, reservations, and local visibility pages that fill more tables.',
                 'keywords' => 'restaurant website design Nigeria, food business website Nigeria, menu website design, restaurant SEO Nigeria, hospitality web design',
                 'service_type' => 'Restaurant Website Design',
             ],
             'beauty-wellness-website-design' => [
                 'view' => 'site.beauty-wellness-web-design',
-                'title' => 'Beauty & Wellness Website Design | i2Medier',
+                'title' => 'Beauty & Wellness Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for beauty salons, spas, skincare clinics, and wellness brands. We create elegant, polished websites that help clients discover your services and book with confidence.',
                 'keywords' => 'salon website design Nigeria, spa website design, beauty brand website Nigeria, wellness website design, salon SEO Nigeria',
                 'service_type' => 'Beauty and Wellness Website Design',
             ],
             'fitness-website-design' => [
                 'view' => 'site.fitness-web-design',
-                'title' => 'Gym & Fitness Studio Website Design | i2Medier',
+                'title' => 'Gym & Fitness Studio Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for gyms, trainers, and fitness studios. We build high-energy websites that promote memberships, classes, and schedules while improving search visibility and enquiries.',
                 'keywords' => 'gym website design Nigeria, fitness website design, trainer website Nigeria, gym SEO Nigeria, fitness studio web design',
                 'service_type' => 'Fitness Website Design',
             ],
             'cleaning-company-website-design' => [
                 'view' => 'site.cleaning-company-web-design',
-                'title' => 'Cleaning Company Website Design Nigeria | i2Medier',
+                'title' => 'Cleaning Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for cleaning companies and facility service businesses. We create conversion-focused websites that clearly communicate services and generate more commercial enquiries.',
                 'keywords' => 'cleaning company website design Nigeria, cleaning service website, janitorial website Nigeria, facility management website design, cleaning SEO Nigeria',
                 'service_type' => 'Cleaning Company Website Design',
             ],
             'logistics-company-website-design' => [
                 'view' => 'site.logistics-company-web-design',
-                'title' => 'Logistics Company Website Design Nigeria | i2Medier',
+                'title' => 'Logistics Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for logistics, freight, and transport companies. We build reliable, professional websites that communicate capabilities clearly and attract serious B2B enquiries.',
                 'keywords' => 'logistics company website design Nigeria, transport website design, freight company website, delivery service website Nigeria, logistics SEO Nigeria',
                 'service_type' => 'Logistics Company Website Design',
             ],
             'travel-agency-website-design' => [
                 'view' => 'site.travel-agency-web-design',
-                'title' => 'Travel Agency Website Design | i2Medier',
+                'title' => 'Travel Agency Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for travel agencies, tour operators, and visa consultants. We create trust-building websites that showcase packages and destinations to drive more online bookings.',
                 'keywords' => 'travel agency website design Nigeria, travel website design, tourism web design Nigeria, visa agency website, travel SEO Nigeria',
                 'service_type' => 'Travel Agency Website Design',
             ],
             'ecommerce-website-design' => [
                 'view' => 'site.ecommerce-brand-web-design',
-                'title' => 'Ecommerce Website Design Nigeria | i2Medier',
+                'title' => 'Ecommerce Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for ecommerce and retail brands. We build fast, premium-looking online stores that showcase products effectively and convert visitors into buyers.',
                 'keywords' => 'ecommerce website design Nigeria, online store design Nigeria, Shopify alternative Nigeria, retail website design, ecommerce SEO Nigeria',
                 'service_type' => 'Ecommerce Website Design',
             ],
             'fashion-brand-website-design' => [
                 'view' => 'site.fashion-brand-web-design',
-                'title' => 'Fashion Brand Website Design | i2Medier',
+                'title' => 'Fashion Brand Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for fashion labels, clothing brands, and style businesses. We create visually sharp brand and ecommerce websites that support storytelling, present collections, and drive sales.',
                 'keywords' => 'fashion website design Nigeria, clothing brand website, designer website Nigeria, fashion ecommerce design, fashion brand SEO Nigeria',
                 'service_type' => 'Fashion Brand Website Design',
             ],
             'event-planner-website-design' => [
                 'view' => 'site.event-planner-web-design',
-                'title' => 'Event Planner Website Design Nigeria | i2Medier',
+                'title' => 'Event Planner Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for event planners and event companies. We build elegant websites that showcase past events and convert enquiries for weddings, corporate, and private celebrations.',
                 'keywords' => 'event planner website design Nigeria, event company website, wedding planner website Nigeria, events web design, event SEO Nigeria',
                 'service_type' => 'Event Planner Website Design',
             ],
             'photography-website-design' => [
                 'view' => 'site.photography-web-design',
-                'title' => 'Photography Website Design | i2Medier',
+                'title' => 'Photography Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for photographers and creative studios. We build visually led portfolio websites that let your images stand out while supporting bookings and search visibility.',
                 'keywords' => 'photography website design Nigeria, photographer portfolio website, studio website Nigeria, creative portfolio web design, photographer SEO Nigeria',
                 'service_type' => 'Photography Website Design',
             ],
             'personal-brand-website-design' => [
                 'view' => 'site.personal-brand-web-design',
-                'title' => 'Personal Brand Website Design | i2Medier',
+                'title' => 'Personal Brand Website Design Company in Nigeria | i2Medier',
                 'description' => 'Web design for coaches, consultants, speakers, and founders. We build authority websites that package expertise, present your offers clearly, and drive long-term online visibility.',
                 'keywords' => 'personal brand website design Nigeria, coach website design, speaker website Nigeria, consultant personal brand website, expert website design',
                 'service_type' => 'Personal Brand Website Design',

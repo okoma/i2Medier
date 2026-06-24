@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Search Optimisation (SEO) Services | i2Medier')
+@section('title', 'SEO Services Company in Nigeria | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/search-optimization.css')

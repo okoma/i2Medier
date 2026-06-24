@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Real Estate Agencies | i2Medier')
+@section('title', 'Real Estate Website Design Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

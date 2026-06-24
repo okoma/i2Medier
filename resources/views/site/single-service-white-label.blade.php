@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'White Label Digital Services | i2Medier')
+@section('title', 'White Label Web Design Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

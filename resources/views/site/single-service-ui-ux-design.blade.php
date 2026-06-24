@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'UI/UX Design Services | i2Medier')
+@section('title', 'UI/UX Design Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'WordPress Maintenance Services | i2Medier')
+@section('title', 'WordPress Maintenance Company in Nigeria | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/wordpress-maintenance.css')

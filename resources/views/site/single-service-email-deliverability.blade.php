@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Email Deliverability Services | i2Medier')
+@section('title', 'Email Deliverability Services in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Who We Help — Industry-Specific Web Design | i2Medier')
+@section('title', 'Industry Website Design Services | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/who-we-help.css')

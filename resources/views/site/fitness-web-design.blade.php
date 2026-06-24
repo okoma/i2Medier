@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Gyms & Fitness Studios | i2Medier')
+@section('title', 'Gym & Fitness Studio Website Design Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

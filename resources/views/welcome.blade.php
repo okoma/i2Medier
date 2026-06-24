@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'i2Medier - Premium Digital Agency in Nigeria')
+@section('title', 'Digital Agency in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">{!! json_encode([

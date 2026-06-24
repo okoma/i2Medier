@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Laravel Development Services | i2Medier')
+@section('title', 'Laravel Development Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

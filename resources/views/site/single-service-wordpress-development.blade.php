@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'WordPress Development Services | i2Medier')
+@section('title', 'WordPress Development Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

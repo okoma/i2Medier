@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Website Maintenance Services | i2Medier')
+@section('title', 'Website Maintenance Company in Nigeria | i2Medier')
 
 @push('page_css')
     @vite('resources/css/public/pages/website-maintenance.css')

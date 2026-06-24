@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Web Design for Beauty & Wellness Brands | i2Medier')
+@section('title', 'Beauty & Wellness Website Design Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

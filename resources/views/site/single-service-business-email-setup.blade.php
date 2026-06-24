@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Business Email Setup Services | i2Medier')
+@section('title', 'Business Email Setup Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Mobile App Development — iOS & Android | i2Medier')
+@section('title', 'Mobile App Development Company in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">

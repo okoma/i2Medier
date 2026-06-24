@@ -1,6 +1,6 @@
 @extends('public.layouts.app')
 
-@section('title', 'Cloud Architecture Services | i2Medier')
+@section('title', 'Cloud Architecture Services in Nigeria | i2Medier')
 
 @push('meta')
 <script type="application/ld+json">
