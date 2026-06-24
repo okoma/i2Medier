@@ -24,6 +24,26 @@ class OnboardingTaskResource extends Resource
 
     protected static ?int $navigationSort = 10;
 
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::query()
+            ->where('status', 'pending')
+            ->whereNull('assigned_to')
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'info';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Unassigned pending onboarding tasks';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return OnboardingTaskForm::configure($schema);

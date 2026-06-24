@@ -25,6 +25,26 @@ class InvoiceResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::query()
+            ->where('due_at', '<', now())
+            ->whereNotIn('status', ['paid', 'cancelled', 'refunded'])
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'danger';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Overdue invoices awaiting payment';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return InvoiceForm::configure($schema);

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Client\Resources\OnboardingTasks\Schemas;
 
+use Filament\Actions\Action as InfolistAction;
 use App\Enums\ManagementType;
 use App\Models\Domain;
 use App\Models\HostingAccount;
@@ -9,10 +10,9 @@ use App\Models\OnboardingTask;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Infolists\Components\Actions as InfolistActions;
-use Filament\Infolists\Components\Actions\Action as InfolistAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Actions as InfolistActions;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;

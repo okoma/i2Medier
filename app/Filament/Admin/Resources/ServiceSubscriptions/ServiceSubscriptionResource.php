@@ -25,6 +25,25 @@ class ServiceSubscriptionResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::query()
+            ->where('status', 'pending')
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'Pending service subscriptions';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ServiceSubscriptionForm::configure($schema);

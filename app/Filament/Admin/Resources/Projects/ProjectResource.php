@@ -8,6 +8,7 @@ use App\Filament\Admin\Resources\Projects\Pages\ViewProject;
 use App\Filament\Admin\Resources\Projects\Schemas\ProjectForm;
 use App\Filament\Admin\Resources\Projects\Schemas\ProjectInfolist;
 use App\Filament\Admin\Resources\Projects\Tables\ProjectsTable;
+use App\Enums\ProjectStatus;
 use App\Models\Project;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -24,6 +25,25 @@ class ProjectResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase;
 
     protected static ?int $navigationSort = 2;
+
+    public static function getNavigationBadge(): ?string
+    {
+        $count = static::getModel()::query()
+            ->where('status', ProjectStatus::Enquiry)
+            ->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        return 'New project enquiries';
+    }
 
     public static function form(Schema $schema): Schema
     {
