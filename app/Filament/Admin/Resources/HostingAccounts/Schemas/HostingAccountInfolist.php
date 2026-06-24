@@ -15,6 +15,7 @@ class HostingAccountInfolist
         return $schema
             ->components([
                 Grid::make(3)
+                    ->columnSpanFull()
                     ->schema([
                         Section::make('Hosting Plan')
                             ->columnSpan(2)
@@ -25,9 +26,12 @@ class HostingAccountInfolist
                                     ->weight('semibold'),
                                 TextEntry::make('status')
                                     ->badge(),
+                                TextEntry::make('management_type')
+                                    ->label('Management')
+                                    ->badge(),
                                 TextEntry::make('type')
                                     ->label('Type')
-                                    ->formatStateUsing(fn ($state, HostingAccount $record): string => $record->type?->getLabel() ?? '—'),
+                                    ->formatStateUsing(fn (mixed $_, HostingAccount $record): string => $record->type?->getLabel() ?? '—'),
                                 TextEntry::make('primary_domain')
                                     ->label('Primary Domain')
                                     ->copyable()
@@ -42,22 +46,28 @@ class HostingAccountInfolist
                                     ->openUrlInNewTab(),
                                 TextEntry::make('price')
                                     ->label('Price')
-                                    ->formatStateUsing(fn ($state, HostingAccount $record): string => $record->formattedPrice()),
+                                    ->formatStateUsing(fn (mixed $_, HostingAccount $record): string => $record->formattedPrice()),
+                                TextEntry::make('monthly_equivalent_display')
+                                    ->label('Monthly Equivalent')
+                                    ->state(fn (HostingAccount $record): string => $record->formattedMonthlyEquivalent())
+                                    ->visible(fn (HostingAccount $record): bool => $record->isI2Managed() && $record->monthlyEquivalent() !== null),
                                 TextEntry::make('starts_at')
                                     ->label('Started')
                                     ->date()
                                     ->placeholder('—'),
                                 TextEntry::make('expires_at')
                                     ->label('Renewal Date')
-                                    ->date()
                                     ->placeholder('—')
-                                    ->description(fn (HostingAccount $record): string => match (true) {
-                                        $record->daysUntilExpiry() === null    => '',
-                                        $record->daysUntilExpiry() < 0        => 'Expired',
-                                        $record->daysUntilExpiry() === 0      => 'Expires today',
-                                        $record->daysUntilExpiry() <= 30      => $record->daysUntilExpiry() . ' days left',
-                                        default                               => '',
-                                    }),
+                                    ->formatStateUsing(fn (mixed $_, HostingAccount $record): string =>
+                                        $record->expires_at
+                                            ? $record->expires_at->format('d M Y') . match (true) {
+                                                $record->daysUntilExpiry() < 0    => ' · Expired',
+                                                $record->daysUntilExpiry() === 0  => ' · Expires today',
+                                                $record->daysUntilExpiry() <= 30  => ' · ' . $record->daysUntilExpiry() . ' days left',
+                                                default                           => '',
+                                            }
+                                            : '—'
+                                    ),
                                 TextEntry::make('last_backup_at')
                                     ->label('Last Backup')
                                     ->since()
@@ -66,6 +76,7 @@ class HostingAccountInfolist
                                     ->placeholder('—')
                                     ->columnSpanFull(),
                             ]),
+
                         Grid::make(1)
                             ->columnSpan(1)
                             ->schema([
@@ -79,6 +90,7 @@ class HostingAccountInfolist
                                             ->label('Email')
                                             ->copyable(),
                                     ]),
+
                                 Section::make('Resource Usage')
                                     ->schema([
                                         TextEntry::make('cpu_usage_percent')
@@ -117,6 +129,27 @@ class HostingAccountInfolist
                                                 $state >= 60 => 'warning',
                                                 default      => 'success',
                                             }),
+                                    ]),
+
+                                Section::make('Access Credentials')
+                                    ->visible(fn (HostingAccount $record): bool => ! $record->isI2Managed())
+                                    ->schema([
+                                        TextEntry::make('access_panel_url')
+                                            ->label('Panel URL')
+                                            ->placeholder('—')
+                                            ->url(fn (HostingAccount $record): ?string => $record->access_panel_url)
+                                            ->openUrlInNewTab(),
+                                        TextEntry::make('access_username')
+                                            ->label('Username')
+                                            ->placeholder('—')
+                                            ->copyable(),
+                                        TextEntry::make('access_notes')
+                                            ->label('Notes')
+                                            ->placeholder('—'),
+                                        TextEntry::make('dummy_password')
+                                            ->label('Password')
+                                            ->default('••••••••••••')
+                                            ->visible(fn (HostingAccount $record): bool => $record->hasCredentials()),
                                     ]),
                             ]),
                     ]),

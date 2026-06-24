@@ -33,6 +33,37 @@
   margin:0;
 }
 
+.onboarding-body[data-onboarding-portal-mode="true"] {
+  background:transparent;
+  min-height:auto;
+}
+
+.onboarding-body[data-onboarding-portal-mode="true"] .progress-track,
+.onboarding-body[data-onboarding-portal-mode="true"] .step-indicator {
+  border-radius:0;
+}
+
+.onboarding-body[data-onboarding-portal-mode="true"] .page-wrap {
+  max-width:none;
+  margin:0;
+  padding:0;
+  gap:2rem;
+}
+
+.onboarding-body[data-onboarding-portal-mode="true"] .form-panel,
+.onboarding-body[data-onboarding-portal-mode="true"] .quote-sidebar {
+  border-radius:0;
+  box-shadow:none;
+}
+
+.onboarding-body[data-onboarding-portal-mode="true"] .form-panel {
+  border:0;
+}
+
+.onboarding-body[data-onboarding-portal-mode="true"] #step-1 {
+  display:none !important;
+}
+
 .onboarding-body *,
 .onboarding-body *::before,
 .onboarding-body *::after {

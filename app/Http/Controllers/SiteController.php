@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\ProjectStatus;
 use App\Models\Client;
 use App\Models\OnboardingAddon;
+use App\Models\OnboardingTask;
 use App\Models\OnboardingServiceVariant;
 use App\Models\OnboardingService;
 use App\Models\PortfolioCategory;
@@ -293,7 +294,7 @@ class SiteController extends Controller
     {
         return view('site.who-we-help', [
             'seo' => $this->seo(
-                'Who We Help - i2Medier',
+                'Industry Website Design Services | i2Medier',
                 'Explore the industries i2Medier serves with dedicated web design, development, and digital growth solutions for firms, agencies, schools, clinics, and service brands.',
                 [
                     'path' => '/who-we-help',
@@ -376,10 +377,11 @@ class SiteController extends Controller
     public function start(Request $request): View
     {
         $onboardingCatalog = $this->publicOnboardingCatalog();
+        $portalPrefill = $this->portalOnboardingPrefill($request);
 
         return view('site.onboarding', [
             'onboardingCatalog' => $onboardingCatalog,
-            'onboardingPreset' => $this->onboardingPreset($request, $onboardingCatalog),
+            'onboardingPreset' => $this->onboardingPreset($request, $onboardingCatalog, $portalPrefill),
             'contact' => $this->contactDetails(),
             'seo' => $this->seo(
                 'Start a Project - i2Medier',
@@ -435,15 +437,24 @@ class SiteController extends Controller
             $briefPdfPath = $request->file('brief_pdf')->store('briefs', 'public');
         }
 
+        $isPortalSubmission = $request->routeIs('portal.start-project.store');
+        $portalUser = $isPortalSubmission ? $request->user() : null;
+        $portalClient = $portalUser?->client;
+
         $catalog = OnboardingService::query()
             ->where('is_active', true)
-            ->where('show_on_public_onboarding', true)
             ->with([
                 'addons' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order'),
                 'variants' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')->with([
                     'addons' => fn ($addonQuery) => $addonQuery->where('is_active', true)->orderBy('sort_order'),
                 ]),
-            ])
+            ]);
+
+        if (! $isPortalSubmission) {
+            $catalog->where('show_on_public_onboarding', true);
+        }
+
+        $catalog = $catalog
             ->get()
             ->keyBy('key');
 
@@ -494,6 +505,8 @@ class SiteController extends Controller
         $owner = $this->primaryAgencyUser();
         $contact = $validated['contact'];
         $brief = $validated['brief'] ?? [];
+        $domainOnboarding = $this->buildDomainOnboarding($brief);
+        $hostingOnboarding = $this->buildHostingOnboarding($brief);
 
         $servicesSnapshot = $resolvedSelections->map(function (array $selection): array {
             /** @var OnboardingService $service */
@@ -534,27 +547,42 @@ class SiteController extends Controller
             ];
         })->values()->all();
 
-        $result = DB::transaction(function () use ($validated, $servicesSnapshot, $owner, $contact, $brief, $briefPdfPath): array {
-            $client = Client::query()->create([
-                'company_name' => $contact['business'],
-                'contact_name' => $contact['name'],
-                'email' => $contact['email'],
-                'phone' => $contact['phone'],
-                'whatsapp_number' => $contact['phone'],
-                'country' => $contact['country'],
-                'status' => 'lead',
-                'created_by' => $owner?->id,
-            ]);
+        $result = DB::transaction(function () use ($validated, $servicesSnapshot, $owner, $contact, $brief, $briefPdfPath, $domainOnboarding, $hostingOnboarding, $portalClient, $portalUser): array {
+            if ($portalClient) {
+                $portalClient->forceFill([
+                    'company_name' => $contact['business'],
+                    'contact_name' => $contact['name'],
+                    'email' => $contact['email'],
+                    'phone' => $contact['phone'],
+                    'whatsapp_number' => $contact['phone'],
+                    'country' => $contact['country'],
+                ])->save();
+
+                $client = $portalClient;
+            } else {
+                $client = Client::query()->create([
+                    'company_name' => $contact['business'],
+                    'contact_name' => $contact['name'],
+                    'email' => $contact['email'],
+                    'phone' => $contact['phone'],
+                    'whatsapp_number' => $contact['phone'],
+                    'country' => $contact['country'],
+                    'status' => 'lead',
+                    'created_by' => $owner?->id,
+                ]);
+            }
 
             $project = Project::query()->create([
                 'client_id' => $client->id,
-                'created_by' => $owner?->id,
+                'created_by' => $portalUser?->id ?? $owner?->id,
                 'status' => ProjectStatus::Enquiry,
                 'timeline' => $brief['timeline'] ?? null,
                 'budget' => $brief['budget'] ?? null,
                 'source' => $brief['source'] ?? null,
                 'domain_preference' => $brief['domain_preference'] ?? null,
                 'hosting_preference' => $brief['hosting_preference'] ?? null,
+                'domain_onboarding' => $domainOnboarding,
+                'hosting_onboarding' => $hostingOnboarding,
                 'message' => $brief['message'] ?? null,
                 'brief_pdf' => $briefPdfPath,
                 'source_page' => $validated['source_page'] ?? null,
@@ -563,6 +591,8 @@ class SiteController extends Controller
                 'terms_accepted_at' => now(),
                 'reference' => $this->generateProjectReference(),
             ]);
+
+            $this->seedOnboardingTasks($project, $domainOnboarding, $hostingOnboarding, $servicesSnapshot);
 
             return [
                 'client' => $client,
@@ -600,7 +630,7 @@ class SiteController extends Controller
         ], 201);
     }
 
-    private function onboardingPreset(Request $request, array $catalog): array
+    private function onboardingPreset(Request $request, array $catalog, array $contactPrefill = []): array
     {
         $services = collect(explode(',', (string) $request->query('services', '')))
             ->map(fn (string $value): string => trim($value))
@@ -654,9 +684,27 @@ class SiteController extends Controller
             'services'     => $validServices->all(),
             'platform'     => $validPlatform,
             'addons'       => $validAddons->all(),
+            'contact'      => $contactPrefill,
             'source_page'  => trim((string) $request->query('source_page', '')),
             'source_label' => trim((string) $request->query('source_label', '')),
             'locked'       => $locked,
+        ];
+    }
+
+    private function portalOnboardingPrefill(Request $request): array
+    {
+        $prefill = $request->session()->pull('portal_onboarding_prefill', []);
+
+        if (! is_array($prefill)) {
+            return [];
+        }
+
+        return [
+            'name' => trim((string) ($prefill['name'] ?? '')),
+            'business' => trim((string) ($prefill['business'] ?? '')),
+            'email' => trim((string) ($prefill['email'] ?? '')),
+            'phone' => trim((string) ($prefill['phone'] ?? '')),
+            'country' => trim((string) ($prefill['country'] ?? '')),
         ];
     }
 
@@ -734,6 +782,150 @@ class SiteController extends Controller
         $next = (Project::query()->withTrashed()->max('id') ?? 0) + 1;
 
         return 'i2M-' . str_pad((string) $next, 6, '0', STR_PAD_LEFT);
+    }
+
+    private function buildDomainOnboarding(array $brief): ?array
+    {
+        $preference = trim((string) ($brief['domain_preference'] ?? ''));
+
+        if ($preference === '') {
+            return null;
+        }
+
+        return match ($preference) {
+            'own-domain' => [
+                'has_domain' => true,
+                'domain_name' => null,
+                'management_preference' => 'self_managed',
+                'source' => 'existing_domain',
+            ],
+            'manage-domain' => [
+                'has_domain' => true,
+                'domain_name' => null,
+                'management_preference' => 'i2_managed',
+                'source' => 'agency_procurement',
+            ],
+            'unsure-domain' => [
+                'has_domain' => false,
+                'domain_name' => null,
+                'management_preference' => null,
+                'source' => 'undecided',
+            ],
+            default => null,
+        };
+    }
+
+    private function buildHostingOnboarding(array $brief): ?array
+    {
+        $preference = trim((string) ($brief['hosting_preference'] ?? ''));
+
+        if ($preference === '') {
+            return null;
+        }
+
+        return match ($preference) {
+            'own-hosting' => [
+                'has_hosting' => true,
+                'provider' => null,
+                'management_preference' => 'self_managed',
+                'source' => 'existing_hosting',
+            ],
+            'managed-hosting' => [
+                'has_hosting' => true,
+                'provider' => 'i2Medier Managed Hosting',
+                'management_preference' => 'i2_managed',
+                'source' => 'agency_hosting',
+            ],
+            'unsure-hosting' => [
+                'has_hosting' => false,
+                'provider' => null,
+                'management_preference' => null,
+                'source' => 'undecided',
+            ],
+            default => null,
+        };
+    }
+
+    private function seedOnboardingTasks(Project $project, ?array $domainOnboarding, ?array $hostingOnboarding, array $servicesSnapshot): void
+    {
+        $tasks = [];
+        $needsDomainAccess = ($domainOnboarding['has_domain'] ?? false)
+            && (($domainOnboarding['management_preference'] ?? null) === 'self_managed');
+        $needsHostingAccess = ($hostingOnboarding['has_hosting'] ?? false)
+            && (($hostingOnboarding['management_preference'] ?? null) === 'self_managed');
+
+        if ($needsDomainAccess || $needsHostingAccess) {
+            $scope = match (true) {
+                $needsDomainAccess && $needsHostingAccess => 'domain and hosting',
+                $needsDomainAccess => 'domain',
+                default => 'hosting',
+            };
+
+            $tasks[] = [
+                'title' => 'Submit ' . $scope . ' access',
+                'description' => 'Provide the login details we need to take over your ' . $scope . ' setup and continue onboarding.',
+                'type' => 'domain_hosting_setup',
+                'status' => 'pending',
+                'sort_order' => 10,
+            ];
+        }
+
+        foreach ($this->buildServiceOnboardingTasks($servicesSnapshot) as $task) {
+            $tasks[] = $task;
+        }
+
+        foreach ($tasks as $task) {
+            OnboardingTask::query()->create([
+                'project_id' => $project->id,
+                ...$task,
+            ]);
+        }
+    }
+
+    private function buildServiceOnboardingTasks(array $servicesSnapshot): array
+    {
+        $serviceKeys = collect($servicesSnapshot)
+            ->pluck('service_key')
+            ->filter()
+            ->unique()
+            ->values();
+
+        $tasks = [];
+        $sortOrder = 20;
+
+        if ($serviceKeys->intersect(['webdesign', 'wordpress', 'ecommerce'])->isNotEmpty()) {
+            $tasks[] = [
+                'title' => 'Upload brand assets and content',
+                'description' => 'Share your logo files, brand colours, page copy, images, and any references we should use while building your site.',
+                'type' => 'content_upload',
+                'status' => 'pending',
+                'sort_order' => $sortOrder,
+            ];
+            $sortOrder += 10;
+        }
+
+        if ($serviceKeys->intersect(['uiux', 'mobileapps', 'saas', 'laravel', 'whitelabel'])->isNotEmpty()) {
+            $tasks[] = [
+                'title' => 'Confirm project goals and workflow',
+                'description' => 'Review the delivery goals, user flows, feature priorities, and any technical constraints so we can lock the right implementation path.',
+                'type' => 'kickoff_alignment',
+                'status' => 'pending',
+                'sort_order' => $sortOrder,
+            ];
+            $sortOrder += 10;
+        }
+
+        if ($serviceKeys->intersect(['seo', 'email', 'emaildeliverability', 'cloud', 'performance'])->isNotEmpty()) {
+            $tasks[] = [
+                'title' => 'Share technical access and operating context',
+                'description' => 'Send any existing analytics, DNS, email, cloud, or platform access we need, plus context on your current setup and business priorities.',
+                'type' => 'technical_intake',
+                'status' => 'pending',
+                'sort_order' => $sortOrder,
+            ];
+        }
+
+        return $tasks;
     }
 
     public function portfolio(): View
@@ -876,154 +1068,154 @@ class SiteController extends Controller
         return [
             'accounting-firm-website-design' => [
                 'view' => 'site.accounting-firm-web-design',
-                'title' => 'Web Design for Accounting Firms | i2Medier',
+                'title' => 'Accounting Firm Website Design | i2Medier',
                 'description' => 'Web design for accounting firms, tax consultants, and chartered accountants. We build credible, SEO-focused websites that rank for service searches and convert enquiries into clients.',
                 'keywords' => 'accounting firm website design Nigeria, accountant website design, CPA website Nigeria, tax consultant website, chartered accountant web design, accounting firm SEO',
                 'service_type' => 'Accounting Firm Website Design',
             ],
             'clinic-website-design' => [
                 'view' => 'site.clinic-web-design',
-                'title' => 'Web Design for Clinics & Healthcare Providers | i2Medier',
+                'title' => 'Clinic & Healthcare Website Design Nigeria | i2Medier',
                 'description' => 'Web design for clinics, hospitals, and healthcare practices. We build fast, trustworthy websites that help patients find you, book appointments, and take action online.',
                 'keywords' => 'clinic website design Nigeria, hospital website design, medical website design Nigeria, doctor website design, healthcare website agency, clinic SEO Nigeria',
                 'service_type' => 'Clinic Website Design',
             ],
             'real-estate-website-design' => [
                 'view' => 'site.real-estate-web-design',
-                'title' => 'Web Design for Real Estate Agencies | i2Medier',
+                'title' => 'Real Estate Website Design Nigeria | i2Medier',
                 'description' => 'Web design for real estate agencies and property developers. We build property websites that showcase listings clearly, attract qualified leads, and support long-term SEO growth.',
                 'keywords' => 'real estate website design Nigeria, property developer website, realtor website Nigeria, estate agency web design, property listing website Nigeria',
                 'service_type' => 'Real Estate Website Design',
             ],
             'marketing-agency-website-design' => [
                 'view' => 'site.marketing-agency-web-design',
-                'title' => 'Web Design for Marketing Agencies | i2Medier',
+                'title' => 'Marketing Agency Website Design | i2Medier',
                 'description' => 'Web design for marketing agencies and digital studios. We build fast, results-led agency websites that rank on Google, showcase case studies, and convert prospects into clients.',
                 'keywords' => 'marketing agency website design Nigeria, digital marketing agency website, creative agency web design, social media agency website Nigeria, agency website design',
                 'service_type' => 'Marketing Agency Website Design',
             ],
             'consulting-firm-website-design' => [
                 'view' => 'site.consulting-firm-web-design',
-                'title' => 'Web Design for Consulting Firms | i2Medier',
+                'title' => 'Consulting Firm Website Design | i2Medier',
                 'description' => 'Web design for consulting firms and advisory brands. We help consultants present authority, clarify services, and generate higher-quality client enquiries online.',
                 'keywords' => 'consulting firm website design Nigeria, consultant website design, advisory firm website, management consultant web design, consulting firm SEO',
                 'service_type' => 'Consulting Firm Website Design',
             ],
             'construction-company-website-design' => [
                 'view' => 'site.construction-company-web-design',
-                'title' => 'Web Design for Construction Companies | i2Medier',
+                'title' => 'Construction Company Website Design Nigeria | i2Medier',
                 'description' => 'Web design for construction companies, contractors, and builders. We create project-driven sites that build trust, demonstrate capability, and convert serious enquiries into clients.',
                 'keywords' => 'construction company website design Nigeria, contractor website design, builder website Nigeria, construction firm web design, contractor SEO Nigeria',
                 'service_type' => 'Construction Company Website Design',
             ],
             'engineering-firm-website-design' => [
                 'view' => 'site.engineering-firm-web-design',
-                'title' => 'Web Design for Engineering Firms | i2Medier',
+                'title' => 'Engineering Firm Website Design Nigeria | i2Medier',
                 'description' => 'Web design for engineering firms across civil, mechanical, electrical, and multidisciplinary disciplines. We build credible websites that strengthen positioning and improve lead flow.',
                 'keywords' => 'engineering firm website design Nigeria, engineer website design, civil engineering website Nigeria, engineering company web design, engineering SEO Nigeria',
                 'service_type' => 'Engineering Firm Website Design',
             ],
             'architecture-firm-website-design' => [
                 'view' => 'site.architecture-firm-web-design',
-                'title' => 'Web Design for Architecture Firms | i2Medier',
+                'title' => 'Architecture Firm Website Design | i2Medier',
                 'description' => 'Web design for architecture firms and studios. We craft refined portfolio websites that showcase projects beautifully, support your reputation, and attract premium clients.',
                 'keywords' => 'architecture firm website design Nigeria, architect website design, architecture portfolio website, architect web designer Nigeria, architecture studio website',
                 'service_type' => 'Architecture Firm Website Design',
             ],
             'school-website-design' => [
                 'view' => 'site.school-web-design',
-                'title' => 'Web Design for Schools & Colleges | i2Medier',
+                'title' => 'School & College Website Design Nigeria | i2Medier',
                 'description' => 'Web design for schools, academies, and colleges. We build structured, parent-friendly websites that improve admissions visibility, communicate values, and build institutional trust.',
                 'keywords' => 'school website design Nigeria, education website design, private school website, college website design Nigeria, school admissions website',
                 'service_type' => 'School Website Design',
             ],
             'church-website-design' => [
                 'view' => 'site.church-web-design',
-                'title' => 'Web Design for Churches & Ministries | i2Medier',
+                'title' => 'Church & Ministry Website Design Nigeria | i2Medier',
                 'description' => 'Web design for churches and ministries. We build welcoming websites that help visitors discover your services, events, giving pages, and community all in one place.',
                 'keywords' => 'church website design Nigeria, ministry website design, church web design, worship centre website Nigeria, church SEO Nigeria',
                 'service_type' => 'Church Website Design',
             ],
             'hotel-website-design' => [
                 'view' => 'site.hotel-web-design',
-                'title' => 'Web Design for Hotels & Resorts | i2Medier',
+                'title' => 'Hotel & Resort Website Design | i2Medier',
                 'description' => 'Web design for hotels, resorts, and hospitality brands. We build booking-ready websites that showcase rooms and amenities while driving more direct reservation enquiries.',
                 'keywords' => 'hotel website design Nigeria, hospitality website design, resort website Nigeria, hotel booking website, hotel SEO Nigeria',
                 'service_type' => 'Hotel Website Design',
             ],
             'restaurant-website-design' => [
                 'view' => 'site.restaurant-web-design',
-                'title' => 'Web Design for Restaurants & Food Brands | i2Medier',
+                'title' => 'Restaurant Website Design Nigeria | i2Medier',
                 'description' => 'Web design for restaurants, lounges, and food businesses. We build fast, appetising websites with menus, reservations, and local visibility pages that fill more tables.',
                 'keywords' => 'restaurant website design Nigeria, food business website Nigeria, menu website design, restaurant SEO Nigeria, hospitality web design',
                 'service_type' => 'Restaurant Website Design',
             ],
             'beauty-wellness-website-design' => [
                 'view' => 'site.beauty-wellness-web-design',
-                'title' => 'Web Design for Beauty & Wellness Brands | i2Medier',
+                'title' => 'Beauty & Wellness Website Design | i2Medier',
                 'description' => 'Web design for beauty salons, spas, skincare clinics, and wellness brands. We create elegant, polished websites that help clients discover your services and book with confidence.',
                 'keywords' => 'salon website design Nigeria, spa website design, beauty brand website Nigeria, wellness website design, salon SEO Nigeria',
                 'service_type' => 'Beauty and Wellness Website Design',
             ],
             'fitness-website-design' => [
                 'view' => 'site.fitness-web-design',
-                'title' => 'Web Design for Gyms & Fitness Studios | i2Medier',
+                'title' => 'Gym & Fitness Studio Website Design | i2Medier',
                 'description' => 'Web design for gyms, trainers, and fitness studios. We build high-energy websites that promote memberships, classes, and schedules while improving search visibility and enquiries.',
                 'keywords' => 'gym website design Nigeria, fitness website design, trainer website Nigeria, gym SEO Nigeria, fitness studio web design',
                 'service_type' => 'Fitness Website Design',
             ],
             'cleaning-company-website-design' => [
                 'view' => 'site.cleaning-company-web-design',
-                'title' => 'Web Design for Cleaning Companies | i2Medier',
+                'title' => 'Cleaning Company Website Design Nigeria | i2Medier',
                 'description' => 'Web design for cleaning companies and facility service businesses. We create conversion-focused websites that clearly communicate services and generate more commercial enquiries.',
                 'keywords' => 'cleaning company website design Nigeria, cleaning service website, janitorial website Nigeria, facility management website design, cleaning SEO Nigeria',
                 'service_type' => 'Cleaning Company Website Design',
             ],
             'logistics-company-website-design' => [
                 'view' => 'site.logistics-company-web-design',
-                'title' => 'Web Design for Logistics Companies | i2Medier',
+                'title' => 'Logistics Company Website Design Nigeria | i2Medier',
                 'description' => 'Web design for logistics, freight, and transport companies. We build reliable, professional websites that communicate capabilities clearly and attract serious B2B enquiries.',
                 'keywords' => 'logistics company website design Nigeria, transport website design, freight company website, delivery service website Nigeria, logistics SEO Nigeria',
                 'service_type' => 'Logistics Company Website Design',
             ],
             'travel-agency-website-design' => [
                 'view' => 'site.travel-agency-web-design',
-                'title' => 'Web Design for Travel Agencies | i2Medier',
+                'title' => 'Travel Agency Website Design | i2Medier',
                 'description' => 'Web design for travel agencies, tour operators, and visa consultants. We create trust-building websites that showcase packages and destinations to drive more online bookings.',
                 'keywords' => 'travel agency website design Nigeria, travel website design, tourism web design Nigeria, visa agency website, travel SEO Nigeria',
                 'service_type' => 'Travel Agency Website Design',
             ],
             'ecommerce-website-design' => [
                 'view' => 'site.ecommerce-brand-web-design',
-                'title' => 'Web Design for Ecommerce Brands | i2Medier',
+                'title' => 'Ecommerce Website Design Nigeria | i2Medier',
                 'description' => 'Web design for ecommerce and retail brands. We build fast, premium-looking online stores that showcase products effectively and convert visitors into buyers.',
                 'keywords' => 'ecommerce website design Nigeria, online store design Nigeria, Shopify alternative Nigeria, retail website design, ecommerce SEO Nigeria',
                 'service_type' => 'Ecommerce Website Design',
             ],
             'fashion-brand-website-design' => [
                 'view' => 'site.fashion-brand-web-design',
-                'title' => 'Web Design for Fashion Brands | i2Medier',
+                'title' => 'Fashion Brand Website Design | i2Medier',
                 'description' => 'Web design for fashion labels, clothing brands, and style businesses. We create visually sharp brand and ecommerce websites that support storytelling, present collections, and drive sales.',
                 'keywords' => 'fashion website design Nigeria, clothing brand website, designer website Nigeria, fashion ecommerce design, fashion brand SEO Nigeria',
                 'service_type' => 'Fashion Brand Website Design',
             ],
             'event-planner-website-design' => [
                 'view' => 'site.event-planner-web-design',
-                'title' => 'Web Design for Event Planners | i2Medier',
+                'title' => 'Event Planner Website Design Nigeria | i2Medier',
                 'description' => 'Web design for event planners and event companies. We build elegant websites that showcase past events and convert enquiries for weddings, corporate, and private celebrations.',
                 'keywords' => 'event planner website design Nigeria, event company website, wedding planner website Nigeria, events web design, event SEO Nigeria',
                 'service_type' => 'Event Planner Website Design',
             ],
             'photography-website-design' => [
                 'view' => 'site.photography-web-design',
-                'title' => 'Web Design for Photographers | i2Medier',
+                'title' => 'Photography Website Design | i2Medier',
                 'description' => 'Web design for photographers and creative studios. We build visually led portfolio websites that let your images stand out while supporting bookings and search visibility.',
                 'keywords' => 'photography website design Nigeria, photographer portfolio website, studio website Nigeria, creative portfolio web design, photographer SEO Nigeria',
                 'service_type' => 'Photography Website Design',
             ],
             'personal-brand-website-design' => [
                 'view' => 'site.personal-brand-web-design',
-                'title' => 'Web Design for Personal Brands | i2Medier',
+                'title' => 'Personal Brand Website Design | i2Medier',
                 'description' => 'Web design for coaches, consultants, speakers, and founders. We build authority websites that package expertise, present your offers clearly, and drive long-term online visibility.',
                 'keywords' => 'personal brand website design Nigeria, coach website design, speaker website Nigeria, consultant personal brand website, expert website design',
                 'service_type' => 'Personal Brand Website Design',

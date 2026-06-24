@@ -12,6 +12,7 @@ enum HostingType: string implements HasLabel
     case Vps        = 'vps';
     case Reseller   = 'reseller';
     case Dedicated  = 'dedicated';
+    case I2Hosting  = 'i2_hosting';
 
     public function getLabel(): string
     {
@@ -22,6 +23,7 @@ enum HostingType: string implements HasLabel
             self::Vps       => 'VPS Hosting',
             self::Reseller  => 'Reseller Hosting',
             self::Dedicated => 'Dedicated Server',
+            self::I2Hosting => 'i2 Hosting (Hetzner)',
         };
     }
 }

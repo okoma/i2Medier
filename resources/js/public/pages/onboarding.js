@@ -2,7 +2,6 @@ import FALLBACK_SERVICES from './onboarding-services';
 import '../footer';
 import '../header';
 
-
     const SERVICES = resolveServices();
     const PRESET = resolvePreset();
 
@@ -254,13 +253,14 @@ import '../header';
                 services: Array.isArray(parsed?.services) ? parsed.services : [],
                 platform: typeof parsed?.platform === 'string' ? parsed.platform : '',
                 addons: Array.isArray(parsed?.addons) ? parsed.addons : [],
+                contact: typeof parsed?.contact === 'object' && parsed?.contact !== null ? parsed.contact : {},
                 source_page: typeof parsed?.source_page === 'string' ? parsed.source_page : '',
                 source_label: typeof parsed?.source_label === 'string' ? parsed.source_label : '',
-            locked:       parsed?.locked === true,
+                locked: parsed?.locked === true,
             };
         } catch (error) {
             console.warn('Failed to parse onboarding preset payload.', error);
-            return { services: [], platform: '', addons: [], source_page: '', source_label: '', locked: false };
+            return { services: [], platform: '', addons: [], contact: {}, source_page: '', source_label: '', locked: false };
         }
     }
 
@@ -268,6 +268,7 @@ import '../header';
         const briefHandoff = readBriefHandoff();
         if (briefHandoff) applyBriefHandoff(briefHandoff);
         applyPresetSelections();
+        applyPresetContact();
         renderServiceGrid();
         updateQuoteSidebar();
 
@@ -324,6 +325,29 @@ import '../header';
 
                 break;
             }
+        });
+    }
+
+    function applyPresetContact() {
+        const contact = PRESET.contact || {};
+
+        const fieldMap = {
+            name: 'f-name',
+            business: 'f-business',
+            email: 'f-email',
+            phone: 'f-phone',
+            country: 'f-country',
+        };
+
+        Object.entries(fieldMap).forEach(([key, fieldId]) => {
+            const field = document.getElementById(fieldId);
+            const value = typeof contact[key] === 'string' ? contact[key].trim() : '';
+
+            if (!field || !value || String(field.value || '').trim() !== '') {
+                return;
+            }
+
+            field.value = value;
         });
     }
 

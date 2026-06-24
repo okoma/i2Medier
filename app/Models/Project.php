@@ -23,6 +23,8 @@ class Project extends Model
         'source',
         'domain_preference',
         'hosting_preference',
+        'domain_onboarding',
+        'hosting_onboarding',
         'message',
         'brief_pdf',
         'source_page',
@@ -33,11 +35,13 @@ class Project extends Model
     ];
 
     protected $casts = [
-        'status' => ProjectStatus::class,
-        'services' => 'array',
-        'terms_accepted_at' => 'datetime',
-        'converted_at' => 'datetime',
-        'deleted_at' => 'datetime',
+        'status'             => ProjectStatus::class,
+        'services'           => 'array',
+        'domain_onboarding'  => 'array',
+        'hosting_onboarding' => 'array',
+        'terms_accepted_at'  => 'datetime',
+        'converted_at'       => 'datetime',
+        'deleted_at'         => 'datetime',
     ];
 
     public function client(): BelongsTo
@@ -73,6 +77,16 @@ class Project extends Model
     public function isConverted(): bool
     {
         return $this->status === ProjectStatus::Converted;
+    }
+
+    public function wantsDomain(): bool
+    {
+        return (bool) ($this->domain_onboarding['has_domain'] ?? false);
+    }
+
+    public function wantsHosting(): bool
+    {
+        return (bool) ($this->hosting_onboarding['has_hosting'] ?? false);
     }
 
     public function scopeEnquiries($query)

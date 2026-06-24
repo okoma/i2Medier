@@ -4,8 +4,10 @@ namespace App\Filament\Admin\Resources\HostingAccounts\Schemas;
 
 use App\Enums\HostingStatus;
 use App\Enums\HostingType;
+use App\Enums\ManagementType;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -20,6 +22,7 @@ class HostingAccountForm
         return $schema
             ->components([
                 Section::make('Hosting Account')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         Select::make('client_id')
@@ -55,12 +58,22 @@ class HostingAccountForm
                             ->url()
                             ->maxLength(500),
                     ]),
+
                 Section::make('Billing')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
+                        Select::make('management_type')
+                            ->label('Management Type')
+                            ->options(ManagementType::class)
+                            ->default(ManagementType::I2Managed->value)
+                            ->required()
+                            ->live()
+                            ->columnSpanFull(),
                         TextInput::make('price')
                             ->numeric()
-                            ->prefix('₦'),
+                            ->prefix('₦')
+                            ->live(),
                         TextInput::make('currency')
                             ->default('NGN')
                             ->maxLength(10),
@@ -70,7 +83,36 @@ class HostingAccountForm
                                 'quarterly' => 'Quarterly',
                                 'biannual'  => 'Bi-annual',
                                 'annual'    => 'Annual',
-                            ]),
+                                'biennial'  => 'Biennial (2 years)',
+                            ])
+                            ->live(),
+                        Placeholder::make('monthly_equivalent_display')
+                            ->label('Monthly Equivalent')
+                            ->content(function ($get): string {
+                                $price = $get('price');
+                                $cycle = $get('billing_cycle');
+
+                                if (! $price || ! $cycle) {
+                                    return '—';
+                                }
+
+                                $months = match ($cycle) {
+                                    'monthly'   => 1,
+                                    'quarterly' => 3,
+                                    'biannual'  => 6,
+                                    'annual'    => 12,
+                                    'biennial'  => 24,
+                                    default     => null,
+                                };
+
+                                if (! $months) {
+                                    return '—';
+                                }
+
+                                $currency = $get('currency') ?: 'NGN';
+
+                                return number_format((float) $price / $months, 2) . ' ' . $currency . '/mo';
+                            }),
                         Toggle::make('auto_renew')
                             ->label('Auto-Renew')
                             ->default(true),
@@ -79,7 +121,33 @@ class HostingAccountForm
                         DatePicker::make('expires_at')
                             ->label('Renewal Date'),
                     ]),
+
+                Section::make('Access Credentials')
+                    ->columnSpanFull()
+                    ->description('Stored encrypted. Only agency staff can view.')
+                    ->collapsed()
+                    ->columns(2)
+                    ->visible(fn ($get) => $get('management_type') === ManagementType::SelfManaged->value)
+                    ->schema([
+                        TextInput::make('access_panel_url')
+                            ->label('Control Panel Login URL')
+                            ->url()
+                            ->maxLength(500)
+                            ->columnSpanFull(),
+                        TextInput::make('access_username')
+                            ->label('Username / Email'),
+                        TextInput::make('access_password')
+                            ->label('Password')
+                            ->password()
+                            ->revealable(),
+                        Textarea::make('access_notes')
+                            ->label('Notes')
+                            ->rows(2)
+                            ->columnSpanFull(),
+                    ]),
+
                 Section::make('Resource Usage')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('cpu_usage_percent')

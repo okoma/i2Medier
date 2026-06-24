@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\AffiliateProfile;
 use App\Models\Document;
 use App\Models\Invoice;
-use App\Models\OnboardingAddon;
 use App\Models\OnboardingService;
 use App\Models\ServiceSubscription;
 use App\Models\SupportTicket;

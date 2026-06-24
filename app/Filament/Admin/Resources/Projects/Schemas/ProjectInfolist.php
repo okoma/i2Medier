@@ -2,12 +2,19 @@
 
 namespace App\Filament\Admin\Resources\Projects\Schemas;
 
+use App\Enums\ManagementType;
+use App\Models\Domain;
+use App\Models\HostingAccount;
 use App\Models\Project;
+use Filament\Infolists\Components\Actions as InfolistActions;
+use Filament\Infolists\Components\Actions\Action as InfolistAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectInfolist
@@ -106,6 +113,80 @@ class ProjectInfolist
                                     ])
                                     ->columns(4),
                             ]),
+                        Section::make('Domain & Hosting Onboarding')
+                            ->columnSpanFull()
+                            ->visible(fn (Project $record): bool => ! empty($record->domain_onboarding) || ! empty($record->hosting_onboarding))
+                            ->schema([
+                                TextEntry::make('domain_onboarding_summary')
+                                    ->label('Domain')
+                                    ->state(fn (Project $record): string => match (true) {
+                                        empty($record->domain_onboarding) => '—',
+                                        ! ($record->domain_onboarding['has_domain'] ?? false) => 'Client does not have a domain',
+                                        default => ($record->domain_onboarding['domain_name'] ?? 'Domain name not provided') .
+                                            (isset($record->domain_onboarding['management_preference'])
+                                                ? ' · Preference: ' . $record->domain_onboarding['management_preference']
+                                                : ''),
+                                    }),
+                                TextEntry::make('hosting_onboarding_summary')
+                                    ->label('Hosting')
+                                    ->state(fn (Project $record): string => match (true) {
+                                        empty($record->hosting_onboarding) => '—',
+                                        ! ($record->hosting_onboarding['has_hosting'] ?? false) => 'Client does not have hosting',
+                                        default => ($record->hosting_onboarding['provider'] ?? 'Provider not specified') .
+                                            (isset($record->hosting_onboarding['management_preference'])
+                                                ? ' · Preference: ' . $record->hosting_onboarding['management_preference']
+                                                : ''),
+                                    }),
+                                InfolistActions::make([
+                                    InfolistAction::make('create_domain_record')
+                                        ->label('Create Domain Record')
+                                        ->icon('heroicon-o-globe-alt')
+                                        ->visible(fn (Project $record): bool =>
+                                            ! empty($record->domain_onboarding['has_domain']) &&
+                                            ! empty($record->domain_onboarding['domain_name'])
+                                        )
+                                        ->action(function (Project $record): void {
+                                            Domain::create([
+                                                'client_id'       => $record->client_id,
+                                                'created_by'      => Auth::id(),
+                                                'domain_name'     => $record->domain_onboarding['domain_name'] ?? null,
+                                                'management_type' => $record->domain_onboarding['management_preference'] === 'self_managed'
+                                                    ? ManagementType::SelfManaged
+                                                    : ManagementType::I2Managed,
+                                                'status'          => 'active',
+                                            ]);
+
+                                            Notification::make()
+                                                ->title('Domain record created')
+                                                ->success()
+                                                ->send();
+                                        }),
+
+                                    InfolistAction::make('create_hosting_record')
+                                        ->label('Create Hosting Record')
+                                        ->icon('heroicon-o-server')
+                                        ->visible(fn (Project $record): bool =>
+                                            ! empty($record->hosting_onboarding['has_hosting'])
+                                        )
+                                        ->action(function (Project $record): void {
+                                            HostingAccount::create([
+                                                'client_id'       => $record->client_id,
+                                                'created_by'      => Auth::id(),
+                                                'name'            => ($record->hosting_onboarding['provider'] ?? 'Hosting') . ' Plan',
+                                                'management_type' => $record->hosting_onboarding['management_preference'] === 'self_managed'
+                                                    ? ManagementType::SelfManaged
+                                                    : ManagementType::I2Managed,
+                                                'status'          => 'active',
+                                            ]);
+
+                                            Notification::make()
+                                                ->title('Hosting record created')
+                                                ->success()
+                                                ->send();
+                                        }),
+                                ])->columnSpanFull(),
+                            ]),
+
                         Section::make('Attribution')
                             ->columnSpanFull()
                             ->columns(2)

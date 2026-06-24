@@ -112,6 +112,7 @@ export default defineConfig({
                 'resources/css/public/pages/blog-single.css',
                 'resources/js/app.js',
                 'resources/js/filament/admin/editorjs-field.js',
+                'resources/js/filament/client/start-project.js',
                 'resources/css/filament/admin/theme.css',
                 'resources/css/filament/client/theme.css',
             ],

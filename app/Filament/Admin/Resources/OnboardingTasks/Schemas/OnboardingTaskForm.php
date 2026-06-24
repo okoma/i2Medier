@@ -37,8 +37,11 @@ class OnboardingTaskForm
                             ->columnSpanFull(),
                         Select::make('type')
                             ->options([
+                                'domain_hosting_setup' => 'Domain / Hosting Setup',
                                 'cms_install' => 'CMS Install',
                                 'content_upload' => 'Content Upload',
+                                'kickoff_alignment' => 'Kickoff Alignment',
+                                'technical_intake' => 'Technical Intake',
                                 'qa' => 'QA',
                                 'launch' => 'Launch',
                                 'other' => 'Other',

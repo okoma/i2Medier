@@ -24,6 +24,10 @@ class DomainsTable
                 TextColumn::make('status')
                     ->badge()
                     ->sortable(),
+                TextColumn::make('management_type')
+                    ->label('Managed by')
+                    ->badge()
+                    ->sortable(),
                 TextColumn::make('registrar')
                     ->placeholder('—')
                     ->sortable(),

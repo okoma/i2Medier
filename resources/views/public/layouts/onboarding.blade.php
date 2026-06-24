@@ -5,14 +5,16 @@
 </head>
 <body
     class="onboarding-body"
-    data-onboarding-fallback-url="{{ route('site.home') }}"
+    data-onboarding-fallback-url="{{ $onboardingFallbackUrl ?? route('site.home') }}"
     data-onboarding-submit-url="{{ route('site.start.store') }}"
     data-onboarding-catalog='@json($onboardingCatalog ?? [])'
     data-onboarding-preset='@json($onboardingPreset ?? [])'
 >
     @yield('content')
 
-    @include('public.partials.footer')
+    @unless($embeddedInPortal ?? false)
+        @include('public.partials.footer')
+    @endunless
 
     @stack('scripts')
 </body>

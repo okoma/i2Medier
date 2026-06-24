@@ -2,6 +2,7 @@
 
 namespace App\Filament\Client\Widgets\ServicesHub;
 
+use App\Filament\Client\Pages\StartProject;
 use App\Models\ServiceSubscription;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -71,6 +72,16 @@ class ServicesTableWidget extends TableWidget
                     ]),
             ])
             ->recordActions([
+                Action::make('orderAnother')
+                    ->label('Order Another')
+                    ->icon('heroicon-o-plus')
+                    ->color('primary')
+                    ->url(fn (ServiceSubscription $record): string => StartProject::getUrl(parameters: array_filter([
+                        'services' => $record->onboardingService?->key,
+                        'platform' => $record->onboardingVariant?->key,
+                        'source_page' => 'portal-services',
+                        'source_label' => 'Client Portal Services',
+                    ], fn ($value) => filled($value)), panel: 'client')),
                 Action::make('manage')
                     ->label('Manage')
                     ->url(fn (ServiceSubscription $record): string =>

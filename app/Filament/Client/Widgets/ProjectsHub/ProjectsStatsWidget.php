@@ -12,31 +12,32 @@ class ProjectsStatsWidget extends StatsOverviewWidget
     {
         $clientId = auth()->user()?->client_id;
 
-        $all       = Project::where('client_id', $clientId)->get();
-        $total     = $all->count();
-        $converted = $all->filter(fn ($p) => $p->status?->value === 'converted')->count();
-        $active    = $all->filter(fn ($p) => in_array($p->status?->value, ['enquiry', 'proposal_sent', 'negotiating']))->count();
-        $declined  = $all->filter(fn ($p) => $p->status?->value === 'declined')->count();
+        $all = Project::where('client_id', $clientId)->get();
 
-        $pct = fn (int $n): string => $total > 0 ? round(($n / $total) * 100, 1) . '% of total' : '0% of total';
+        $total = $all->count();
+        $openRequests = $all->filter(fn ($project) => $project->status?->value === 'enquiry')->count();
+        $inReview = $all->filter(fn ($project) => in_array($project->status?->value, ['proposal_sent', 'negotiating']))->count();
+        $activeProjects = $all->filter(fn ($project) => $project->status?->value === 'converted')->count();
+
+        $pct = fn (int $count): string => $total > 0 ? round(($count / $total) * 100, 1) . '% of total' : '0% of total';
 
         return [
             Stat::make('Total Projects', (string) $total)
                 ->description('All time')
                 ->icon('heroicon-o-briefcase')
+                ->color('gray'),
+            Stat::make('Open Requests', (string) $openRequests)
+                ->description($pct($openRequests))
+                ->icon('heroicon-o-inbox-stack')
                 ->color('warning'),
-            Stat::make('Converted', (string) $converted)
-                ->description($pct($converted))
-                ->icon('heroicon-o-check-circle')
-                ->color('success'),
-            Stat::make('In Progress', (string) $active)
-                ->description($pct($active))
+            Stat::make('In Review', (string) $inReview)
+                ->description($pct($inReview))
                 ->icon('heroicon-o-clock')
                 ->color('info'),
-            Stat::make('Declined', (string) $declined)
-                ->description($pct($declined))
-                ->icon('heroicon-o-x-circle')
-                ->color('danger'),
+            Stat::make('Active Projects', (string) $activeProjects)
+                ->description($pct($activeProjects))
+                ->icon('heroicon-o-check-circle')
+                ->color('success'),
         ];
     }
 }

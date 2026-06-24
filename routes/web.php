@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\BlogImageUploadController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PortalController;
 use App\Http\Controllers\PortalAssetController;
 use App\Http\Controllers\PublicInvoiceController;
 use App\Http\Controllers\SitemapController;
@@ -96,6 +97,9 @@ Route::middleware(['auth', 'signed'])->group(function (): void {
 });
 
 Route::middleware('auth')->group(function (): void {
+    Route::post('/portal/start-project', [SiteController::class, 'storeStart'])
+        ->middleware('throttle:8,1')
+        ->name('portal.start-project.store');
     Route::get('/billing/invoices/{invoice}/paystack', [BillingController::class, 'paystackRedirect'])
         ->name('billing.paystack.redirect');
     Route::get('/billing/invoices/{invoice}/paystack/callback', [BillingController::class, 'paystackCallback'])

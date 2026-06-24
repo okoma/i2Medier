@@ -12,6 +12,8 @@ enum DomainStatus: string implements HasColor, HasLabel
     case Expired       = 'expired';
     case Transferred   = 'transferred';
     case Pending       = 'pending';
+    case Suspended     = 'suspended';
+    case Fraud         = 'fraud';
 
     public function getLabel(): string
     {
@@ -21,6 +23,8 @@ enum DomainStatus: string implements HasColor, HasLabel
             self::Expired      => 'Expired',
             self::Transferred  => 'Transferred',
             self::Pending      => 'Pending',
+            self::Suspended    => 'Suspended',
+            self::Fraud        => 'Suspected Fraud',
         };
     }
 
@@ -32,6 +36,8 @@ enum DomainStatus: string implements HasColor, HasLabel
             self::Expired      => 'danger',
             self::Transferred  => 'info',
             self::Pending      => 'gray',
+            self::Suspended    => 'danger',
+            self::Fraud        => 'danger',
         };
     }
 }

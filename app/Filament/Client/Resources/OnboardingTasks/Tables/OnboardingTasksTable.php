@@ -12,8 +12,11 @@ class OnboardingTasksTable
     {
         return $table
             ->columns([
-                TextColumn::make('website.name')
-                    ->label('Website')
+                TextColumn::make('project.reference')
+                    ->label('Project')
+                    ->searchable(),
+                TextColumn::make('project.client.company_name')
+                    ->label('Client')
                     ->searchable(),
                 TextColumn::make('title')
                     ->searchable()
