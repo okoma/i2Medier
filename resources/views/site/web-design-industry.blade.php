@@ -8,8 +8,9 @@
     '@type' => 'BreadcrumbList',
     'itemListElement' => [
         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Who We Help', 'item' => route('site.who-we-help')],
-        ['@type' => 'ListItem', 'position' => 3, 'name' => $industry['title'], 'item' => url()->current()],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => $industry['title'], 'item' => url()->current()],
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
 </script>

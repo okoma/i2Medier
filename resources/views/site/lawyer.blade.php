@@ -9,8 +9,9 @@
     '@type' => 'BreadcrumbList',
     'itemListElement' => [
         ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
-        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
-        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Law Firm Website Design', 'item' => route('site.lawyer')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Web Design', 'item' => route('site.services.web-design')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'Law Firm Website Design', 'item' => route('site.lawyer')],
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
 </script>
