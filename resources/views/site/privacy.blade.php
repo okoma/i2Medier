@@ -1,6 +1,19 @@
 @extends('public.layouts.app')
 
 @section('title', 'Privacy Policy — i2Medier')
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Privacy Policy', 'item' => route('site.privacy')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     <link rel="stylesheet" href="{{ asset('legal.css') }}">

@@ -163,50 +163,6 @@
             ],
         ],
         [
-            '@type' => 'FAQPage',
-            'mainEntity' => [
-                [
-                    '@type' => 'Question',
-                    'name' => 'How much does a website cost in Nigeria?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Website costs at i2Medier start from ₦150,000 for a basic business site and vary depending on complexity, features, and design requirements. We provide a free, itemised proposal within 24 hours of your enquiry — no vague estimates.'],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'How long does a website take to build?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Most business websites take 2–4 weeks from design sign-off to launch. Complex e-commerce or Laravel web applications take 6–12 weeks depending on the scope.'],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'Do you offer website maintenance plans?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Our monthly website care plans start from ₦35,000 and include updates, daily backups, 24/7 uptime monitoring, security scans, and a monthly written report. No annual lock-in.'],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'Can i2Medier help with business email setup?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We configure custom domain email on Google Workspace, Microsoft 365, or Zoho — fully set up with SPF, DKIM, and DMARC records so your emails land in inboxes, not spam folders.'],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'Do you work with clients outside Nigeria?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. We work with clients in the UK, Canada, the US, and across Africa. All projects are managed remotely with clear communication, shared project tools, and regular video check-ins.'],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'What makes i2Medier different from other digital agencies?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We cover the full digital lifecycle — strategy, design, development, email infrastructure, and ongoing maintenance — without subcontracting. You get one team, one point of contact, and consistent quality throughout.'],
-                ],
-            ],
-        ],
-    ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
-@endpush
-
-@push('meta')
-<script type="application/ld+json">
-{!! json_encode([
-    '@context' => 'https://schema.org',
-    '@graph' => [
-        [
             '@type' => 'BreadcrumbList',
             'itemListElement' => [
                 ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
@@ -232,7 +188,7 @@
                 ],
                 [
                     '@type' => 'Question',
-                    'name' => 'Can you help with business email setup?',
+                    'name' => 'Can i2Medier help with business email setup?',
                     'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We configure custom domain email on Google Workspace, Microsoft 365, or Zoho — including SPF, DKIM, and DMARC records so your emails land in inboxes, not spam folders, every time.'],
                 ],
                 [
@@ -242,14 +198,13 @@
                 ],
                 [
                     '@type' => 'Question',
-                    'name' => 'What makes i2Medier different from other agencies?',
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We cover the full digital lifecycle — strategy, design, development, email, and maintenance — without subcontracting. One team, one point of contact, consistent quality from brief to launch and beyond.'],
+                    'name' => 'What makes i2Medier different from other digital agencies?',
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We cover the full digital lifecycle — strategy, design, development, email infrastructure, and ongoing maintenance — without subcontracting. One team, one point of contact, consistent quality from brief to launch and beyond.'],
                 ],
             ],
         ],
     ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
-</script>
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
 @endpush
 
 @push('page_css')

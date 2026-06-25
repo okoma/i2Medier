@@ -1,6 +1,32 @@
 @extends('public.layouts.app')
 
 @section('title', $industry['title'] . ' | i2Medier')
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Who We Help', 'item' => route('site.who-we-help')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => $industry['title'], 'item' => url()->current()],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    'name' => $industry['title'],
+    'url' => url()->current(),
+    'description' => $industry['summary'] ?? $industry['title'] . ' web design services by i2Medier.',
+    'provider' => ['@type' => 'Organization', 'name' => 'i2Medier', 'url' => url('/')],
+    'areaServed' => 'Nigeria',
+    'serviceType' => 'Web Design',
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     @vite('resources/css/public/pages/web-design-industry.css')

@@ -1,6 +1,33 @@
 @extends('public.layouts.app')
 
 @section('title', 'SEO Services Company in Nigeria | i2Medier')
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'SEO Services', 'item' => route('site.services.search-optimization')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'FAQPage',
+    'mainEntity' => [
+        ['@type' => 'Question', 'name' => 'How long does SEO take to show results?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'SEO is a medium-to-long-term investment. Most businesses see measurable improvements in rankings within 3–6 months of consistent work. For new domains or those with serious technical issues, 6–12 months is more realistic before competitive keywords reach page one.']],
+        ['@type' => 'Question', 'name' => 'Do you do local SEO for Nigerian businesses?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, local SEO for Nigerian businesses is one of our strongest service areas. We optimise Google Business Profile listings, build local citation consistency, create city-specific landing pages, and implement LocalBusiness schema markup for Lagos, Abuja, Port Harcourt, and other major Nigerian cities.']],
+        ['@type' => 'Question', 'name' => 'Can you guarantee first-page rankings?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No ethical SEO agency can guarantee specific rankings. Any agency promising guaranteed positions is either misleading you or using black-hat tactics that will eventually trigger a Google penalty. What we guarantee: rigorous, transparent, best-practice work that consistently improves organic visibility over time.']],
+        ['@type' => 'Question', 'name' => 'How much does SEO cost in Nigeria?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Our one-time SEO audit starts from ₦80,000. Monthly retainers start from ₦150,000/month for a basic ongoing campaign, with our most popular Growth Retainer at ₦250,000/month. Competitive Authority campaigns start from ₦500,000/month.']],
+        ['@type' => 'Question', 'name' => 'Do I need SEO if I am already running Google Ads?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Google Ads delivers instant visibility but stops when you stop paying. SEO builds organic rankings that continue working for free, compounding over time and gradually reducing your dependence on paid traffic.']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     @vite('resources/css/public/pages/search-optimization.css')

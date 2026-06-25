@@ -5,6 +5,45 @@
 @push('meta')
 <meta name="description" content="10 free tools to help Nigerian businesses plan, build, and grow their digital presence. SEO audit, cost calculator, invoice generator, name generator and more — no signup required."/>
 <link rel="canonical" href="{{ url('/tools') }}"/>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => url('/'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Free Tools',
+            'item' => route('tools.hub'),
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'ItemList',
+    'name' => 'Free Tools for Nigerian Businesses',
+    'url' => route('tools.hub'),
+    'description' => 'Free online tools for Nigerian businesses — SEO audit, website cost calculator, invoice generator, business name generator, domain name generator, and more.',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Free SEO Audit Tool', 'url' => route('tools.seo-audit')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Website Cost Calculator', 'url' => route('tools.cost-calculator')],
+        ['@type' => 'ListItem', 'position' => 3, 'name' => 'Invoice Generator', 'url' => route('tools.invoice-generator')],
+        ['@type' => 'ListItem', 'position' => 4, 'name' => 'AI Business Name Generator', 'url' => route('tools.business-name-generator')],
+        ['@type' => 'ListItem', 'position' => 5, 'name' => 'AI Domain Name Generator', 'url' => route('tools.domain-name-generator')],
+        ['@type' => 'ListItem', 'position' => 6, 'name' => 'Website Brief Generator', 'url' => route('tools.website-brief-generator')],
+        ['@type' => 'ListItem', 'position' => 7, 'name' => 'WhatsApp Link Generator', 'url' => route('tools.whatsapp-link-generator')],
+        ['@type' => 'ListItem', 'position' => 8, 'name' => 'Email Deliverability Checker', 'url' => route('tools.email-deliverability-checker')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
 @endpush
 
 @push('page_css')

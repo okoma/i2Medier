@@ -5,6 +5,48 @@
 @push('page_css')
     @vite('resources/css/public/pages/whatsapp-link-generator.css')
 @endpush
+@push('page_meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => url('/'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Free Tools',
+            'item' => route('tools.hub'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'name' => 'WhatsApp Link Generator',
+            'item' => route('tools.whatsapp-link-generator'),
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'SoftwareApplication',
+    'name' => 'WhatsApp Link Generator',
+    'url' => route('tools.whatsapp-link-generator'),
+    'applicationCategory' => 'WebApplication',
+    'operatingSystem' => 'Any',
+    'offers' => ['@type' => 'Offer', 'price' => '0', 'priceCurrency' => 'NGN'],
+    'description' => 'Free WhatsApp link generator. Create a wa.me click-to-chat link with a pre-filled message for your business — no signup required.',
+    'provider' => ['@type' => 'Organization', 'name' => 'i2Medier', 'url' => url('/')],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @section('body_attrs')
 id="whatsapp-link-generator-page"

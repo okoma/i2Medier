@@ -6,6 +6,48 @@
 <meta name="description" content="i2Medier is a premium digital agency based in Port Harcourt, Nigeria. We design, build, and maintain world-class digital products for businesses across Africa, the UK, and worldwide."/>
 <link rel="canonical" href="{{ url('/about') }}"/>
 @endpush
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'About', 'item' => route('site.about')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Organization',
+    'name' => 'i2Medier',
+    'url' => url('/'),
+    'logo' => url('/images/logo.png'),
+    'description' => 'i2Medier is a premium digital agency based in Port Harcourt, Nigeria. We design, build, and maintain world-class digital products for businesses across Africa, the UK, and worldwide.',
+    'address' => [
+        '@type' => 'PostalAddress',
+        'streetAddress' => '18 Emmanuel Close, NTA Mgbuoba',
+        'addressLocality' => 'Port Harcourt',
+        'addressRegion' => 'Rivers State',
+        'addressCountry' => 'NG',
+    ],
+    'contactPoint' => [
+        '@type' => 'ContactPoint',
+        'telephone' => '+2348052188396',
+        'contactType' => 'customer service',
+        'availableLanguage' => 'English',
+    ],
+    'sameAs' => [
+        'https://facebook.com/i2medier',
+        'https://twitter.com/i2medier',
+        'https://www.instagram.com/i2medier',
+        'https://www.linkedin.com/company/i2medier',
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     @vite('resources/css/public/fonts.css')

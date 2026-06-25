@@ -1,6 +1,29 @@
 @extends('public.layouts.app')
 
 @section('title', 'Digital Services — Web, Apps & More | i2Medier')
+@push('meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => 'Services', 'item' => route('site.services')],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'CollectionPage',
+    'name' => 'Digital Services — i2Medier',
+    'url' => route('site.services'),
+    'description' => 'Web design, WordPress development, Laravel applications, mobile app development, SEO, UI/UX design, business email setup, cloud architecture, and website maintenance for businesses in Nigeria and worldwide.',
+    'provider' => ['@type' => 'Organization', 'name' => 'i2Medier', 'url' => url('/')],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     @vite('resources/css/public/pages/services.css')

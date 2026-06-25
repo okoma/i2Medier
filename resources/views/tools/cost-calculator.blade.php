@@ -1,6 +1,48 @@
 @extends('public.layouts.nametool')
 
 @section('title', 'Free Website Cost Calculator — Real-Time Pricing | i2Medier')
+@push('page_meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => url('/'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Free Tools',
+            'item' => route('tools.hub'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'name' => 'Website Cost Calculator',
+            'item' => route('tools.cost-calculator'),
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'SoftwareApplication',
+    'name' => 'Website Cost Calculator',
+    'url' => route('tools.cost-calculator'),
+    'applicationCategory' => 'WebApplication',
+    'operatingSystem' => 'Any',
+    'offers' => ['@type' => 'Offer', 'price' => '0', 'priceCurrency' => 'NGN'],
+    'description' => 'Free website cost calculator. Get real-time, itemised pricing for your web design or development project — no signup required.',
+    'provider' => ['@type' => 'Organization', 'name' => 'i2Medier', 'url' => url('/')],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @section('body_attrs')
 id="website-cost-calculator-page"

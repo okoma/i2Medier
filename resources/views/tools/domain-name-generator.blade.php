@@ -5,6 +5,48 @@
 @push('page_meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
+@push('page_meta')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        [
+            '@type' => 'ListItem',
+            'position' => 1,
+            'name' => 'Home',
+            'item' => url('/'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => 'Free Tools',
+            'item' => route('tools.hub'),
+        ],
+        [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'name' => 'AI Domain Name Generator',
+            'item' => route('tools.domain-name-generator'),
+        ],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'SoftwareApplication',
+    'name' => 'AI Domain Name Generator',
+    'url' => route('tools.domain-name-generator'),
+    'applicationCategory' => 'WebApplication',
+    'operatingSystem' => 'Any',
+    'offers' => ['@type' => 'Offer', 'price' => '0', 'priceCurrency' => 'NGN'],
+    'description' => 'Free AI domain name generator. Find available, creative domain name ideas for your business instantly — no signup required.',
+    'provider' => ['@type' => 'Organization', 'name' => 'i2Medier', 'url' => url('/')],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
+</script>
+@endpush
+
 
 @push('page_css')
     @vite('resources/css/public/pages/domain-name-generator.css')
